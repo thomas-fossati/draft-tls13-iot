@@ -4,6 +4,7 @@ abbrev: TLS/DTLS 1.3 IoT Profiles
 docname: draft-ietf-uta-tls13-iot-profile-latest
 category: std
 updates: 7925
+consensus: true
 
 ipr: trust200902
 area: Security
@@ -185,14 +186,14 @@ request has been conveyed in early data and that a client understands the 4.25
 (Too Early) status code. The semantic follows {{!RFC8470}}.
 
 ~~~
-   +-----+---+---+---+---+-------------+--------+--------+---------+---+
-   | No. | C | U | N | R | Name        | Format | Length | Default | E |
-   +-----+---+---+---+---+-------------+--------+--------+---------+---+
-   | TBD | x |   |   |   | Early-Data  | empty  | 0      | (none)  | x |
-   +-----+---+---+---+---+-------------+--------+--------+---------+---+
++-----+---+---+---+---+-------------+--------+--------+---------+---+
+| No. | C | U | N | R | Name        | Format | Length | Default | E |
++-----+---+---+---+---+-------------+--------+--------+---------+---+
+| TBD | x |   |   |   | Early-Data  | empty  | 0      | (none)  | x |
++-----+---+---+---+---+-------------+--------+--------+---------+---+
 
-           C=Critical, U=Unsafe, N=NoCacheKey, R=Repeatable,
-           E=Encrypt and Integrity Protect (when using OSCORE)
+        C=Critical, U=Unsafe, N=NoCacheKey, R=Repeatable,
+        E=Encrypt and Integrity Protect (when using OSCORE)
 ~~~
 {: #early-data-figure title="Early-Data Option"}
 
@@ -215,7 +216,7 @@ algorithms do in many cases increase the overall size.  On the other hand,
 {{I-D.raza-ace-cbor-certificates}} provides a more efficient scheme, yielding
 to compression rates higher than 50% (see Section 3 of
 {{?I-D.mattsson-cose-cbor-cert-compress}}).
- 
+
 Question: should we RECOMMEND CBOR compression?  How is that negotiated?
 
 # Security Considerations
