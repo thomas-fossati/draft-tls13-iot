@@ -214,10 +214,9 @@ TBD COSE compression.
 
 ### Serial Number
 
-CAs SHALL generate serial numbers greater than zero (0), unique per
-certificate.
-
-TBD entropy requirements
+CAs SHALL generate non-sequential Certificate serial numbers greater than zero
+(0) containing at least 64 bits of output from a CSPRNG (cryptographically
+secure pseudo-random number generator).
 
 ### Signature
 
@@ -271,22 +270,23 @@ algorithm  identifier for ECDSA signature keys, as   defined and specified in
   contain wildcard (`*`) characters.  subjectAltName MUST NOT contain multiple
   names.
 
-## Open Issues
+### Client Certificate Subject
 
-Section 4.4.3 of {{!RFC7925}} says that "For certificate revocation, neither
-the Online Certificate Status Protocol (OCSP) nor Certificate Revocation Lists
-(CRLs) are used.  Instead, this profile relies on a software update mechanism
-to provision information about revoked certificates."  Is this still the
-working assumption?  Another point that needs clarification is the intended
-usage of id-kp-codeSigning and id-kp-OCSPSigning in Table 1.
+The requirement in Section 4.4.2 of {{!RFC7925}} to only use EUI-64 for client
+certificates is lifted.
+
+If the EUI-64 format is used to identify the subject of a client certificate,
+it MUST be encoded in a subjectAltName of type DNS-ID as a string of the form
+`HH-HH-HH-HH-HH-HH-HH-HH` where 'H' is one of the symbols '0'-'9' or 'A'-'F'.
+
+# Certificate Revocation Checks
+
+The considerations in Section 4.4.3 of {{!RFC7925}} hold.
+
+## Open Issues
 
 Should also we move the ASN.1 schema from Appendix B of
 {{?I-D.raza-ace-cbor-certificates}} here and let it have it by reference?
-
-{{!RFC7925}} says "For client certificates, the identifier used in the
-SubjectAltName or in the leftmost CN component of subject name MUST be an
-EUI-64."  It is not clear whether EUI-64 are actually (and solely) used?
-Also, {{!RFC7925}} does not tell how to encode them in SAN.
 
 The compression methods defined in {{?I-D.ietf-tls-certificate-compression}}
 do not seem to deal effectively with {{!RFC7925}} profiled certificates: zlib
