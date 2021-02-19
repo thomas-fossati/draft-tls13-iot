@@ -199,25 +199,103 @@ request has been conveyed in early data and that a client understands the 4.25
 
 # Certificate Profile
 
-This section is intended for discussing updates to the certificate profile
-defined in {{!RFC7925}}.  Initial set of things to consider:
+This section contains updates and clarifications to the certificate profile
+defined in {{!RFC7925}}.  The content of Table 1 of {{!RFC7925}} has been
+split by certificate "type" in order to clarify exactly what requirements and
+recommendations apply to which entity in the PKI hierarchy.
 
-* pathLenConstraint
+## All Certificates
 
-Question: should also we move the ASN.1 schema from Appendix B of
+### Version
+
+Certificates MUST be of type X.509 v3.
+
+TBD COSE compression.
+
+### Serial Number
+
+CAs SHALL generate non-sequential Certificate serial numbers greater than zero
+(0) containing at least 64 bits of output from a CSPRNG (cryptographically
+secure pseudo-random number generator).
+
+### Signature
+
+The signature MUST be ecdsa-with-SHA256 or stronger {{!RFC5758}}.
+
+### Issuer
+
+Contains the DN of the issuing CA.
+
+### Validity
+
+No maximum validity period is mandated.
+
+### subjectPublicKeyInfo
+
+The SubjectPublicKeyInfo structure indicates the algorithm and any associated
+parameters for the ECC public key.  This  profile uses the id-ecPublicKey
+algorithm  identifier for ECDSA signature keys, as   defined and specified in
+{{!RFC5480}}.
+
+## Root CA Certificate
+
+* basicConstraints MUST be present and MUST be marked critical.  The cA field
+  MUST be set true.  The pathLenConstraint field SHOULD NOT be present.
+
+* keyUsage MUST be present and MUST be marked critical.  Bit position for
+  keyCertSign MUST be set.
+
+* extendedKeyUsage MUST NOT be present.
+
+## Intermediate CA Certificate
+
+* basicConstraints MUST be present and MUST be marked critical.  The cA field
+  MUST be set true.  The pathLenConstraint field MAY be present.
+
+* keyUsage MUST be present and MUST be marked critical.  Bit position for
+  keyCertSign MUST be set.
+
+* extendedKeyUsage MUST NOT be present.
+
+## End Entity Certificate
+
+* extendedKeyUsage MUST be present and contain at least one of
+  id-kp-serverAuth or id-kp-clientAuth.
+
+* keyUsage MAY be present and contain one of digitalSignature or
+  keyAgreement.
+
+* Domain names MUST NOT be encoded in the subject commonName, instead they
+  MUST be encoded in a subjectAltName of type DNS-ID.  Domain names MUST NOT
+  contain wildcard (`*`) characters.  subjectAltName MUST NOT contain multiple
+  names.
+
+### Client Certificate Subject
+
+The requirement in Section 4.4.2 of {{!RFC7925}} to only use EUI-64 for client
+certificates is lifted.
+
+If the EUI-64 format is used to identify the subject of a client certificate,
+it MUST be encoded in a subjectAltName of type DNS-ID as a string of the form
+`HH-HH-HH-HH-HH-HH-HH-HH` where 'H' is one of the symbols '0'-'9' or 'A'-'F'.
+
+# Certificate Revocation Checks
+
+The considerations in Section 4.4.3 of {{!RFC7925}} hold.
+
+## Open Issues
+
+Should also we move the ASN.1 schema from Appendix B of
 {{?I-D.raza-ace-cbor-certificates}} here and let it have it by reference?
 
-## Compression
-
-The compression methods defined in {{?I-D.ietf-tls-certificate-compression}} do
-not seem to deal effectively with {{!RFC7925}} profiled certificates: zlib
+The compression methods defined in {{?I-D.ietf-tls-certificate-compression}}
+do not seem to deal effectively with {{!RFC7925}} profiled certificates: zlib
 compresses the example cert by 9%, but other certificates and compression
 algorithms do in many cases increase the overall size.  On the other hand,
 {{I-D.raza-ace-cbor-certificates}} provides a more efficient scheme, yielding
 to compression rates higher than 50% (see Section 3 of
-{{?I-D.mattsson-cose-cbor-cert-compress}}).
-
-Question: should we RECOMMEND CBOR compression?  How is that negotiated?
+{{?I-D.mattsson-cose-cbor-cert-compress}}).  Should we RECOMMEND CBOR
+compression?  How is that negotiated?
 
 # Security Considerations
 
