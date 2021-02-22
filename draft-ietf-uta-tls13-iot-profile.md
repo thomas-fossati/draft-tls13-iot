@@ -210,8 +210,6 @@ recommendations apply to which entity in the PKI hierarchy.
 
 Certificates MUST be of type X.509 v3.
 
-[Editor's Note: Discuss alternative certificate formats and compression.]
-
 ### Serial Number
 
 CAs SHALL generate non-sequential Certificate serial numbers greater than zero
@@ -302,17 +300,7 @@ necessary action to allow IoT devices to remain operational.
 
 ## Open Issues
 
-Should also we move the ASN.1 schema from Appendix B of
-{{?I-D.raza-ace-cbor-certificates}} here and let it have it by reference?
-
-The compression methods defined in {{?I-D.ietf-tls-certificate-compression}}
-do not seem to deal effectively with {{!RFC7925}} profiled certificates: zlib
-compresses the example cert by 9%, but other certificates and compression
-algorithms do in many cases increase the overall size.  On the other hand,
-{{I-D.raza-ace-cbor-certificates}} provides a more efficient scheme, yielding
-to compression rates higher than 50% (see Section 3 of
-{{?I-D.mattsson-cose-cbor-cert-compress}}).  Should we RECOMMEND CBOR
-compression?  How is that negotiated?
+A list of open issues can be found at https://github.com/thomas-fossati/draft-tls13-iot/issues
 
 # Security Considerations
 
