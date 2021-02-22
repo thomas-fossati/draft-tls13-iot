@@ -294,7 +294,7 @@ or bootstrapping mechanism, has also seen considerable uptake in deployed device
 these protocols, some of which are standardized, allow provision of certificates on a 
 regular basis. This enables a deployment model where IoT device utilize end-entity 
 certificates with shorter lifetime making certificate revocation protocols, like OCSP 
-and CRLs, less usefuless.
+and CRLs, less relevant.
 
 Hence, instead of performing certificate revocation checks on the IoT device itself this 
 specification recommends to delegate this task to the IoT device operator and to take the 
