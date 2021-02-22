@@ -290,7 +290,7 @@ substantial progress, see {{?I-D.ietf-suit-architecture}}. RFC 7925 recommends t
 a software / firmware update mechanism to provision devices with new trust anchors. 
 
 The use of device management protocols for IoT devices, which often include an onboarding 
-or bootstrapping mechanism, has also seen a tremendous uptake in deployed devices and 
+or bootstrapping mechanism, has also seen considerable uptake in deployed devices and 
 these protocols, some of which are standardized, allow provision of certificates on a 
 regular basis. This enables a deployment model where IoT device utilize end-entity 
 certificates with shorter lifetime making certificate revocation protocols, like OCSP 
