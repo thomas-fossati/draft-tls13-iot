@@ -287,7 +287,7 @@ Since the publication of
 RFC 7925 the need for firmware update mechanisms has been reinforced and the work
 on standardizing a secure and interoperable firmware update mechanism has made 
 substantial progress, see {{?I-D.ietf-suit-architecture}}. RFC 7925 recommends to use 
-a software / firmware update mechanism to provision devices with a new trust anchors. 
+a software / firmware update mechanism to provision devices with new trust anchors. 
 
 The use of device management protocols for IoT devices, which often include an onboarding 
 or bootstrapping mechanism, has also seen a tremendous uptake in deployed devices and 
