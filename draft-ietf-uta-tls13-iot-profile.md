@@ -236,7 +236,13 @@ This is likely to be the case for manufacturer-provisioned certificates.
 RFC 5280 provides a simple solution to convey the fact that a certificate 
 has no well-defined expiration date by setting the notAfter to the 
 GeneralizedTime value of 99991231235959Z.
-   
+
+Some devices might not have a reliable source of time and for those devices it 
+is also advisable to use certificates with no expiration date and to let a 
+device management solution manage the lifetime of all the certificates used by 
+the device. While this approach does not utilize certificates to its widest extend, 
+it is a solution that extends the capabilities offered by a raw public key approach.
+
 ### subjectPublicKeyInfo
 
 The SubjectPublicKeyInfo structure indicates the algorithm and any associated
