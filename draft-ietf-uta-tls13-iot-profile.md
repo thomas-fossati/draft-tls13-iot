@@ -210,7 +210,7 @@ recommendations apply to which entity in the PKI hierarchy.
 
 Certificates MUST be of type X.509 v3.
 
-TBD COSE compression.
+[Editor's Note: Discuss alternative certificate formats and compression.]
 
 ### Serial Number
 
@@ -281,7 +281,24 @@ it MUST be encoded in a subjectAltName of type DNS-ID as a string of the form
 
 # Certificate Revocation Checks
 
-The considerations in Section 4.4.3 of {{!RFC7925}} hold.
+The considerations in Section 4.4.3 of {{!RFC7925}} hold. 
+
+Since the publication of 
+RFC 7925 the need for firmware update mechanisms has been reinforced and the work
+on standardizing a secure and interoperable firmware update mechanism has made 
+substantial progress, see {{?I-D.ietf-suit-architecture}}. RFC 7925 recommends to use 
+a software / firmware update mechanism to provision devices with new trust anchors. 
+
+The use of device management protocols for IoT devices, which often include an onboarding 
+or bootstrapping mechanism, has also seen considerable uptake in deployed devices and 
+these protocols, some of which are standardized, allow provision of certificates on a 
+regular basis. This enables a deployment model where IoT device utilize end-entity 
+certificates with shorter lifetime making certificate revocation protocols, like OCSP 
+and CRLs, less relevant.
+
+Hence, instead of performing certificate revocation checks on the IoT device itself this 
+specification recommends to delegate this task to the IoT device operator and to take the 
+necessary action to allow IoT devices to remain operational. 
 
 ## Open Issues
 
