@@ -240,7 +240,7 @@ GeneralizedTime value of 99991231235959Z.
 Some devices might not have a reliable source of time and for those devices it 
 is also advisable to use certificates with no expiration date and to let a 
 device management solution manage the lifetime of all the certificates used by 
-the device. While this approach does not utilize certificates to its widest extend, 
+the device. While this approach does not utilize certificates to its widest extent, 
 it is a solution that extends the capabilities offered by a raw public key approach.
 
 ### subjectPublicKeyInfo
