@@ -86,14 +86,14 @@ Table of Contents
      15.4.  End Entity Certificate
        15.4.1.  Client Certificate Subject
    16. Certificate Revocation Checks
-     16.1.  Certificate Overhead
-     16.2.  Open Issues
-   17. Security Considerations
-   18. Acknowledgements
-   19. IANA Considerations
-   20. References
-     20.1.  Normative References
-     20.2.  Informative References
+   17. Certificate Overhead
+     17.1.  Open Issues
+   18. Security Considerations
+   19. Acknowledgements
+   20. IANA Considerations
+   21. References
+     21.1.  Normative References
+     21.2.  Informative References
    Authors' Addresses
 
 1.  Introduction
@@ -375,7 +375,7 @@ Table of Contents
    the IoT device operator and to take the necessary action to allow IoT
    devices to remain operational.
 
-16.1.  Certificate Overhead
+17.  Certificate Overhead
 
    In a public key-based key exchange, certificates and public keys are
    a major contributor to the size of the overall handshake.  For
@@ -419,20 +419,20 @@ Table of Contents
    availability of code, and the constraints imposed by already deployed
    infrastructure (e.g., CA infrastructure, tool support).
 
-16.2.  Open Issues
+17.1.  Open Issues
 
    A list of open issues can be found at https://github.com/thomas-
    fossati/draft-tls13-iot/issues
 
-17.  Security Considerations
+18.  Security Considerations
 
    This entire document is about security.
 
-18.  Acknowledgements
+19.  Acknowledgements
 
    We would like to thank Ben Kaduk and John Mattsson.
 
-19.  IANA Considerations
+20.  IANA Considerations
 
    IANA is asked to add the Option defined in Figure 2 to the CoAP
    Option Numbers registry.
@@ -456,9 +456,9 @@ Table of Contents
 
                      Figure 3: Too Early Response Code
 
-20.  References
+21.  References
 
-20.1.  Normative References
+21.1.  Normative References
 
    [I-D.ietf-tls-dtls13]
               Rescorla, E., Tschofenig, H., and N. Modadugu, "The
@@ -512,7 +512,7 @@ Table of Contents
               Data in HTTP", RFC 8470, DOI 10.17487/RFC8470, September
               2018, <https://datatracker.ietf.org/doc/html/rfc8470>.
 
-20.2.  Informative References
+21.2.  Informative References
 
    [I-D.ietf-cose-cbor-encoded-cert]
               Raza, S., Höglund, J., Selander, G., Mattsson, J. P., and
