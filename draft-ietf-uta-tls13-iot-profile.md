@@ -227,18 +227,18 @@ Contains the DN of the issuing CA.
 ### Validity
 
 No maximum validity period is mandated. Validity values are expressed as UTCTime
-in notBefore and notAfter fields, as mandated in {{!RFC5280}}. 
+in notBefore and notAfter fields, as mandated in {{!RFC5280}}.
 
-In many cases it is necessary to indicate that a certificate does not expire. 
+In many cases it is necessary to indicate that a certificate does not expire.
 This is likely to be the case for manufacturer-provisioned certificates.
-RFC 5280 provides a simple solution to convey the fact that a certificate 
-has no well-defined expiration date by setting the notAfter to the 
+RFC 5280 provides a simple solution to convey the fact that a certificate
+has no well-defined expiration date by setting the notAfter to the
 GeneralizedTime value of 99991231235959Z.
 
-Some devices might not have a reliable source of time and for those devices it 
-is also advisable to use certificates with no expiration date and to let a 
-device management solution manage the lifetime of all the certificates used by 
-the device. While this approach does not utilize certificates to its widest extent, 
+Some devices might not have a reliable source of time and for those devices it
+is also advisable to use certificates with no expiration date and to let a
+device management solution manage the lifetime of all the certificates used by
+the device. While this approach does not utilize certificates to its widest extent,
 it is a solution that extends the capabilities offered by a raw public key approach.
 
 ### subjectPublicKeyInfo
@@ -292,24 +292,63 @@ it MUST be encoded in a subjectAltName of type DNS-ID as a string of the form
 
 # Certificate Revocation Checks
 
-The considerations in Section 4.4.3 of {{!RFC7925}} hold. 
+The considerations in Section 4.4.3 of {{!RFC7925}} hold.
 
-Since the publication of 
+Since the publication of
 RFC 7925 the need for firmware update mechanisms has been reinforced and the work
-on standardizing a secure and interoperable firmware update mechanism has made 
-substantial progress, see {{?I-D.ietf-suit-architecture}}. RFC 7925 recommends to use 
-a software / firmware update mechanism to provision devices with new trust anchors. 
+on standardizing a secure and interoperable firmware update mechanism has made
+substantial progress, see {{?I-D.ietf-suit-architecture}}. RFC 7925 recommends to use
+a software / firmware update mechanism to provision devices with new trust anchors.
 
-The use of device management protocols for IoT devices, which often include an onboarding 
-or bootstrapping mechanism, has also seen considerable uptake in deployed devices and 
-these protocols, some of which are standardized, allow provision of certificates on a 
-regular basis. This enables a deployment model where IoT device utilize end-entity 
-certificates with shorter lifetime making certificate revocation protocols, like OCSP 
+The use of device management protocols for IoT devices, which often include an onboarding
+or bootstrapping mechanism, has also seen considerable uptake in deployed devices and
+these protocols, some of which are standardized, allow provision of certificates on a
+regular basis. This enables a deployment model where IoT device utilize end-entity
+certificates with shorter lifetime making certificate revocation protocols, like OCSP
 and CRLs, less relevant.
 
-Hence, instead of performing certificate revocation checks on the IoT device itself this 
-specification recommends to delegate this task to the IoT device operator and to take the 
-necessary action to allow IoT devices to remain operational. 
+Hence, instead of performing certificate revocation checks on the IoT device itself this
+specification recommends to delegate this task to the IoT device operator and to take the
+necessary action to allow IoT devices to remain operational.
+
+## Certificate Overhead
+
+In a public key-based key exchange, certificates and public keys are a major
+contributor to the size of the overall handshake. For example, in a regular TLS
+1.3 handshake with minimal ECC certificates and no intermediate CA utilizing
+the secp256r1 curve with mutual authentication, around 40% of the entire
+handshake payload is consumed by the two exchanged certificates.
+
+Hence, it is not surprising that there is a strong desire to reduce the size of
+certificates and certificate chains. This has lead to various standardization
+efforts. Here is a brief summary of what options an implementer has to reduce
+the bandwidth requirements of a public key-based key exchange:
+
+* Use elliptic curve cryptography (ECC) instead of RSA-based certificate due to
+  the smaller certificate size.
+* Avoid deep and complex CA hierarchies to reduce the number of intermediate CA
+  certificates that need to be transmitted.
+* Pay attention to the amount of information conveyed inside certificates.
+* Use session resumption to reduce the number of times a full handshake is
+  needed.  Use Connection IDs {{?I-D.ietf-tls-dtls-connection-id}}, when
+  possible, to enable long-lasting connections.
+* Use the TLS cached info {{?RFC7924}} extension to avoid sending certificates
+  with every full handshake.
+* Use client certificate URLs {{?RFC6066}} instead of full certificates for
+  clients.
+* Use certificate compression as defined in
+  {{?I-D.ietf-tls-certificate-compression}}.
+* Use alternative certificate formats, where possible, such as raw public keys
+  {{?RFC7250}} or CBOR-encoded certificates
+  {{?I-D.ietf-cose-cbor-encoded-cert}}.
+
+The use of certificate handles, as introduced in cTLS {{?I-D.ietf-tls-ctls}},
+is a form of caching or compressing certificates as well.
+
+Whether to utilize any of the above extensions or a combination of them depends
+on the anticipated deployment environment, the availability of code, and the
+constraints imposed by already deployed infrastructure (e.g., CA
+infrastructure, tool support).
 
 ## Open Issues
 
@@ -321,7 +360,7 @@ This entire document is about security.
 
 # Acknowledgements
 
-We would like to thank Ben Kaduk and John Mattsson. 
+We would like to thank Ben Kaduk and John Mattsson.
 
 # IANA Considerations
 
