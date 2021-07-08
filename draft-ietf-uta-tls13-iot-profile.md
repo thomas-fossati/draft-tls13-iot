@@ -311,7 +311,7 @@ Hence, instead of performing certificate revocation checks on the IoT device its
 specification recommends to delegate this task to the IoT device operator and to take the
 necessary action to allow IoT devices to remain operational.
 
-## Certificate Overhead
+# Certificate Overhead
 
 In a public key-based key exchange, certificates and public keys are a major
 contributor to the size of the overall handshake. For example, in a regular TLS
