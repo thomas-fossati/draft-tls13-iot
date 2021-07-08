@@ -86,7 +86,8 @@ Table of Contents
      15.4.  End Entity Certificate
        15.4.1.  Client Certificate Subject
    16. Certificate Revocation Checks
-     16.1.  Open Issues
+     16.1.  Certificate Overhead
+     16.2.  Open Issues
    17. Security Considerations
    18. Acknowledgements
    19. IANA Considerations
@@ -374,7 +375,51 @@ Table of Contents
    the IoT device operator and to take the necessary action to allow IoT
    devices to remain operational.
 
-16.1.  Open Issues
+16.1.  Certificate Overhead
+
+   In a public key-based key exchange, certificates and public keys are
+   a major contributor to the size of the overall handshake.  For
+   example, in a regular TLS 1.3 handshake with minimal ECC certificates
+   and no intermediate CA utilizing the secp256r1 curve with mutual
+   authentication, around 40% of the entire handshake payload is
+   consumed by the two exchanged certificates.
+
+   Hence, it is not surprising that there is a strong desire to reduce
+   the size of certificates and certificate chains.  This has lead to
+   various standardization efforts.  Here is a brief summary of what
+   options an implementer has to reduce the bandwidth requirements of a
+   public key-based key exchange:
+
+   *  Use elliptic curve cryptography (ECC) instead of RSA-based
+      certificate due to the smaller certificate size.
+   *  Avoid deep and complex CA hierarchies to reduce the number of
+      intermediate CA certificates that need to be transmitted.
+   *  Pay attention to the amount of information conveyed inside
+      certificates.
+   *  Use session resumption to reduce the number of times a full
+      handshake is needed.  Use Connection IDs
+      [I-D.ietf-tls-dtls-connection-id], when possible, to enable long-
+      lasting connections.
+   *  Use the TLS cached info [RFC7924] extension to avoid sending
+      certificates with every full handshake.
+   *  Use client certificate URLs [RFC6066] instead of full certificates
+      for clients.
+   *  Use certificate compression as defined in
+      [I-D.ietf-tls-certificate-compression].
+   *  Use alternative certificate formats, where possible, such as raw
+      public keys [RFC7250] or CBOR-encoded certificates
+      [I-D.ietf-cose-cbor-encoded-cert].
+
+   The use of certificate handles, as introduced in cTLS
+   [I-D.ietf-tls-ctls], is a form of caching or compressing certificates
+   as well.
+
+   Whether to utilize any of the above extensions or a combination of
+   them depends on the anticipated deployment environment, the
+   availability of code, and the constraints imposed by already deployed
+   infrastructure (e.g., CA infrastructure, tool support).
+
+16.2.  Open Issues
 
    A list of open issues can be found at https://github.com/thomas-
    fossati/draft-tls13-iot/issues
@@ -469,6 +514,14 @@ Table of Contents
 
 20.2.  Informative References
 
+   [I-D.ietf-cose-cbor-encoded-cert]
+              Raza, S., Höglund, J., Selander, G., Mattsson, J. P., and
+              M. Furuhed, "CBOR Encoded X.509 Certificates (C509
+              Certificates)", Work in Progress, Internet-Draft, draft-
+              ietf-cose-cbor-encoded-cert-01, 25 May 2021,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
+              cbor-encoded-cert-01>.
+
    [I-D.ietf-suit-architecture]
               Moran, B., Tschofenig, H., Brown, D., and M. Meriac, "A
               Firmware Update Architecture for Internet of Things", Work
@@ -477,12 +530,50 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-ietf-suit-
               architecture-16>.
 
+   [I-D.ietf-tls-certificate-compression]
+              Ghedini, A. and V. Vasiliev, "TLS Certificate
+              Compression", Work in Progress, Internet-Draft, draft-
+              ietf-tls-certificate-compression-10, 6 January 2020,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-tls-
+              certificate-compression-10>.
+
+   [I-D.ietf-tls-ctls]
+              Rescorla, E., Barnes, R., and H. Tschofenig, "Compact TLS
+              1.3", Work in Progress, Internet-Draft, draft-ietf-tls-
+              ctls-02, 5 May 2021,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-tls-
+              ctls-02>.
+
+   [I-D.ietf-tls-dtls-connection-id]
+              Rescorla, E., Tschofenig, H., Fossati, T., and A. Kraus,
+              "Connection Identifiers for DTLS 1.2", Work in Progress,
+              Internet-Draft, draft-ietf-tls-dtls-connection-id-13, 22
+              June 2021, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-tls-dtls-connection-id-13>.
+
    [I-D.ietf-tls-esni]
               Rescorla, E., Oku, K., Sullivan, N., and C. A. Wood, "TLS
               Encrypted Client Hello", Work in Progress, Internet-Draft,
               draft-ietf-tls-esni-12, 7 July 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-tls-
               esni-12>.
+
+   [RFC6066]  Eastlake 3rd, D., "Transport Layer Security (TLS)
+              Extensions: Extension Definitions", RFC 6066,
+              DOI 10.17487/RFC6066, January 2011,
+              <https://datatracker.ietf.org/doc/html/rfc6066>.
+
+   [RFC7250]  Wouters, P., Ed., Tschofenig, H., Ed., Gilmore, J.,
+              Weiler, S., and T. Kivinen, "Using Raw Public Keys in
+              Transport Layer Security (TLS) and Datagram Transport
+              Layer Security (DTLS)", RFC 7250, DOI 10.17487/RFC7250,
+              June 2014,
+              <https://datatracker.ietf.org/doc/html/rfc7250>.
+
+   [RFC7924]  Santesson, S. and H. Tschofenig, "Transport Layer Security
+              (TLS) Cached Information Extension", RFC 7924,
+              DOI 10.17487/RFC7924, July 2016,
+              <https://datatracker.ietf.org/doc/html/rfc7924>.
 
 Authors' Addresses
 
