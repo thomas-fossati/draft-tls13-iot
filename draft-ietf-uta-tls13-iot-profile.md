@@ -227,7 +227,7 @@ Contains the DN of the issuing CA.
 ### Validity
 
 No maximum validity period is mandated.  Validity values are expressed in
-notBefore and notAfter fields as described in Section 4.1.2.5 of {{!RFC5280}}.
+notBefore and notAfter fields, as described in Section 4.1.2.5 of {{!RFC5280}}.
 In particular, values MUST be expressed in Greenwich Mean Time (Zulu) and MUST
 include seconds even where the number of seconds is zero.
 
