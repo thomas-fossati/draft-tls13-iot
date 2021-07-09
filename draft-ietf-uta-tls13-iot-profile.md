@@ -226,8 +226,17 @@ Contains the DN of the issuing CA.
 
 ### Validity
 
-No maximum validity period is mandated. Validity values are expressed as UTCTime
-in notBefore and notAfter fields, as mandated in {{!RFC5280}}.
+No maximum validity period is mandated.  Validity values are expressed in
+notBefore and notAfter fields, as described in Section 4.1.2.5 of {{!RFC5280}}.
+In particular, values MUST be expressed in Greenwich Mean Time (Zulu) and MUST
+include seconds even where the number of seconds is zero.
+
+Note that the validity period is defined as the period of time from notBefore
+through notAfter, inclusive.  This means that a hypothetical certificate with a
+notBefore date of 9 June 2021 at 03:42:01 and a notAfter date of 7 September
+2021 at 03:42:01 becomes valid at the beginning of the :01 second, and only
+becomes invalid at the :02 second, a period that is 90 days plus 1 second.  So
+for a 90-day, notAfter must actually be 03:42:00.
 
 In many cases it is necessary to indicate that a certificate does not expire.
 This is likely to be the case for manufacturer-provisioned certificates.
