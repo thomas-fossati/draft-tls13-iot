@@ -93,7 +93,7 @@ extensions:
 * Application-Layer Protocol Negotiation (ALPN). 
 
 The SNI extension is discussed in this document and the justification 
-for implementing and using the ALPN extension can be found in {{I-D.ietf-uta-rfc7525bis}}.
+for implementing and using the ALPN extension can be found in {{?I-D.ietf-uta-rfc7525bis}}.
 
 For TLS/DTLS clients and servers implementing raw public keys and/or
 certificates the guidance for mandatory-to-implement extensions described in
