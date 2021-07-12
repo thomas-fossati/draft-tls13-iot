@@ -85,11 +85,15 @@ P-256) and SHOULD support key exchange with X25519.
 A plain PSK-based TLS/DTLS client or server MUST implement the following
 extensions:
 
-* supported_versions
-* cookie
-* server_name
-* pre_shared_key
-* psk_key_exchange_modes
+* Supported Versions,
+* Cookie,
+* Server Name Indication (SNI),
+* Pre-Shared Key,
+* PSK Key Exchange Modes, and 
+* Application-Layer Protocol Negotiation (ALPN). 
+
+The SNI extension is discussed in this document and the justification 
+for implementing and using the ALPN extension can be found in {{?I-D.ietf-uta-rfc7525bis}}.
 
 For TLS/DTLS clients and servers implementing raw public keys and/or
 certificates the guidance for mandatory-to-implement extensions described in
