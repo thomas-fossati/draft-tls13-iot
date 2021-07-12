@@ -138,13 +138,19 @@ The discussion in Section 12 of {{!RFC7925}} is applicable with one exception:
 the ClientHello and the ServerHello messages in TLS 1.3 do not contain
 gmt_unix_time component anymore.
 
-# Server Name Indication (SNI)
+# Server Name Indication
 
-This specification mandates the implementation of the SNI extension. Where
-privacy requirements require it, the encrypted SNI extension
-{{?I-D.ietf-tls-esni}} prevents an on-path attacker to determine the domain
-name the client is trying to connect to. Note, however, that the extension is
-still at an experimental state.
+This specification mandates the implementation of the Server Name Indication (SNI)
+extension. Where privacy requirements require it, the Encrypted Client Hello
+extension {{?I-D.ietf-tls-esni}} prevents an on-path attacker to determine the domain
+name the client is trying to connect to. 
+
+Note: To avoid leaking DNS lookups from network inspection altogether further 
+protocols are needed, including DoH [RFC8484] and DPRIVE [RFC7858] [RFC8094].
+Since the Encrypted Client Hello extension requires use of Hybrid Public Key 
+Encryption (HPKE) {{I-D.irtf-cfrg-hpke}} and additional protocols require 
+further protocol exchanges and cryptographic operations, there is a certain 
+amount of overhead associated with this privacy property.
 
 # Maximum Fragment Length Negotiation
 
