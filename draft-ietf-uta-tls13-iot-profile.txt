@@ -68,7 +68,7 @@ Table of Contents
    7.  Keep-Alive
    8.  Timeouts
    9.   Random Number Generation
-   10. Server Name Indication (SNI)
+   10. Server Name Indication
    11.  Maximum Fragment Length Negotiation
    12. Crypto Agility
    13. Key Length Recommendations
@@ -198,13 +198,21 @@ Table of Contents
    exception: the ClientHello and the ServerHello messages in TLS 1.3 do
    not contain gmt_unix_time component anymore.
 
-10.  Server Name Indication (SNI)
+10.  Server Name Indication
 
-   This specification mandates the implementation of the SNI extension.
-   Where privacy requirements require it, the encrypted SNI extension
-   [I-D.ietf-tls-esni] prevents an on-path attacker to determine the
-   domain name the client is trying to connect to.  Note, however, that
-   the extension is still at an experimental state.
+   This specification mandates the implementation of the Server Name
+   Indication (SNI) extension.  Where privacy requirements require it,
+   the Encrypted Client Hello extension [I-D.ietf-tls-esni] prevents an
+   on-path attacker to determine the domain name the client is trying to
+   connect to.
+
+   Note: To avoid leaking DNS lookups from network inspection altogether
+   further protocols are needed, including DoH [RFC8484] and DPRIVE
+   [RFC7858] [RFC8094].  Since the Encrypted Client Hello extension
+   requires use of Hybrid Public Key Encryption (HPKE)
+   [I-D.irtf-cfrg-hpke] and additional protocols require further
+   protocol exchanges and cryptographic operations, there is a certain
+   amount of overhead associated with this privacy property.
 
 11.   Maximum Fragment Length Negotiation
 
@@ -578,6 +586,13 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-ietf-uta-
               rfc7525bis-01>.
 
+   [I-D.irtf-cfrg-hpke]
+              Barnes, R. L., Bhargavan, K., Lipp, B., and C. A. Wood,
+              "Hybrid Public Key Encryption", Work in Progress,
+              Internet-Draft, draft-irtf-cfrg-hpke-10, 7 July 2021,
+              <https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-
+              hpke-10>.
+
    [RFC6066]  Eastlake 3rd, D., "Transport Layer Security (TLS)
               Extensions: Extension Definitions", RFC 6066,
               DOI 10.17487/RFC6066, January 2011,
@@ -590,10 +605,24 @@ Table of Contents
               June 2014,
               <https://datatracker.ietf.org/doc/html/rfc7250>.
 
+   [RFC7858]  Hu, Z., Zhu, L., Heidemann, J., Mankin, A., Wessels, D.,
+              and P. Hoffman, "Specification for DNS over Transport
+              Layer Security (TLS)", RFC 7858, DOI 10.17487/RFC7858, May
+              2016, <https://datatracker.ietf.org/doc/html/rfc7858>.
+
    [RFC7924]  Santesson, S. and H. Tschofenig, "Transport Layer Security
               (TLS) Cached Information Extension", RFC 7924,
               DOI 10.17487/RFC7924, July 2016,
               <https://datatracker.ietf.org/doc/html/rfc7924>.
+
+   [RFC8094]  Reddy, T., Wing, D., and P. Patil, "DNS over Datagram
+              Transport Layer Security (DTLS)", RFC 8094,
+              DOI 10.17487/RFC8094, February 2017,
+              <https://datatracker.ietf.org/doc/html/rfc8094>.
+
+   [RFC8484]  Hoffman, P. and P. McManus, "DNS Queries over HTTPS
+              (DoH)", RFC 8484, DOI 10.17487/RFC8484, October 2018,
+              <https://datatracker.ietf.org/doc/html/rfc8484>.
 
 Authors' Addresses
 
