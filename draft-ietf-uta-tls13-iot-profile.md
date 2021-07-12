@@ -115,7 +115,7 @@ TLS 1.3 does not have support for compression of application data traffic, as of
 by previous versions of TLS. Applications are therefore responsible for transmitting 
 payloads that are either compressed or use a more efficient encoding otherwise. 
 
-With regards to the handshake itself various strategies have 
+With regards to the handshake itself, various strategies have 
 been applied to reduce the size of the exchanged payloads. TLS and DTLS 1.3 use less 
 overhead, depending on the type of confirmations, when compared to previous versions of the 
 protocol. Additionally, the work Compact TLS (cTLS) has taken compression of the handshake 
