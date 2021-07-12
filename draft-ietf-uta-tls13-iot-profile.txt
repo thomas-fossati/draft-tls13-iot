@@ -143,11 +143,16 @@ Table of Contents
    A plain PSK-based TLS/DTLS client or server MUST implement the
    following extensions:
 
-   *  supported_versions
-   *  cookie
-   *  server_name
-   *  pre_shared_key
-   *  psk_key_exchange_modes
+   *  Supported Versions,
+   *  Cookie,
+   *  Server Name Indication (SNI),
+   *  Pre-Shared Key,
+   *  PSK Key Exchange Modes, and
+   *  Application-Layer Protocol Negotiation (ALPN).
+
+   The SNI extension is discussed in this document and the justification
+   for implementing and using the ALPN extension can be found in
+   [I-D.ietf-uta-rfc7525bis].
 
    For TLS/DTLS clients and servers implementing raw public keys and/or
    certificates the guidance for mandatory-to-implement extensions
@@ -563,6 +568,15 @@ Table of Contents
               draft-ietf-tls-esni-12, 7 July 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-tls-
               esni-12>.
+
+   [I-D.ietf-uta-rfc7525bis]
+              Sheffer, Y., Holz, R., Saint-Andre, P., and T. Fossati,
+              "Recommendations for Secure Use of Transport Layer
+              Security (TLS) and Datagram Transport Layer Security
+              (DTLS)", Work in Progress, Internet-Draft, draft-ietf-uta-
+              rfc7525bis-01, 7 July 2021,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-uta-
+              rfc7525bis-01>.
 
    [RFC6066]  Eastlake 3rd, D., "Transport Layer Security (TLS)
               Extensions: Extension Definitions", RFC 6066,
