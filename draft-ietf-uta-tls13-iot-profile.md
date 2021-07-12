@@ -146,7 +146,7 @@ extension {{?I-D.ietf-tls-esni}} prevents an on-path attacker to determine the d
 name the client is trying to connect to. 
 
 Note: To avoid leaking DNS lookups from network inspection altogether further 
-protocols are needed, including DoH [RFC8484] and DPRIVE [RFC7858] [RFC8094].
+protocols are needed, including DoH {{?RFC8484}} and DPRIVE {{?RFC7858}} {{?RFC8094}}.
 Since the Encrypted Client Hello extension requires use of Hybrid Public Key 
 Encryption (HPKE) {{I-D.irtf-cfrg-hpke}} and additional protocols require 
 further protocol exchanges and cryptographic operations, there is a certain 
