@@ -128,10 +128,6 @@ The recommendation in Section 11 of {{!RFC7925}} is applicable. In particular
 this document RECOMMENDED to use an initial timer value of 9 seconds with
 exponential back off up to no less then 60 seconds.
 
-Question: DTLS 1.3 now offers per-record retransmission and therefore
-introduces much less congestion risk associated with spurious retransmissions.
-Hence, should we relax the 9s initial timeout?
-
 # Random Number Generation
 
 The discussion in Section 12 of {{!RFC7925}} is applicable with one exception:
