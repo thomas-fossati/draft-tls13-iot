@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-07-11T00:42:21.512071+00:00",
+  "timestamp": "2021-07-13T00:41:17.331858+00:00",
   "repo": "thomas-fossati/draft-tls13-iot",
   "labels": [
     {
@@ -102,7 +102,7 @@
       "labels": [],
       "body": "See https://mailarchive.ietf.org/arch/msg/cfrg/vgPiYAlu03G9_Mx1yx_IEjirZVE/ in particular regarding CCM_8",
       "createdAt": "2021-02-22T10:07:55Z",
-      "updatedAt": "2021-06-14T10:14:56Z",
+      "updatedAt": "2021-07-12T11:01:02Z",
       "closedAt": null,
       "comments": [
         {
@@ -111,6 +111,13 @@
           "body": "See also the (7525bis-scoped) related discussion in https://github.com/yaronf/I-D/issues/203",
           "createdAt": "2021-06-14T10:14:56Z",
           "updatedAt": "2021-06-14T10:14:56Z"
+        },
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "body": "And https://github.com/cfrg/draft-irtf-cfrg-aead-limits/issues/37\r\n\r\nIdeally, we'd want all the relevant recommendations, including anything CCM_8 related, to be captured in a single authoritative document -- i.e., irtf-aead-limits -- that we can just reference from here.",
+          "createdAt": "2021-07-12T10:59:03Z",
+          "updatedAt": "2021-07-12T11:01:02Z"
         }
       ]
     },
@@ -127,6 +134,22 @@
       "body": "See this long thread on the TLS mailing list: https://mailarchive.ietf.org/arch/msg/tls/vTxwj2iShME6c7AHg_Ub-_eS_fM/",
       "createdAt": "2021-06-14T10:48:04Z",
       "updatedAt": "2021-06-14T10:48:04Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 13,
+      "id": "MDU6SXNzdWU5NDE3OTIwMjM=",
+      "title": "DTLS 1.3: What should the retransmission timer recommendation be?",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/issues/13",
+      "state": "OPEN",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "DTLS 1.3 now offers per-record retransmission and therefore\r\nintroduces much less congestion risk associated with spurious retransmissions.\r\nHence, should we relax the 9s initial timeout?\r\n",
+      "createdAt": "2021-07-12T08:12:20Z",
+      "updatedAt": "2021-07-12T08:12:20Z",
       "closedAt": null,
       "comments": []
     }
@@ -629,6 +652,273 @@
               "body": "```suggestion\r\nnotBefore and notAfter fields, as described in Section 4.1.2.5 of {{!RFC5280}}.\r\n```",
               "createdAt": "2021-07-09T11:06:24Z",
               "updatedAt": "2021-07-09T11:06:25Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "id": "MDExOlB1bGxSZXF1ZXN0Njg3NjAzNDEw",
+      "title": "Extending the text on compression",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/10",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-07-12T08:00:17Z",
+      "updatedAt": "2021-07-12T09:06:25Z",
+      "baseRepository": "thomas-fossati/draft-tls13-iot",
+      "baseRefName": "master",
+      "baseRefOid": "a3399682d3d47ab03ca583e96db4558400c9bc33",
+      "headRepository": "thomas-fossati/draft-tls13-iot",
+      "headRefName": "hannestschofenig-patch-1",
+      "headRefOid": "980b797ae1a35c43e8cbeaa456f3f39675e13a65",
+      "closedAt": "2021-07-12T09:06:21Z",
+      "mergedAt": "2021-07-12T09:06:20Z",
+      "mergedBy": "thomas-fossati",
+      "mergeCommit": {
+        "oid": "acd7c38cdd83d62c4a03c79086c704b4b2da1735"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzAzODM0Nzk3",
+          "commit": {
+            "abbreviatedOid": "4ad8736"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "LGTM, just a few editorial suggestions",
+          "createdAt": "2021-07-12T08:13:26Z",
+          "updatedAt": "2021-07-12T08:18:14Z",
+          "comments": [
+            {
+              "originalPosition": 9,
+              "body": "```suggestion\r\nWith regards to the handshake itself, various strategies have \r\n```",
+              "createdAt": "2021-07-12T08:13:27Z",
+              "updatedAt": "2021-07-12T08:18:14Z"
+            },
+            {
+              "originalPosition": 11,
+              "body": "```suggestion\r\noverhead, depending on the type of key confirmations, when compared to previous versions of the \r\n```",
+              "createdAt": "2021-07-12T08:17:10Z",
+              "updatedAt": "2021-07-12T08:18:14Z"
+            },
+            {
+              "originalPosition": 12,
+              "body": "```suggestion\r\nprotocol. Additionally, the work on Compact TLS (cTLS) {{?I-D.ietf-tls-ctls}} has taken compression of the handshake \r\n```",
+              "createdAt": "2021-07-12T08:17:47Z",
+              "updatedAt": "2021-07-12T08:18:14Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "id": "MDExOlB1bGxSZXF1ZXN0Njg3NjExNzYz",
+      "title": "Add further text to the Server Name Indication section",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/11",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-07-12T08:10:48Z",
+      "updatedAt": "2021-07-12T09:03:45Z",
+      "baseRepository": "thomas-fossati/draft-tls13-iot",
+      "baseRefName": "master",
+      "baseRefOid": "a3399682d3d47ab03ca583e96db4558400c9bc33",
+      "headRepository": "thomas-fossati/draft-tls13-iot",
+      "headRefName": "hannestschofenig-patch-2",
+      "headRefOid": "d9d82420cb34fc96687a7e51868e39909956720d",
+      "closedAt": "2021-07-12T09:03:45Z",
+      "mergedAt": "2021-07-12T09:03:45Z",
+      "mergedBy": "thomas-fossati",
+      "mergeCommit": {
+        "oid": "4f89c17150ead1a0426fb8b60f963fc0be51cafd"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzAzODQwOTI5",
+          "commit": {
+            "abbreviatedOid": "704a8e5"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-07-12T08:20:13Z",
+          "updatedAt": "2021-07-12T08:22:24Z",
+          "comments": [
+            {
+              "originalPosition": 19,
+              "body": "```suggestion\r\nprotocols are needed, including DoH {{?RFC8484}} and DPRIVE {{?RFC7858}} {{?RFC8094}}.\r\n```",
+              "createdAt": "2021-07-12T08:20:14Z",
+              "updatedAt": "2021-07-12T08:22:24Z"
+            },
+            {
+              "originalPosition": 13,
+              "body": "should we use more explicit BCP14-enhanced verbs instead of just \"mandates\"?",
+              "createdAt": "2021-07-12T08:21:54Z",
+              "updatedAt": "2021-07-12T08:22:24Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzAzODQ2OTIw",
+          "commit": {
+            "abbreviatedOid": "e2e1c75"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-07-12T08:26:51Z",
+          "updatedAt": "2021-07-12T08:26:51Z",
+          "comments": [
+            {
+              "originalPosition": 13,
+              "body": "In an earlier section we already say \"MUST implement\" and so I didn't want to repeat it again\r\n",
+              "createdAt": "2021-07-12T08:26:51Z",
+              "updatedAt": "2021-07-12T08:26:51Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzAzODc2NDA0",
+          "commit": {
+            "abbreviatedOid": "e2e1c75"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-07-12T08:58:11Z",
+          "updatedAt": "2021-07-12T08:58:11Z",
+          "comments": [
+            {
+              "originalPosition": 13,
+              "body": "\ud83d\udc4d ",
+              "createdAt": "2021-07-12T08:58:11Z",
+              "updatedAt": "2021-07-12T08:58:11Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzAzODc5Mzc3",
+          "commit": {
+            "abbreviatedOid": "e2e1c75"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-07-12T09:01:14Z",
+          "updatedAt": "2021-07-12T09:01:14Z",
+          "comments": [
+            {
+              "originalPosition": 21,
+              "body": "```suggestion\r\nEncryption (HPKE) {{?I-D.irtf-cfrg-hpke}} and additional protocols require \r\n```",
+              "createdAt": "2021-07-12T09:01:14Z",
+              "updatedAt": "2021-07-12T09:01:14Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "id": "MDExOlB1bGxSZXF1ZXN0Njg3NjEyNDkz",
+      "title": "Removed question about timeout configuration",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/12",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Moved it to Github issues",
+      "createdAt": "2021-07-12T08:11:49Z",
+      "updatedAt": "2021-07-12T08:22:53Z",
+      "baseRepository": "thomas-fossati/draft-tls13-iot",
+      "baseRefName": "master",
+      "baseRefOid": "a3399682d3d47ab03ca583e96db4558400c9bc33",
+      "headRepository": "thomas-fossati/draft-tls13-iot",
+      "headRefName": "hannestschofenig-patch-3",
+      "headRefOid": "766cbc8065d20dbb7d1d6f18568f61548f64d362",
+      "closedAt": "2021-07-12T08:22:53Z",
+      "mergedAt": "2021-07-12T08:22:53Z",
+      "mergedBy": "thomas-fossati",
+      "mergeCommit": {
+        "oid": "9b3083daded6d5340ba783e18fd8b4a28da7d0c9"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzAzODQzMjU0",
+          "commit": {
+            "abbreviatedOid": "766cbc8"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2021-07-12T08:22:48Z",
+          "updatedAt": "2021-07-12T08:22:48Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "id": "MDExOlB1bGxSZXF1ZXN0Njg3NjE2OTk1",
+      "title": "Added requirement to implement the ALPN extension",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/14",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-07-12T08:17:32Z",
+      "updatedAt": "2021-07-12T08:40:03Z",
+      "baseRepository": "thomas-fossati/draft-tls13-iot",
+      "baseRefName": "master",
+      "baseRefOid": "a3399682d3d47ab03ca583e96db4558400c9bc33",
+      "headRepository": "thomas-fossati/draft-tls13-iot",
+      "headRefName": "hannestschofenig-patch-4",
+      "headRefOid": "e9848057477fa8bc5f700aa583c599b9d83b4f80",
+      "closedAt": "2021-07-12T08:40:03Z",
+      "mergedAt": "2021-07-12T08:40:03Z",
+      "mergedBy": "thomas-fossati",
+      "mergeCommit": {
+        "oid": "c396f02dc1403af28650e58f055717e1a9a17d8a"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzAzODQ0NjQ1",
+          "commit": {
+            "abbreviatedOid": "8330f3d"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-07-12T08:24:20Z",
+          "updatedAt": "2021-07-12T08:24:25Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "```suggestion\r\nfor implementing and using the ALPN extension can be found in {{?I-D.ietf-uta-rfc7525bis}}.\r\n```",
+              "createdAt": "2021-07-12T08:24:20Z",
+              "updatedAt": "2021-07-12T08:24:25Z"
             }
           ]
         }
