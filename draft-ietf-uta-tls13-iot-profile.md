@@ -89,10 +89,10 @@ extensions:
 * Cookie,
 * Server Name Indication (SNI),
 * Pre-Shared Key,
-* PSK Key Exchange Modes, and 
-* Application-Layer Protocol Negotiation (ALPN). 
+* PSK Key Exchange Modes, and
+* Application-Layer Protocol Negotiation (ALPN).
 
-The SNI extension is discussed in this document and the justification 
+The SNI extension is discussed in this document and the justification
 for implementing and using the ALPN extension can be found in {{?I-D.ietf-uta-rfc7525bis}}.
 
 For TLS/DTLS clients and servers implementing raw public keys and/or
@@ -116,15 +116,15 @@ credentials established in an earlier exchange.
 # Compression
 
 TLS 1.3 does not have support for compression of application data traffic, as offered
-by previous versions of TLS. Applications are therefore responsible for transmitting 
-payloads that are either compressed or use a more efficient encoding otherwise. 
+by previous versions of TLS. Applications are therefore responsible for transmitting
+payloads that are either compressed or use a more efficient encoding otherwise.
 
-With regards to the handshake itself, various strategies have 
-been applied to reduce the size of the exchanged payloads. TLS and DTLS 1.3 use less 
-overhead, depending on the type of key confirmations, when compared to previous versions of the 
-protocol. Additionally, the work on Compact TLS (cTLS) {{?I-D.ietf-tls-ctls}} has taken compression of the handshake 
+With regards to the handshake itself, various strategies have
+been applied to reduce the size of the exchanged payloads. TLS and DTLS 1.3 use less
+overhead, depending on the type of key confirmations, when compared to previous versions of the
+protocol. Additionally, the work on Compact TLS (cTLS) {{?I-D.ietf-tls-ctls}} has taken compression of the handshake
 a step further by utilizing out-of-band knowledge between the communication parties to reduce
-the amount of data to be transmitted at each individual handshake, among applying other techniques. 
+the amount of data to be transmitted at each individual handshake, among applying other techniques.
 
 # Perfect Forward Secrecy
 
@@ -152,13 +152,13 @@ gmt_unix_time component anymore.
 This specification mandates the implementation of the Server Name Indication (SNI)
 extension. Where privacy requirements require it, the Encrypted Client Hello
 extension {{?I-D.ietf-tls-esni}} prevents an on-path attacker to determine the domain
-name the client is trying to connect to. 
+name the client is trying to connect to.
 
-Note: To avoid leaking DNS lookups from network inspection altogether further 
+Note: To avoid leaking DNS lookups from network inspection altogether further
 protocols are needed, including DoH {{?RFC8484}} and DPRIVE {{?RFC7858}} {{?RFC8094}}.
-Since the Encrypted Client Hello extension requires use of Hybrid Public Key 
-Encryption (HPKE) {{?I-D.irtf-cfrg-hpke}} and additional protocols require 
-further protocol exchanges and cryptographic operations, there is a certain 
+Since the Encrypted Client Hello extension requires use of Hybrid Public Key
+Encryption (HPKE) {{?I-D.irtf-cfrg-hpke}} and additional protocols require
+further protocol exchanges and cryptographic operations, there is a certain
 amount of overhead associated with this privacy property.
 
 # Maximum Fragment Length Negotiation
@@ -374,7 +374,12 @@ on the anticipated deployment environment, the availability of code, and the
 constraints imposed by already deployed infrastructure (e.g., CA
 infrastructure, tool support).
 
-## Open Issues
+# Ciphersuites
+
+<cref>As soon as the ongoing discussion around CCM_8 deprecation settles,
+provide summary and capture the consensus.</cref>
+
+# Open Issues
 
 A list of open issues can be found at https://github.com/thomas-fossati/draft-tls13-iot/issues
 
