@@ -41,11 +41,11 @@ author:
 
 normative:
   DTLS13: I-D.ietf-tls-dtls13
-  RFC7525-bis: I-D.ietf-uta-rfc7525bis
+  RFC7525bis: I-D.ietf-uta-rfc7525bis
 
 informative:
   DTLS-CID: I-D.ietf-tls-dtls-connection-id
-  COAP: RFC7252
+  CoAP: RFC7252
 
 --- abstract
 
@@ -101,7 +101,7 @@ extensions:
 * Application-Layer Protocol Negotiation (ALPN).
 
 The SNI extension is discussed in this document and the justification
-for implementing and using the ALPN extension can be found in {{RFC7525-bis}}.
+for implementing and using the ALPN extension can be found in {{RFC7525bis}}.
 
 For TLS/DTLS clients and servers implementing raw public keys and/or
 certificates the guidance for mandatory-to-implement extensions described in
@@ -384,22 +384,38 @@ infrastructure, tool support).
 
 # Ciphersuites
 
-Appendix B.3 of {{DTLS13}} flags AES-CCM with 8-octet authentication tags
+Section 4.5.3 of {{DTLS13}} flags AES-CCM with 8-octet authentication tags
 (CCM_8) as unsuitable for general use with DTLS.  In fact, due to its low
 integrity limits (i.e., a high sensitivity to forgeries), endpoints that
 negotiate ciphersuites based on such AEAD are susceptible to a trivial DoS.
-(Section 5.3 of {{?I-D.irtf-cfrg-aead-limits}} contains further discussion on
-this topic, as well as pointers to the relevant literature.)
+(See also Section 5.3 and 5.4 of {{?I-D.irtf-cfrg-aead-limits}} for further
+discussion on this topic, as well as references to the analysis supporting
+these conclusions.)
 
-All the ciphersuites mandated by {{RFC7925}} and {{COAP}} are based on CCM_8,
-and there is no stand-by ciphersuite to use for applications that want to
+Specifically, {{DTLS13}} warns that:
+
+> "TLS_AES_128_CCM_8_SHA256 MUST NOT be used in DTLS without additional
+> safeguards against forgery. Implementations MUST set usage limits for
+> AEAD_AES_128_CCM_8 based on an understanding of any additional forgery
+> protections that are used."
+
+Since all the ciphersuites mandated by {{RFC7925}} and {{CoAP}} are based on
+CCM_8, there is no stand-by ciphersuite to use for applications that want to
 avoid the security and availability risks associated with CCM_8 while retaining
 interoperability with the rest of the ecosystem.
 
 In order to ameliorate the situation, this document RECOMMENDS that
-implementations support TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 and offer it as
-their first choice.  When used with TLS 1.2, the recommendations in Section
-6.2.1 of {{RFC7525-bis}} apply.
+implementations support
+
+* TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+
+and offer it as their first choice.  This ciphersuite provides a more robust
+cipher and superior interoperability with cloud services at the cost of a
+slight increase in the wire and peak RAM footprints.
+
+When used with TLS 1.2, the recommendations in Section 6.2.1 of {{RFC7525bis}}
+related to deterministic nonce generation apply.  In addition, the integrity
+limits on key usage detailed in Section 4.4 of {{RFC7525bis}} also apply.
 
 # Open Issues
 
