@@ -405,17 +405,22 @@ avoid the security and availability risks associated with CCM_8 while retaining
 interoperability with the rest of the ecosystem.
 
 In order to ameliorate the situation, this document RECOMMENDS that
-implementations support
+implementations support the following two ciphersuites:
 
 * TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+* TLS_ECDHE_ECDSA_WITH_AES_128_CCM
 
-and offer it as their first choice.  This ciphersuite provides a more robust
-cipher and superior interoperability with cloud services at the cost of a
-slight increase in the wire and peak RAM footprints.
+and offer them as their first choice.  These ciphersuites provide
+confidentiality and integrity limits that are considered acceptable in the most
+general settings.  For the details on the exact bounds of both ciphersuites see
+Section 4.5.3 of {{DTLS13}}.  Note that the GCM-based ciphersuite offers
+superior interoperability with cloud services at the cost of a slight increase
+in the wire and peak RAM footprints.
 
-When used with TLS 1.2, the recommendations in Section 6.2.1 of {{RFC7525bis}}
-related to deterministic nonce generation apply.  In addition, the integrity
-limits on key usage detailed in Section 4.4 of {{RFC7525bis}} also apply.
+When the GCM-based ciphersuite is used with TLS 1.2, the recommendations in
+Section 6.2.1 of {{RFC7525bis}} related to deterministic nonce generation
+apply.  In addition, the integrity limits on key usage detailed in Section 4.4
+of {{RFC7525bis}} also apply.
 
 # Open Issues
 
