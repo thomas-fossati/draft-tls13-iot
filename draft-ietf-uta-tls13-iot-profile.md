@@ -204,7 +204,7 @@ will process early data before the TLS handshake completes.
 It is RECOMMENDED that origin servers allow resources to explicitly configure
 whether early data is appropriate in requests.
 
-This specification specifies the Early-Data option, which indicates that the
+This document specifies the Early-Data option, which indicates that the
 request has been conveyed in early data and that a client understands the 4.25
 (Too Early) status code. The semantic follows {{!RFC8470}}.
 
@@ -219,6 +219,9 @@ request has been conveyed in early data and that a client understands the 4.25
         E=Encrypt and Integrity Protect (when using OSCORE)
 ~~~
 {: #early-data-figure title="Early-Data Option"}
+
+<cref>Note that 4.25 is just the suggested CoAP response code, which has not been
+registered yet.</cref>
 
 # Certificate Profile
 
