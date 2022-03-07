@@ -39,6 +39,14 @@ author:
     organization: "Arm Limited"
     email: Thomas.Fossati@arm.com
 
+normative:
+  DTLS13: I-D.ietf-tls-dtls13
+  RFC7525bis: I-D.ietf-uta-rfc7525bis
+
+informative:
+  DTLS-CID: I-D.ietf-tls-dtls-connection-id
+  CoAP: RFC7252
+
 --- abstract
 
 This document is a companion to RFC 7925 and defines TLS/DTLS 1.3 profiles for
@@ -49,7 +57,7 @@ certificate profile.
 
 # Introduction
 
-This document defines a profile of DTLS 1.3 {{!I-D.ietf-tls-dtls13}} and TLS
+This document defines a profile of DTLS 1.3 {{DTLS13}} and TLS
 1.3 {{!RFC8446}} that offers communication security services for IoT
 applications and is reasonably implementable on many constrained devices.
 Profile thereby means that available configuration options and protocol
@@ -93,7 +101,7 @@ extensions:
 * Application-Layer Protocol Negotiation (ALPN).
 
 The SNI extension is discussed in this document and the justification
-for implementing and using the ALPN extension can be found in {{?I-D.ietf-uta-rfc7525bis}}.
+for implementing and using the ALPN extension can be found in {{RFC7525bis}}.
 
 For TLS/DTLS clients and servers implementing raw public keys and/or
 certificates the guidance for mandatory-to-implement extensions described in
@@ -354,8 +362,8 @@ the bandwidth requirements of a public key-based key exchange:
   certificates that need to be transmitted.
 * Pay attention to the amount of information conveyed inside certificates.
 * Use session resumption to reduce the number of times a full handshake is
-  needed.  Use Connection IDs {{?I-D.ietf-tls-dtls-connection-id}}, when
-  possible, to enable long-lasting connections.
+  needed.  Use Connection IDs {{DTLS-CID}}, when possible, to enable
+  long-lasting connections.
 * Use the TLS cached info {{?RFC7924}} extension to avoid sending certificates
   with every full handshake.
 * Use client certificate URLs {{?RFC6066}} instead of full certificates for
@@ -376,8 +384,43 @@ infrastructure, tool support).
 
 # Ciphersuites
 
-<cref>As soon as the ongoing discussion around CCM_8 deprecation settles,
-provide summary and capture the consensus.</cref>
+Section 4.5.3 of {{DTLS13}} flags AES-CCM with 8-octet authentication tags
+(CCM_8) as unsuitable for general use with DTLS.  In fact, due to its low
+integrity limits (i.e., a high sensitivity to forgeries), endpoints that
+negotiate ciphersuites based on such AEAD are susceptible to a trivial DoS.
+(See also Section 5.3 and 5.4 of {{?I-D.irtf-cfrg-aead-limits}} for further
+discussion on this topic, as well as references to the analysis supporting
+these conclusions.)
+
+Specifically, {{DTLS13}} warns that:
+
+> "TLS_AES_128_CCM_8_SHA256 MUST NOT be used in DTLS without additional
+> safeguards against forgery. Implementations MUST set usage limits for
+> AEAD_AES_128_CCM_8 based on an understanding of any additional forgery
+> protections that are used."
+
+Since all the ciphersuites mandated by {{RFC7925}} and {{CoAP}} are based on
+CCM_8, there is no stand-by ciphersuite to use for applications that want to
+avoid the security and availability risks associated with CCM_8 while retaining
+interoperability with the rest of the ecosystem.
+
+In order to ameliorate the situation, this document RECOMMENDS that
+implementations support the following two ciphersuites:
+
+* TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+* TLS_ECDHE_ECDSA_WITH_AES_128_CCM
+
+and offer them as their first choice.  These ciphersuites provide
+confidentiality and integrity limits that are considered acceptable in the most
+general settings.  For the details on the exact bounds of both ciphersuites see
+Section 4.5.3 of {{DTLS13}}.  Note that the GCM-based ciphersuite offers
+superior interoperability with cloud services at the cost of a slight increase
+in the wire and peak RAM footprints.
+
+When the GCM-based ciphersuite is used with TLS 1.2, the recommendations in
+Section 6.2.1 of {{RFC7525bis}} related to deterministic nonce generation
+apply.  In addition, the integrity limits on key usage detailed in Section 4.4
+of {{RFC7525bis}} also apply.
 
 # Open Issues
 
