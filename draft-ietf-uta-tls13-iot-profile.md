@@ -40,11 +40,12 @@ author:
     email: Thomas.Fossati@arm.com
 
 normative:
-  DTLS13: I-D.ietf-tls-dtls13
+  DTLS13: RFC9147
+  TLS13: RFC8446
   RFC7525bis: I-D.ietf-uta-rfc7525bis
 
 informative:
-  DTLS-CID: I-D.ietf-tls-dtls-connection-id
+  DTLS-CID: RFC9146
   CoAP: RFC7252
 
 --- abstract
@@ -186,42 +187,15 @@ The recommendations in Section 20 of {{!RFC7925}} are applicable.
 
 # 0-RTT Data
 
-When clients and servers share a PSK, TLS/DTLS 1.3 allows clients to send data
-on the first flight ("early data"). This features reduces communication setup
-latency but requires application layer protocols to define its use with the
-0-RTT data functionality.
+{{Appendix E.5 of TLS13}} establishes that:
 
-For HTTP this functionality is described in {{!RFC8470}}. This document
-specifies the application profile for CoAP, which follows the design of
-{{!RFC8470}}.
+> Application protocols MUST NOT use 0-RTT data without a profile that
+> defines its use.  That profile needs to identify which messages or
+> interactions are safe to use with 0-RTT and how to handle the
+> situation when the server rejects 0-RTT and falls back to 1-RTT.
 
-For a given request, the level of tolerance to replay risk is specific to the
-resource it operates upon (and therefore only known to the origin server).  In
-general, if processing a request does not have state-changing side effects, the
-consequences of replay are not significant. The server can choose whether it
-will process early data before the TLS handshake completes.
-
-It is RECOMMENDED that origin servers allow resources to explicitly configure
-whether early data is appropriate in requests.
-
-This document specifies the Early-Data option, which indicates that the
-request has been conveyed in early data and that a client understands the 4.25
-(Too Early) status code. The semantic follows {{!RFC8470}}.
-
-~~~
-+-----+---+---+---+---+-------------+--------+--------+---------+---+
-| No. | C | U | N | R | Name        | Format | Length | Default | E |
-+-----+---+---+---+---+-------------+--------+--------+---------+---+
-| TBD | x |   |   |   | Early-Data  | empty  | 0      | (none)  | x |
-+-----+---+---+---+---+-------------+--------+--------+---------+---+
-
-        C=Critical, U=Unsafe, N=NoCacheKey, R=Repeatable,
-        E=Encrypt and Integrity Protect (when using OSCORE)
-~~~
-{: #early-data-figure title="Early-Data Option"}
-
-<cref>Note that 4.25 is just the suggested CoAP response code, which has not been
-registered yet.</cref>
+At the time of writing, no such profile has been defined for CoAP {{CoAP}}.
+Therefore 0-RTT MUST NOT be used by CoAP applications.
 
 # Certificate Profile
 
@@ -433,34 +407,13 @@ A list of open issues can be found at https://github.com/thomas-fossati/draft-tl
 
 This entire document is about security.
 
-# Acknowledgements
-
-We would like to thank Ben Kaduk and John Mattsson.
-
 # IANA Considerations
 
-IANA is asked to add the Option defined in {{early-data-option}} to the CoAP
-Option Numbers registry.
-
-~~~
-+--------+------------+-----------+
-| Number | Name       | Reference |
-+--------+------------+-----------+
-| TBD    | Early-Data | RFCThis   |
-+--------+------------+-----------+
-~~~
-{: #early-data-option title="Early-Data Option"}
-
-IANA is asked to add the Response Code defined in {{too-early-code}} to the
-CoAP Response Code registry.
-
-~~~
-+--------+-------------+-----------+
-| Code   | Description | Reference |
-+--------+-------------+-----------+
-| 4.25   | Too Early   | RFCThis   |
-+--------+-------------+-----------+
-~~~
-{: #too-early-code title="Too Early Response Code"}
+This document makes no requests to IANA.
 
 --- back
+
+# Acknowledgments
+{:unnumbered}
+
+We would like to thank Ben Kaduk and John Mattsson.
