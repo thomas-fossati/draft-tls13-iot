@@ -267,7 +267,7 @@ algorithm  identifier for ECDSA signature keys, as   defined and specified in
 
 * extendedKeyUsage MUST NOT be present.
 
-## Intermediate CA Certificate
+## Subordinate CA Certificate
 
 * basicConstraints MUST be present and MUST be marked critical.  The cA field
   MUST be set true.  The pathLenConstraint field MAY be present.
@@ -324,7 +324,7 @@ necessary action to allow IoT devices to remain operational.
 
 In a public key-based key exchange, certificates and public keys are a major
 contributor to the size of the overall handshake. For example, in a regular TLS
-1.3 handshake with minimal ECC certificates and no intermediate CA utilizing
+1.3 handshake with minimal ECC certificates and no subordinate CA utilizing
 the secp256r1 curve with mutual authentication, around 40% of the entire
 handshake payload is consumed by the two exchanged certificates.
 
@@ -335,7 +335,7 @@ the bandwidth requirements of a public key-based key exchange:
 
 * Use elliptic curve cryptography (ECC) instead of RSA-based certificate due to
   the smaller certificate size.
-* Avoid deep and complex CA hierarchies to reduce the number of intermediate CA
+* Avoid deep and complex CA hierarchies to reduce the number of subordinate CA
   certificates that need to be transmitted.
 * Pay attention to the amount of information conveyed inside certificates.
 * Use session resumption to reduce the number of times a full handshake is
