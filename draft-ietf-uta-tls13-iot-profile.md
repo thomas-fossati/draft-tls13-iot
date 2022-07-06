@@ -5,6 +5,7 @@ docname: draft-ietf-uta-tls13-iot-profile-latest
 category: std
 updates: 7925
 consensus: true
+submissiontype: IETF
 
 ipr: trust200902
 area: Security
@@ -47,6 +48,24 @@ normative:
 informative:
   DTLS-CID: RFC9146
   CoAP: RFC7252
+
+  Ambrose2017:
+     author:
+     - ins: C. Ambrose
+       name: Christopher Ambrose
+     - ins: J. W. Bos
+       name: Joppe W. Bos
+     - ins: B. Fay
+       name: Björn Fay
+     - ins: M. Joye
+       name: Marc Joye
+     - ins: M. Lochter
+       name: Manfred Lochter
+     - ins: B. Murray
+       name: Bruce Murray
+     date: 2017
+     target: https://eprint.iacr.org/2017/975.pdf
+     title: 'Differential Attacks on Deterministic Signatures'
 
 --- abstract
 
@@ -398,6 +417,21 @@ When the GCM-based ciphersuite is used with TLS 1.2, the recommendations in
 Section 6.2.1 of {{RFC7525bis}} related to deterministic nonce generation
 apply.  In addition, the integrity limits on key usage detailed in Section 4.4
 of {{RFC7525bis}} also apply.
+
+# Fault Attacks on Deterministic Signature Schemes
+
+A number of passive side-channel attacks as well as active fault-injection
+attacks (e.g., {{Ambrose2017}}) have been demonstrated that allow a malicious
+third party to gain information about the signing key if a fully deterministic
+signature scheme (e.g., {{?RFC6979}} ECDSA or EdDSA {{?RFC8032}}) is used.
+
+Most of these attacks assume physical access to the device and are therefore
+especially relevant to smart cards as well as IoT deployments with poor or
+non-existent physical security.
+
+In this security model, it is recommended to combine both randomness and
+determinism, for example, as described in
+{{?I-D.mattsson-cfrg-det-sigs-with-noise}}.
 
 # Open Issues
 
