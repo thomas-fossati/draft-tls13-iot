@@ -31,7 +31,7 @@ author:
  -
     ins: H. Tschofenig
     name: Hannes Tschofenig
-    organization: "Arm Limited"
+    organization:
     email: Hannes.Tschofenig@gmx.net
 
  -
@@ -43,7 +43,6 @@ author:
 normative:
   DTLS13: RFC9147
   TLS13: RFC8446
-  RFC7525bis: I-D.ietf-uta-rfc7525bis
 
 informative:
   DTLS-CID: RFC9146
@@ -120,8 +119,11 @@ extensions:
 * PSK Key Exchange Modes, and
 * Application-Layer Protocol Negotiation (ALPN).
 
+For external pre-shared keys {{!RFC9258}}, which defines an interface for 
+importing these types of keys into TLS/DTLS 1.3, MUST be used.
+
 The SNI extension is discussed in this document and the justification
-for implementing and using the ALPN extension can be found in {{RFC7525bis}}.
+for implementing and using the ALPN extension can be found in {{?RFC9325}}.
 
 For TLS/DTLS clients and servers implementing raw public keys and/or
 certificates the guidance for mandatory-to-implement extensions described in
@@ -187,7 +189,7 @@ protocols are needed, including DoH {{?RFC8484}} and DPRIVE {{?RFC7858}} {{?RFC8
 Since the Encrypted Client Hello extension requires use of Hybrid Public Key
 Encryption (HPKE) {{?I-D.irtf-cfrg-hpke}} and additional protocols require
 further protocol exchanges and cryptographic operations, there is a certain
-amount of overhead associated with this privacy property.
+overhead associated with this privacy feature.
 
 # Maximum Fragment Length Negotiation
 
@@ -214,7 +216,7 @@ The recommendations in Section 20 of {{!RFC7925}} are applicable.
 > situation when the server rejects 0-RTT and falls back to 1-RTT.
 
 At the time of writing, no such profile has been defined for CoAP {{CoAP}}.
-Therefore 0-RTT MUST NOT be used by CoAP applications.
+Therefore, 0-RTT MUST NOT be used by CoAP applications.
 
 # Certificate Profile
 
@@ -231,7 +233,7 @@ Certificates MUST be of type X.509 v3.
 
 ### Serial Number
 
-CAs SHALL generate non-sequential Certificate serial numbers greater than zero
+CAs SHALL generate non-sequential certificate serial numbers greater than zero
 (0) containing at least 64 bits of output from a CSPRNG (cryptographically
 secure pseudo-random number generator).
 
@@ -272,8 +274,8 @@ it is a solution that extends the capabilities offered by a raw public key appro
 ### subjectPublicKeyInfo
 
 The SubjectPublicKeyInfo structure indicates the algorithm and any associated
-parameters for the ECC public key.  This  profile uses the id-ecPublicKey
-algorithm  identifier for ECDSA signature keys, as   defined and specified in
+parameters for the ECC public key.  This profile uses the id-ecPublicKey
+algorithm  identifier for ECDSA signature keys, as defined and specified in
 {{!RFC5480}}.
 
 ## Root CA Certificate
@@ -325,7 +327,7 @@ The considerations in Section 4.4.3 of {{!RFC7925}} hold.
 Since the publication of
 RFC 7925 the need for firmware update mechanisms has been reinforced and the work
 on standardizing a secure and interoperable firmware update mechanism has made
-substantial progress, see {{?I-D.ietf-suit-architecture}}. RFC 7925 recommends to use
+substantial progress, see {{?RFC9019}}. RFC 7925 recommends to use
 a software / firmware update mechanism to provision devices with new trust anchors.
 
 The use of device management protocols for IoT devices, which often include an onboarding
@@ -414,9 +416,9 @@ superior interoperability with cloud services at the cost of a slight increase
 in the wire and peak RAM footprints.
 
 When the GCM-based ciphersuite is used with TLS 1.2, the recommendations in
-Section 6.2.1 of {{RFC7525bis}} related to deterministic nonce generation
+Section 6.2.1 of {{?RFC9325}} related to deterministic nonce generation
 apply.  In addition, the integrity limits on key usage detailed in Section 4.4
-of {{RFC7525bis}} also apply.
+of {{?RFC9325}} also apply.
 
 # Fault Attacks on Deterministic Signature Schemes
 
