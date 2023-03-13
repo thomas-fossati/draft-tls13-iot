@@ -119,8 +119,14 @@ extensions:
 * PSK Key Exchange Modes, and
 * Application-Layer Protocol Negotiation (ALPN).
 
-For external pre-shared keys {{!RFC9258}}, which defines an interface for
-importing these types of keys into TLS/DTLS 1.3, MUST be used.
+For use of external pre-shared keys {{!RFC9258}} makes the following
+recommendation:
+
+> Applications SHOULD provision separate PSKs for (D)TLS 1.3 and prior versions.
+
+Where possible, the importer interface defined in {{!RFC9258}} MUST be used
+for external PSKs. This ensures that external PSKs used in (D)TLS 1.3
+are bound to a specific key derivation function (KDF) and hash function.
 
 The SNI extension is discussed in this document and the justification
 for implementing and using the ALPN extension can be found in {{?RFC9325}}.
