@@ -119,7 +119,7 @@ extensions:
 * PSK Key Exchange Modes, and
 * Application-Layer Protocol Negotiation (ALPN).
 
-For external pre-shared keys {{!RFC9258}}, which defines an interface for 
+For external pre-shared keys {{!RFC9258}}, which defines an interface for
 importing these types of keys into TLS/DTLS 1.3, MUST be used.
 
 The SNI extension is discussed in this document and the justification
