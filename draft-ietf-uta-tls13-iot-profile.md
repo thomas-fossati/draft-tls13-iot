@@ -459,4 +459,4 @@ This document makes no requests to IANA.
 # Acknowledgments
 {:unnumbered}
 
-We would like to thank Ben Kaduk and John Mattsson.
+We would like to thank Ben Kaduk, John Mattsson and Michael Richardson.
