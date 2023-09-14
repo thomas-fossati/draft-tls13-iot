@@ -51,7 +51,7 @@ informative:
      author:
         org: IETF
      title:  Adaptive DNS Discovery (add) Working Group
-     target: [https://trustedcomputinggroup.org/resource/tpm-library-specification/](https://datatracker.ietf.org/wg/add/about/)
+     target: https://datatracker.ietf.org/wg/add/about/
      date: September 2023
     
   Ambrose2017:
