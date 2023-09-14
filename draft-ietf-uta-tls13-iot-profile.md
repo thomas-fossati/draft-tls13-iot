@@ -50,10 +50,9 @@ informative:
   ADD:
      author:
         org: IETF
-     title:  Adaptive DNS Discovery (add) Working Group
+     title: Adaptive DNS Discovery (add) Working Group
      target: https://datatracker.ietf.org/wg/add/about/
      date: September 2023
-    
   Ambrose2017:
      author:
      - ins: C. Ambrose
