@@ -1,0 +1,928 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2021-07-13T00:41:17.331858+00:00",
+  "repo": "thomas-fossati/draft-tls13-iot",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [
+    {
+      "number": 2,
+      "id": "MDU6SXNzdWU4MTIyMzIwNTc=",
+      "title": "Cert validity clarifications",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/issues/2",
+      "state": "CLOSED",
+      "author": "thomas-fossati",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "In https://mailarchive.ietf.org/arch/msg/uta/h9XcnWHV5yslFXUTmaj_mIeNj8g/ John says:\r\n```\r\nI think be good it the validity text is reworded. In RFC 7925 it says:\r\n\"Values expressed as UTC time in notBefore and notAfter fields. No validity period mandated.\"\r\n\r\nThis is to my knowledge not different from RFC 5280 as \"UTC time\" = Zulu = GMT.\r\n\r\nIf RFC 7925 mean \"UTC time\", the text actually causes confusion as \"UTC time\" is easily confused with \"UTCTime\".\r\n\r\nIf RFC 7925 mean \"UTCTime\" is probably time to allow GeneralizedTime.\r\n```",
+      "createdAt": "2021-02-19T18:15:27Z",
+      "updatedAt": "2021-07-09T12:54:17Z",
+      "closedAt": "2021-07-09T12:54:17Z",
+      "comments": []
+    },
+    {
+      "number": 5,
+      "id": "MDU6SXNzdWU4MTMzMDI1NTc=",
+      "title": "Alternative certificate formats and compression",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/issues/5",
+      "state": "CLOSED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Should also we move the ASN.1 schema from Appendix B of\r\n{{?I-D.raza-ace-cbor-certificates}} here and let it have it by reference?\r\n\r\nThe compression methods defined in {{?I-D.ietf-tls-certificate-compression}}\r\ndo not seem to deal effectively with {{!RFC7925}} profiled certificates: zlib\r\ncompresses the example cert by 9%, but other certificates and compression\r\nalgorithms do in many cases increase the overall size.  On the other hand,\r\n{{I-D.raza-ace-cbor-certificates}} provides a more efficient scheme, yielding\r\nto compression rates higher than 50% (see Section 3 of\r\n{{?I-D.mattsson-cose-cbor-cert-compress}}).  \r\n\r\nBesides TLS certificate compression and CBOR-compressed certificates there are many other techniques for reducing the size of certificates in a TLS handshake. Which solution should we recommend?",
+      "createdAt": "2021-02-22T09:11:37Z",
+      "updatedAt": "2021-07-08T15:51:27Z",
+      "closedAt": "2021-07-08T15:51:27Z",
+      "comments": [
+        {
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Here is proposed text: \r\n\r\n## Certificate Overhead \r\n\r\nIn a public key-based key exchange certificates and public keys exchanged are a major contributor to the size of the overall handshake. For example, in a regular TLS 1.3 exchange with minimalistic ECC certificates and no intermediate CA utilizing the NIST P256r1 curve with mutual authentication around 40 % for the entire handshake payload is consumed by the two exchanged certificates. \r\n\r\nHence, it is not surprising that there is a strong desire to reduce the size of certificates and certificate chains. This has lead to various standardization efforts. Here is a brief summary of what options an implementer has to reduce the bandwidth requirements of a public key-based key exchange:\r\n\r\n* Use elliptic curve cryptography (ECC) instead of RSA-based certificate due to the smaller certificate size.\r\n* Avoid deep and complex CA hierarchies to reduce the number of intermediate CA certificates that need to be transmitted.\r\n* Pay attention to the amount of information conveyed inside certificates.\r\n* Use session resumption to reduce the number of times a full handshake is needed. For DTLS 1.3 Connection IDs are available, which enables long-lasting connections. \r\n* Use the TLS cached info {{RFC7924}} extension to avoid sending certificates with every full handshake.\r\n* Use client certificate URLs {{RFC6066}} instead of full certificates for clients. \r\n* Utilize certificate compression as defined in {{I-D.ietf-tls-certificate-compression}}. \r\n* Use alternative certificate formats, where possible, such as raw public keys {{RFC7250}} or CBOR-encoded certificates {{I-D.ietf-cose-cbor-encoded-cert}}.\r\n\r\nThe use of certificate handles, as introduced in cTLS {{I-D.ietf-tls-ctls}}, is a form of caching or compressing certificates as well. \r\n\r\nWhether to use any of the above extensions or a combination of them depends on the anticipated deployment environment, the availability of code, and the constraints imposed by already deployed infrastructure (e.g. CA infrastructure, tool support).",
+          "createdAt": "2021-07-08T14:30:08Z",
+          "updatedAt": "2021-07-08T14:33:28Z"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "id": "MDU6SXNzdWU4MTMzNDc1MzE=",
+      "title": "Applied AEAD limits in (D)TLS",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/issues/7",
+      "state": "OPEN",
+      "author": "thomas-fossati",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "See https://mailarchive.ietf.org/arch/msg/cfrg/vgPiYAlu03G9_Mx1yx_IEjirZVE/ in particular regarding CCM_8",
+      "createdAt": "2021-02-22T10:07:55Z",
+      "updatedAt": "2021-07-12T11:01:02Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "body": "See also the (7525bis-scoped) related discussion in https://github.com/yaronf/I-D/issues/203",
+          "createdAt": "2021-06-14T10:14:56Z",
+          "updatedAt": "2021-06-14T10:14:56Z"
+        },
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "body": "And https://github.com/cfrg/draft-irtf-cfrg-aead-limits/issues/37\r\n\r\nIdeally, we'd want all the relevant recommendations, including anything CCM_8 related, to be captured in a single authoritative document -- i.e., irtf-aead-limits -- that we can just reference from here.",
+          "createdAt": "2021-07-12T10:59:03Z",
+          "updatedAt": "2021-07-12T11:01:02Z"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "id": "MDU6SXNzdWU5MjAyODY0OTM=",
+      "title": "certificate revocation checks in long lasting connections",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/issues/8",
+      "state": "OPEN",
+      "author": "thomas-fossati",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "See this long thread on the TLS mailing list: https://mailarchive.ietf.org/arch/msg/tls/vTxwj2iShME6c7AHg_Ub-_eS_fM/",
+      "createdAt": "2021-06-14T10:48:04Z",
+      "updatedAt": "2021-06-14T10:48:04Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 13,
+      "id": "MDU6SXNzdWU5NDE3OTIwMjM=",
+      "title": "DTLS 1.3: What should the retransmission timer recommendation be?",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/issues/13",
+      "state": "OPEN",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "DTLS 1.3 now offers per-record retransmission and therefore\r\nintroduces much less congestion risk associated with spurious retransmissions.\r\nHence, should we relax the 9s initial timeout?\r\n",
+      "createdAt": "2021-07-12T08:12:20Z",
+      "updatedAt": "2021-07-12T08:12:20Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "MDExOlB1bGxSZXF1ZXN0NDg1MzE2MzE4",
+      "title": "first stab at cert profile",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/1",
+      "state": "MERGED",
+      "author": "thomas-fossati",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2020-09-11T17:56:47Z",
+      "updatedAt": "2021-02-19T19:09:23Z",
+      "baseRepository": "thomas-fossati/draft-tls13-iot",
+      "baseRefName": "master",
+      "baseRefOid": "f3e54cf042ca0b80b35d3663e2ad282699155846",
+      "headRepository": "thomas-fossati/draft-tls13-iot",
+      "headRefName": "cert-profile",
+      "headRefOid": "cf19dc25495e65a8f7aa283fdee23c72f9fee675",
+      "closedAt": "2021-02-19T19:09:20Z",
+      "mergedAt": "2021-02-19T19:09:20Z",
+      "mergedBy": "thomas-fossati",
+      "mergeCommit": {
+        "oid": "506380425655fe5ee1dcbcb3393a1737005e4e1d"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDkyMzkzMjM3",
+          "commit": {
+            "abbreviatedOid": "cda814e"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-09-21T08:53:01Z",
+          "updatedAt": "2020-09-21T08:53:02Z",
+          "comments": [
+            {
+              "originalPosition": 78,
+              "body": "* differentiate server and client certs recommendations (ref: RFC6125)\r\n* check that implementations actually support subjectAltName",
+              "createdAt": "2020-09-21T08:53:02Z",
+              "updatedAt": "2021-02-19T19:07:18Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDkyMzk3MzU4",
+          "commit": {
+            "abbreviatedOid": "cda814e"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-09-21T08:58:39Z",
+          "updatedAt": "2020-09-21T08:58:40Z",
+          "comments": [
+            {
+              "originalPosition": 85,
+              "body": "let's bring this to the list",
+              "createdAt": "2020-09-21T08:58:40Z",
+              "updatedAt": "2021-02-19T19:07:18Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NDkyMzk4NjM3",
+          "commit": {
+            "abbreviatedOid": "cda814e"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2020-09-21T09:00:21Z",
+          "updatedAt": "2020-09-21T09:00:21Z",
+          "comments": [
+            {
+              "originalPosition": 95,
+              "body": "* TODO Hannes to check with OMA & friends what the state of the art is",
+              "createdAt": "2020-09-21T09:00:21Z",
+              "updatedAt": "2021-02-19T19:07:18Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTg1NTQ2OTkz",
+          "commit": {
+            "abbreviatedOid": "cda814e"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-02-08T14:21:47Z",
+          "updatedAt": "2021-02-08T14:21:47Z",
+          "comments": [
+            {
+              "originalPosition": 26,
+              "body": "This is in the context of preventing weak hash collision attacks where a rogue cert is constructed with the TBS part that hash-collides with a valid one.  The signature on the valid cert can be transplanted in the rogue which makes it possible to MITM.\r\n\r\nE.g., Section 7.1 of the CA/B Forum Baseline Requirements has:\r\n\r\n_\"[...] CAs SHALL generate non-sequential Certificate serial numbers greater than zero (0) containing at least 64 bits of output from a CSPRNG (cryptographically secure pseudo-random number generator).\"_\r\n\r\n(BTW, there was a bit of noise around this last April, as it turned out that when using EJBCA's default configuration the requirement was not enforced.)\r\n\r\nShould we require the same level of randomness for IoT?",
+              "createdAt": "2021-02-08T14:21:47Z",
+              "updatedAt": "2021-02-19T19:07:18Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTg1NjI1MDMx",
+          "commit": {
+            "abbreviatedOid": "cda814e"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-02-08T15:33:36Z",
+          "updatedAt": "2021-02-08T15:33:37Z",
+          "comments": [
+            {
+              "originalPosition": 95,
+              "body": "Two thoughts on SAN && other IoT-related industry standards:\r\n\r\n1. Do we want to provide explicit support for [GSMA eUICC](https://www.gsma.com/newsroom/wp-content/uploads//SGP.14-v2.0.pdf)?  If so, they use `subjectAltName`s of type `registeredID`.\r\n2. Do we want to provide explicit support for IEEE Std 802.1AR (i.e., DevID)?  If so, they use `otherName` of type `hardwareModuleName`\r\n",
+              "createdAt": "2021-02-08T15:33:37Z",
+              "updatedAt": "2021-02-19T19:07:18Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTk0NDQ3NDgx",
+          "commit": {
+            "abbreviatedOid": "cda814e"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-02-19T18:21:29Z",
+          "updatedAt": "2021-02-19T18:21:30Z",
+          "comments": [
+            {
+              "originalPosition": 85,
+              "body": "Done in https://mailarchive.ietf.org/arch/msg/uta/J3tkc60BYh_Zt4ymm4f6BqIhEUA/\r\n\r\nNo feedback received.  We will keep going with this approach.",
+              "createdAt": "2021-02-19T18:21:29Z",
+              "updatedAt": "2021-02-19T19:07:18Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTk0NDgyODEy",
+          "commit": {
+            "abbreviatedOid": "cda814e"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-02-19T19:05:47Z",
+          "updatedAt": "2021-02-19T19:05:48Z",
+          "comments": [
+            {
+              "originalPosition": 26,
+              "body": "Done in https://mailarchive.ietf.org/arch/msg/uta/J3tkc60BYh_Zt4ymm4f6BqIhEUA/\r\n\r\nHearing no pushback we assume this recommendation is OK.",
+              "createdAt": "2021-02-19T19:05:48Z",
+              "updatedAt": "2021-02-19T19:07:18Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTc3Mzk5NzY0",
+      "title": "Added text on Certificate Revocation Checks",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/3",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-02-22T07:27:28Z",
+      "updatedAt": "2021-02-22T09:02:55Z",
+      "baseRepository": "thomas-fossati/draft-tls13-iot",
+      "baseRefName": "master",
+      "baseRefOid": "506380425655fe5ee1dcbcb3393a1737005e4e1d",
+      "headRepository": "hannestschofenig/draft-tls13-iot",
+      "headRefName": "patch-1",
+      "headRefOid": "5a2607dac8a4f0491188c09d5d6592058788c7e4",
+      "closedAt": "2021-02-22T09:02:55Z",
+      "mergedAt": "2021-02-22T09:02:55Z",
+      "mergedBy": "thomas-fossati",
+      "mergeCommit": {
+        "oid": "98452c2845f9cce64e92529375015997b2101d46"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTk1MDY4ODY2",
+          "commit": {
+            "abbreviatedOid": "6136d94"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-02-22T07:34:36Z",
+          "updatedAt": "2021-02-22T07:43:26Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "```suggestion\r\n{{RFC7925}} the need for firmware update mechanisms has been reinforced and the work\r\n```",
+              "createdAt": "2021-02-22T07:34:36Z",
+              "updatedAt": "2021-02-22T08:56:34Z"
+            },
+            {
+              "originalPosition": 20,
+              "body": "either _\"a new trust anchor\"_ or _\"new trust anchors\"_",
+              "createdAt": "2021-02-22T07:37:36Z",
+              "updatedAt": "2021-02-22T08:56:34Z"
+            },
+            {
+              "originalPosition": 23,
+              "body": "```suggestion\r\nor bootstrapping mechanism, has also seen considerable uptake in deployed devices and \r\n```\r\n\r\nIt'd be nice to have a reference for this claim.",
+              "createdAt": "2021-02-22T07:40:05Z",
+              "updatedAt": "2021-02-22T08:56:34Z"
+            },
+            {
+              "originalPosition": 27,
+              "body": "```suggestion\r\nand CRLs, less relevant.\r\n```",
+              "createdAt": "2021-02-22T07:41:51Z",
+              "updatedAt": "2021-02-22T08:56:34Z"
+            },
+            {
+              "originalPosition": 14,
+              "body": "I'd drop this now that we have all the concept so well articulated.",
+              "createdAt": "2021-02-22T07:43:22Z",
+              "updatedAt": "2021-02-22T08:56:34Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTk1MTIzNzQ3",
+          "commit": {
+            "abbreviatedOid": "6136d94"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-02-22T08:54:24Z",
+          "updatedAt": "2021-02-22T08:54:24Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "I didn't want to use a reference here again because we already did so in the previous paragraph",
+              "createdAt": "2021-02-22T08:54:24Z",
+              "updatedAt": "2021-02-22T08:56:34Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTk1MTI0OTIx",
+          "commit": {
+            "abbreviatedOid": "6136d94"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-02-22T08:55:53Z",
+          "updatedAt": "2021-02-22T08:55:54Z",
+          "comments": [
+            {
+              "originalPosition": 20,
+              "body": "```suggestion\r\na software / firmware update mechanism to provision devices with new trust anchors. \r\n```",
+              "createdAt": "2021-02-22T08:55:53Z",
+              "updatedAt": "2021-02-22T08:56:34Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTk1MTI2MDg5",
+          "commit": {
+            "abbreviatedOid": "5a2607d"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-02-22T08:57:20Z",
+          "updatedAt": "2021-02-22T08:57:20Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "I think it is OK to still leave this in there. We are essentially confirming what we said previously and refine it.",
+              "createdAt": "2021-02-22T08:57:20Z",
+              "updatedAt": "2021-02-22T08:57:20Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTk1MTI5MTc4",
+          "commit": {
+            "abbreviatedOid": "5a2607d"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-02-22T09:01:01Z",
+          "updatedAt": "2021-02-22T09:01:01Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "Makes sense.  I thought of dropping this comment myself.",
+              "createdAt": "2021-02-22T09:01:01Z",
+              "updatedAt": "2021-02-22T09:01:01Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTk1MTMwNjQ4",
+          "commit": {
+            "abbreviatedOid": "5a2607d"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-02-22T09:02:48Z",
+          "updatedAt": "2021-02-22T09:02:48Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "OK.  It doesn't look like it's in the right position then.  It should sit at the end of the nice rationale you have provided.  I think we can reflow this section at another time though, it's just a matter of style.",
+              "createdAt": "2021-02-22T09:02:48Z",
+              "updatedAt": "2021-02-22T09:02:48Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTc3NDcxODI1",
+      "title": "Pointed to Github open issue list",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/4",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-02-22T09:09:56Z",
+      "updatedAt": "2021-02-22T10:11:36Z",
+      "baseRepository": "thomas-fossati/draft-tls13-iot",
+      "baseRefName": "master",
+      "baseRefOid": "98452c2845f9cce64e92529375015997b2101d46",
+      "headRepository": "hannestschofenig/draft-tls13-iot",
+      "headRefName": "patch-2",
+      "headRefOid": "2bc82d0e8853a392e70128ba3acd2bd554405a85",
+      "closedAt": "2021-02-22T10:11:36Z",
+      "mergedAt": "2021-02-22T10:11:36Z",
+      "mergedBy": "thomas-fossati",
+      "mergeCommit": {
+        "oid": "9c9ac2cd8617765339349e9512481f60c7ca687b"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTk1MTg5OTkx",
+          "commit": {
+            "abbreviatedOid": "2bc82d0"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2021-02-22T10:11:32Z",
+          "updatedAt": "2021-02-22T10:11:32Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTc3NDkyNjU4",
+      "title": "Added text about the validity of certificates",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/6",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-02-22T09:41:17Z",
+      "updatedAt": "2021-02-22T17:35:27Z",
+      "baseRepository": "thomas-fossati/draft-tls13-iot",
+      "baseRefName": "master",
+      "baseRefOid": "98452c2845f9cce64e92529375015997b2101d46",
+      "headRepository": "hannestschofenig/draft-tls13-iot",
+      "headRefName": "patch-3",
+      "headRefOid": "610fcf5c24a40b744276a39bd9c0fe7da68e5692",
+      "closedAt": "2021-02-22T17:35:26Z",
+      "mergedAt": "2021-02-22T17:35:26Z",
+      "mergedBy": "thomas-fossati",
+      "mergeCommit": {
+        "oid": "e750f63bece63031352b88d39884e92eb76220d8"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTk1MTg5Njg3",
+          "commit": {
+            "abbreviatedOid": "333ac8c"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-02-22T10:11:09Z",
+          "updatedAt": "2021-02-22T10:11:09Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "Should we add considerations about the dual - i.e., devices without reliable source of time when generating a certificate?",
+              "createdAt": "2021-02-22T10:11:09Z",
+              "updatedAt": "2021-02-22T17:31:27Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTk1MjExMzA2",
+          "commit": {
+            "abbreviatedOid": "6da9fad"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "what I was suggesting is setting a notBefore to some known time in the past (such as the date of publication of this draft or similar.)",
+          "createdAt": "2021-02-22T10:35:20Z",
+          "updatedAt": "2021-02-22T10:36:27Z",
+          "comments": [
+            {
+              "originalPosition": 9,
+              "body": "```suggestion\r\nthe device. While this approach does not utilize certificates to its widest extent, \r\n```",
+              "createdAt": "2021-02-22T10:35:20Z",
+              "updatedAt": "2021-02-22T17:31:27Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "id": "MDExOlB1bGxSZXF1ZXN0Njg2MjI3NTY1",
+      "title": "More validity considerations",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/9",
+      "state": "MERGED",
+      "author": "thomas-fossati",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixes #2",
+      "createdAt": "2021-07-08T18:14:45Z",
+      "updatedAt": "2021-07-09T12:54:17Z",
+      "baseRepository": "thomas-fossati/draft-tls13-iot",
+      "baseRefName": "master",
+      "baseRefOid": "117aa50a1cab89e0882377212e30f887c01687c9",
+      "headRepository": "thomas-fossati/draft-tls13-iot",
+      "headRefName": "validity",
+      "headRefOid": "bdd0bb369087a4634ba56d501e02943fe3b61173",
+      "closedAt": "2021-07-09T12:54:17Z",
+      "mergedAt": "2021-07-09T12:54:17Z",
+      "mergedBy": "thomas-fossati",
+      "mergeCommit": {
+        "oid": "a3399682d3d47ab03ca583e96db4558400c9bc33"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzAyOTM4NDg2",
+          "commit": {
+            "abbreviatedOid": "b1f8302"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-07-09T11:06:24Z",
+          "updatedAt": "2021-07-09T11:06:25Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "```suggestion\r\nnotBefore and notAfter fields, as described in Section 4.1.2.5 of {{!RFC5280}}.\r\n```",
+              "createdAt": "2021-07-09T11:06:24Z",
+              "updatedAt": "2021-07-09T11:06:25Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "id": "MDExOlB1bGxSZXF1ZXN0Njg3NjAzNDEw",
+      "title": "Extending the text on compression",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/10",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-07-12T08:00:17Z",
+      "updatedAt": "2021-07-12T09:06:25Z",
+      "baseRepository": "thomas-fossati/draft-tls13-iot",
+      "baseRefName": "master",
+      "baseRefOid": "a3399682d3d47ab03ca583e96db4558400c9bc33",
+      "headRepository": "thomas-fossati/draft-tls13-iot",
+      "headRefName": "hannestschofenig-patch-1",
+      "headRefOid": "980b797ae1a35c43e8cbeaa456f3f39675e13a65",
+      "closedAt": "2021-07-12T09:06:21Z",
+      "mergedAt": "2021-07-12T09:06:20Z",
+      "mergedBy": "thomas-fossati",
+      "mergeCommit": {
+        "oid": "acd7c38cdd83d62c4a03c79086c704b4b2da1735"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzAzODM0Nzk3",
+          "commit": {
+            "abbreviatedOid": "4ad8736"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "LGTM, just a few editorial suggestions",
+          "createdAt": "2021-07-12T08:13:26Z",
+          "updatedAt": "2021-07-12T08:18:14Z",
+          "comments": [
+            {
+              "originalPosition": 9,
+              "body": "```suggestion\r\nWith regards to the handshake itself, various strategies have \r\n```",
+              "createdAt": "2021-07-12T08:13:27Z",
+              "updatedAt": "2021-07-12T08:18:14Z"
+            },
+            {
+              "originalPosition": 11,
+              "body": "```suggestion\r\noverhead, depending on the type of key confirmations, when compared to previous versions of the \r\n```",
+              "createdAt": "2021-07-12T08:17:10Z",
+              "updatedAt": "2021-07-12T08:18:14Z"
+            },
+            {
+              "originalPosition": 12,
+              "body": "```suggestion\r\nprotocol. Additionally, the work on Compact TLS (cTLS) {{?I-D.ietf-tls-ctls}} has taken compression of the handshake \r\n```",
+              "createdAt": "2021-07-12T08:17:47Z",
+              "updatedAt": "2021-07-12T08:18:14Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "id": "MDExOlB1bGxSZXF1ZXN0Njg3NjExNzYz",
+      "title": "Add further text to the Server Name Indication section",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/11",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-07-12T08:10:48Z",
+      "updatedAt": "2021-07-12T09:03:45Z",
+      "baseRepository": "thomas-fossati/draft-tls13-iot",
+      "baseRefName": "master",
+      "baseRefOid": "a3399682d3d47ab03ca583e96db4558400c9bc33",
+      "headRepository": "thomas-fossati/draft-tls13-iot",
+      "headRefName": "hannestschofenig-patch-2",
+      "headRefOid": "d9d82420cb34fc96687a7e51868e39909956720d",
+      "closedAt": "2021-07-12T09:03:45Z",
+      "mergedAt": "2021-07-12T09:03:45Z",
+      "mergedBy": "thomas-fossati",
+      "mergeCommit": {
+        "oid": "4f89c17150ead1a0426fb8b60f963fc0be51cafd"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzAzODQwOTI5",
+          "commit": {
+            "abbreviatedOid": "704a8e5"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-07-12T08:20:13Z",
+          "updatedAt": "2021-07-12T08:22:24Z",
+          "comments": [
+            {
+              "originalPosition": 19,
+              "body": "```suggestion\r\nprotocols are needed, including DoH {{?RFC8484}} and DPRIVE {{?RFC7858}} {{?RFC8094}}.\r\n```",
+              "createdAt": "2021-07-12T08:20:14Z",
+              "updatedAt": "2021-07-12T08:22:24Z"
+            },
+            {
+              "originalPosition": 13,
+              "body": "should we use more explicit BCP14-enhanced verbs instead of just \"mandates\"?",
+              "createdAt": "2021-07-12T08:21:54Z",
+              "updatedAt": "2021-07-12T08:22:24Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzAzODQ2OTIw",
+          "commit": {
+            "abbreviatedOid": "e2e1c75"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-07-12T08:26:51Z",
+          "updatedAt": "2021-07-12T08:26:51Z",
+          "comments": [
+            {
+              "originalPosition": 13,
+              "body": "In an earlier section we already say \"MUST implement\" and so I didn't want to repeat it again\r\n",
+              "createdAt": "2021-07-12T08:26:51Z",
+              "updatedAt": "2021-07-12T08:26:51Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzAzODc2NDA0",
+          "commit": {
+            "abbreviatedOid": "e2e1c75"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-07-12T08:58:11Z",
+          "updatedAt": "2021-07-12T08:58:11Z",
+          "comments": [
+            {
+              "originalPosition": 13,
+              "body": "\ud83d\udc4d ",
+              "createdAt": "2021-07-12T08:58:11Z",
+              "updatedAt": "2021-07-12T08:58:11Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzAzODc5Mzc3",
+          "commit": {
+            "abbreviatedOid": "e2e1c75"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-07-12T09:01:14Z",
+          "updatedAt": "2021-07-12T09:01:14Z",
+          "comments": [
+            {
+              "originalPosition": 21,
+              "body": "```suggestion\r\nEncryption (HPKE) {{?I-D.irtf-cfrg-hpke}} and additional protocols require \r\n```",
+              "createdAt": "2021-07-12T09:01:14Z",
+              "updatedAt": "2021-07-12T09:01:14Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "id": "MDExOlB1bGxSZXF1ZXN0Njg3NjEyNDkz",
+      "title": "Removed question about timeout configuration",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/12",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Moved it to Github issues",
+      "createdAt": "2021-07-12T08:11:49Z",
+      "updatedAt": "2021-07-12T08:22:53Z",
+      "baseRepository": "thomas-fossati/draft-tls13-iot",
+      "baseRefName": "master",
+      "baseRefOid": "a3399682d3d47ab03ca583e96db4558400c9bc33",
+      "headRepository": "thomas-fossati/draft-tls13-iot",
+      "headRefName": "hannestschofenig-patch-3",
+      "headRefOid": "766cbc8065d20dbb7d1d6f18568f61548f64d362",
+      "closedAt": "2021-07-12T08:22:53Z",
+      "mergedAt": "2021-07-12T08:22:53Z",
+      "mergedBy": "thomas-fossati",
+      "mergeCommit": {
+        "oid": "9b3083daded6d5340ba783e18fd8b4a28da7d0c9"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzAzODQzMjU0",
+          "commit": {
+            "abbreviatedOid": "766cbc8"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2021-07-12T08:22:48Z",
+          "updatedAt": "2021-07-12T08:22:48Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "id": "MDExOlB1bGxSZXF1ZXN0Njg3NjE2OTk1",
+      "title": "Added requirement to implement the ALPN extension",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/14",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-07-12T08:17:32Z",
+      "updatedAt": "2021-07-12T08:40:03Z",
+      "baseRepository": "thomas-fossati/draft-tls13-iot",
+      "baseRefName": "master",
+      "baseRefOid": "a3399682d3d47ab03ca583e96db4558400c9bc33",
+      "headRepository": "thomas-fossati/draft-tls13-iot",
+      "headRefName": "hannestschofenig-patch-4",
+      "headRefOid": "e9848057477fa8bc5f700aa583c599b9d83b4f80",
+      "closedAt": "2021-07-12T08:40:03Z",
+      "mergedAt": "2021-07-12T08:40:03Z",
+      "mergedBy": "thomas-fossati",
+      "mergeCommit": {
+        "oid": "c396f02dc1403af28650e58f055717e1a9a17d8a"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzAzODQ0NjQ1",
+          "commit": {
+            "abbreviatedOid": "8330f3d"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-07-12T08:24:20Z",
+          "updatedAt": "2021-07-12T08:24:25Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "```suggestion\r\nfor implementing and using the ALPN extension can be found in {{?I-D.ietf-uta-rfc7525bis}}.\r\n```",
+              "createdAt": "2021-07-12T08:24:20Z",
+              "updatedAt": "2021-07-12T08:24:25Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
