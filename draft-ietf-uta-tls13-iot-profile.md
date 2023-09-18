@@ -45,7 +45,7 @@ normative:
   TLS13: RFC8446
 
 informative:
-  RFC9146: 
+  RFC9146:
   CoAP: RFC7252
   ADD:
      author:
@@ -264,11 +264,11 @@ recommendations apply to which entity in the PKI hierarchy.
 The content is also better aligned with the IEEE 802.1AR {{8021AR}}
 specification, which introduces the terms Initial Device Identifier
 (IDevID) and Locally Significant Device Identifiers (LDevIDs).
-IDevIDs and LDevIDs are Device Identifier (DevID) and a DevID consists of 
+IDevIDs and LDevIDs are Device Identifier (DevID) and a DevID consists of
 
 - a private key,
 - a certificate (containing the public key and the identifier certified by
-the certificate's issuer), and 
+the certificate's issuer), and
 - a certificate chain up to a trust anchor. The trust anchor is is usually
 the root certificate).
 
@@ -310,7 +310,7 @@ Certificates MUST be of type X.509 v3. Note that TLS 1.3 allows to
 convey payloads other than X.509 certificates in the Certificate
 message. The description in this section only focuses on X.509 v3
 certificates and leaves the description of other formats to other
-sections or even other specifications. 
+sections or even other specifications.
 
 ### Serial Number
 
@@ -566,7 +566,7 @@ recommendations what identifiers to use and the deployment situation is
 fragmented.
 
 The Subject field MAY include a unique device serial number. If the serial
-number is included, it MUST be encoded in the serialNumber attribute. 
+number is included, it MUST be encoded in the serialNumber attribute.
 
 {{!RFC5280}} defines: "The subject alternative name extension allows identities
 to be bound to the subject of the certificate. These identities may be included
@@ -650,7 +650,7 @@ optimizations typically get implemented last.
 * Use the TLS cached info {{?RFC7924}} extension to avoid sending certificates
   with every full handshake.
 * Use client certificate URLs {{?RFC6066}} instead of full certificates for
-  clients. When applications perform TLS client authentication via 
+  clients. When applications perform TLS client authentication via
   DNS-Based Authentication of Named Entities (DANE) TLSA records then the
   {{?I-D.ietf-dance-tls-clientid}} specification may be used to reduce the
   packets on the wire. Note: The term "TLSA" does not stand for anything;
