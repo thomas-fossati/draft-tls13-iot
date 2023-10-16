@@ -7,29 +7,30 @@
 <title>TLS/DTLS 1.3 Profiles for the Internet of Things</title>
 <meta content="Hannes Tschofenig" name="author">
 <meta content="Thomas Fossati" name="author">
+<meta content="Michael Richardson" name="author">
 <meta content="
        This document is a companion to RFC 7925 and defines TLS/DTLS 1.3 profiles for
 Internet of Things devices.  It also updates RFC 7925 with regards to the X.509
 certificate profile. 
     " name="description">
-<meta content="xml2rfc 3.18.0" name="generator">
+<meta content="xml2rfc 3.18.1" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-uta-tls13-iot-profile-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.18.0
+  xml2rfc 3.18.1
     Python 3.11.5
     ConfigArgParse 1.5.3
     google-i18n-address 3.1.0
     intervaltree 3.1.0
     Jinja2 3.1.2
     lxml 4.9.3
-    platformdirs 3.10.0
+    platformdirs 3.11.0
     pycountry 22.3.5
     PyYAML 6.0
     requests 2.31.0
     setuptools 67.7.2
     six 1.16.0
-    wcwidth 0.2.6
+    wcwidth 0.2.8
 -->
 <link href="draft-ietf-uta-tls13-iot-profile.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -652,7 +653,7 @@ sub, sup {
 }
 #toc nav li {
   line-height: 1.3em;
-  margin: 0.75em 0;
+  margin: 2px 0;
   padding-left: 1.2em;
   text-indent: -1.2em;
 }
@@ -745,7 +746,7 @@ hr.addr {
     z-index: 2;
     top: 0;
     right: 0;
-    padding: 0;
+    padding: 1px 0 0 0;
     margin: 0;
     border-bottom: 1px solid #ccc;
     opacity: 0.6;
@@ -869,16 +870,13 @@ hr.addr {
     border-top: none;
     padding-top: 0;
   }
-  figure, pre {
+  figure, pre, .vcard {
     page-break-inside: avoid;
-  }
-  figure {
-    overflow: scroll;
   }
   h1, h2, h3, h4, h5, h6 {
     page-break-after: avoid;
   }
-  h2+*, h3+*, h4+*, h5+*, h6+* {
+  :is(h2, h3, h4, h5, h6)+*, dd {
     page-break-before: avoid;
   }
   pre {
@@ -891,6 +889,9 @@ hr.addr {
   }
   td {
     border-top: 1px solid #ddd;
+  }
+  .toplink {
+    display: none;
   }
 }
 
@@ -992,28 +993,6 @@ address div.right {
   text-align: right;
 }
 
-/* Give the table caption label the same styling as the figcaption */
-
-@media print {
-  .toplink {
-    display: none;
-  }
-
-  /* avoid overwriting the top border line with the ToC header */
-  #toc {
-    padding-top: 1px;
-  }
-
-  /* Avoid page breaks inside dl and author address entries */
-  dd {
-    page-break-before: avoid;
-  }
-  .vcard {
-    page-break-inside: avoid;
-  }
-
-}
-
 /* Dark mode. */
 @media (prefers-color-scheme: dark) {
 :root {
@@ -1050,11 +1029,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">TLS/DTLS 1.3 IoT Profiles</td>
-<td class="right">September 2023</td>
+<td class="right">October 2023</td>
 </tr></thead>
 <tfoot><tr>
-<td class="left">Tschofenig &amp; Fossati</td>
-<td class="center">Expires 17 March 2024</td>
+<td class="left">Tschofenig, et al.</td>
+<td class="center">Expires 18 April 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1070,12 +1049,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc7925" class="eref">7925</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-09-14" class="published">14 September 2023</time>
+<time datetime="2023-10-16" class="published">16 October 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-03-17">17 March 2024</time></dd>
+<dd class="expires"><time datetime="2024-04-18">18 April 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1084,6 +1063,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <div class="author">
       <div class="author-name">T. Fossati</div>
 <div class="org">Linaro</div>
+</div>
+<div class="author">
+      <div class="author-name">M. Richardson</div>
+<div class="org">Sandelman Software Works</div>
 </div>
 </dd>
 </dl>
@@ -1122,7 +1105,7 @@ certificate profile.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 17 March 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 18 April 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1220,63 +1203,112 @@ certificate profile.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
                     <p id="section-toc.1-1.15.2.1.2.5.1"><a href="#section-15.1.5" class="auto internal xref">15.1.5</a>.  <a href="#name-validity" class="internal xref">Validity</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.1.2.6">
-                    <p id="section-toc.1-1.15.2.1.2.6.1"><a href="#section-15.1.6" class="auto internal xref">15.1.6</a>.  <a href="#name-subjectpublickeyinfo" class="internal xref">subjectPublicKeyInfo</a></p>
+                    <p id="section-toc.1-1.15.2.1.2.6.1"><a href="#section-15.1.6" class="auto internal xref">15.1.6</a>.  <a href="#name-subject-public-key-info" class="internal xref">Subject Public Key Info</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.1.2.7">
+                    <p id="section-toc.1-1.15.2.1.2.7.1"><a href="#section-15.1.7" class="auto internal xref">15.1.7</a>.  <a href="#name-certificate-revocation-chec" class="internal xref">Certificate Revocation Checks</a></p>
 </li>
                 </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.2">
                 <p id="section-toc.1-1.15.2.2.1"><a href="#section-15.2" class="auto internal xref">15.2</a>.  <a href="#name-root-ca-certificate" class="internal xref">Root CA Certificate</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.2.2.1">
+                    <p id="section-toc.1-1.15.2.2.2.1.1"><a href="#section-15.2.1" class="auto internal xref">15.2.1</a>.  <a href="#name-subject" class="internal xref">Subject</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.2.2.2">
+                    <p id="section-toc.1-1.15.2.2.2.2.1"><a href="#section-15.2.2" class="auto internal xref">15.2.2</a>.  <a href="#name-authority-key-identifier" class="internal xref">Authority Key Identifier</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.2.2.3">
+                    <p id="section-toc.1-1.15.2.2.2.3.1"><a href="#section-15.2.3" class="auto internal xref">15.2.3</a>.  <a href="#name-subject-key-identifier" class="internal xref">Subject Key Identifier</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.2.2.4">
+                    <p id="section-toc.1-1.15.2.2.2.4.1"><a href="#section-15.2.4" class="auto internal xref">15.2.4</a>.  <a href="#name-key-usage" class="internal xref">Key Usage</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.2.2.5">
+                    <p id="section-toc.1-1.15.2.2.2.5.1"><a href="#section-15.2.5" class="auto internal xref">15.2.5</a>.  <a href="#name-basic-constraints" class="internal xref">Basic Constraints</a></p>
+</li>
+                </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.3">
                 <p id="section-toc.1-1.15.2.3.1"><a href="#section-15.3" class="auto internal xref">15.3</a>.  <a href="#name-subordinate-ca-certificate" class="internal xref">Subordinate CA Certificate</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.3.2.1">
+                    <p id="section-toc.1-1.15.2.3.2.1.1"><a href="#section-15.3.1" class="auto internal xref">15.3.1</a>.  <a href="#name-subject-2" class="internal xref">Subject</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.3.2.2">
+                    <p id="section-toc.1-1.15.2.3.2.2.1"><a href="#section-15.3.2" class="auto internal xref">15.3.2</a>.  <a href="#name-authority-key-identifier-2" class="internal xref">Authority Key Identifier</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.3.2.3">
+                    <p id="section-toc.1-1.15.2.3.2.3.1"><a href="#section-15.3.3" class="auto internal xref">15.3.3</a>.  <a href="#name-subject-key-identifier-2" class="internal xref">Subject Key Identifier</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.3.2.4">
+                    <p id="section-toc.1-1.15.2.3.2.4.1"><a href="#section-15.3.4" class="auto internal xref">15.3.4</a>.  <a href="#name-key-usage-2" class="internal xref">Key Usage</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.3.2.5">
+                    <p id="section-toc.1-1.15.2.3.2.5.1"><a href="#section-15.3.5" class="auto internal xref">15.3.5</a>.  <a href="#name-basic-constraints-2" class="internal xref">Basic Constraints</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.3.2.6">
+                    <p id="section-toc.1-1.15.2.3.2.6.1"><a href="#section-15.3.6" class="auto internal xref">15.3.6</a>.  <a href="#name-crl-distribution-point" class="internal xref">CRL Distribution Point</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.3.2.7">
+                    <p id="section-toc.1-1.15.2.3.2.7.1"><a href="#section-15.3.7" class="auto internal xref">15.3.7</a>.  <a href="#name-authority-information-acces" class="internal xref">Authority Information Access</a></p>
+</li>
+                </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.4">
                 <p id="section-toc.1-1.15.2.4.1"><a href="#section-15.4" class="auto internal xref">15.4</a>.  <a href="#name-end-entity-certificate" class="internal xref">End Entity Certificate</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.4.2.1">
-                    <p id="section-toc.1-1.15.2.4.2.1.1"><a href="#section-15.4.1" class="auto internal xref">15.4.1</a>.  <a href="#name-client-certificate-subject" class="internal xref">Client Certificate Subject</a></p>
+                    <p id="section-toc.1-1.15.2.4.2.1.1"><a href="#section-15.4.1" class="auto internal xref">15.4.1</a>.  <a href="#name-subject-3" class="internal xref">Subject</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.4.2.2">
+                    <p id="section-toc.1-1.15.2.4.2.2.1"><a href="#section-15.4.2" class="auto internal xref">15.4.2</a>.  <a href="#name-authority-key-identifier-3" class="internal xref">Authority Key Identifier</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.4.2.3">
+                    <p id="section-toc.1-1.15.2.4.2.3.1"><a href="#section-15.4.3" class="auto internal xref">15.4.3</a>.  <a href="#name-subject-key-identifier-3" class="internal xref">Subject Key Identifier</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15.2.4.2.4">
+                    <p id="section-toc.1-1.15.2.4.2.4.1"><a href="#section-15.4.4" class="auto internal xref">15.4.4</a>.  <a href="#name-key-usage-3" class="internal xref">Key Usage</a></p>
 </li>
                 </ul>
 </li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.16">
-            <p id="section-toc.1-1.16.1"><a href="#section-16" class="auto internal xref">16</a>. <a href="#name-certificate-revocation-chec" class="internal xref">Certificate Revocation Checks</a></p>
+            <p id="section-toc.1-1.16.1"><a href="#section-16" class="auto internal xref">16</a>. <a href="#name-certificate-overhead" class="internal xref">Certificate Overhead</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.17">
-            <p id="section-toc.1-1.17.1"><a href="#section-17" class="auto internal xref">17</a>. <a href="#name-certificate-overhead" class="internal xref">Certificate Overhead</a></p>
+            <p id="section-toc.1-1.17.1"><a href="#section-17" class="auto internal xref">17</a>. <a href="#name-ciphersuites" class="internal xref">Ciphersuites</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.18">
-            <p id="section-toc.1-1.18.1"><a href="#section-18" class="auto internal xref">18</a>. <a href="#name-ciphersuites" class="internal xref">Ciphersuites</a></p>
+            <p id="section-toc.1-1.18.1"><a href="#section-18" class="auto internal xref">18</a>. <a href="#name-fault-attacks-on-determinis" class="internal xref">Fault Attacks on Deterministic Signature Schemes</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.19">
-            <p id="section-toc.1-1.19.1"><a href="#section-19" class="auto internal xref">19</a>. <a href="#name-fault-attacks-on-determinis" class="internal xref">Fault Attacks on Deterministic Signature Schemes</a></p>
+            <p id="section-toc.1-1.19.1"><a href="#section-19" class="auto internal xref">19</a>. <a href="#name-open-issues" class="internal xref">Open Issues</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.20">
-            <p id="section-toc.1-1.20.1"><a href="#section-20" class="auto internal xref">20</a>. <a href="#name-open-issues" class="internal xref">Open Issues</a></p>
+            <p id="section-toc.1-1.20.1"><a href="#section-20" class="auto internal xref">20</a>. <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.21">
-            <p id="section-toc.1-1.21.1"><a href="#section-21" class="auto internal xref">21</a>. <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
+            <p id="section-toc.1-1.21.1"><a href="#section-21" class="auto internal xref">21</a>. <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.22">
-            <p id="section-toc.1-1.22.1"><a href="#section-22" class="auto internal xref">22</a>. <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.23">
-            <p id="section-toc.1-1.23.1"><a href="#section-23" class="auto internal xref">23</a>. <a href="#name-references" class="internal xref">References</a></p>
+            <p id="section-toc.1-1.22.1"><a href="#section-22" class="auto internal xref">22</a>. <a href="#name-references" class="internal xref">References</a></p>
 <ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.23.2.1">
-                <p id="section-toc.1-1.23.2.1.1"><a href="#section-23.1" class="auto internal xref">23.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.22.2.1">
+                <p id="section-toc.1-1.22.2.1.1"><a href="#section-22.1" class="auto internal xref">22.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.23.2.2">
-                <p id="section-toc.1-1.23.2.2.1"><a href="#section-23.2" class="auto internal xref">23.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.22.2.2">
+                <p id="section-toc.1-1.22.2.2.1"><a href="#section-22.2" class="auto internal xref">22.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
 </li>
             </ul>
 </li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.24">
-            <p id="section-toc.1-1.24.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.23">
+            <p id="section-toc.1-1.23.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
 </li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.25">
-            <p id="section-toc.1-1.25.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.24">
+            <p id="section-toc.1-1.24.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1330,17 +1362,23 @@ P-256) and SHOULD support key exchange with X25519.<a href="#section-2-3" class=
 <p id="section-2-4">A plain PSK-based TLS/DTLS client or server MUST implement the following
 extensions:<a href="#section-2-4" class="pilcrow">¶</a></p>
 <ul class="compact">
-<li class="compact" id="section-2-5.1">Supported Versions,<a href="#section-2-5.1" class="pilcrow">¶</a>
+<li class="compact" id="section-2-5.1">
+          <p id="section-2-5.1.1">Supported Versions,<a href="#section-2-5.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="compact" id="section-2-5.2">Cookie,<a href="#section-2-5.2" class="pilcrow">¶</a>
+        <li class="compact" id="section-2-5.2">
+          <p id="section-2-5.2.1">Cookie,<a href="#section-2-5.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="compact" id="section-2-5.3">Server Name Indication (SNI),<a href="#section-2-5.3" class="pilcrow">¶</a>
+        <li class="compact" id="section-2-5.3">
+          <p id="section-2-5.3.1">Server Name Indication (SNI),<a href="#section-2-5.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="compact" id="section-2-5.4">Pre-Shared Key,<a href="#section-2-5.4" class="pilcrow">¶</a>
+        <li class="compact" id="section-2-5.4">
+          <p id="section-2-5.4.1">Pre-Shared Key,<a href="#section-2-5.4.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="compact" id="section-2-5.5">PSK Key Exchange Modes, and<a href="#section-2-5.5" class="pilcrow">¶</a>
+        <li class="compact" id="section-2-5.5">
+          <p id="section-2-5.5.1">PSK Key Exchange Modes, and<a href="#section-2-5.5.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="compact" id="section-2-5.6">Application-Layer Protocol Negotiation (ALPN).<a href="#section-2-5.6" class="pilcrow">¶</a>
+        <li class="compact" id="section-2-5.6">
+          <p id="section-2-5.6.1">Application-Layer Protocol Negotiation (ALPN).<a href="#section-2-5.6.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="section-2-6">For use of external pre-shared keys <span>[<a href="#RFC9258" class="cite xref">RFC9258</a>]</span> makes the following
@@ -1508,20 +1546,67 @@ Therefore, 0-RTT MUST NOT be used by CoAP applications.<a href="#section-14-3" c
 <a href="#section-15" class="section-number selfRef">15. </a><a href="#name-certificate-profile" class="section-name selfRef">Certificate Profile</a>
       </h2>
 <p id="section-15-1">This section contains updates and clarifications to the certificate profile
-defined in <span>[<a href="#RFC7925" class="cite xref">RFC7925</a>]</span>.  The content of Table 1 of <span>[<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> has been
+defined in <span>[<a href="#RFC7925" class="cite xref">RFC7925</a>]</span>. The content of Table 1 of <span>[<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> has been
 split by certificate "type" in order to clarify exactly what requirements and
 recommendations apply to which entity in the PKI hierarchy.<a href="#section-15-1" class="pilcrow">¶</a></p>
+<p id="section-15-2">The content is also better aligned with the IEEE 802.1AR <span>[<a href="#_8021AR" class="cite xref">_8021AR</a>]</span>
+specification, which introduces the terms Initial Device Identifier
+(IDevID) and Locally Significant Device Identifiers (LDevIDs).
+IDevIDs and LDevIDs are Device Identifier (DevID) and a DevID consists of<a href="#section-15-2" class="pilcrow">¶</a></p>
+<ul class="compact">
+<li class="compact" id="section-15-3.1">
+          <p id="section-15-3.1.1">a private key,<a href="#section-15-3.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="compact" id="section-15-3.2">
+          <p id="section-15-3.2.1">a certificate (containing the public key and the identifier certified by
+the certificate's issuer), and<a href="#section-15-3.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="compact" id="section-15-3.3">
+          <p id="section-15-3.3.1">a certificate chain up to a trust anchor. The trust anchor is is usually
+the root certificate).<a href="#section-15-3.3.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="section-15-4">The IDevID is typically provisioned by a manufacturer and signed by the
+manufacturer CA. It is then used to obtain operational certificates,
+the LDevIDs, from the operator or owner of the device. Some protocols
+also introduce an additional hierarchy with application instance
+certificates, which are obtained for use with specific applications.<a href="#section-15-4" class="pilcrow">¶</a></p>
+<p id="section-15-5">IDevIDs are primarily used with device onboarding or bootstrapping protocols,
+such as the Bootstrapping Remote Secure Key Infrastructure (BRSKI) protocol
+<span>[<a href="#RFC8995" class="cite xref">RFC8995</a>]</span> or by LwM2M Bootstrap <span>[<a href="#LwM2M" class="cite xref">LwM2M</a>]</span>. Hence, the use of IDevIDs
+is limited in purpose even though they have a long lifetime, or do not expire
+at all. While some bootstrapping protocols use TLS (and therefore make use of
+the IDevID as part of client authentication) there are other bootstrapping
+protocols that do not use TLS/DTLS for client authentication, such as FIDO
+Device Onboarding (FDO) <span>[<a href="#FDO" class="cite xref">FDO</a>]</span>.  In many cases, a profile for the certificate
+content is provided by those specifications. For these reasons, this
+specification focuses on the description of LDevIDs.<a href="#section-15-5" class="pilcrow">¶</a></p>
+<p id="section-15-6">While the IEEE 802.1AR terminology is utilized in this document,
+this specification does not claim conformance to IEEE 802.1AR
+since such a compliance statement goes beyond the use of the terminology
+and the certificate content and would include the use of management
+protocols, fulfillment of certain hardware security requirements, and
+interfaces to access these hardware security modules. Placing these
+requirements on network equipment like routers may be appropriate but
+designers of constrained IoT devices have opted for different protocols
+and hardware security choices.<a href="#section-15-6" class="pilcrow">¶</a></p>
 <div id="all-certificates">
 <section id="section-15.1">
         <h3 id="name-all-certificates">
 <a href="#section-15.1" class="section-number selfRef">15.1. </a><a href="#name-all-certificates" class="section-name selfRef">All Certificates</a>
         </h3>
+<p id="section-15.1-1">To avoid repetition, this section outlines requirements on X.509
+certificates applicable to all PKI entities.<a href="#section-15.1-1" class="pilcrow">¶</a></p>
 <div id="version">
 <section id="section-15.1.1">
           <h4 id="name-version">
 <a href="#section-15.1.1" class="section-number selfRef">15.1.1. </a><a href="#name-version" class="section-name selfRef">Version</a>
           </h4>
-<p id="section-15.1.1-1">Certificates MUST be of type X.509 v3.<a href="#section-15.1.1-1" class="pilcrow">¶</a></p>
+<p id="section-15.1.1-1">Certificates MUST be of type X.509 v3. Note that TLS 1.3 allows to
+convey payloads other than X.509 certificates in the Certificate
+message. The description in this section only focuses on X.509 v3
+certificates and leaves the description of other formats to other
+sections or even other specifications.<a href="#section-15.1.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="serial-number">
@@ -1529,9 +1614,12 @@ recommendations apply to which entity in the PKI hierarchy.<a href="#section-15-
           <h4 id="name-serial-number">
 <a href="#section-15.1.2" class="section-number selfRef">15.1.2. </a><a href="#name-serial-number" class="section-name selfRef">Serial Number</a>
           </h4>
-<p id="section-15.1.2-1">CAs SHALL generate non-sequential certificate serial numbers greater than zero
-(0) containing at least 64 bits of output from a CSPRNG (cryptographically
-secure pseudo-random number generator).<a href="#section-15.1.2-1" class="pilcrow">¶</a></p>
+<p id="section-15.1.2-1">CAs MUST generate non-sequential serial numbers greater than zero
+(0) up to 20 octects from a cryptographically secure
+pseudo-random number generator. The serial number MUST be unique
+for each certificate issued by a given CA (i.e., the issuer name
+and the serial number uniquely identify a certificate).<a href="#section-15.1.2-1" class="pilcrow">¶</a></p>
+<p id="section-15.1.2-2">This requirement is aligned with <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>.<a href="#section-15.1.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="signature">
@@ -1540,6 +1628,11 @@ secure pseudo-random number generator).<a href="#section-15.1.2-1" class="pilcro
 <a href="#section-15.1.3" class="section-number selfRef">15.1.3. </a><a href="#name-signature" class="section-name selfRef">Signature</a>
           </h4>
 <p id="section-15.1.3-1">The signature MUST be ecdsa-with-SHA256 or stronger <span>[<a href="#RFC5758" class="cite xref">RFC5758</a>]</span>.<a href="#section-15.1.3-1" class="pilcrow">¶</a></p>
+<p id="section-15.1.3-2">Note: In contrast to IEEE 802.1AR this specification does not require
+end entity certificates, subordinate CA certificates, and CA
+certificates to use the same signature algorithm. Furthermore,
+this specification does not utlize RSA for use with constrained IoT
+devices and networks.<a href="#section-15.1.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="issuer">
@@ -1547,7 +1640,9 @@ secure pseudo-random number generator).<a href="#section-15.1.2-1" class="pilcro
           <h4 id="name-issuer">
 <a href="#section-15.1.4" class="section-number selfRef">15.1.4. </a><a href="#name-issuer" class="section-name selfRef">Issuer</a>
           </h4>
-<p id="section-15.1.4-1">Contains the DN of the issuing CA.<a href="#section-15.1.4-1" class="pilcrow">¶</a></p>
+<p id="section-15.1.4-1">The issuer field MUST contain a non-empty distinguished name (DN)
+of the entity that has signed and issued the certificate in accordance
+to <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>.<a href="#section-15.1.4-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="validity">
@@ -1555,37 +1650,88 @@ secure pseudo-random number generator).<a href="#section-15.1.2-1" class="pilcro
           <h4 id="name-validity">
 <a href="#section-15.1.5" class="section-number selfRef">15.1.5. </a><a href="#name-validity" class="section-name selfRef">Validity</a>
           </h4>
-<p id="section-15.1.5-1">No maximum validity period is mandated.  Validity values are expressed in
-notBefore and notAfter fields, as described in Section 4.1.2.5 of <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>.
-In particular, values MUST be expressed in Greenwich Mean Time (Zulu) and MUST
-include seconds even where the number of seconds is zero.<a href="#section-15.1.5-1" class="pilcrow">¶</a></p>
-<p id="section-15.1.5-2">Note that the validity period is defined as the period of time from notBefore
-through notAfter, inclusive.  This means that a hypothetical certificate with a
+<p id="section-15.1.5-1">In IoT deployment scenarios it is often expected that the IDevIDs have
+no maximum validity period. For this purpose the use of a special value
+for the notAfter date field, the GeneralizedTime value of 99991231235959Z,
+is utilized. If this is done, then CA certificates and certificates of
+subordinate CAs cannot have a maximum validity period either. Hence,
+it requires careful consideration whether it is appropriate to issue
+IDevID certificates with no maximum validity period.<a href="#section-15.1.5-1" class="pilcrow">¶</a></p>
+<p id="section-15.1.5-2">LDevID certificates are, however, issued by the operator or owner,
+and may be renewed at a regular interval using protocols, such
+as Enrollment over Secure Transport (EST) <span>[<a href="#RFC7030" class="cite xref">RFC7030</a>]</span> or the
+Certificate Management Protocol (CMP) <span>[<a href="#I-D.ietf-lamps-lightweight-cmp-profile" class="cite xref">I-D.ietf-lamps-lightweight-cmp-profile</a>]</span>.
+It is therefore RECOMMENDED to limit the lifetime of these LDevID certificates
+using the notBefore and notAfter fields, as described in Section 4.1.2.5 of
+<span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>. Values MUST be expressed in Greenwich Mean Time (Zulu) and
+MUST include seconds even where the number of seconds is zero.<a href="#section-15.1.5-2" class="pilcrow">¶</a></p>
+<p id="section-15.1.5-3">Note that the validity period is defined as the period of time from notBefore
+through notAfter, inclusive. This means that a hypothetical certificate with a
 notBefore date of 9 June 2021 at 03:42:01 and a notAfter date of 7 September
 2021 at 03:42:01 becomes valid at the beginning of the :01 second, and only
 becomes invalid at the :02 second, a period that is 90 days plus 1 second.  So
-for a 90-day, notAfter must actually be 03:42:00.<a href="#section-15.1.5-2" class="pilcrow">¶</a></p>
-<p id="section-15.1.5-3">In many cases it is necessary to indicate that a certificate does not expire.
-This is likely to be the case for manufacturer-provisioned certificates.
-RFC 5280 provides a simple solution to convey the fact that a certificate
-has no well-defined expiration date by setting the notAfter to the
-GeneralizedTime value of 99991231235959Z.<a href="#section-15.1.5-3" class="pilcrow">¶</a></p>
-<p id="section-15.1.5-4">Some devices might not have a reliable source of time and for those devices it
-is also advisable to use certificates with no expiration date and to let a
-device management solution manage the lifetime of all the certificates used by
-the device. While this approach does not utilize certificates to its widest extent,
-it is a solution that extends the capabilities offered by a raw public key approach.<a href="#section-15.1.5-4" class="pilcrow">¶</a></p>
+for a 90-day, notAfter must actually be 03:42:00.<a href="#section-15.1.5-3" class="pilcrow">¶</a></p>
+<p id="section-15.1.5-4">For devices without a reliable source of time we advise the use of a device
+management solution, which typically includes a certificate management protocol,
+to manage the lifetime of all the certificates used by the device. While this
+approach does not utilize certificates to its widest extent, it is a solution
+that extends the capabilities offered by a raw public key approach.<a href="#section-15.1.5-4" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="subjectpublickeyinfo">
+<div id="subject-public-key-info">
 <section id="section-15.1.6">
-          <h4 id="name-subjectpublickeyinfo">
-<a href="#section-15.1.6" class="section-number selfRef">15.1.6. </a><a href="#name-subjectpublickeyinfo" class="section-name selfRef">subjectPublicKeyInfo</a>
+          <h4 id="name-subject-public-key-info">
+<a href="#section-15.1.6" class="section-number selfRef">15.1.6. </a><a href="#name-subject-public-key-info" class="section-name selfRef">Subject Public Key Info</a>
           </h4>
 <p id="section-15.1.6-1">The SubjectPublicKeyInfo structure indicates the algorithm and any associated
-parameters for the ECC public key.  This profile uses the id-ecPublicKey
-algorithm  identifier for ECDSA signature keys, as defined and specified in
-<span>[<a href="#RFC5480" class="cite xref">RFC5480</a>]</span>.<a href="#section-15.1.6-1" class="pilcrow">¶</a></p>
+parameters for the ECC public key. This profile uses the id-ecPublicKey
+algorithm identifier for ECDSA signature keys, as defined and specified in
+<span>[<a href="#RFC5480" class="cite xref">RFC5480</a>]</span>. This specification assumes that devices supported one of the
+following algorithms:<a href="#section-15.1.6-1" class="pilcrow">¶</a></p>
+<ul class="compact">
+<li class="compact" id="section-15.1.6-2.1">
+              <p id="section-15.1.6-2.1.1">id-ecPublicKey with secp256r1,<a href="#section-15.1.6-2.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="compact" id="section-15.1.6-2.2">
+              <p id="section-15.1.6-2.2.1">id-ecPublicKey with secp384r1, and<a href="#section-15.1.6-2.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="compact" id="section-15.1.6-2.3">
+              <p id="section-15.1.6-2.3.1">id-ecPublicKey with secp521r1.<a href="#section-15.1.6-2.3.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+<p id="section-15.1.6-3">There is no requirement to use CA certificates and certificates of
+subordinate CAs to use the same algorithm as the end-entity certificate.
+Certificates with longer lifetime may well use a cryptographic stronger
+algorithm.<a href="#section-15.1.6-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="certificate-revocation-checks">
+<section id="section-15.1.7">
+          <h4 id="name-certificate-revocation-chec">
+<a href="#section-15.1.7" class="section-number selfRef">15.1.7. </a><a href="#name-certificate-revocation-chec" class="section-name selfRef">Certificate Revocation Checks</a>
+          </h4>
+<p id="section-15.1.7-1">The considerations in Section 4.4.3 of <span>[<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> hold.<a href="#section-15.1.7-1" class="pilcrow">¶</a></p>
+<p id="section-15.1.7-2">Since the publication of RFC 7925 the need for firmware update mechanisms
+has been reinforced and the work on standardizing a secure and
+interoperable firmware update mechanism has made substantial progress,
+see <span>[<a href="#RFC9019" class="cite xref">RFC9019</a>]</span>. RFC 7925 recommends to use a software / firmware update
+mechanism to provision devices with new trust anchors.<a href="#section-15.1.7-2" class="pilcrow">¶</a></p>
+<p id="section-15.1.7-3">The use of device management protocols for IoT devices, which often include
+an onboarding or bootstrapping mechanism, has also seen considerable uptake
+in deployed devices and these protocols, some of which are standardized,
+allow provision of certificates on a regular basis. This enables a
+deployment model where IoT device utilize end-entity certificates with
+shorter lifetime making certificate revocation protocols, like OCSP
+and CRLs, less relevant.<a href="#section-15.1.7-3" class="pilcrow">¶</a></p>
+<p id="section-15.1.7-4">Hence, instead of performing certificate revocation checks on the IoT device
+itself this specification recommends to delegate this task to the IoT device
+operator and to take thenecessary action to allow IoT devices to remain
+operational.<a href="#section-15.1.7-4" class="pilcrow">¶</a></p>
+<p id="section-15.1.7-5">The CRL distribution points extension has been defined in RFC 5280 to
+identify how CRL information is obtained. The authority information access
+extension indicates how to access information like the online certificate
+status service (OCSP). Both extensions SHOULD NOT be set. If set, they
+MUST NOT be marked critical.<a href="#section-15.1.7-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1595,16 +1741,102 @@ algorithm  identifier for ECDSA signature keys, as defined and specified in
         <h3 id="name-root-ca-certificate">
 <a href="#section-15.2" class="section-number selfRef">15.2. </a><a href="#name-root-ca-certificate" class="section-name selfRef">Root CA Certificate</a>
         </h3>
+<p id="section-15.2-1">This section outlines the requirements for root CA certificates.<a href="#section-15.2-1" class="pilcrow">¶</a></p>
+<div id="subject">
+<section id="section-15.2.1">
+          <h4 id="name-subject">
+<a href="#section-15.2.1" class="section-number selfRef">15.2.1. </a><a href="#name-subject" class="section-name selfRef">Subject</a>
+          </h4>
+<p id="section-15.2.1-1"><span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> defines the Subject field as follows: "The subject field identifies
+the entity associated with the public key stored in the subject public key
+field." RFC 5280 adds "If the subject is a CA then the subject field MUST be
+populated with a non-empty distinguished name matching the contents of the
+issuer field in all certificates issued by the subject CA."<a href="#section-15.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-15.2.1-2">The Subject field MUST be present and MUST contain the commonName, the organizationName,
+and the countryName attribute and MAY contain an organizationalUnitName attribute.<a href="#section-15.2.1-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="authority-key-identifier">
+<section id="section-15.2.2">
+          <h4 id="name-authority-key-identifier">
+<a href="#section-15.2.2" class="section-number selfRef">15.2.2. </a><a href="#name-authority-key-identifier" class="section-name selfRef">Authority Key Identifier</a>
+          </h4>
+<p id="section-15.2.2-1">Section 4.2.1.1 of <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> defines the Authority Key Identifier as follows:
+"The authority key identifier extension provides a means of identifying the
+public key corresponding to the private key used to sign a certificate. This
+extension is used where an issuer has multiple signing keys."<a href="#section-15.2.2-1" class="pilcrow">¶</a></p>
+<p id="section-15.2.2-2">The Authority Key Identifier extension MAY be omitted. If it is set, it MUST NOT be
+marked critical, and MUST contain the subjectKeyIdentifier of this certificate.<a href="#section-15.2.2-2" class="pilcrow">¶</a></p>
+<p id="section-15.2.2-3">[Editor's Note: Do we need to set the Authority Key Identifier in the CA certificate?]<a href="#section-15.2.2-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="subject-key-identifier">
+<section id="section-15.2.3">
+          <h4 id="name-subject-key-identifier">
+<a href="#section-15.2.3" class="section-number selfRef">15.2.3. </a><a href="#name-subject-key-identifier" class="section-name selfRef">Subject Key Identifier</a>
+          </h4>
+<p id="section-15.2.3-1">Section 4.2.1.2 of <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> defines the Subject Key Identifier as follows:
+"The subject key identifier extension provides a means of identifying
+certificates that contain a particular public key."<a href="#section-15.2.3-1" class="pilcrow">¶</a></p>
+<p id="section-15.2.3-2">The Subject Key Identifier extension MUST be set, MUST NOT be marked critical, and MUST
+contain the key identifier of the public key contained in the subject public key
+info field.<a href="#section-15.2.3-2" class="pilcrow">¶</a></p>
+<p id="section-15.2.3-3">[Editor's Note: Do we need to set the Subject Key Identifier in the CA certificate?]<a href="#section-15.2.3-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="key-usage">
+<section id="section-15.2.4">
+          <h4 id="name-key-usage">
+<a href="#section-15.2.4" class="section-number selfRef">15.2.4. </a><a href="#name-key-usage" class="section-name selfRef">Key Usage</a>
+          </h4>
+<p id="section-15.2.4-1"><span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> defines the key usage field as follows: "The key usage extension defines
+the purpose (e.g., encipherment, signature, certificate signing) of the key contained
+in the certificate."<a href="#section-15.2.4-1" class="pilcrow">¶</a></p>
+<p id="section-15.2.4-2">The Key Usage extension SHOULD be set. If it is set, it MUST be marked critical and
+the keyCertSign or cRLSign purposes MUST be set. Additional key usages MAY be set
+depending on the intended usage of the public key.<a href="#section-15.2.4-2" class="pilcrow">¶</a></p>
+<p id="section-15.2.4-3">[Editor's Note: Should we harden the requirement to "The Key Usage extension MUST  be set.]<a href="#section-15.2.4-3" class="pilcrow">¶</a></p>
+<p id="section-15.2.4-4"><span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> defines the extended key usage as follows: "This extension indicates
+one or more purposes for which the certified public key may be used, in addition to
+or in place of the basic purposes indicated in the key usage extension."<a href="#section-15.2.4-4" class="pilcrow">¶</a></p>
+<p id="section-15.2.4-5">This extendedKeyUsage extension MUST NOT be set.<a href="#section-15.2.4-5" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="basic-constraints">
+<section id="section-15.2.5">
+          <h4 id="name-basic-constraints">
+<a href="#section-15.2.5" class="section-number selfRef">15.2.5. </a><a href="#name-basic-constraints" class="section-name selfRef">Basic Constraints</a>
+          </h4>
+<p id="section-15.2.5-1"><span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> states that "The Basic Constraints extension identifies whether the subject
+of the certificate is a CA and the maximum depth of valid certification paths that include
+this certificate. The cA boolean indicates whether the certified public key may be used to
+verify certificate signatures."<a href="#section-15.2.5-1" class="pilcrow">¶</a></p>
+<p id="section-15.2.5-2">For the pathLenConstraint RFC 5280 makes further statements:<a href="#section-15.2.5-2" class="pilcrow">¶</a></p>
 <ul class="compact">
-<li class="compact" id="section-15.2-1.1">basicConstraints MUST be present and MUST be marked critical.  The cA field
-MUST be set true.  The pathLenConstraint field SHOULD NOT be present.<a href="#section-15.2-1.1" class="pilcrow">¶</a>
+<li class="compact" id="section-15.2.5-3.1">
+              <p id="section-15.2.5-3.1.1">"The pathLenConstraint field is meaningful only if the cA boolean is asserted and the
+key usage extension, if present, asserts the keyCertSign bit. In this case, it gives the
+maximum number of non-self-issued intermediate certificates that may follow this
+certificate in a valid certification path."<a href="#section-15.2.5-3.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="compact" id="section-15.2-1.2">keyUsage MUST be present and MUST be marked critical.  Bit position for
-keyCertSign MUST be set.<a href="#section-15.2-1.2" class="pilcrow">¶</a>
+            <li class="compact" id="section-15.2.5-3.2">
+              <p id="section-15.2.5-3.2.1">"A pathLenConstraint of zero indicates that no non-self-issued intermediate CA
+certificates may follow in a valid certification path."<a href="#section-15.2.5-3.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="compact" id="section-15.2-1.3">extendedKeyUsage MUST NOT be present.<a href="#section-15.2-1.3" class="pilcrow">¶</a>
+            <li class="compact" id="section-15.2.5-3.3">
+              <p id="section-15.2.5-3.3.1">"Where pathLenConstraint does not appear, no limit is imposed."<a href="#section-15.2.5-3.3.1" class="pilcrow">¶</a></p>
 </li>
-        </ul>
+            <li class="compact" id="section-15.2.5-3.4">
+              <p id="section-15.2.5-3.4.1">"Conforming CAs MUST include this extension in all CA certificates that contain public
+keys used to validate digital signatures on certificates and MUST mark the extension as
+critical in such certificates."<a href="#section-15.2.5-3.4.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+<p id="section-15.2.5-4">The Basic Constraints extension MUST be set, MUST be marked critical, the cA flag MUST
+be set to true and the pathLenConstraint MUST be omitted.<a href="#section-15.2.5-4" class="pilcrow">¶</a></p>
+<p id="section-15.2.5-5">[Editor's Note: Should we soften the requirement to: "The pathLenConstraint field SHOULD NOT be present."]<a href="#section-15.2.5-5" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 <div id="subordinate-ca-certificate">
@@ -1612,16 +1844,77 @@ keyCertSign MUST be set.<a href="#section-15.2-1.2" class="pilcrow">¶</a>
         <h3 id="name-subordinate-ca-certificate">
 <a href="#section-15.3" class="section-number selfRef">15.3. </a><a href="#name-subordinate-ca-certificate" class="section-name selfRef">Subordinate CA Certificate</a>
         </h3>
-<ul class="compact">
-<li class="compact" id="section-15.3-1.1">basicConstraints MUST be present and MUST be marked critical.  The cA field
-MUST be set true.  The pathLenConstraint field MAY be present.<a href="#section-15.3-1.1" class="pilcrow">¶</a>
-</li>
-          <li class="compact" id="section-15.3-1.2">keyUsage MUST be present and MUST be marked critical.  Bit position for
-keyCertSign MUST be set.<a href="#section-15.3-1.2" class="pilcrow">¶</a>
-</li>
-          <li class="compact" id="section-15.3-1.3">extendedKeyUsage MUST NOT be present.<a href="#section-15.3-1.3" class="pilcrow">¶</a>
-</li>
-        </ul>
+<p id="section-15.3-1">This section outlines the requirements for subordinate CA certificates.<a href="#section-15.3-1" class="pilcrow">¶</a></p>
+<div id="subject-1">
+<section id="section-15.3.1">
+          <h4 id="name-subject-2">
+<a href="#section-15.3.1" class="section-number selfRef">15.3.1. </a><a href="#name-subject-2" class="section-name selfRef">Subject</a>
+          </h4>
+<p id="section-15.3.1-1">The Subject field MUST be set and MUST contain the commonName, the organizationName,
+and the countryName attribute and MAY contain an organizationalUnitName attribute.<a href="#section-15.3.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="authority-key-identifier-1">
+<section id="section-15.3.2">
+          <h4 id="name-authority-key-identifier-2">
+<a href="#section-15.3.2" class="section-number selfRef">15.3.2. </a><a href="#name-authority-key-identifier-2" class="section-name selfRef">Authority Key Identifier</a>
+          </h4>
+<p id="section-15.3.2-1">The Authority Key Identifier extension MUST be set, MUST NOT be marked critical, and
+MUST contain the subjectKeyIdentifier of the CA that issued this certificate.<a href="#section-15.3.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="subject-key-identifier-1">
+<section id="section-15.3.3">
+          <h4 id="name-subject-key-identifier-2">
+<a href="#section-15.3.3" class="section-number selfRef">15.3.3. </a><a href="#name-subject-key-identifier-2" class="section-name selfRef">Subject Key Identifier</a>
+          </h4>
+<p id="section-15.3.3-1">The Subject Key Identifier extension MUST be set, MUST NOT be marked critical, and MUST
+contain the key identifier of the public key contained in the subject public key info
+field.<a href="#section-15.3.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="key-usage-1">
+<section id="section-15.3.4">
+          <h4 id="name-key-usage-2">
+<a href="#section-15.3.4" class="section-number selfRef">15.3.4. </a><a href="#name-key-usage-2" class="section-name selfRef">Key Usage</a>
+          </h4>
+<p id="section-15.3.4-1">The Key Usage extension MUST be set, MUST be marked critical, the keyCertSign or
+cRLSign purposes MUST be set, and the digitalSignature purpose SHOULD be set.<a href="#section-15.3.4-1" class="pilcrow">¶</a></p>
+<p id="section-15.3.4-2">The extendedKeyUsage extensed MAY be set depending on the intended usage of the
+public key.<a href="#section-15.3.4-2" class="pilcrow">¶</a></p>
+<p id="section-15.3.4-3">[Editor's Note: Should we harden the requirement to "The extendedKeyUsage MUST NOT be present."]<a href="#section-15.3.4-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="basic-constraints-1">
+<section id="section-15.3.5">
+          <h4 id="name-basic-constraints-2">
+<a href="#section-15.3.5" class="section-number selfRef">15.3.5. </a><a href="#name-basic-constraints-2" class="section-name selfRef">Basic Constraints</a>
+          </h4>
+<p id="section-15.3.5-1">The Basic Constraints extension MUST be set, MUST be marked critical, the cA flag
+MUST be set to true and the pathLenConstraint MUST be set to 0.<a href="#section-15.3.5-1" class="pilcrow">¶</a></p>
+<p id="section-15.3.5-2">[Editor's Note: Should we soften the requriement to "The pathLenConstraint field MAY be present."]<a href="#section-15.3.5-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="crl-distribution-point">
+<section id="section-15.3.6">
+          <h4 id="name-crl-distribution-point">
+<a href="#section-15.3.6" class="section-number selfRef">15.3.6. </a><a href="#name-crl-distribution-point" class="section-name selfRef">CRL Distribution Point</a>
+          </h4>
+<p id="section-15.3.6-1">The CRL Distribution Point extension SHOULD NOT be set. If it is set, it MUST NOT
+be marked critical and MUST identify the CRL relevant for this certificate.<a href="#section-15.3.6-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="authority-information-access">
+<section id="section-15.3.7">
+          <h4 id="name-authority-information-acces">
+<a href="#section-15.3.7" class="section-number selfRef">15.3.7. </a><a href="#name-authority-information-acces" class="section-name selfRef">Authority Information Access</a>
+          </h4>
+<p id="section-15.3.7-1">The Authority Information Access extension SHOULD NOT be set. If it is set, it MUST
+NOT be marked critical and MUST identify the location of the certificate of the CA
+that issued this certificate and the location it provides an online certificate
+status service (OCSP).<a href="#section-15.3.7-1" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 <div id="end-entity-certificate">
@@ -1629,199 +1922,243 @@ keyCertSign MUST be set.<a href="#section-15.3-1.2" class="pilcrow">¶</a>
         <h3 id="name-end-entity-certificate">
 <a href="#section-15.4" class="section-number selfRef">15.4. </a><a href="#name-end-entity-certificate" class="section-name selfRef">End Entity Certificate</a>
         </h3>
-<ul class="compact">
-<li class="compact" id="section-15.4-1.1">extendedKeyUsage MUST be present and contain at least one of
-id-kp-serverAuth or id-kp-clientAuth.<a href="#section-15.4-1.1" class="pilcrow">¶</a>
-</li>
-          <li class="compact" id="section-15.4-1.2">keyUsage MAY be present and contain one of digitalSignature or
-keyAgreement.<a href="#section-15.4-1.2" class="pilcrow">¶</a>
-</li>
-          <li class="compact" id="section-15.4-1.3">Domain names MUST NOT be encoded in the subject commonName, instead they
-MUST be encoded in a subjectAltName of type DNS-ID.  Domain names MUST NOT
-contain wildcard (<code>*</code>) characters.  subjectAltName MUST NOT contain multiple
-names.<a href="#section-15.4-1.3" class="pilcrow">¶</a>
-</li>
-        </ul>
-<div id="client-certificate-subject">
+<p id="section-15.4-1">This section outlines the requirements for end entity certificates.<a href="#section-15.4-1" class="pilcrow">¶</a></p>
+<div id="subject-2">
 <section id="section-15.4.1">
-          <h4 id="name-client-certificate-subject">
-<a href="#section-15.4.1" class="section-number selfRef">15.4.1. </a><a href="#name-client-certificate-subject" class="section-name selfRef">Client Certificate Subject</a>
+          <h4 id="name-subject-3">
+<a href="#section-15.4.1" class="section-number selfRef">15.4.1. </a><a href="#name-subject-3" class="section-name selfRef">Subject</a>
           </h4>
-<p id="section-15.4.1-1">The requirement in Section 4.4.2 of <span>[<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> to only use EUI-64 for client
-certificates is lifted.<a href="#section-15.4.1-1" class="pilcrow">¶</a></p>
-<p id="section-15.4.1-2">If the EUI-64 format is used to identify the subject of a client certificate,
-it MUST be encoded in a subjectAltName of type DNS-ID as a string of the form
-<code>HH-HH-HH-HH-HH-HH-HH-HH</code> where 'H' is one of the symbols '0'-'9' or 'A'-'F'.<a href="#section-15.4.1-2" class="pilcrow">¶</a></p>
+<p id="section-15.4.1-1">The requirement in Section 4.4.2 of <span>[<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> to only use EUI-64 for end
+entity certificates as a Subject name is lifted.<a href="#section-15.4.1-1" class="pilcrow">¶</a></p>
+<p id="section-15.4.1-2">Two fields are typically used to encode a device identifer, namely the
+Subject and the subjectAltName fields. Protocol specifications tend to offer
+recommendations what identifiers to use and the deployment situation is
+fragmented.<a href="#section-15.4.1-2" class="pilcrow">¶</a></p>
+<p id="section-15.4.1-3">The Subject field MAY include a unique device serial number. If the serial
+number is included, it MUST be encoded in the serialNumber attribute.<a href="#section-15.4.1-3" class="pilcrow">¶</a></p>
+<p id="section-15.4.1-4"><span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> defines: "The subject alternative name extension allows identities
+to be bound to the subject of the certificate. These identities may be included
+in addition to or in place of the identity in the subject field of the certificate."<a href="#section-15.4.1-4" class="pilcrow">¶</a></p>
+<p id="section-15.4.1-5">The subject alternative name extension MAY be set. If it is set, it MUST NOT be
+marked critical, except when the subject DN contains an empty sequence.<a href="#section-15.4.1-5" class="pilcrow">¶</a></p>
+<p id="section-15.4.1-6">If the EUI-64 format is used to identify the subject of an end entity
+certificate, it MUST be encoded in a subjectAltName of type DNS-ID as a string
+of the form <code>HH-HH-HH-HH-HH-HH-HH-HH</code> where 'H' is one of the symbols '0'-'9'
+or 'A'-'F'.<a href="#section-15.4.1-6" class="pilcrow">¶</a></p>
+<p id="section-15.4.1-7">Domain names MUST NOT be encoded in the subject commonName. Instead they
+MUST be encoded in a subjectAltName of type DNS-ID. Domain names MUST NOT
+contain wildcard (<code>*</code>) characters. The subjectAltName MUST NOT contain multiple
+names.<a href="#section-15.4.1-7" class="pilcrow">¶</a></p>
+<p id="section-15.4.1-8">Note: The IEEE 802.1AR recomments to encode information about a Trusted
+Platform Module (TPM), if present, in the HardwareModuleName. This
+specification does not follow this recommendation.<a href="#section-15.4.1-8" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="authority-key-identifier-2">
+<section id="section-15.4.2">
+          <h4 id="name-authority-key-identifier-3">
+<a href="#section-15.4.2" class="section-number selfRef">15.4.2. </a><a href="#name-authority-key-identifier-3" class="section-name selfRef">Authority Key Identifier</a>
+          </h4>
+<p id="section-15.4.2-1">The Authority Key Identifier extension MUST be set, MUST NOT be marked critical,
+and MUST contain the subjectKeyIdentifier of the CA that issued this certificate.<a href="#section-15.4.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="subject-key-identifier-2">
+<section id="section-15.4.3">
+          <h4 id="name-subject-key-identifier-3">
+<a href="#section-15.4.3" class="section-number selfRef">15.4.3. </a><a href="#name-subject-key-identifier-3" class="section-name selfRef">Subject Key Identifier</a>
+          </h4>
+<p id="section-15.4.3-1">The Subject Key Identifier SHOULD NOT be included in end-entity certificates.
+If it is included, then the Subject Key Identifier extension MUST NOT be marked
+critical, and MUST contain the key identifier of the public key contained in the
+subject public key info field.<a href="#section-15.4.3-1" class="pilcrow">¶</a></p>
+<p id="section-15.4.3-2">[Editor's Note: Should we harden the requirement and state: "The Subject Key Identifier MUST NOT be included in end-entity certificates."]<a href="#section-15.4.3-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="key-usage-2">
+<section id="section-15.4.4">
+          <h4 id="name-key-usage-3">
+<a href="#section-15.4.4" class="section-number selfRef">15.4.4. </a><a href="#name-key-usage-3" class="section-name selfRef">Key Usage</a>
+          </h4>
+<p id="section-15.4.4-1">The key usage extension MUST be set and MUST be marked as critical. For
+signature verification keys the digitialSignature key usage purpose MUST
+be specified. Other key usages are set according to the intended usage
+of the key.<a href="#section-15.4.4-1" class="pilcrow">¶</a></p>
+<p id="section-15.4.4-2">If enrollment of new certificates uses server-side key generation, encrypted
+delivery of the private key is required. In such cases the key usage
+keyEncipherment or keyAgreement MUST be set because the encrypted delivery
+of the newly generated key involves encryption or agreement of a symmetric
+key. On-device key generation is, however, the preferred approach.<a href="#section-15.4.4-2" class="pilcrow">¶</a></p>
+<p id="section-15.4.4-3">The extendedKeyUsage MUST be present and contain at least one of
+id-kp-serverAuth or id-kp-clientAuth.<a href="#section-15.4.4-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
 </div>
-</section>
-</div>
-<div id="certificate-revocation-checks">
-<section id="section-16">
-      <h2 id="name-certificate-revocation-chec">
-<a href="#section-16" class="section-number selfRef">16. </a><a href="#name-certificate-revocation-chec" class="section-name selfRef">Certificate Revocation Checks</a>
-      </h2>
-<p id="section-16-1">The considerations in Section 4.4.3 of <span>[<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> hold.<a href="#section-16-1" class="pilcrow">¶</a></p>
-<p id="section-16-2">Since the publication of
-RFC 7925 the need for firmware update mechanisms has been reinforced and the work
-on standardizing a secure and interoperable firmware update mechanism has made
-substantial progress, see <span>[<a href="#RFC9019" class="cite xref">RFC9019</a>]</span>. RFC 7925 recommends to use
-a software / firmware update mechanism to provision devices with new trust anchors.<a href="#section-16-2" class="pilcrow">¶</a></p>
-<p id="section-16-3">The use of device management protocols for IoT devices, which often include an onboarding
-or bootstrapping mechanism, has also seen considerable uptake in deployed devices and
-these protocols, some of which are standardized, allow provision of certificates on a
-regular basis. This enables a deployment model where IoT device utilize end-entity
-certificates with shorter lifetime making certificate revocation protocols, like OCSP
-and CRLs, less relevant.<a href="#section-16-3" class="pilcrow">¶</a></p>
-<p id="section-16-4">Hence, instead of performing certificate revocation checks on the IoT device itself this
-specification recommends to delegate this task to the IoT device operator and to take the
-necessary action to allow IoT devices to remain operational.<a href="#section-16-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="certificate-overhead">
-<section id="section-17">
+<section id="section-16">
       <h2 id="name-certificate-overhead">
-<a href="#section-17" class="section-number selfRef">17. </a><a href="#name-certificate-overhead" class="section-name selfRef">Certificate Overhead</a>
+<a href="#section-16" class="section-number selfRef">16. </a><a href="#name-certificate-overhead" class="section-name selfRef">Certificate Overhead</a>
       </h2>
-<p id="section-17-1">In a public key-based key exchange, certificates and public keys are a major
+<p id="section-16-1">In a public key-based key exchange, certificates and public keys are a major
 contributor to the size of the overall handshake. For example, in a regular TLS
 1.3 handshake with minimal ECC certificates and no subordinate CA utilizing
 the secp256r1 curve with mutual authentication, around 40% of the entire
-handshake payload is consumed by the two exchanged certificates.<a href="#section-17-1" class="pilcrow">¶</a></p>
-<p id="section-17-2">Hence, it is not surprising that there is a strong desire to reduce the size of
+handshake payload is consumed by the two exchanged certificates.<a href="#section-16-1" class="pilcrow">¶</a></p>
+<p id="section-16-2">Hence, it is not surprising that there is a strong desire to reduce the size of
 certificates and certificate chains. This has lead to various standardization
-efforts. Here is a brief summary of what options an implementer has to reduce
-the bandwidth requirements of a public key-based key exchange:<a href="#section-17-2" class="pilcrow">¶</a></p>
+efforts. Below is a brief summary of what options an implementer has to reduce
+the bandwidth requirements of a public key-based key exchange. Note that many
+of the standardized extensions are not readily available in TLS/DTLS stacks since
+optimizations typically get implemented last.<a href="#section-16-2" class="pilcrow">¶</a></p>
 <ul class="compact">
-<li class="compact" id="section-17-3.1">Use elliptic curve cryptography (ECC) instead of RSA-based certificate due to
-the smaller certificate size.<a href="#section-17-3.1" class="pilcrow">¶</a>
+<li class="compact" id="section-16-3.1">
+          <p id="section-16-3.1.1">Use elliptic curve cryptography (ECC) instead of RSA-based certificate due to
+the smaller certificate size. This document recommends the use of elliptic
+curve cryptography only.<a href="#section-16-3.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="compact" id="section-17-3.2">Avoid deep and complex CA hierarchies to reduce the number of subordinate CA
-certificates that need to be transmitted.<a href="#section-17-3.2" class="pilcrow">¶</a>
+        <li class="compact" id="section-16-3.2">
+          <p id="section-16-3.2.1">Avoid deep and complex CA hierarchies to reduce the number of subordinate CA
+certificates that need to be transmitted and processed. See
+<span>[<a href="#I-D.irtf-t2trg-taxonomy-manufacturer-anchors" class="cite xref">I-D.irtf-t2trg-taxonomy-manufacturer-anchors</a>]</span> for a discussion about CA
+hierarchies.<a href="#section-16-3.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="compact" id="section-17-3.3">Pay attention to the amount of information conveyed inside certificates.<a href="#section-17-3.3" class="pilcrow">¶</a>
+        <li class="compact" id="section-16-3.3">
+          <p id="section-16-3.3.1">Pay attention to the amount of information conveyed inside certificates.<a href="#section-16-3.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="compact" id="section-17-3.4">Use session resumption to reduce the number of times a full handshake is
-needed.  Use Connection IDs <span>[<a href="#DTLS-CID" class="cite xref">DTLS-CID</a>]</span>, when possible, to enable
-long-lasting connections.<a href="#section-17-3.4" class="pilcrow">¶</a>
+        <li class="compact" id="section-16-3.4">
+          <p id="section-16-3.4.1">Use session resumption to reduce the number of times a full handshake is
+needed.  Use Connection IDs <span>[<a href="#RFC9146" class="cite xref">RFC9146</a>]</span>, when possible, to enable
+long-lasting connections.<a href="#section-16-3.4.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="compact" id="section-17-3.5">Use the TLS cached info <span>[<a href="#RFC7924" class="cite xref">RFC7924</a>]</span> extension to avoid sending certificates
-with every full handshake.<a href="#section-17-3.5" class="pilcrow">¶</a>
+        <li class="compact" id="section-16-3.5">
+          <p id="section-16-3.5.1">Use the TLS cached info <span>[<a href="#RFC7924" class="cite xref">RFC7924</a>]</span> extension to avoid sending certificates
+with every full handshake.<a href="#section-16-3.5.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="compact" id="section-17-3.6">Use client certificate URLs <span>[<a href="#RFC6066" class="cite xref">RFC6066</a>]</span> instead of full certificates for
-clients.<a href="#section-17-3.6" class="pilcrow">¶</a>
+        <li class="compact" id="section-16-3.6">
+          <p id="section-16-3.6.1">Use client certificate URLs <span>[<a href="#RFC6066" class="cite xref">RFC6066</a>]</span> instead of full certificates for
+clients. When applications perform TLS client authentication via
+DNS-Based Authentication of Named Entities (DANE) TLSA records then the
+<span>[<a href="#I-D.ietf-dance-tls-clientid" class="cite xref">I-D.ietf-dance-tls-clientid</a>]</span> specification may be used to reduce the
+packets on the wire. Note: The term "TLSA" does not stand for anything;
+it is just the name of the RRtype, as explained in <span>[<a href="#RFC668" class="cite xref">RFC668</a>]</span>.<a href="#section-16-3.6.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="compact" id="section-17-3.7">Use certificate compression as defined in
-<span>[<a href="#I-D.ietf-tls-certificate-compression" class="cite xref">I-D.ietf-tls-certificate-compression</a>]</span>.<a href="#section-17-3.7" class="pilcrow">¶</a>
+        <li class="compact" id="section-16-3.7">
+          <p id="section-16-3.7.1">Use certificate compression as defined in
+<span>[<a href="#RFC8879" class="cite xref">RFC8879</a>]</span>.<a href="#section-16-3.7.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="compact" id="section-17-3.8">Use alternative certificate formats, where possible, such as raw public keys
+        <li class="compact" id="section-16-3.8">
+          <p id="section-16-3.8.1">Use alternative certificate formats, where possible, such as raw public keys
 <span>[<a href="#RFC7250" class="cite xref">RFC7250</a>]</span> or CBOR-encoded certificates
-<span>[<a href="#I-D.ietf-cose-cbor-encoded-cert" class="cite xref">I-D.ietf-cose-cbor-encoded-cert</a>]</span>.<a href="#section-17-3.8" class="pilcrow">¶</a>
+<span>[<a href="#I-D.ietf-cose-cbor-encoded-cert" class="cite xref">I-D.ietf-cose-cbor-encoded-cert</a>]</span>.<a href="#section-16-3.8.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-17-4">The use of certificate handles, as introduced in cTLS <span>[<a href="#I-D.ietf-tls-ctls" class="cite xref">I-D.ietf-tls-ctls</a>]</span>,
-is a form of caching or compressing certificates as well.<a href="#section-17-4" class="pilcrow">¶</a></p>
-<p id="section-17-5">Whether to utilize any of the above extensions or a combination of them depends
+<p id="section-16-4">The use of certificate handles, as introduced in cTLS <span>[<a href="#I-D.ietf-tls-ctls" class="cite xref">I-D.ietf-tls-ctls</a>]</span>,
+is a form of caching or compressing certificates as well.<a href="#section-16-4" class="pilcrow">¶</a></p>
+<p id="section-16-5">Whether to utilize any of the above extensions or a combination of them depends
 on the anticipated deployment environment, the availability of code, and the
 constraints imposed by already deployed infrastructure (e.g., CA
-infrastructure, tool support).<a href="#section-17-5" class="pilcrow">¶</a></p>
+infrastructure, tool support).<a href="#section-16-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="ciphersuites">
-<section id="section-18">
+<section id="section-17">
       <h2 id="name-ciphersuites">
-<a href="#section-18" class="section-number selfRef">18. </a><a href="#name-ciphersuites" class="section-name selfRef">Ciphersuites</a>
+<a href="#section-17" class="section-number selfRef">17. </a><a href="#name-ciphersuites" class="section-name selfRef">Ciphersuites</a>
       </h2>
-<p id="section-18-1">Section 4.5.3 of <span>[<a href="#DTLS13" class="cite xref">DTLS13</a>]</span> flags AES-CCM with 8-octet authentication tags
+<p id="section-17-1">Section 4.5.3 of <span>[<a href="#DTLS13" class="cite xref">DTLS13</a>]</span> flags AES-CCM with 8-octet authentication tags
 (CCM_8) as unsuitable for general use with DTLS.  In fact, due to its low
 integrity limits (i.e., a high sensitivity to forgeries), endpoints that
 negotiate ciphersuites based on such AEAD are susceptible to a trivial DoS.
 (See also Section 5.3 and 5.4 of <span>[<a href="#I-D.irtf-cfrg-aead-limits" class="cite xref">I-D.irtf-cfrg-aead-limits</a>]</span> for further
 discussion on this topic, as well as references to the analysis supporting
-these conclusions.)<a href="#section-18-1" class="pilcrow">¶</a></p>
-<p id="section-18-2">Specifically, <span>[<a href="#DTLS13" class="cite xref">DTLS13</a>]</span> warns that:<a href="#section-18-2" class="pilcrow">¶</a></p>
-<ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-18-3.1">
-          <p id="section-18-3.1.1">"TLS_AES_128_CCM_8_SHA256 MUST NOT be used in DTLS without additional
-safeguards against forgery. Implementations MUST set usage limits for
-AEAD_AES_128_CCM_8 based on an understanding of any additional forgery
-protections that are used."<a href="#section-18-3.1.1" class="pilcrow">¶</a></p>
-</li>
-      </ul>
-<p id="section-18-4">Since all the ciphersuites mandated by <span>[<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> and <span>[<a href="#CoAP" class="cite xref">CoAP</a>]</span> are based on
+these conclusions.)<a href="#section-17-1" class="pilcrow">¶</a></p>
+<p id="section-17-2">Specifically, <span>[<a href="#DTLS13" class="cite xref">DTLS13</a>]</span> warns that:<a href="#section-17-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-17-3">
+<pre>
+&gt; "TLS_AES_128_CCM_8_SHA256 MUST NOT be used in DTLS without additional
+&gt; safeguards against forgery. Implementations MUST set usage limits for
+&gt; AEAD_AES_128_CCM_8 based on an understanding of any additional forgery
+&gt; protections that are used."
+</pre><a href="#section-17-3" class="pilcrow">¶</a>
+</div>
+<p id="section-17-4">Since all the ciphersuites mandated by <span>[<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> and <span>[<a href="#CoAP" class="cite xref">CoAP</a>]</span> are based on
 CCM_8, there is no stand-by ciphersuite to use for applications that want to
 avoid the security and availability risks associated with CCM_8 while retaining
-interoperability with the rest of the ecosystem.<a href="#section-18-4" class="pilcrow">¶</a></p>
-<p id="section-18-5">In order to ameliorate the situation, this document RECOMMENDS that
-implementations support the following two ciphersuites:<a href="#section-18-5" class="pilcrow">¶</a></p>
+interoperability with the rest of the ecosystem.<a href="#section-17-4" class="pilcrow">¶</a></p>
+<p id="section-17-5">In order to ameliorate the situation, this document RECOMMENDS that
+implementations support the following two ciphersuites:<a href="#section-17-5" class="pilcrow">¶</a></p>
 <ul class="compact">
-<li class="compact" id="section-18-6.1">TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256<a href="#section-18-6.1" class="pilcrow">¶</a>
+<li class="compact" id="section-17-6.1">
+          <p id="section-17-6.1.1">TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256<a href="#section-17-6.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="compact" id="section-18-6.2">TLS_ECDHE_ECDSA_WITH_AES_128_CCM<a href="#section-18-6.2" class="pilcrow">¶</a>
+        <li class="compact" id="section-17-6.2">
+          <p id="section-17-6.2.1">TLS_ECDHE_ECDSA_WITH_AES_128_CCM<a href="#section-17-6.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-18-7">and offer them as their first choice.  These ciphersuites provide
+<p id="section-17-7">and offer them as their first choice.  These ciphersuites provide
 confidentiality and integrity limits that are considered acceptable in the most
 general settings.  For the details on the exact bounds of both ciphersuites see
 Section 4.5.3 of <span>[<a href="#DTLS13" class="cite xref">DTLS13</a>]</span>.  Note that the GCM-based ciphersuite offers
 superior interoperability with cloud services at the cost of a slight increase
-in the wire and peak RAM footprints.<a href="#section-18-7" class="pilcrow">¶</a></p>
-<p id="section-18-8">When the GCM-based ciphersuite is used with TLS 1.2, the recommendations in
+in the wire and peak RAM footprints.<a href="#section-17-7" class="pilcrow">¶</a></p>
+<p id="section-17-8">When the GCM-based ciphersuite is used with TLS 1.2, the recommendations in
 Section 6.2.1 of <span>[<a href="#RFC9325" class="cite xref">RFC9325</a>]</span> related to deterministic nonce generation
 apply.  In addition, the integrity limits on key usage detailed in Section 4.4
-of <span>[<a href="#RFC9325" class="cite xref">RFC9325</a>]</span> also apply.<a href="#section-18-8" class="pilcrow">¶</a></p>
+of <span>[<a href="#RFC9325" class="cite xref">RFC9325</a>]</span> also apply.<a href="#section-17-8" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="fault-attacks-on-deterministic-signature-schemes">
-<section id="section-19">
+<section id="section-18">
       <h2 id="name-fault-attacks-on-determinis">
-<a href="#section-19" class="section-number selfRef">19. </a><a href="#name-fault-attacks-on-determinis" class="section-name selfRef">Fault Attacks on Deterministic Signature Schemes</a>
+<a href="#section-18" class="section-number selfRef">18. </a><a href="#name-fault-attacks-on-determinis" class="section-name selfRef">Fault Attacks on Deterministic Signature Schemes</a>
       </h2>
-<p id="section-19-1">A number of passive side-channel attacks as well as active fault-injection
+<p id="section-18-1">A number of passive side-channel attacks as well as active fault-injection
 attacks (e.g., <span>[<a href="#Ambrose2017" class="cite xref">Ambrose2017</a>]</span>) have been demonstrated that allow a malicious
 third party to gain information about the signing key if a fully deterministic
-signature scheme (e.g., <span>[<a href="#RFC6979" class="cite xref">RFC6979</a>]</span> ECDSA or EdDSA <span>[<a href="#RFC8032" class="cite xref">RFC8032</a>]</span>) is used.<a href="#section-19-1" class="pilcrow">¶</a></p>
-<p id="section-19-2">Most of these attacks assume physical access to the device and are therefore
+signature scheme (e.g., <span>[<a href="#RFC6979" class="cite xref">RFC6979</a>]</span> ECDSA or EdDSA <span>[<a href="#RFC8032" class="cite xref">RFC8032</a>]</span>) is used.<a href="#section-18-1" class="pilcrow">¶</a></p>
+<p id="section-18-2">Most of these attacks assume physical access to the device and are therefore
 especially relevant to smart cards as well as IoT deployments with poor or
-non-existent physical security.<a href="#section-19-2" class="pilcrow">¶</a></p>
-<p id="section-19-3">In this security model, it is recommended to combine both randomness and
+non-existent physical security.<a href="#section-18-2" class="pilcrow">¶</a></p>
+<p id="section-18-3">In this security model, it is recommended to combine both randomness and
 determinism, for example, as described in
-<span>[<a href="#I-D.mattsson-cfrg-det-sigs-with-noise" class="cite xref">I-D.mattsson-cfrg-det-sigs-with-noise</a>]</span>.<a href="#section-19-3" class="pilcrow">¶</a></p>
+<span>[<a href="#I-D.mattsson-cfrg-det-sigs-with-noise" class="cite xref">I-D.mattsson-cfrg-det-sigs-with-noise</a>]</span>.<a href="#section-18-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="open-issues">
-<section id="section-20">
+<section id="section-19">
       <h2 id="name-open-issues">
-<a href="#section-20" class="section-number selfRef">20. </a><a href="#name-open-issues" class="section-name selfRef">Open Issues</a>
+<a href="#section-19" class="section-number selfRef">19. </a><a href="#name-open-issues" class="section-name selfRef">Open Issues</a>
       </h2>
-<p id="section-20-1">A list of open issues can be found at https://github.com/thomas-fossati/draft-tls13-iot/issues<a href="#section-20-1" class="pilcrow">¶</a></p>
+<p id="section-19-1">A list of open issues can be found at https://github.com/thomas-fossati/draft-tls13-iot/issues<a href="#section-19-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">
-<section id="section-21">
+<section id="section-20">
       <h2 id="name-security-considerations">
-<a href="#section-21" class="section-number selfRef">21. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+<a href="#section-20" class="section-number selfRef">20. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-21-1">This entire document is about security.<a href="#section-21-1" class="pilcrow">¶</a></p>
+<p id="section-20-1">This entire document is about security.<a href="#section-20-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
-<section id="section-22">
+<section id="section-21">
       <h2 id="name-iana-considerations">
-<a href="#section-22" class="section-number selfRef">22. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+<a href="#section-21" class="section-number selfRef">21. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-22-1">This document makes no requests to IANA.<a href="#section-22-1" class="pilcrow">¶</a></p>
+<p id="section-21-1">This document makes no requests to IANA.<a href="#section-21-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<section id="section-23">
+<section id="section-22">
       <h2 id="name-references">
-<a href="#section-23" class="section-number selfRef">23. </a><a href="#name-references" class="section-name selfRef">References</a>
+<a href="#section-22" class="section-number selfRef">22. </a><a href="#name-references" class="section-name selfRef">References</a>
       </h2>
-<section id="section-23.1">
+<div id="sec-normative-references">
+<section id="section-22.1">
         <h3 id="name-normative-references">
-<a href="#section-23.1" class="section-number selfRef">23.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+<a href="#section-22.1" class="section-number selfRef">22.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
 <dt id="DTLS13">[DTLS13]</dt>
@@ -1870,9 +2207,11 @@ determinism, for example, as described in
 <dd class="break"></dd>
 </dl>
 </section>
-<section id="section-23.2">
+</div>
+<div id="sec-informative-references">
+<section id="section-22.2">
         <h3 id="name-informative-references">
-<a href="#section-23.2" class="section-number selfRef">23.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+<a href="#section-22.2" class="section-number selfRef">22.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
 <dt id="ADD">[ADD]</dt>
@@ -1887,17 +2226,21 @@ determinism, for example, as described in
         <dd>
 <span class="refAuthor">Shelby, Z.</span>, <span class="refAuthor">Hartke, K.</span>, and <span class="refAuthor">C. Bormann</span>, <span class="refTitle">"The Constrained Application Protocol (CoAP)"</span>, <span class="seriesInfo">RFC 7252</span>, <span class="seriesInfo">DOI 10.17487/RFC7252</span>, <time datetime="2014-06" class="refDate">June 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7252">https://www.rfc-editor.org/rfc/rfc7252</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="DTLS-CID">[DTLS-CID]</dt>
+<dt id="FDO">[FDO]</dt>
         <dd>
-<span class="refAuthor">Rescorla, E., Ed.</span>, <span class="refAuthor">Tschofenig, H., Ed.</span>, <span class="refAuthor">Fossati, T.</span>, and <span class="refAuthor">A. Kraus</span>, <span class="refTitle">"Connection Identifier for DTLS 1.2"</span>, <span class="seriesInfo">RFC 9146</span>, <span class="seriesInfo">DOI 10.17487/RFC9146</span>, <time datetime="2022-03" class="refDate">March 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9146">https://www.rfc-editor.org/rfc/rfc9146</a>&gt;</span>. </dd>
+<span class="refAuthor">FIDO Alliance</span>, <span class="refTitle">"FIDO Device Onboard Specification 1.1"</span>, <time datetime="2022-04" class="refDate">April 2022</time>, <span>&lt;<a href="https://fidoalliance.org/specifications/download-iot-specifications/">https://fidoalliance.org/specifications/download-iot-specifications/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-cose-cbor-encoded-cert">[I-D.ietf-cose-cbor-encoded-cert]</dt>
         <dd>
 <span class="refAuthor">Mattsson, J. P.</span>, <span class="refAuthor">Selander, G.</span>, <span class="refAuthor">Raza, S.</span>, <span class="refAuthor">Höglund, J.</span>, and <span class="refAuthor">M. Furuhed</span>, <span class="refTitle">"CBOR Encoded X.509 Certificates (C509 Certificates)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-cbor-encoded-cert-06</span>, <time datetime="2023-07-07" class="refDate">7 July 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-06">https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-06</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="I-D.ietf-tls-certificate-compression">[I-D.ietf-tls-certificate-compression]</dt>
+<dt id="I-D.ietf-dance-tls-clientid">[I-D.ietf-dance-tls-clientid]</dt>
         <dd>
-<span class="refAuthor">Ghedini, A.</span> and <span class="refAuthor">V. Vasiliev</span>, <span class="refTitle">"TLS Certificate Compression"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tls-certificate-compression-10</span>, <time datetime="2020-01-06" class="refDate">6 January 2020</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-certificate-compression-10">https://datatracker.ietf.org/doc/html/draft-ietf-tls-certificate-compression-10</a>&gt;</span>. </dd>
+<span class="refAuthor">Huque, S.</span> and <span class="refAuthor">V. Dukhovni</span>, <span class="refTitle">"TLS Extension for DANE Client Identity"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-dance-tls-clientid-02</span>, <time datetime="2023-05-12" class="refDate">12 May 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-dance-tls-clientid-02">https://datatracker.ietf.org/doc/html/draft-ietf-dance-tls-clientid-02</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.ietf-lamps-lightweight-cmp-profile">[I-D.ietf-lamps-lightweight-cmp-profile]</dt>
+        <dd>
+<span class="refAuthor">Brockhaus, H.</span>, <span class="refAuthor">von Oheimb, D.</span>, and <span class="refAuthor">S. Fries</span>, <span class="refTitle">"Lightweight Certificate Management Protocol (CMP) Profile"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-lamps-lightweight-cmp-profile-21</span>, <time datetime="2023-02-17" class="refDate">17 February 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-lamps-lightweight-cmp-profile-21">https://datatracker.ietf.org/doc/html/draft-ietf-lamps-lightweight-cmp-profile-21</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-tls-ctls">[I-D.ietf-tls-ctls]</dt>
         <dd>
@@ -1905,7 +2248,7 @@ determinism, for example, as described in
 <dd class="break"></dd>
 <dt id="I-D.ietf-tls-esni">[I-D.ietf-tls-esni]</dt>
         <dd>
-<span class="refAuthor">Rescorla, E.</span>, <span class="refAuthor">Oku, K.</span>, <span class="refAuthor">Sullivan, N.</span>, and <span class="refAuthor">C. A. Wood</span>, <span class="refTitle">"TLS Encrypted Client Hello"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tls-esni-16</span>, <time datetime="2023-04-06" class="refDate">6 April 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-esni-16">https://datatracker.ietf.org/doc/html/draft-ietf-tls-esni-16</a>&gt;</span>. </dd>
+<span class="refAuthor">Rescorla, E.</span>, <span class="refAuthor">Oku, K.</span>, <span class="refAuthor">Sullivan, N.</span>, and <span class="refAuthor">C. A. Wood</span>, <span class="refTitle">"TLS Encrypted Client Hello"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tls-esni-17</span>, <time datetime="2023-10-09" class="refDate">9 October 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-esni-17">https://datatracker.ietf.org/doc/html/draft-ietf-tls-esni-17</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.irtf-cfrg-aead-limits">[I-D.irtf-cfrg-aead-limits]</dt>
         <dd>
@@ -1915,17 +2258,33 @@ determinism, for example, as described in
         <dd>
 <span class="refAuthor">Barnes, R.</span>, <span class="refAuthor">Bhargavan, K.</span>, <span class="refAuthor">Lipp, B.</span>, and <span class="refAuthor">C. A. Wood</span>, <span class="refTitle">"Hybrid Public Key Encryption"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-cfrg-hpke-12</span>, <time datetime="2021-09-02" class="refDate">2 September 2021</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-hpke-12">https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-hpke-12</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="I-D.irtf-t2trg-taxonomy-manufacturer-anchors">[I-D.irtf-t2trg-taxonomy-manufacturer-anchors]</dt>
+        <dd>
+<span class="refAuthor">Richardson, M.</span>, <span class="refTitle">"A Taxonomy of operational security considerations for manufacturer installed keys and Trust Anchors"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-t2trg-taxonomy-manufacturer-anchors-02</span>, <time datetime="2023-08-06" class="refDate">6 August 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-t2trg-taxonomy-manufacturer-anchors-02">https://datatracker.ietf.org/doc/html/draft-irtf-t2trg-taxonomy-manufacturer-anchors-02</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="I-D.mattsson-cfrg-det-sigs-with-noise">[I-D.mattsson-cfrg-det-sigs-with-noise]</dt>
         <dd>
 <span class="refAuthor">Mattsson, J. P.</span>, <span class="refAuthor">Thormarker, E.</span>, and <span class="refAuthor">S. Ruohomaa</span>, <span class="refTitle">"Deterministic ECDSA and EdDSA Signatures with Additional Randomness"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-mattsson-cfrg-det-sigs-with-noise-04</span>, <time datetime="2022-02-15" class="refDate">15 February 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-mattsson-cfrg-det-sigs-with-noise-04">https://datatracker.ietf.org/doc/html/draft-mattsson-cfrg-det-sigs-with-noise-04</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="LwM2M">[LwM2M]</dt>
+        <dd>
+<span class="refAuthor">OMA SpecWorks</span>, <span class="refTitle">"Lightweight Machine to Machine (LwM2M) V.1.2.1 Technical Specification: Transport Bindings"</span>, <time datetime="2022-12" class="refDate">December 2022</time>, <span>&lt;<a href="https://openmobilealliance.org/release/LightweightM2M/V1_2_1-20221209-A/">https://openmobilealliance.org/release/LightweightM2M/V1_2_1-20221209-A/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC6066">[RFC6066]</dt>
         <dd>
 <span class="refAuthor">Eastlake 3rd, D.</span>, <span class="refTitle">"Transport Layer Security (TLS) Extensions: Extension Definitions"</span>, <span class="seriesInfo">RFC 6066</span>, <span class="seriesInfo">DOI 10.17487/RFC6066</span>, <time datetime="2011-01" class="refDate">January 2011</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6066">https://www.rfc-editor.org/rfc/rfc6066</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC668">[RFC668]</dt>
+        <dd>
+<span class="refTitle">"Not Issued"</span>, <span class="seriesInfo">RFC 668</span>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc668">https://www.rfc-editor.org/rfc/rfc668</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC6979">[RFC6979]</dt>
         <dd>
 <span class="refAuthor">Pornin, T.</span>, <span class="refTitle">"Deterministic Usage of the Digital Signature Algorithm (DSA) and Elliptic Curve Digital Signature Algorithm (ECDSA)"</span>, <span class="seriesInfo">RFC 6979</span>, <span class="seriesInfo">DOI 10.17487/RFC6979</span>, <time datetime="2013-08" class="refDate">August 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6979">https://www.rfc-editor.org/rfc/rfc6979</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC7030">[RFC7030]</dt>
+        <dd>
+<span class="refAuthor">Pritikin, M., Ed.</span>, <span class="refAuthor">Yee, P., Ed.</span>, and <span class="refAuthor">D. Harkins, Ed.</span>, <span class="refTitle">"Enrollment over Secure Transport"</span>, <span class="seriesInfo">RFC 7030</span>, <span class="seriesInfo">DOI 10.17487/RFC7030</span>, <time datetime="2013-10" class="refDate">October 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7030">https://www.rfc-editor.org/rfc/rfc7030</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC7250">[RFC7250]</dt>
         <dd>
@@ -1951,23 +2310,40 @@ determinism, for example, as described in
         <dd>
 <span class="refAuthor">Hoffman, P.</span> and <span class="refAuthor">P. McManus</span>, <span class="refTitle">"DNS Queries over HTTPS (DoH)"</span>, <span class="seriesInfo">RFC 8484</span>, <span class="seriesInfo">DOI 10.17487/RFC8484</span>, <time datetime="2018-10" class="refDate">October 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8484">https://www.rfc-editor.org/rfc/rfc8484</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC8879">[RFC8879]</dt>
+        <dd>
+<span class="refAuthor">Ghedini, A.</span> and <span class="refAuthor">V. Vasiliev</span>, <span class="refTitle">"TLS Certificate Compression"</span>, <span class="seriesInfo">RFC 8879</span>, <span class="seriesInfo">DOI 10.17487/RFC8879</span>, <time datetime="2020-12" class="refDate">December 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8879">https://www.rfc-editor.org/rfc/rfc8879</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8995">[RFC8995]</dt>
+        <dd>
+<span class="refAuthor">Pritikin, M.</span>, <span class="refAuthor">Richardson, M.</span>, <span class="refAuthor">Eckert, T.</span>, <span class="refAuthor">Behringer, M.</span>, and <span class="refAuthor">K. Watsen</span>, <span class="refTitle">"Bootstrapping Remote Secure Key Infrastructure (BRSKI)"</span>, <span class="seriesInfo">RFC 8995</span>, <span class="seriesInfo">DOI 10.17487/RFC8995</span>, <time datetime="2021-05" class="refDate">May 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8995">https://www.rfc-editor.org/rfc/rfc8995</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC9019">[RFC9019]</dt>
         <dd>
 <span class="refAuthor">Moran, B.</span>, <span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Brown, D.</span>, and <span class="refAuthor">M. Meriac</span>, <span class="refTitle">"A Firmware Update Architecture for Internet of Things"</span>, <span class="seriesInfo">RFC 9019</span>, <span class="seriesInfo">DOI 10.17487/RFC9019</span>, <time datetime="2021-04" class="refDate">April 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9019">https://www.rfc-editor.org/rfc/rfc9019</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC9146">[RFC9146]</dt>
+        <dd>
+<span class="refAuthor">Rescorla, E., Ed.</span>, <span class="refAuthor">Tschofenig, H., Ed.</span>, <span class="refAuthor">Fossati, T.</span>, and <span class="refAuthor">A. Kraus</span>, <span class="refTitle">"Connection Identifier for DTLS 1.2"</span>, <span class="seriesInfo">RFC 9146</span>, <span class="seriesInfo">DOI 10.17487/RFC9146</span>, <time datetime="2022-03" class="refDate">March 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9146">https://www.rfc-editor.org/rfc/rfc9146</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC9325">[RFC9325]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Sheffer, Y.</span>, <span class="refAuthor">Saint-Andre, P.</span>, and <span class="refAuthor">T. Fossati</span>, <span class="refTitle">"Recommendations for Secure Use of Transport Layer Security (TLS) and Datagram Transport Layer Security (DTLS)"</span>, <span class="seriesInfo">BCP 195</span>, <span class="seriesInfo">RFC 9325</span>, <span class="seriesInfo">DOI 10.17487/RFC9325</span>, <time datetime="2022-11" class="refDate">November 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9325">https://www.rfc-editor.org/rfc/rfc9325</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="_8021AR">[_8021AR]</dt>
+      <dd>
+<span class="refAuthor">IEEE</span>, <span class="refTitle">"IEEE Standard for Local and metropolitan area networks – Secure Device Identity, IEEE 802.1AR-2018"</span>, <time datetime="2018-08" class="refDate">August 2018</time>, <span>&lt;<a href="https://1.ieee802.org/security/802-1ar">https://1.ieee802.org/security/802-1ar</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
+</div>
 </section>
 <div id="acknowledgments">
 <section id="appendix-A">
       <h2 id="name-acknowledgments">
 <a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
-<p id="appendix-A-1">We would like to thank Ben Kaduk, John Mattsson and Michael Richardson.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-1">We would like to thank Ben Kaduk, Hendrik Brockhaus, John Mattsson and Michael Richardson.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">
@@ -1988,6 +2364,14 @@ determinism, for example, as described in
 <div class="email">
 <span>Email:</span>
 <a href="mailto:Thomas.Fossati@linaro.com" class="email">Thomas.Fossati@linaro.com</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Michael Richardson</span></div>
+<div dir="auto" class="left"><span class="org">Sandelman Software Works</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:mcr+ietf@sandelman.ca" class="email">mcr+ietf@sandelman.ca</a>
 </div>
 </address>
 </section>
