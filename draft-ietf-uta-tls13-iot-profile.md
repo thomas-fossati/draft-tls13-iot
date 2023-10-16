@@ -40,6 +40,12 @@ author:
     organization: "Linaro"
     email: Thomas.Fossati@linaro.com
 
+ -
+    ins: M. Richardson
+    name: Michael Richardson
+    organization: "Sandelman Software Works"
+    email: mcr+ietf@sandelman.ca
+
 normative:
   DTLS13: RFC9147
   TLS13: RFC8446
