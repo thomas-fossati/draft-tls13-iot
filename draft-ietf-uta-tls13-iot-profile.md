@@ -660,7 +660,7 @@ optimizations typically get implemented last.
   DNS-Based Authentication of Named Entities (DANE) TLSA records then the
   {{?I-D.ietf-dance-tls-clientid}} specification may be used to reduce the
   packets on the wire. Note: The term "TLSA" does not stand for anything;
-  it is just the name of the RRtype, as explained in {{?RFC668}}.
+  it is just the name of the RRtype, as explained in {{?RFC6698}}.
 * Use certificate compression as defined in
   {{?RFC8879}}.
 * Use alternative certificate formats, where possible, such as raw public keys
