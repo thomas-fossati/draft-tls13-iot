@@ -730,7 +730,7 @@ non-existent physical security.
 
 In this security model, it is recommended to combine both randomness and
 determinism, for example, as described in
-{{?I-D.mattsson-cfrg-det-sigs-with-noise}}.
+{{?I-D.irtf-cfrg-det-sigs-with-noise}}.
 
 # Open Issues
 
