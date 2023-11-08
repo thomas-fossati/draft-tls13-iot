@@ -357,7 +357,7 @@ IDevID certificates with no maximum validity period.
 LDevID certificates are, however, issued by the operator or owner,
 and may be renewed at a regular interval using protocols, such
 as Enrollment over Secure Transport (EST) {{?RFC7030}} or the
-Certificate Management Protocol (CMP) {{?I-D.ietf-lamps-lightweight-cmp-profile}}.
+Certificate Management Protocol (CMP) {{?RFC9483}}.
 It is therefore RECOMMENDED to limit the lifetime of these LDevID certificates
 using the notBefore and notAfter fields, as described in Section 4.1.2.5 of
 {{!RFC5280}}. Values MUST be expressed in Greenwich Mean Time (Zulu) and
