@@ -720,7 +720,7 @@ of {{?RFC9325}} also apply.
 # Fault Attacks on Deterministic Signature Schemes
 
 A number of passive side-channel attacks as well as active fault-injection
-attacks (e.g., {{Ambrose2017}}) have been demonstrated that allow a malicious
+attacks (e.g., {{Ambrose2017}}) have been demonstrated to be successful in allowing a malicious
 third party to gain information about the signing key if a fully deterministic
 signature scheme (e.g., {{?RFC6979}} ECDSA or EdDSA {{?RFC8032}}) is used.
 
