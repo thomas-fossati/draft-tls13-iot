@@ -6,9 +6,9 @@ UTA                                                        H. Tschofenig
 Internet-Draft                                                          
 Updates: 7925 (if approved)                                   T. Fossati
 Intended status: Standards Track                                  Linaro
-Expires: 18 April 2024                                     M. Richardson
+Expires: 12 August 2024                                    M. Richardson
                                                 Sandelman Software Works
-                                                         16 October 2023
+                                                         9 February 2024
 
 
             TLS/DTLS 1.3 Profiles for the Internet of Things
@@ -42,11 +42,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 18 April 2024.
+   This Internet-Draft will expire on 12 August 2024.
 
 Copyright Notice
 
-   Copyright (c) 2023 IETF Trust and the persons identified as the
+   Copyright (c) 2024 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -358,11 +358,12 @@ Table of Contents
 
 15.1.2.  Serial Number
 
-   CAs MUST generate non-sequential serial numbers greater than zero (0)
-   up to 20 octects from a cryptographically secure pseudo-random number
-   generator.  The serial number MUST be unique for each certificate
-   issued by a given CA (i.e., the issuer name and the serial number
-   uniquely identify a certificate).
+   CAs MUST generate non-sequential serial numbers greater than eight
+   (8) octects from a cryptographically secure pseudo-random number
+   generator.  [RFC5280] limits this field to a maximum of 20 octets.
+   The serial number MUST be unique for each certificate issued by a
+   given CA (i.e., the issuer name and the serial number uniquely
+   identify a certificate).
 
    This requirement is aligned with [RFC5280].
 
@@ -396,12 +397,11 @@ Table of Contents
    LDevID certificates are, however, issued by the operator or owner,
    and may be renewed at a regular interval using protocols, such as
    Enrollment over Secure Transport (EST) [RFC7030] or the Certificate
-   Management Protocol (CMP) [I-D.ietf-lamps-lightweight-cmp-profile].
-   It is therefore RECOMMENDED to limit the lifetime of these LDevID
-   certificates using the notBefore and notAfter fields, as described in
-   Section 4.1.2.5 of [RFC5280].  Values MUST be expressed in Greenwich
-   Mean Time (Zulu) and MUST include seconds even where the number of
-   seconds is zero.
+   Management Protocol (CMP) [RFC9483].  It is therefore RECOMMENDED to
+   limit the lifetime of these LDevID certificates using the notBefore
+   and notAfter fields, as described in Section 4.1.2.5 of [RFC5280].
+   Values MUST be expressed in Greenwich Mean Time (Zulu) and MUST
+   include seconds even where the number of seconds is zero.
 
    Note that the validity period is defined as the period of time from
    notBefore through notAfter, inclusive.  This means that a
@@ -732,7 +732,7 @@ Table of Contents
       then the [I-D.ietf-dance-tls-clientid] specification may be used
       to reduce the packets on the wire.  Note: The term "TLSA" does not
       stand for anything; it is just the name of the RRtype, as
-      explained in [RFC668].
+      explained in [RFC6698].
    *  Use certificate compression as defined in [RFC8879].
    *  Use alternative certificate formats, where possible, such as raw
       public keys [RFC7250] or CBOR-encoded certificates
@@ -792,10 +792,10 @@ Table of Contents
 18.  Fault Attacks on Deterministic Signature Schemes
 
    A number of passive side-channel attacks as well as active fault-
-   injection attacks (e.g., [Ambrose2017]) have been demonstrated that
-   allow a malicious third party to gain information about the signing
-   key if a fully deterministic signature scheme (e.g., [RFC6979] ECDSA
-   or EdDSA [RFC8032]) is used.
+   injection attacks (e.g., [Ambrose2017]) have been demonstrated to be
+   successful in allowing a malicious third party to gain information
+   about the signing key if a fully deterministic signature scheme
+   (e.g., [RFC6979] ECDSA or EdDSA [RFC8032]) is used.
 
    Most of these attacks assume physical access to the device and are
    therefore especially relevant to smart cards as well as IoT
@@ -803,7 +803,7 @@ Table of Contents
 
    In this security model, it is recommended to combine both randomness
    and determinism, for example, as described in
-   [I-D.mattsson-cfrg-det-sigs-with-noise].
+   [I-D.irtf-cfrg-det-sigs-with-noise].
 
 19.  Open Issues
 
@@ -900,31 +900,23 @@ Table of Contents
               Mattsson, J. P., Selander, G., Raza, S., Höglund, J., and
               M. Furuhed, "CBOR Encoded X.509 Certificates (C509
               Certificates)", Work in Progress, Internet-Draft, draft-
-              ietf-cose-cbor-encoded-cert-06, 7 July 2023,
+              ietf-cose-cbor-encoded-cert-07, 20 October 2023,
               <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
-              cbor-encoded-cert-06>.
+              cbor-encoded-cert-07>.
 
    [I-D.ietf-dance-tls-clientid]
               Huque, S. and V. Dukhovni, "TLS Extension for DANE Client
               Identity", Work in Progress, Internet-Draft, draft-ietf-
-              dance-tls-clientid-02, 12 May 2023,
+              dance-tls-clientid-03, 8 January 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-dance-
-              tls-clientid-02>.
-
-   [I-D.ietf-lamps-lightweight-cmp-profile]
-              Brockhaus, H., von Oheimb, D., and S. Fries, "Lightweight
-              Certificate Management Protocol (CMP) Profile", Work in
-              Progress, Internet-Draft, draft-ietf-lamps-lightweight-
-              cmp-profile-21, 17 February 2023,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-lamps-
-              lightweight-cmp-profile-21>.
+              tls-clientid-03>.
 
    [I-D.ietf-tls-ctls]
               Rescorla, E., Barnes, R., Tschofenig, H., and B. M.
               Schwartz, "Compact TLS 1.3", Work in Progress, Internet-
-              Draft, draft-ietf-tls-ctls-08, 13 March 2023,
+              Draft, draft-ietf-tls-ctls-09, 23 October 2023,
               <https://datatracker.ietf.org/doc/html/draft-ietf-tls-
-              ctls-08>.
+              ctls-09>.
 
    [I-D.ietf-tls-esni]
               Rescorla, E., Oku, K., Sullivan, N., and C. A. Wood, "TLS
@@ -940,6 +932,14 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-
               aead-limits-07>.
 
+   [I-D.irtf-cfrg-det-sigs-with-noise]
+              Mattsson, J. P., Thormarker, E., and S. Ruohomaa,
+              "Deterministic ECDSA and EdDSA Signatures with Additional
+              Randomness", Work in Progress, Internet-Draft, draft-irtf-
+              cfrg-det-sigs-with-noise-00, 8 August 2022,
+              <https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-
+              det-sigs-with-noise-00>.
+
    [I-D.irtf-cfrg-hpke]
               Barnes, R., Bhargavan, K., Lipp, B., and C. A. Wood,
               "Hybrid Public Key Encryption", Work in Progress,
@@ -951,17 +951,9 @@ Table of Contents
               Richardson, M., "A Taxonomy of operational security
               considerations for manufacturer installed keys and Trust
               Anchors", Work in Progress, Internet-Draft, draft-irtf-
-              t2trg-taxonomy-manufacturer-anchors-02, 6 August 2023,
+              t2trg-taxonomy-manufacturer-anchors-03, 30 January 2024,
               <https://datatracker.ietf.org/doc/html/draft-irtf-t2trg-
-              taxonomy-manufacturer-anchors-02>.
-
-   [I-D.mattsson-cfrg-det-sigs-with-noise]
-              Mattsson, J. P., Thormarker, E., and S. Ruohomaa,
-              "Deterministic ECDSA and EdDSA Signatures with Additional
-              Randomness", Work in Progress, Internet-Draft, draft-
-              mattsson-cfrg-det-sigs-with-noise-04, 15 February 2022,
-              <https://datatracker.ietf.org/doc/html/draft-mattsson-
-              cfrg-det-sigs-with-noise-04>.
+              taxonomy-manufacturer-anchors-03>.
 
    [LwM2M]    OMA SpecWorks, "Lightweight Machine to Machine (LwM2M)
               V.1.2.1 Technical Specification: Transport Bindings",
@@ -974,8 +966,10 @@ Table of Contents
               DOI 10.17487/RFC6066, January 2011,
               <https://www.rfc-editor.org/rfc/rfc6066>.
 
-   [RFC668]   "Not Issued", RFC 668,
-              <https://www.rfc-editor.org/rfc/rfc668>.
+   [RFC6698]  Hoffman, P. and J. Schlyter, "The DNS-Based Authentication
+              of Named Entities (DANE) Transport Layer Security (TLS)
+              Protocol: TLSA", RFC 6698, DOI 10.17487/RFC6698, August
+              2012, <https://www.rfc-editor.org/rfc/rfc6698>.
 
    [RFC6979]  Pornin, T., "Deterministic Usage of the Digital Signature
               Algorithm (DSA) and Elliptic Curve Digital Signature
@@ -1041,6 +1035,11 @@ Table of Contents
               Security (TLS) and Datagram Transport Layer Security
               (DTLS)", BCP 195, RFC 9325, DOI 10.17487/RFC9325, November
               2022, <https://www.rfc-editor.org/rfc/rfc9325>.
+
+   [RFC9483]  Brockhaus, H., von Oheimb, D., and S. Fries, "Lightweight
+              Certificate Management Protocol (CMP) Profile", RFC 9483,
+              DOI 10.17487/RFC9483, November 2023,
+              <https://www.rfc-editor.org/rfc/rfc9483>.
 
    [_8021AR]  IEEE, "IEEE Standard for Local and metropolitan area
               networks – Secure Device Identity, IEEE 802.1AR-2018",
