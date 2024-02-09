@@ -320,9 +320,10 @@ sections or even other specifications.
 
 ### Serial Number
 
-CAs MUST generate non-sequential serial numbers greater than zero
-(0) up to 20 octects from a cryptographically secure
-pseudo-random number generator. The serial number MUST be unique
+CAs MUST generate non-sequential serial numbers greater than eight
+(8) octects from a cryptographically secure pseudo-random number generator.
+{{!RFC5280}} limits this field to a maximum of 20 octets.
+The serial number MUST be unique
 for each certificate issued by a given CA (i.e., the issuer name
 and the serial number uniquely identify a certificate).
 
