@@ -320,7 +320,7 @@ sections or even other specifications.
 
 ### Serial Number
 
-CAs MUST generate non-sequential serial numbers greater than eight
+CAs MUST generate non-sequential serial numbers greater than or equal to eight
 (8) octects from a cryptographically secure pseudo-random number generator.
 {{!RFC5280}} limits this field to a maximum of 20 octets.
 The serial number MUST be unique
