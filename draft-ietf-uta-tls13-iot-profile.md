@@ -124,7 +124,7 @@ omitted from the TLS/DTLS 1.3 specification.
 
 {::boilerplate bcp14}
 
-This document reuses the terms "SHOULD+" and "MUST-" from {{!RFC4835}}.
+This document reuses the terms "SHOULD+", "SHOULD-" and "MUST-" from {{!RFC8221}}.
 
 # Credential Types
 
