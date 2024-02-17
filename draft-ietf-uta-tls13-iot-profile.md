@@ -217,11 +217,6 @@ In particular, "[w]hen DTLS 1.3 is used in deployments with lossy networks, such
 This allows for selective or early retransmission, which leads to more efficient use of bandwidth and memory resources.
 
 Due to the vast range of network technologies used in IoT deployments, from wired LAN to GSM-SMS, it's not possible to provide a universal recommendation for an initial timeout.
-Therefore, it is RECOMMENDED that DTLS 1.3 implementations provide a way for their users to explicitly set the initial timer value.
-Users SHOULD set the initial timeout to be twice the expected RTT but no less than 1000 ms.
-A sub-second initial timeout MAY be set for specific application/network combinations
-If no RTT estimates are available, 1 second is a good recommendation for the general internet.
-
 Therefore, it is RECOMMENDED that DTLS 1.3 implementations allow users to explicitly set the initial timer value.
 Users SHOULD set the initial timeout to be twice the expected round-trip time (RTT), but no less than 1000ms.
 For specific application/network combinations, a sub-second initial timeout MAY be set.
