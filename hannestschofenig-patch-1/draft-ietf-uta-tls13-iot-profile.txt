@@ -895,11 +895,6 @@ Table of Contents
               RFC 8449, DOI 10.17487/RFC8449, August 2018,
               <https://www.rfc-editor.org/rfc/rfc8449>.
 
-   [RFC9190]  Preuß Mattsson, J. and M. Sethi, "EAP-TLS 1.3: Using the
-              Extensible Authentication Protocol with TLS 1.3",
-              RFC 9190, DOI 10.17487/RFC9190, February 2022,
-              <https://www.rfc-editor.org/rfc/rfc9190>.
-
    [RFC9258]  Benjamin, D. and C. A. Wood, "Importing External Pre-
               Shared Keys (PSKs) for TLS 1.3", RFC 9258,
               DOI 10.17487/RFC9258, July 2022,
@@ -1072,6 +1067,11 @@ Table of Contents
               A. Kraus, "Connection Identifier for DTLS 1.2", RFC 9146,
               DOI 10.17487/RFC9146, March 2022,
               <https://www.rfc-editor.org/rfc/rfc9146>.
+
+   [RFC9190]  Preuß Mattsson, J. and M. Sethi, "EAP-TLS 1.3: Using the
+              Extensible Authentication Protocol with TLS 1.3",
+              RFC 9190, DOI 10.17487/RFC9190, February 2022,
+              <https://www.rfc-editor.org/rfc/rfc9190>.
 
    [RFC9261]  Sullivan, N., "Exported Authenticators in TLS", RFC 9261,
               DOI 10.17487/RFC9261, July 2022,
