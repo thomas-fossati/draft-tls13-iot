@@ -68,7 +68,7 @@ Table of Contents
    5.   Compression
    6.   Perfect Forward Secrecy
    7.  Keep-Alive
-   8.  Timeouts
+   8.  Timers and ACKs
    9.   Random Number Generation
    10. Server Name Indication
    11.  Maximum Fragment Length Negotiation
@@ -113,6 +113,7 @@ Table of Contents
      22.1.  Normative References
      22.2.  Informative References
    Acknowledgments
+   Contributors
    Authors' Addresses
 
 1.  Introduction
@@ -140,9 +141,10 @@ Table of Contents
       rekeying defined in Section 4.6.3 of [TLS13] does not provide
       forward secrecy and post-handshake authentication defined in
       Section 4.6.2 of [TLS13] only offers client-to-server
-      authentication.  [RFC9261] later added support for mutual, post-
-      handshake authentication but requires payloads to be exchanged by
-      the application layer protocol.
+      authentication.  The "Exported Authenticator" specification, see
+      [RFC9261], recently added support for mutual, post-handshake
+      authentication but requires payloads to be exchanged by the
+      application layer protocol.
    *  Rekeying of the application traffic secret does not lead to an
       update of the exporter secret (see Section 7.5 of [TLS13]) since
       the derived export secret is based on the exporter_master_secret
@@ -166,6 +168,9 @@ Table of Contents
    "OPTIONAL" in this document are to be interpreted as described in
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
+
+   This document reuses the terms "SHOULD+", "SHOULD-" and "MUST-" from
+   [RFC8221].
 
 2.  Credential Types
 
@@ -253,11 +258,36 @@ Table of Contents
 
    The discussion in Section 10 of [RFC7925] is applicable.
 
-8.  Timeouts
+8.  Timers and ACKs
 
-   The recommendation in Section 11 of [RFC7925] is applicable.  In
-   particular this document RECOMMENDED to use an initial timer value of
-   9 seconds with exponential back off up to no less then 60 seconds.
+   Compared to DTLS 1.2 timeout-based whole flight retransmission, DTLS
+   1.3 ACKs sensibly decrease the risk of congestion collapse which was
+   the basis for the very conservative recommendations given in
+   Section 11 of [RFC7925].
+
+   In general, the recommendations in Section 7.3 of [DTLS13] regarding
+   ACKs apply.  In particular, "[w]hen DTLS 1.3 is used in deployments
+   with lossy networks, such as low-power, long-range radio networks as
+   well as low-power mesh networks, the use of ACKs is recommended" to
+   signal any sign of disruption or lack of progress.  This allows for
+   selective or early retransmission, which leads to more efficient use
+   of bandwidth and memory resources.
+
+   Due to the vast range of network technologies used in IoT
+   deployments, from wired LAN to GSM-SMS, it's not possible to provide
+   a universal recommendation for an initial timeout.  Therefore, it is
+   RECOMMENDED that DTLS 1.3 implementations allow developers to
+   explicitly set the initial timer value.  Developers SHOULD set the
+   initial timeout to be twice the expected round-trip time (RTT), but
+   no less than 1000ms.  For specific application/network combinations,
+   a sub-second initial timeout MAY be set.  In cases where no RTT
+   estimates are available, a 1000ms initial timeout is suitable for the
+   general Internet.
+
+   For RRC, the recommendations in Section 7.5 of
+   [I-D.ietf-tls-dtls-rrc] apply.  Just like the handshake initial
+   timers, it is RECOMMENDED that DTLS 1.2 and 1.3 implementations offer
+   an option for their developers to explicitly set the RRC timer.
 
 9.   Random Number Generation
 
@@ -461,7 +491,10 @@ Table of Contents
 
 15.1.7.  Certificate Revocation Checks
 
-   The considerations in Section 4.4.3 of [RFC7925] hold.
+   The guidance in Section 4.4.3 of [RFC7925] still holds: for
+   certificate revocation, neither the Online Certificate Status
+   Protocol (OCSP) nor Certificate Revocation Lists (CRLs) are used by
+   constrained IoT devices.
 
    Since the publication of RFC 7925 the need for firmware update
    mechanisms has been reinforced and the work on standardizing a secure
@@ -473,14 +506,22 @@ Table of Contents
    The use of device management protocols for IoT devices, which often
    include an onboarding or bootstrapping mechanism, has also seen
    considerable uptake in deployed devices and these protocols, some of
-   which are standardized, allow provision of certificates on a regular
-   basis.  This enables a deployment model where IoT device utilize end-
-   entity certificates with shorter lifetime making certificate
-   revocation protocols, like OCSP and CRLs, less relevant.
+   which are standardized, allow updates of certificates on demand.
+   This enables a deployment model where IoT device utilize end-entity
+   certificates with shorter lifetime making certificate revocation
+   protocols, like OCSP and CRLs, less relevant.  Whenever certificates
+   are updated the TLS stack needs to be informed since the
+   communication endpoints need to be aware of the new certificates.
+   This is particularly important when long-lived TLS connections are
+   used.  In such a case, the a post-handshake authentication exchange
+   needs to be triggered.  TLS 1.3 provides client-to-server post-
+   handshake authentication only.  Mutual authentication via post-
+   handshake messages is available via [RFC9261] but requires the
+   application layer protocol to carry the payloads.
 
    Hence, instead of performing certificate revocation checks on the IoT
    device itself this specification recommends to delegate this task to
-   the IoT device operator and to take thenecessary action to allow IoT
+   the IoT device operator and to take the necessary action to allow IoT
    devices to remain operational.
 
    The CRL distribution points extension has been defined in RFC 5280 to
@@ -773,26 +814,26 @@ Table of Contents
 
 17.  Ciphersuites
 
-   Section 4.5.3 of [DTLS13] flags AES-CCM with 8-octet authentication
-   tags (CCM_8) as unsuitable for general use with DTLS.  In fact, due
-   to its low integrity limits (i.e., a high sensitivity to forgeries),
-   endpoints that negotiate ciphersuites based on such AEAD are
-   susceptible to a trivial DoS.  (See also Section 5.3 and 5.4 of
-   [I-D.irtf-cfrg-aead-limits] for further discussion on this topic, as
-   well as references to the analysis supporting these conclusions.)
+   According to Section 4.5.3 of [DTLS13], the use of AES-CCM with
+   8-octet authentication tags (CCM_8) is considered unsuitable for
+   general use with DTLS.  This is because it has low integrity limits
+   (i.e., high sensitivity to forgeries) which makes endpoints that
+   negotiate ciphersuites based on such AEAD vulnerable to a trivial DoS
+   attack.  See also Sections 5.3 and 5.4 of [I-D.irtf-cfrg-aead-limits]
+   for further discussion on this topic, as well as references to the
+   analysis supporting these conclusions.
 
    Specifically, [DTLS13] warns that:
 
-> "TLS_AES_128_CCM_8_SHA256 MUST NOT be used in DTLS without additional
+> TLS_AES_128_CCM_8_SHA256 MUST NOT be used in DTLS without additional
 > safeguards against forgery. Implementations MUST set usage limits for
 > AEAD_AES_128_CCM_8 based on an understanding of any additional forgery
-> protections that are used."
+> protections that are used.
 
-   Since all the ciphersuites mandated by [RFC7925] and [CoAP] are based
-   on CCM_8, there is no stand-by ciphersuite to use for applications
-   that want to avoid the security and availability risks associated
-   with CCM_8 while retaining interoperability with the rest of the
-   ecosystem.
+   Since all the ciphersuites required by [RFC7925] and [CoAP] rely on
+   CCM_8, there is no alternate ciphersuite available for applications
+   that aim to eliminate the security and availability threats related
+   to CCM_8 while retaining interoperability with the larger ecosystem.
 
    In order to ameliorate the situation, this document RECOMMENDS that
    implementations support the following two ciphersuites:
@@ -809,9 +850,23 @@ Table of Contents
    footprints.
 
    When the GCM-based ciphersuite is used with TLS 1.2, the
-   recommendations in Section 6.2.1 of [RFC9325] related to
+   recommendations in Section 7.2.1 of [RFC9325] related to
    deterministic nonce generation apply.  In addition, the integrity
    limits on key usage detailed in Section 4.4 of [RFC9325] also apply.
+
+   Table 1 summarizes the recommendations regarding ciphersuites:
+
+   +=========================================+=============+
+   | Ciphersuite                             | Requirement |
+   +=========================================+=============+
+   | TLS_AES_128_CCM_8_SHA256                | MUST-       |
+   +-----------------------------------------+-------------+
+   | TLS_ECDHE_ECDSA_WITH_AES_128_CCM        | SHOULD+     |
+   +-----------------------------------------+-------------+
+   | TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 | SHOULD+     |
+   +-----------------------------------------+-------------+
+
+               Table 1: Ciphersuite requirements
 
 18.  Fault Attacks on Deterministic Signature Schemes
 
@@ -851,6 +906,13 @@ Table of Contents
               1.3", RFC 9147, DOI 10.17487/RFC9147, April 2022,
               <https://www.rfc-editor.org/rfc/rfc9147>.
 
+   [I-D.ietf-tls-dtls-rrc]
+              Tschofenig, H., Kraus, A., and T. Fossati, "Return
+              Routability Check for DTLS 1.2 and DTLS 1.3", Work in
+              Progress, Internet-Draft, draft-ietf-tls-dtls-rrc-10, 9
+              October 2023, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-tls-dtls-rrc-10>.
+
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
@@ -883,6 +945,13 @@ Table of Contents
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
+   [RFC8221]  Wouters, P., Migault, D., Mattsson, J., Nir, Y., and T.
+              Kivinen, "Cryptographic Algorithm Implementation
+              Requirements and Usage Guidance for Encapsulating Security
+              Payload (ESP) and Authentication Header (AH)", RFC 8221,
+              DOI 10.17487/RFC8221, October 2017,
+              <https://www.rfc-editor.org/rfc/rfc8221>.
+
    [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
               Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
               <https://www.rfc-editor.org/rfc/rfc8446>.
@@ -895,6 +964,12 @@ Table of Contents
               Shared Keys (PSKs) for TLS 1.3", RFC 9258,
               DOI 10.17487/RFC9258, July 2022,
               <https://www.rfc-editor.org/rfc/rfc9258>.
+
+   [RFC9325]  Sheffer, Y., Saint-Andre, P., and T. Fossati,
+              "Recommendations for Secure Use of Transport Layer
+              Security (TLS) and Datagram Transport Layer Security
+              (DTLS)", BCP 195, RFC 9325, DOI 10.17487/RFC9325, November
+              2022, <https://www.rfc-editor.org/rfc/rfc9325>.
 
    [TLS13]    Rescorla, E., "The Transport Layer Security (TLS) Protocol
               Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
@@ -1077,12 +1152,6 @@ Table of Contents
               DOI 10.17487/RFC9261, July 2022,
               <https://www.rfc-editor.org/rfc/rfc9261>.
 
-   [RFC9325]  Sheffer, Y., Saint-Andre, P., and T. Fossati,
-              "Recommendations for Secure Use of Transport Layer
-              Security (TLS) and Datagram Transport Layer Security
-              (DTLS)", BCP 195, RFC 9325, DOI 10.17487/RFC9325, November
-              2022, <https://www.rfc-editor.org/rfc/rfc9325>.
-
    [RFC9483]  Brockhaus, H., von Oheimb, D., and S. Fries, "Lightweight
               Certificate Management Protocol (CMP) Profile", RFC 9483,
               DOI 10.17487/RFC9483, November 2023,
@@ -1094,8 +1163,16 @@ Table of Contents
 
 Acknowledgments
 
-   We would like to thank Ben Kaduk, Hendrik Brockhaus, John Mattsson
-   and Michael Richardson.
+   We would like to thank Ben Kaduk, Hendrik Brockhaus, and John
+   Mattsson.
+
+Contributors
+
+   Juliusz Sosinowicz
+
+
+   Achim Kraus
+
 
 Authors' Addresses
 
