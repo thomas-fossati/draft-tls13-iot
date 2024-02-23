@@ -1494,12 +1494,12 @@ negotiated independently.<a href="#section-6-1" class="pilcrow">¶</a></p>
 In particular, "[w]hen DTLS 1.3 is used in deployments with lossy networks, such as low-power, long-range radio networks as well as low-power mesh networks, the use of ACKs is recommended" to signal any sign of disruption or lack of progress.
 This allows for selective or early retransmission, which leads to more efficient use of bandwidth and memory resources.<a href="#section-8-2" class="pilcrow">¶</a></p>
 <p id="section-8-3">Due to the vast range of network technologies used in IoT deployments, from wired LAN to GSM-SMS, it's not possible to provide a universal recommendation for an initial timeout.
-Therefore, it is RECOMMENDED that DTLS 1.3 implementations allow users to explicitly set the initial timer value.
-Users SHOULD set the initial timeout to be twice the expected round-trip time (RTT), but no less than 1000ms.
+Therefore, it is RECOMMENDED that DTLS 1.3 implementations allow developers to explicitly set the initial timer value.
+Developers SHOULD set the initial timeout to be twice the expected round-trip time (RTT), but no less than 1000ms.
 For specific application/network combinations, a sub-second initial timeout MAY be set.
 In cases where no RTT estimates are available, a 1 second initial timeout is suitable for the general Internet.<a href="#section-8-3" class="pilcrow">¶</a></p>
 <p id="section-8-4">For RRC, the recommendations in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-dtls-rrc-10#section-7.5" class="relref">Section 7.5</a> of [<a href="#I-D.ietf-tls-dtls-rrc" class="cite xref">I-D.ietf-tls-dtls-rrc</a>]</span> apply.
-Just like the handshake initial timers, it is RECOMMENDED that DTLS 1.2 and 1.3 implementations offer an option for their users to explicitly set the RRC timer.<a href="#section-8-4" class="pilcrow">¶</a></p>
+Just like the handshake initial timers, it is RECOMMENDED that DTLS 1.2 and 1.3 implementations offer an option for their developers to explicitly set the RRC timer.<a href="#section-8-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="random-number-generation">
