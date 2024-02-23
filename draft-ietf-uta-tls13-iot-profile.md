@@ -414,7 +414,7 @@ and CRLs, less relevant. If TLS connections are long-lived a trigger
 by the application layer is necessary to perform post-handshake authentication
 to exchange the newly provisioned certificates. This will allow both peers
 to learn about any certificate changes. TLS 1.3 provides basic
-post-handshake client-to-server authentication only. Mutual 
+post-handshake client-to-server authentication only. Mutual
 authentication via post-handshake messages is available via {{?RFC9261}}
 but requires the application layer protocol to carry the payloads.
 
