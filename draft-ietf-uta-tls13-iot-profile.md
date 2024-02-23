@@ -410,7 +410,7 @@ in deployed devices and these protocols, some of which are standardized,
 allow updates of certificates on a regular basis. This enables a
 deployment model where IoT device utilize end-entity certificates with
 shorter lifetime making certificate revocation protocols, like OCSP
-and CRLs, less relevant. If TLS connections are long-lived a trigger
+and CRLs, less relevant. If TLS connections are long-lived, a trigger
 by the application layer is necessary to perform post-handshake authentication
 to exchange the newly provisioned certificates. This will allow both peers
 to learn about any certificate changes. TLS 1.3 provides basic
