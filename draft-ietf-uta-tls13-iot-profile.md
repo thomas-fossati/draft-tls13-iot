@@ -210,7 +210,7 @@ The discussion in Section 10 of {{!RFC7925}} is applicable.
 
 # Timers and ACKs
 
-Compared to DTLS 1.2 timeout-based whole flight retransmission, DTLS 1.3 ACKs sensibly decrease the risk of congestion collapse which was the basis for the very conservative recommendations given in Section 11 of {{!RFC7925}}.
+Compared to DTLS 1.2 timeout-based whole flight retransmission, DTLS 1.3 ACKs sensibly decrease the risk of congestion collapse which was the basis for the very conservative recommendations given in {{Section 11 of !RFC7925}}.
 
 In general, the recommendations in {{Section 7.3 of DTLS13}} regarding ACKs apply.
 In particular, "[w]hen DTLS 1.3 is used in deployments with lossy networks, such as low-power, long-range radio networks as well as low-power mesh networks, the use of ACKs is recommended" to signal any sign of disruption or lack of progress.
