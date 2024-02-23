@@ -146,6 +146,8 @@ supported in TLS 1.3.
 
 {::boilerplate bcp14}
 
+This document reuses the terms "SHOULD+", "SHOULD-" and "MUST-" from {{!RFC8221}}.
+
 # Credential Types
 
 In accordance with the recommendations in {{!RFC7925}}, a compliant
@@ -700,45 +702,54 @@ infrastructure, tool support).
 
 # Ciphersuites
 
-Section 4.5.3 of {{DTLS13}} flags AES-CCM with 8-octet authentication tags
-(CCM_8) as unsuitable for general use with DTLS.  In fact, due to its low
-integrity limits (i.e., a high sensitivity to forgeries), endpoints that
-negotiate ciphersuites based on such AEAD are susceptible to a trivial DoS.
-(See also Section 5.3 and 5.4 of {{?I-D.irtf-cfrg-aead-limits}} for further
-discussion on this topic, as well as references to the analysis supporting
-these conclusions.)
+According to {{Section 4.5.3 of DTLS13}}, the use of AES-CCM with 8-octet
+authentication tags (CCM_8) is considered unsuitable for general use with DTLS.
+This is because it has low integrity limits (i.e., high sensitivity to
+forgeries) which makes endpoints that negotiate ciphersuites based on such AEAD
+vulnerable to a trivial DoS attack. See also {{Sections 5.3 and 5.4 of
+?I-D.irtf-cfrg-aead-limits}} for further discussion on this topic, as well as
+references to the analysis supporting these conclusions.
 
 Specifically, {{DTLS13}} warns that:
 
 ~~~
-> "TLS_AES_128_CCM_8_SHA256 MUST NOT be used in DTLS without additional
+> TLS_AES_128_CCM_8_SHA256 MUST NOT be used in DTLS without additional
 > safeguards against forgery. Implementations MUST set usage limits for
 > AEAD_AES_128_CCM_8 based on an understanding of any additional forgery
-> protections that are used."
+> protections that are used.
 ~~~
 
-Since all the ciphersuites mandated by {{RFC7925}} and {{CoAP}} are based on
-CCM_8, there is no stand-by ciphersuite to use for applications that want to
-avoid the security and availability risks associated with CCM_8 while retaining
-interoperability with the rest of the ecosystem.
+Since all the ciphersuites required by {{RFC7925}} and {{CoAP}} rely on CCM_8,
+there is no alternate ciphersuite available for applications that aim to
+eliminate the security and availability threats related to CCM_8 while retaining
+interoperability with the larger ecosystem.
 
 In order to ameliorate the situation, this document RECOMMENDS that
 implementations support the following two ciphersuites:
 
-* TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
-* TLS_ECDHE_ECDSA_WITH_AES_128_CCM
+* `TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256`
+* `TLS_ECDHE_ECDSA_WITH_AES_128_CCM`
 
 and offer them as their first choice.  These ciphersuites provide
 confidentiality and integrity limits that are considered acceptable in the most
 general settings.  For the details on the exact bounds of both ciphersuites see
-Section 4.5.3 of {{DTLS13}}.  Note that the GCM-based ciphersuite offers
+{{Section 4.5.3 of DTLS13}}.  Note that the GCM-based ciphersuite offers
 superior interoperability with cloud services at the cost of a slight increase
 in the wire and peak RAM footprints.
 
 When the GCM-based ciphersuite is used with TLS 1.2, the recommendations in
-Section 6.2.1 of {{?RFC9325}} related to deterministic nonce generation
-apply.  In addition, the integrity limits on key usage detailed in Section 4.4
-of {{?RFC9325}} also apply.
+{{Section 7.2.1 of !RFC9325}} related to deterministic nonce generation
+apply.  In addition, the integrity limits on key usage detailed in {{Section 4.4
+of !RFC9325}} also apply.
+
+{{tab-cipher-reqs}} summarizes the recommendations regarding ciphersuites:
+
+| Ciphersuite | Requirement |
+|--|--|
+| `TLS_AES_128_CCM_8_SHA256` | MUST- |
+| `TLS_ECDHE_ECDSA_WITH_AES_128_CCM` | SHOULD+ |
+| `TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256` | SHOULD+ |
+{: #tab-cipher-reqs align="left" title="Ciphersuite requirements"}
 
 # Fault Attacks on Deterministic Signature Schemes
 
