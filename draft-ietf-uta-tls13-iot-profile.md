@@ -128,7 +128,7 @@ does not provide forward secrecy and post-handshake authentication defined in
 requires payloads to be exchanged by the application layer protocol.
 
 - Rekeying of the application traffic secret does not lead to an update of the
-exporter secret (see Section 7.5 of TLS 1.3) since the derived export secret is
+exporter secret (see {{Section 7.5 of TLS13}}) since the derived export secret is
 based on the exporter_master_secret and not on the application traffic secret.
 
 - Flight #4, which was used by EAP-TLS 1.2 {{!RFC5216}}, does not exist in TLS 1.3.
