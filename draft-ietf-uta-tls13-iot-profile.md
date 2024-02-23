@@ -123,7 +123,7 @@ with the transition from TLS 1.2 to 1.3:
 partially replaced the need for the re-negotiation feature {{?RFC5746}} available
 in earlier TLS versions. However, rekeying defined in {{Section 4.6.3 of TLS13}}
 does not provide forward secrecy and post-handshake authentication defined in
-Section 4.6.2 of TLS 1.3 only offers client-to-server authentication.
+{{Section 4.6.2 of TLS13}} only offers client-to-server authentication.
 {{!RFC9261}} later added support for mutual, post-handshake authentication but
 requires payloads to be exchanged by the application layer protocol.
 
