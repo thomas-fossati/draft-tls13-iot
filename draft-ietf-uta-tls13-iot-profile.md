@@ -440,7 +440,9 @@ algorithm.
 
 ### Certificate Revocation Checks
 
-The considerations in Section 4.4.3 of {{!RFC7925}} hold.
+The guidance in {{Section 4.4.3 of !RFC7925}} still holds: for certificate
+revocation, neither the Online Certificate Status Protocol (OCSP) nor
+Certificate Revocation Lists (CRLs) are used by constrained IoT devices.
 
 Since the publication of RFC 7925 the need for firmware update mechanisms
 has been reinforced and the work on standardizing a secure and
@@ -451,14 +453,15 @@ mechanism to provision devices with new trust anchors.
 The use of device management protocols for IoT devices, which often include
 an onboarding or bootstrapping mechanism, has also seen considerable uptake
 in deployed devices and these protocols, some of which are standardized,
-allow updates of certificates on a regular basis. This enables a
+allow updates of certificates on demand. This enables a
 deployment model where IoT device utilize end-entity certificates with
 shorter lifetime making certificate revocation protocols, like OCSP
-and CRLs, less relevant. If TLS connections are long-lived, a trigger
-by the application layer is necessary to perform post-handshake authentication
-to exchange the newly provisioned certificates. This will allow both peers
-to learn about any certificate changes. TLS 1.3 provides basic
-post-handshake client-to-server authentication only. Mutual
+and CRLs, less relevant. Whenever certificates
+are updated the TLS stack needs to be informed since the communication
+endpoints need to be aware of the new certificates. This is particularly
+important when long-lived TLS connections are used. In such a case, the
+a post-handshake authentication exchange needs to be triggered. TLS 1.3
+provides client-to-server post-handshake authentication only. Mutual
 authentication via post-handshake messages is available via {{?RFC9261}}
 but requires the application layer protocol to carry the payloads.
 
