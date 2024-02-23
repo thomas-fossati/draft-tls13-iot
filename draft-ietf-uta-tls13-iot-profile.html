@@ -13,11 +13,11 @@
 Internet of Things devices.  It also updates RFC 7925 with regards to the X.509
 certificate profile. 
     " name="description">
-<meta content="xml2rfc 3.19.2" name="generator">
+<meta content="xml2rfc 3.19.4" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-uta-tls13-iot-profile-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.19.2
+  xml2rfc 3.19.4
     Python 3.11.6
     ConfigArgParse 1.7
     google-i18n-address 3.1.0
@@ -1033,7 +1033,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Tschofenig, et al.</td>
-<td class="center">Expires 12 August 2024</td>
+<td class="center">Expires 26 August 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1049,12 +1049,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc7925" class="eref">7925</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-02-09" class="published">9 February 2024</time>
+<time datetime="2024-02-23" class="published">23 February 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-08-12">12 August 2024</time></dd>
+<dd class="expires"><time datetime="2024-08-26">26 August 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1105,7 +1105,7 @@ certificate profile.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 12 August 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 26 August 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1328,9 +1328,36 @@ extensions are utilized to best support the IoT environment.<a href="#section-1-
 re-uses the communication pattern defined in <span>[<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> and makes IoT-domain
 specific recommendations for version 1.3 (where necessary).<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">TLS 1.3 has been re-designed and several previously defined extensions are not
-applicable to the new version of TLS/DTLS anymore. This clean-up also
-simplifies this document.  Furthermore, many outdated ciphersuites have been
-omitted from the TLS/DTLS 1.3 specification.<a href="#section-1-3" class="pilcrow">¶</a></p>
+applicable to the new version of TLS/DTLS anymore. The following features changed
+with the transition from TLS 1.2 to 1.3:<a href="#section-1-3" class="pilcrow">¶</a></p>
+<ul class="compact">
+<li class="compact" id="section-1-4.1">
+          <p id="section-1-4.1.1">TLS 1.3 introduced the concept of post-handshake authentication messages, which
+partially replaced the need for the re-negotiation feature <span>[<a href="#RFC5746" class="cite xref">RFC5746</a>]</span> available
+in earlier TLS versions. However, rekeying defined in <span><a href="https://rfc-editor.org/rfc/rfc8446#section-4.6.3" class="relref">Section 4.6.3</a> of [<a href="#TLS13" class="cite xref">TLS13</a>]</span>
+does not provide forward secrecy and post-handshake authentication defined in
+<span><a href="https://rfc-editor.org/rfc/rfc8446#section-4.6.2" class="relref">Section 4.6.2</a> of [<a href="#TLS13" class="cite xref">TLS13</a>]</span> only offers client-to-server authentication.
+<span>[<a href="#RFC9261" class="cite xref">RFC9261</a>]</span> later added support for mutual, post-handshake authentication but
+requires payloads to be exchanged by the application layer protocol.<a href="#section-1-4.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="compact" id="section-1-4.2">
+          <p id="section-1-4.2.1">Rekeying of the application traffic secret does not lead to an update of the
+exporter secret (see <span><a href="https://rfc-editor.org/rfc/rfc8446#section-7.5" class="relref">Section 7.5</a> of [<a href="#TLS13" class="cite xref">TLS13</a>]</span>) since the derived export secret is
+based on the exporter_master_secret and not on the application traffic secret.<a href="#section-1-4.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="compact" id="section-1-4.3">
+          <p id="section-1-4.3.1">Flight #4, which was used by EAP-TLS 1.2 <span>[<a href="#RFC5216" class="cite xref">RFC5216</a>]</span>, does not exist in TLS 1.3.
+As a consequence, EAP-TLS 1.3 <span>[<a href="#RFC9190" class="cite xref">RFC9190</a>]</span> introduced a dummy message.<a href="#section-1-4.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="compact" id="section-1-4.4">
+          <p id="section-1-4.4.1"><span>[<a href="#RFC4279" class="cite xref">RFC4279</a>]</span> introduced PSK-based authentication to TLS, a feature re-designed
+in TLS 1.3. The "PSK identity hint" defined in <span>[<a href="#RFC4279" class="cite xref">RFC4279</a>]</span>, which is used by the
+server to help the client in selecting which PSK identity to use, is, however, not
+available anymore in TLS 1.3.<a href="#section-1-4.4.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="section-1-5">Finally, ciphersuites were depreciated and the RSA-based key transport is not yet
+supported in TLS 1.3.<a href="#section-1-5" class="pilcrow">¶</a></p>
 <div id="conventions-and-terminology">
 <section id="section-1.1">
         <h3 id="name-conventions-and-terminology">
@@ -2267,6 +2294,18 @@ determinism, for example, as described in
         <dd>
 <span class="refAuthor">OMA SpecWorks</span>, <span class="refTitle">"Lightweight Machine to Machine (LwM2M) V.1.2.1 Technical Specification: Transport Bindings"</span>, <time datetime="2022-12" class="refDate">December 2022</time>, <span>&lt;<a href="https://openmobilealliance.org/release/LightweightM2M/V1_2_1-20221209-A/">https://openmobilealliance.org/release/LightweightM2M/V1_2_1-20221209-A/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC4279">[RFC4279]</dt>
+        <dd>
+<span class="refAuthor">Eronen, P., Ed.</span> and <span class="refAuthor">H. Tschofenig, Ed.</span>, <span class="refTitle">"Pre-Shared Key Ciphersuites for Transport Layer Security (TLS)"</span>, <span class="seriesInfo">RFC 4279</span>, <span class="seriesInfo">DOI 10.17487/RFC4279</span>, <time datetime="2005-12" class="refDate">December 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4279">https://www.rfc-editor.org/rfc/rfc4279</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC5216">[RFC5216]</dt>
+        <dd>
+<span class="refAuthor">Simon, D.</span>, <span class="refAuthor">Aboba, B.</span>, and <span class="refAuthor">R. Hurst</span>, <span class="refTitle">"The EAP-TLS Authentication Protocol"</span>, <span class="seriesInfo">RFC 5216</span>, <span class="seriesInfo">DOI 10.17487/RFC5216</span>, <time datetime="2008-03" class="refDate">March 2008</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5216">https://www.rfc-editor.org/rfc/rfc5216</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC5746">[RFC5746]</dt>
+        <dd>
+<span class="refAuthor">Rescorla, E.</span>, <span class="refAuthor">Ray, M.</span>, <span class="refAuthor">Dispensa, S.</span>, and <span class="refAuthor">N. Oskov</span>, <span class="refTitle">"Transport Layer Security (TLS) Renegotiation Indication Extension"</span>, <span class="seriesInfo">RFC 5746</span>, <span class="seriesInfo">DOI 10.17487/RFC5746</span>, <time datetime="2010-02" class="refDate">February 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5746">https://www.rfc-editor.org/rfc/rfc5746</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC6066">[RFC6066]</dt>
         <dd>
 <span class="refAuthor">Eastlake 3rd, D.</span>, <span class="refTitle">"Transport Layer Security (TLS) Extensions: Extension Definitions"</span>, <span class="seriesInfo">RFC 6066</span>, <span class="seriesInfo">DOI 10.17487/RFC6066</span>, <time datetime="2011-01" class="refDate">January 2011</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6066">https://www.rfc-editor.org/rfc/rfc6066</a>&gt;</span>. </dd>
@@ -2322,6 +2361,14 @@ determinism, for example, as described in
 <dt id="RFC9146">[RFC9146]</dt>
         <dd>
 <span class="refAuthor">Rescorla, E., Ed.</span>, <span class="refAuthor">Tschofenig, H., Ed.</span>, <span class="refAuthor">Fossati, T.</span>, and <span class="refAuthor">A. Kraus</span>, <span class="refTitle">"Connection Identifier for DTLS 1.2"</span>, <span class="seriesInfo">RFC 9146</span>, <span class="seriesInfo">DOI 10.17487/RFC9146</span>, <time datetime="2022-03" class="refDate">March 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9146">https://www.rfc-editor.org/rfc/rfc9146</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9190">[RFC9190]</dt>
+        <dd>
+<span class="refAuthor">Preuß Mattsson, J.</span> and <span class="refAuthor">M. Sethi</span>, <span class="refTitle">"EAP-TLS 1.3: Using the Extensible Authentication Protocol with TLS 1.3"</span>, <span class="seriesInfo">RFC 9190</span>, <span class="seriesInfo">DOI 10.17487/RFC9190</span>, <time datetime="2022-02" class="refDate">February 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9190">https://www.rfc-editor.org/rfc/rfc9190</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9261">[RFC9261]</dt>
+        <dd>
+<span class="refAuthor">Sullivan, N.</span>, <span class="refTitle">"Exported Authenticators in TLS"</span>, <span class="seriesInfo">RFC 9261</span>, <span class="seriesInfo">DOI 10.17487/RFC9261</span>, <time datetime="2022-07" class="refDate">July 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9261">https://www.rfc-editor.org/rfc/rfc9261</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9325">[RFC9325]</dt>
         <dd>
