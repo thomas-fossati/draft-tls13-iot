@@ -131,7 +131,7 @@ requires payloads to be exchanged by the application layer protocol.
 exporter secret (see {{Section 7.5 of TLS13}}) since the derived export secret is
 based on the exporter_master_secret and not on the application traffic secret.
 
-- Flight #4, which was used by EAP-TLS 1.2 {{!RFC5216}}, does not exist in TLS 1.3.
+- Flight #4, which was used by EAP-TLS 1.2 {{?RFC5216}}, does not exist in TLS 1.3.
 As a consequence, EAP-TLS 1.3 {{?RFC9190}} introduced a dummy message.
 
 - {{?RFC4279}} introduced PSK-based authentication to TLS, a feature re-designed
