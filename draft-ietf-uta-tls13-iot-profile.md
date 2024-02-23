@@ -440,7 +440,7 @@ algorithm.
 
 ### Certificate Revocation Checks
 
-The guidance in Section 4.4.3 of {{!RFC7925}} still holds: for certificate
+The guidance in {{Section 4.4.3 of !RFC7925}} still holds: for certificate
 revocation, neither the Online Certificate Status Protocol (OCSP) nor
 Certificate Revocation Lists (CRLs) are used by constrained IoT devices.
 
