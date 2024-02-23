@@ -132,7 +132,8 @@ partially replaced the need for the re-negotiation feature {{?RFC5746}} availabl
 in earlier TLS versions. However, rekeying defined in {{Section 4.6.3 of TLS13}}
 does not provide forward secrecy and post-handshake authentication defined in
 {{Section 4.6.2 of TLS13}} only offers client-to-server authentication.
-{{?RFC9261}} later added support for mutual, post-handshake authentication but
+The "Exported Authenticator" specification, see {{?RFC9261}}, recently added support for mutual,
+post-handshake authentication but
 requires payloads to be exchanged by the application layer protocol.
 
 - Rekeying of the application traffic secret does not lead to an update of the
