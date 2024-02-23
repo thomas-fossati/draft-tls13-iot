@@ -451,14 +451,20 @@ mechanism to provision devices with new trust anchors.
 The use of device management protocols for IoT devices, which often include
 an onboarding or bootstrapping mechanism, has also seen considerable uptake
 in deployed devices and these protocols, some of which are standardized,
-allow provision of certificates on a regular basis. This enables a
+allow updates of certificates on a regular basis. This enables a
 deployment model where IoT device utilize end-entity certificates with
 shorter lifetime making certificate revocation protocols, like OCSP
-and CRLs, less relevant.
+and CRLs, less relevant. If TLS connections are long-lived, a trigger
+by the application layer is necessary to perform post-handshake authentication
+to exchange the newly provisioned certificates. This will allow both peers
+to learn about any certificate changes. TLS 1.3 provides basic
+post-handshake client-to-server authentication only. Mutual
+authentication via post-handshake messages is available via {{?RFC9261}}
+but requires the application layer protocol to carry the payloads.
 
 Hence, instead of performing certificate revocation checks on the IoT device
 itself this specification recommends to delegate this task to the IoT device
-operator and to take thenecessary action to allow IoT devices to remain
+operator and to take the necessary action to allow IoT devices to remain
 operational.
 
 The CRL distribution points extension has been defined in RFC 5280 to
