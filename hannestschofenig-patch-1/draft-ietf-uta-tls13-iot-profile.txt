@@ -905,10 +905,6 @@ Table of Contents
               DOI 10.17487/RFC9258, July 2022,
               <https://www.rfc-editor.org/rfc/rfc9258>.
 
-   [RFC9261]  Sullivan, N., "Exported Authenticators in TLS", RFC 9261,
-              DOI 10.17487/RFC9261, July 2022,
-              <https://www.rfc-editor.org/rfc/rfc9261>.
-
    [TLS13]    Rescorla, E., "The Transport Layer Security (TLS) Protocol
               Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
               <https://www.rfc-editor.org/rfc/rfc8446>.
@@ -1076,6 +1072,10 @@ Table of Contents
               A. Kraus, "Connection Identifier for DTLS 1.2", RFC 9146,
               DOI 10.17487/RFC9146, March 2022,
               <https://www.rfc-editor.org/rfc/rfc9146>.
+
+   [RFC9261]  Sullivan, N., "Exported Authenticators in TLS", RFC 9261,
+              DOI 10.17487/RFC9261, July 2022,
+              <https://www.rfc-editor.org/rfc/rfc9261>.
 
    [RFC9325]  Sheffer, Y., Saint-Andre, P., and T. Fossati,
               "Recommendations for Secure Use of Transport Layer
