@@ -1368,6 +1368,7 @@ NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
 "MAY", and "OPTIONAL" in this document are to be interpreted as
 described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
 appear in all capitals, as shown here.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
+<p id="section-1.1-2">This document reuses the terms "SHOULD+", "SHOULD-" and "MUST-" from <span>[<a href="#RFC8221" class="cite xref">RFC8221</a>]</span>.<a href="#section-1.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2096,46 +2097,79 @@ infrastructure, tool support).<a href="#section-16-5" class="pilcrow">¶</a></p>
       <h2 id="name-ciphersuites">
 <a href="#section-17" class="section-number selfRef">17. </a><a href="#name-ciphersuites" class="section-name selfRef">Ciphersuites</a>
       </h2>
-<p id="section-17-1">Section 4.5.3 of <span>[<a href="#DTLS13" class="cite xref">DTLS13</a>]</span> flags AES-CCM with 8-octet authentication tags
-(CCM_8) as unsuitable for general use with DTLS.  In fact, due to its low
-integrity limits (i.e., a high sensitivity to forgeries), endpoints that
-negotiate ciphersuites based on such AEAD are susceptible to a trivial DoS.
-(See also Section 5.3 and 5.4 of <span>[<a href="#I-D.irtf-cfrg-aead-limits" class="cite xref">I-D.irtf-cfrg-aead-limits</a>]</span> for further
-discussion on this topic, as well as references to the analysis supporting
-these conclusions.)<a href="#section-17-1" class="pilcrow">¶</a></p>
+<p id="section-17-1">According to <span><a href="https://rfc-editor.org/rfc/rfc9147#section-4.5.3" class="relref">Section 4.5.3</a> of [<a href="#DTLS13" class="cite xref">DTLS13</a>]</span>, the use of AES-CCM with 8-octet
+authentication tags (CCM_8) is considered unsuitable for general use with DTLS.
+This is because it has low integrity limits (i.e., high sensitivity to
+forgeries) which makes endpoints that negotiate ciphersuites based on such AEAD
+vulnerable to a trivial DoS attack. See also Sections <a href="https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-07#section-5.3" class="relref">5.3</a> and <a href="https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-07#section-5.4" class="relref">5.4</a> of <span>[<a href="#I-D.irtf-cfrg-aead-limits" class="cite xref">I-D.irtf-cfrg-aead-limits</a>]</span> for further discussion on this topic, as well as
+references to the analysis supporting these conclusions.<a href="#section-17-1" class="pilcrow">¶</a></p>
 <p id="section-17-2">Specifically, <span>[<a href="#DTLS13" class="cite xref">DTLS13</a>]</span> warns that:<a href="#section-17-2" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-17-3">
 <pre>
-&gt; "TLS_AES_128_CCM_8_SHA256 MUST NOT be used in DTLS without additional
+&gt; TLS_AES_128_CCM_8_SHA256 MUST NOT be used in DTLS without additional
 &gt; safeguards against forgery. Implementations MUST set usage limits for
 &gt; AEAD_AES_128_CCM_8 based on an understanding of any additional forgery
-&gt; protections that are used."
+&gt; protections that are used.
 </pre><a href="#section-17-3" class="pilcrow">¶</a>
 </div>
-<p id="section-17-4">Since all the ciphersuites mandated by <span>[<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> and <span>[<a href="#CoAP" class="cite xref">CoAP</a>]</span> are based on
-CCM_8, there is no stand-by ciphersuite to use for applications that want to
-avoid the security and availability risks associated with CCM_8 while retaining
-interoperability with the rest of the ecosystem.<a href="#section-17-4" class="pilcrow">¶</a></p>
+<p id="section-17-4">Since all the ciphersuites required by <span>[<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> and <span>[<a href="#CoAP" class="cite xref">CoAP</a>]</span> rely on CCM_8,
+there is no alternate ciphersuite available for applications that aim to
+eliminate the security and availability threats related to CCM_8 while retaining
+interoperability with the larger ecosystem.<a href="#section-17-4" class="pilcrow">¶</a></p>
 <p id="section-17-5">In order to ameliorate the situation, this document RECOMMENDS that
 implementations support the following two ciphersuites:<a href="#section-17-5" class="pilcrow">¶</a></p>
 <ul class="compact">
 <li class="compact" id="section-17-6.1">
-          <p id="section-17-6.1.1">TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256<a href="#section-17-6.1.1" class="pilcrow">¶</a></p>
+          <p id="section-17-6.1.1"><code>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256</code><a href="#section-17-6.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="compact" id="section-17-6.2">
-          <p id="section-17-6.2.1">TLS_ECDHE_ECDSA_WITH_AES_128_CCM<a href="#section-17-6.2.1" class="pilcrow">¶</a></p>
+          <p id="section-17-6.2.1"><code>TLS_ECDHE_ECDSA_WITH_AES_128_CCM</code><a href="#section-17-6.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="section-17-7">and offer them as their first choice.  These ciphersuites provide
 confidentiality and integrity limits that are considered acceptable in the most
 general settings.  For the details on the exact bounds of both ciphersuites see
-Section 4.5.3 of <span>[<a href="#DTLS13" class="cite xref">DTLS13</a>]</span>.  Note that the GCM-based ciphersuite offers
+<span><a href="https://rfc-editor.org/rfc/rfc9147#section-4.5.3" class="relref">Section 4.5.3</a> of [<a href="#DTLS13" class="cite xref">DTLS13</a>]</span>.  Note that the GCM-based ciphersuite offers
 superior interoperability with cloud services at the cost of a slight increase
 in the wire and peak RAM footprints.<a href="#section-17-7" class="pilcrow">¶</a></p>
 <p id="section-17-8">When the GCM-based ciphersuite is used with TLS 1.2, the recommendations in
-Section 6.2.1 of <span>[<a href="#RFC9325" class="cite xref">RFC9325</a>]</span> related to deterministic nonce generation
-apply.  In addition, the integrity limits on key usage detailed in Section 4.4
-of <span>[<a href="#RFC9325" class="cite xref">RFC9325</a>]</span> also apply.<a href="#section-17-8" class="pilcrow">¶</a></p>
+<span><a href="https://rfc-editor.org/rfc/rfc9325#section-7.2.1" class="relref">Section 7.2.1</a> of [<a href="#RFC9325" class="cite xref">RFC9325</a>]</span> related to deterministic nonce generation
+apply.  In addition, the integrity limits on key usage detailed in <span><a href="https://rfc-editor.org/rfc/rfc9325#section-4.4" class="relref">Section 4.4</a> of [<a href="#RFC9325" class="cite xref">RFC9325</a>]</span> also apply.<a href="#section-17-8" class="pilcrow">¶</a></p>
+<p id="section-17-9"><a href="#tab-cipher-reqs" class="auto internal xref">Table 1</a> summarizes the recommendations regarding ciphersuites:<a href="#section-17-9" class="pilcrow">¶</a></p>
+<span id="name-ciphersuite-requirements"></span><div id="tab-cipher-reqs">
+<table class="left" id="table-1">
+        <caption>
+<a href="#table-1" class="selfRef">Table 1</a>:
+<a href="#name-ciphersuite-requirements" class="selfRef">Ciphersuite requirements</a>
+        </caption>
+<thead>
+          <tr>
+            <th class="text-left" rowspan="1" colspan="1">Ciphersuite</th>
+            <th class="text-left" rowspan="1" colspan="1">Requirement</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">
+              <code>TLS_AES_128_CCM_8_SHA256</code>
+</td>
+            <td class="text-left" rowspan="1" colspan="1">MUST-</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">
+              <code>TLS_ECDHE_ECDSA_WITH_AES_128_CCM</code>
+</td>
+            <td class="text-left" rowspan="1" colspan="1">SHOULD+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">
+              <code>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256</code>
+</td>
+            <td class="text-left" rowspan="1" colspan="1">SHOULD+</td>
+          </tr>
+        </tbody>
+      </table>
+</div>
 </section>
 </div>
 <div id="fault-attacks-on-deterministic-signature-schemes">
@@ -2217,6 +2251,10 @@ determinism, for example, as described in
         <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC8221">[RFC8221]</dt>
+        <dd>
+<span class="refAuthor">Wouters, P.</span>, <span class="refAuthor">Migault, D.</span>, <span class="refAuthor">Mattsson, J.</span>, <span class="refAuthor">Nir, Y.</span>, and <span class="refAuthor">T. Kivinen</span>, <span class="refTitle">"Cryptographic Algorithm Implementation Requirements and Usage Guidance for Encapsulating Security Payload (ESP) and Authentication Header (AH)"</span>, <span class="seriesInfo">RFC 8221</span>, <span class="seriesInfo">DOI 10.17487/RFC8221</span>, <time datetime="2017-10" class="refDate">October 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8221">https://www.rfc-editor.org/rfc/rfc8221</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8446">[RFC8446]</dt>
         <dd>
 <span class="refAuthor">Rescorla, E.</span>, <span class="refTitle">"The Transport Layer Security (TLS) Protocol Version 1.3"</span>, <span class="seriesInfo">RFC 8446</span>, <span class="seriesInfo">DOI 10.17487/RFC8446</span>, <time datetime="2018-08" class="refDate">August 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8446">https://www.rfc-editor.org/rfc/rfc8446</a>&gt;</span>. </dd>
@@ -2228,6 +2266,10 @@ determinism, for example, as described in
 <dt id="RFC9258">[RFC9258]</dt>
         <dd>
 <span class="refAuthor">Benjamin, D.</span> and <span class="refAuthor">C. A. Wood</span>, <span class="refTitle">"Importing External Pre-Shared Keys (PSKs) for TLS 1.3"</span>, <span class="seriesInfo">RFC 9258</span>, <span class="seriesInfo">DOI 10.17487/RFC9258</span>, <time datetime="2022-07" class="refDate">July 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9258">https://www.rfc-editor.org/rfc/rfc9258</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9325">[RFC9325]</dt>
+        <dd>
+<span class="refAuthor">Sheffer, Y.</span>, <span class="refAuthor">Saint-Andre, P.</span>, and <span class="refAuthor">T. Fossati</span>, <span class="refTitle">"Recommendations for Secure Use of Transport Layer Security (TLS) and Datagram Transport Layer Security (DTLS)"</span>, <span class="seriesInfo">BCP 195</span>, <span class="seriesInfo">RFC 9325</span>, <span class="seriesInfo">DOI 10.17487/RFC9325</span>, <time datetime="2022-11" class="refDate">November 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9325">https://www.rfc-editor.org/rfc/rfc9325</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="TLS13">[TLS13]</dt>
       <dd>
@@ -2369,10 +2411,6 @@ determinism, for example, as described in
 <dt id="RFC9261">[RFC9261]</dt>
         <dd>
 <span class="refAuthor">Sullivan, N.</span>, <span class="refTitle">"Exported Authenticators in TLS"</span>, <span class="seriesInfo">RFC 9261</span>, <span class="seriesInfo">DOI 10.17487/RFC9261</span>, <time datetime="2022-07" class="refDate">July 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9261">https://www.rfc-editor.org/rfc/rfc9261</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC9325">[RFC9325]</dt>
-        <dd>
-<span class="refAuthor">Sheffer, Y.</span>, <span class="refAuthor">Saint-Andre, P.</span>, and <span class="refAuthor">T. Fossati</span>, <span class="refTitle">"Recommendations for Secure Use of Transport Layer Security (TLS) and Datagram Transport Layer Security (DTLS)"</span>, <span class="seriesInfo">BCP 195</span>, <span class="seriesInfo">RFC 9325</span>, <span class="seriesInfo">DOI 10.17487/RFC9325</span>, <time datetime="2022-11" class="refDate">November 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9325">https://www.rfc-editor.org/rfc/rfc9325</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9483">[RFC9483]</dt>
         <dd>

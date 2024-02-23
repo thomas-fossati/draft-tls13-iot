@@ -167,6 +167,9 @@ Table of Contents
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
+   This document reuses the terms "SHOULD+", "SHOULD-" and "MUST-" from
+   [RFC8221].
+
 2.  Credential Types
 
    In accordance with the recommendations in [RFC7925], a compliant
@@ -773,26 +776,26 @@ Table of Contents
 
 17.  Ciphersuites
 
-   Section 4.5.3 of [DTLS13] flags AES-CCM with 8-octet authentication
-   tags (CCM_8) as unsuitable for general use with DTLS.  In fact, due
-   to its low integrity limits (i.e., a high sensitivity to forgeries),
-   endpoints that negotiate ciphersuites based on such AEAD are
-   susceptible to a trivial DoS.  (See also Section 5.3 and 5.4 of
-   [I-D.irtf-cfrg-aead-limits] for further discussion on this topic, as
-   well as references to the analysis supporting these conclusions.)
+   According to Section 4.5.3 of [DTLS13], the use of AES-CCM with
+   8-octet authentication tags (CCM_8) is considered unsuitable for
+   general use with DTLS.  This is because it has low integrity limits
+   (i.e., high sensitivity to forgeries) which makes endpoints that
+   negotiate ciphersuites based on such AEAD vulnerable to a trivial DoS
+   attack.  See also Sections 5.3 and 5.4 of [I-D.irtf-cfrg-aead-limits]
+   for further discussion on this topic, as well as references to the
+   analysis supporting these conclusions.
 
    Specifically, [DTLS13] warns that:
 
-> "TLS_AES_128_CCM_8_SHA256 MUST NOT be used in DTLS without additional
+> TLS_AES_128_CCM_8_SHA256 MUST NOT be used in DTLS without additional
 > safeguards against forgery. Implementations MUST set usage limits for
 > AEAD_AES_128_CCM_8 based on an understanding of any additional forgery
-> protections that are used."
+> protections that are used.
 
-   Since all the ciphersuites mandated by [RFC7925] and [CoAP] are based
-   on CCM_8, there is no stand-by ciphersuite to use for applications
-   that want to avoid the security and availability risks associated
-   with CCM_8 while retaining interoperability with the rest of the
-   ecosystem.
+   Since all the ciphersuites required by [RFC7925] and [CoAP] rely on
+   CCM_8, there is no alternate ciphersuite available for applications
+   that aim to eliminate the security and availability threats related
+   to CCM_8 while retaining interoperability with the larger ecosystem.
 
    In order to ameliorate the situation, this document RECOMMENDS that
    implementations support the following two ciphersuites:
@@ -809,9 +812,23 @@ Table of Contents
    footprints.
 
    When the GCM-based ciphersuite is used with TLS 1.2, the
-   recommendations in Section 6.2.1 of [RFC9325] related to
+   recommendations in Section 7.2.1 of [RFC9325] related to
    deterministic nonce generation apply.  In addition, the integrity
    limits on key usage detailed in Section 4.4 of [RFC9325] also apply.
+
+   Table 1 summarizes the recommendations regarding ciphersuites:
+
+   +=========================================+=============+
+   | Ciphersuite                             | Requirement |
+   +=========================================+=============+
+   | TLS_AES_128_CCM_8_SHA256                | MUST-       |
+   +-----------------------------------------+-------------+
+   | TLS_ECDHE_ECDSA_WITH_AES_128_CCM        | SHOULD+     |
+   +-----------------------------------------+-------------+
+   | TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 | SHOULD+     |
+   +-----------------------------------------+-------------+
+
+               Table 1: Ciphersuite requirements
 
 18.  Fault Attacks on Deterministic Signature Schemes
 
@@ -883,6 +900,13 @@ Table of Contents
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
+   [RFC8221]  Wouters, P., Migault, D., Mattsson, J., Nir, Y., and T.
+              Kivinen, "Cryptographic Algorithm Implementation
+              Requirements and Usage Guidance for Encapsulating Security
+              Payload (ESP) and Authentication Header (AH)", RFC 8221,
+              DOI 10.17487/RFC8221, October 2017,
+              <https://www.rfc-editor.org/rfc/rfc8221>.
+
    [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
               Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
               <https://www.rfc-editor.org/rfc/rfc8446>.
@@ -895,6 +919,12 @@ Table of Contents
               Shared Keys (PSKs) for TLS 1.3", RFC 9258,
               DOI 10.17487/RFC9258, July 2022,
               <https://www.rfc-editor.org/rfc/rfc9258>.
+
+   [RFC9325]  Sheffer, Y., Saint-Andre, P., and T. Fossati,
+              "Recommendations for Secure Use of Transport Layer
+              Security (TLS) and Datagram Transport Layer Security
+              (DTLS)", BCP 195, RFC 9325, DOI 10.17487/RFC9325, November
+              2022, <https://www.rfc-editor.org/rfc/rfc9325>.
 
    [TLS13]    Rescorla, E., "The Transport Layer Security (TLS) Protocol
               Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
@@ -1076,12 +1106,6 @@ Table of Contents
    [RFC9261]  Sullivan, N., "Exported Authenticators in TLS", RFC 9261,
               DOI 10.17487/RFC9261, July 2022,
               <https://www.rfc-editor.org/rfc/rfc9261>.
-
-   [RFC9325]  Sheffer, Y., Saint-Andre, P., and T. Fossati,
-              "Recommendations for Secure Use of Transport Layer
-              Security (TLS) and Datagram Transport Layer Security
-              (DTLS)", BCP 195, RFC 9325, DOI 10.17487/RFC9325, November
-              2022, <https://www.rfc-editor.org/rfc/rfc9325>.
 
    [RFC9483]  Brockhaus, H., von Oheimb, D., and S. Fries, "Lightweight
               Certificate Management Protocol (CMP) Profile", RFC 9483,
