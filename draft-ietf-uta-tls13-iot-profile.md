@@ -135,7 +135,7 @@ based on the exporter_master_secret and not on the application traffic secret.
 As a consequence, EAP-TLS 1.3 {{!RFC9190}} introduced a dummy message.
 
 - {{?RFC4279}} introduced PSK-based authentication to TLS, a feature re-designed
-in TLS 1.3. The "PSK identity hint" defined in {{RFC4279}}, which is used by the
+in TLS 1.3. The "PSK identity hint" defined in {{?RFC4279}}, which is used by the
 server to help the client in selecting which PSK identity to use, is, however, not
 available anymore in TLS 1.3.
 
