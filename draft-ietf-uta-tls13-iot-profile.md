@@ -46,6 +46,14 @@ author:
     organization: "Sandelman Software Works"
     email: mcr+ietf@sandelman.ca
 
+contributor:
+ -
+    ins: J. Sosinowicz
+    name: Juliusz Sosinowicz
+ -
+    ins: A. Kraus
+    name: Achim Kraus
+
 normative:
   DTLS13: RFC9147
   TLS13: RFC8446
@@ -224,11 +232,22 @@ negotiated independently.
 
 The discussion in Section 10 of {{!RFC7925}} is applicable.
 
-# Timeouts
+# Timers and ACKs
 
-The recommendation in Section 11 of {{!RFC7925}} is applicable. In particular
-this document RECOMMENDED to use an initial timer value of 9 seconds with
-exponential back off up to no less then 60 seconds.
+Compared to DTLS 1.2 timeout-based whole flight retransmission, DTLS 1.3 ACKs sensibly decrease the risk of congestion collapse which was the basis for the very conservative recommendations given in {{Section 11 of !RFC7925}}.
+
+In general, the recommendations in {{Section 7.3 of DTLS13}} regarding ACKs apply.
+In particular, "[w]hen DTLS 1.3 is used in deployments with lossy networks, such as low-power, long-range radio networks as well as low-power mesh networks, the use of ACKs is recommended" to signal any sign of disruption or lack of progress.
+This allows for selective or early retransmission, which leads to more efficient use of bandwidth and memory resources.
+
+Due to the vast range of network technologies used in IoT deployments, from wired LAN to GSM-SMS, it's not possible to provide a universal recommendation for an initial timeout.
+Therefore, it is RECOMMENDED that DTLS 1.3 implementations allow users to explicitly set the initial timer value.
+Users SHOULD set the initial timeout to be twice the expected round-trip time (RTT), but no less than 1000ms.
+For specific application/network combinations, a sub-second initial timeout MAY be set.
+In cases where no RTT estimates are available, a 1 second initial timeout is suitable for the general Internet.
+
+For RRC, the recommendations in {{Section 7.5 of !I-D.ietf-tls-dtls-rrc}} apply.
+Just like the handshake initial timers, it is RECOMMENDED that DTLS 1.2 and 1.3 implementations offer an option for their users to explicitly set the RRC timer.
 
 # Random Number Generation
 
@@ -783,4 +802,8 @@ This document makes no requests to IANA.
 # Acknowledgments
 {:unnumbered}
 
-We would like to thank Ben Kaduk, Hendrik Brockhaus, John Mattsson and Michael Richardson.
+We would like to thank
+Ben Kaduk,
+Hendrik Brockhaus,
+and
+John Mattsson.
