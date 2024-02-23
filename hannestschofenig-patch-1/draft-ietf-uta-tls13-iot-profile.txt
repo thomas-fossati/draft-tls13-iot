@@ -871,11 +871,6 @@ Table of Contents
               Information", RFC 5480, DOI 10.17487/RFC5480, March 2009,
               <https://www.rfc-editor.org/rfc/rfc5480>.
 
-   [RFC5746]  Rescorla, E., Ray, M., Dispensa, S., and N. Oskov,
-              "Transport Layer Security (TLS) Renegotiation Indication
-              Extension", RFC 5746, DOI 10.17487/RFC5746, February 2010,
-              <https://www.rfc-editor.org/rfc/rfc5746>.
-
    [RFC5758]  Dang, Q., Santesson, S., Moriarty, K., Brown, D., and T.
               Polk, "Internet X.509 Public Key Infrastructure:
               Additional Algorithms and Identifiers for DSA and ECDSA",
@@ -1007,6 +1002,11 @@ Table of Contents
               Ciphersuites for Transport Layer Security (TLS)",
               RFC 4279, DOI 10.17487/RFC4279, December 2005,
               <https://www.rfc-editor.org/rfc/rfc4279>.
+
+   [RFC5746]  Rescorla, E., Ray, M., Dispensa, S., and N. Oskov,
+              "Transport Layer Security (TLS) Renegotiation Indication
+              Extension", RFC 5746, DOI 10.17487/RFC5746, February 2010,
+              <https://www.rfc-editor.org/rfc/rfc5746>.
 
    [RFC6066]  Eastlake 3rd, D., "Transport Layer Security (TLS)
               Extensions: Extension Definitions", RFC 6066,
