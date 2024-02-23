@@ -116,9 +116,31 @@ re-uses the communication pattern defined in {{!RFC7925}} and makes IoT-domain
 specific recommendations for version 1.3 (where necessary).
 
 TLS 1.3 has been re-designed and several previously defined extensions are not
-applicable to the new version of TLS/DTLS anymore. This clean-up also
-simplifies this document.  Furthermore, many outdated ciphersuites have been
-omitted from the TLS/DTLS 1.3 specification.
+applicable to the new version of TLS/DTLS anymore. The following features changed
+with the transition from TLS 1.2 to 1.3:
+
+- TLS 1.3 introduced the concept of post-handshake authentication messages, which
+partially replaced the need for the re-negotiation feature {{?RFC5746}} available
+in earlier TLS versions. However, rekeying defined in {{Section 4.6.3 of TLS13}}
+does not provide forward secrecy and post-handshake authentication defined in
+{{Section 4.6.2 of TLS13}} only offers client-to-server authentication.
+{{?RFC9261}} later added support for mutual, post-handshake authentication but
+requires payloads to be exchanged by the application layer protocol.
+
+- Rekeying of the application traffic secret does not lead to an update of the
+exporter secret (see {{Section 7.5 of TLS13}}) since the derived export secret is
+based on the exporter_master_secret and not on the application traffic secret.
+
+- Flight #4, which was used by EAP-TLS 1.2 {{?RFC5216}}, does not exist in TLS 1.3.
+As a consequence, EAP-TLS 1.3 {{?RFC9190}} introduced a dummy message.
+
+- {{?RFC4279}} introduced PSK-based authentication to TLS, a feature re-designed
+in TLS 1.3. The "PSK identity hint" defined in {{?RFC4279}}, which is used by the
+server to help the client in selecting which PSK identity to use, is, however, not
+available anymore in TLS 1.3.
+
+Finally, ciphersuites were depreciated and the RSA-based key transport is not yet
+supported in TLS 1.3.
 
 ## Conventions and Terminology
 
