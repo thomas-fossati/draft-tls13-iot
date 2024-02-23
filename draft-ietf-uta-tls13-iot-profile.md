@@ -241,13 +241,13 @@ In particular, "[w]hen DTLS 1.3 is used in deployments with lossy networks, such
 This allows for selective or early retransmission, which leads to more efficient use of bandwidth and memory resources.
 
 Due to the vast range of network technologies used in IoT deployments, from wired LAN to GSM-SMS, it's not possible to provide a universal recommendation for an initial timeout.
-Therefore, it is RECOMMENDED that DTLS 1.3 implementations allow users to explicitly set the initial timer value.
-Users SHOULD set the initial timeout to be twice the expected round-trip time (RTT), but no less than 1000ms.
+Therefore, it is RECOMMENDED that DTLS 1.3 implementations allow developers to explicitly set the initial timer value.
+Developers SHOULD set the initial timeout to be twice the expected round-trip time (RTT), but no less than 1000ms.
 For specific application/network combinations, a sub-second initial timeout MAY be set.
 In cases where no RTT estimates are available, a 1 second initial timeout is suitable for the general Internet.
 
 For RRC, the recommendations in {{Section 7.5 of !I-D.ietf-tls-dtls-rrc}} apply.
-Just like the handshake initial timers, it is RECOMMENDED that DTLS 1.2 and 1.3 implementations offer an option for their users to explicitly set the RRC timer.
+Just like the handshake initial timers, it is RECOMMENDED that DTLS 1.2 and 1.3 implementations offer an option for their developers to explicitly set the RRC timer.
 
 # Random Number Generation
 
