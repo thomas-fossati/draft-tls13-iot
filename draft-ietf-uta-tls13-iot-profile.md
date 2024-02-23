@@ -244,7 +244,7 @@ Due to the vast range of network technologies used in IoT deployments, from wire
 Therefore, it is RECOMMENDED that DTLS 1.3 implementations allow developers to explicitly set the initial timer value.
 Developers SHOULD set the initial timeout to be twice the expected round-trip time (RTT), but no less than 1000ms.
 For specific application/network combinations, a sub-second initial timeout MAY be set.
-In cases where no RTT estimates are available, a 1 second initial timeout is suitable for the general Internet.
+In cases where no RTT estimates are available, a 1000ms initial timeout is suitable for the general Internet.
 
 For RRC, the recommendations in {{Section 7.5 of !I-D.ietf-tls-dtls-rrc}} apply.
 Just like the handshake initial timers, it is RECOMMENDED that DTLS 1.2 and 1.3 implementations offer an option for their developers to explicitly set the RRC timer.
