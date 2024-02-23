@@ -896,6 +896,12 @@ Table of Contents
               DOI 10.17487/RFC9258, July 2022,
               <https://www.rfc-editor.org/rfc/rfc9258>.
 
+   [RFC9325]  Sheffer, Y., Saint-Andre, P., and T. Fossati,
+              "Recommendations for Secure Use of Transport Layer
+              Security (TLS) and Datagram Transport Layer Security
+              (DTLS)", BCP 195, RFC 9325, DOI 10.17487/RFC9325, November
+              2022, <https://www.rfc-editor.org/rfc/rfc9325>.
+
    [TLS13]    Rescorla, E., "The Transport Layer Security (TLS) Protocol
               Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
               <https://www.rfc-editor.org/rfc/rfc8446>.
@@ -1053,12 +1059,6 @@ Table of Contents
               A. Kraus, "Connection Identifier for DTLS 1.2", RFC 9146,
               DOI 10.17487/RFC9146, March 2022,
               <https://www.rfc-editor.org/rfc/rfc9146>.
-
-   [RFC9325]  Sheffer, Y., Saint-Andre, P., and T. Fossati,
-              "Recommendations for Secure Use of Transport Layer
-              Security (TLS) and Datagram Transport Layer Security
-              (DTLS)", BCP 195, RFC 9325, DOI 10.17487/RFC9325, November
-              2022, <https://www.rfc-editor.org/rfc/rfc9325>.
 
    [RFC9483]  Brockhaus, H., von Oheimb, D., and S. Fries, "Lightweight
               Certificate Management Protocol (CMP) Profile", RFC 9483,
