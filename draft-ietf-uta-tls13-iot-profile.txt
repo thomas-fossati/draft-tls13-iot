@@ -280,8 +280,8 @@ Table of Contents
    initial timeout to be twice the expected round-trip time (RTT), but
    no less than 1000ms.  For specific application/network combinations,
    a sub-second initial timeout MAY be set.  In cases where no RTT
-   estimates are available, a 1 second initial timeout is suitable for
-   the general Internet.
+   estimates are available, a 1000ms initial timeout is suitable for the
+   general Internet.
 
    For RRC, the recommendations in Section 7.5 of
    [I-D.ietf-tls-dtls-rrc] apply.  Just like the handshake initial
