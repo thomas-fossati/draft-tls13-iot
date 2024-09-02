@@ -491,7 +491,7 @@ issuer field in all certificates issued by the subject CA."
 
 However, as {{!RFC9525, Section 2}} mandates that the subjectDN not be be used to identify a service, for IoT purposes, an empty SubjectDN avoids all confusion for End Entity certificates.
 
-Root CA and Subordinate CAs must have a non-null SubjectDN as that value must match the IssuerDN of subordinate certificates.
+Root CA certificates and Subordinate CA certificates MUST have a non-empty SubjectDN, as the value MUST match the DN of the Issuer.
 
 ### Authority Key Identifier
 
