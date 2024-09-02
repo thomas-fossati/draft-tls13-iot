@@ -628,8 +628,8 @@ Subject and the subjectAltName fields. Protocol specifications tend to offer
 recommendations what identifiers to use and the deployment situation is
 fragmented.
 
-The Subject field MAY include a unique device serial number. If the serial
-number is included, it MUST be encoded in the serialNumber attribute.
+The subjectName field MAY include a unique device serial number. If the serial
+number is included, it MUST be encoded in the X520SerialNumber attribute.
 
 {{!RFC5280}} defines: "The subject alternative name extension allows identities
 to be bound to the subject of the certificate. These identities may be included
