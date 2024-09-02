@@ -489,8 +489,9 @@ field." RFC 5280 adds "If the subject is a CA then the subject field MUST be
 populated with a non-empty distinguished name matching the contents of the
 issuer field in all certificates issued by the subject CA."
 
-The Subject field MUST be present and MUST contain the commonName, the organizationName,
-and the countryName attribute and MAY contain an organizationalUnitName attribute.
+However, {{RFC9525, Section 2.9}} now recommends that the SubjectDN be empty (null) for all End Entity certificates.
+
+Root CA and Subordinate CAs must have a non-null SubjectDN as that value must match the IssuerDN of subordinate certificates.
 
 ### Authority Key Identifier
 
