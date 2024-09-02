@@ -85,24 +85,24 @@ Table of Contents
        15.1.6.   Subject Public Key Info
        15.1.7.  Certificate Revocation Checks
      15.2.  Root CA Certificate
-       15.2.1.  Subject
-       15.2.2.  Authority Key Identifier
-       15.2.3.  Subject Key Identifier
-       15.2.4.  Key Usage
-       15.2.5.  Basic Constraints
-     15.3.  Subordinate CA Certificate
-       15.3.1.  Subject
-       15.3.2.  Authority Key Identifier
-       15.3.3.  Subject Key Identifier
-       15.3.4.  Key Usage
-       15.3.5.  Basic Constraints
-       15.3.6.  CRL Distribution Point
-       15.3.7.  Authority Information Access
-     15.4.  End Entity Certificate
-       15.4.1.  Subject
+     15.3.  subjectName
+       15.3.1.  Authority Key Identifier
+       15.3.2.  Subject Key Identifier
+       15.3.3.  Key Usage
+       15.3.4.  Basic Constraints
+     15.4.  Subordinate CA Certificate
+       15.4.1.  subjectName
        15.4.2.  Authority Key Identifier
        15.4.3.  Subject Key Identifier
        15.4.4.  Key Usage
+       15.4.5.  Basic Constraints
+       15.4.6.  CRL Distribution Point
+       15.4.7.  Authority Information Access
+     15.5.  End Entity Certificate
+       15.5.1.  subjectName
+       15.5.2.  Authority Key Identifier
+       15.5.3.  Subject Key Identifier
+       15.5.4.  Key Usage
    16. Certificate Overhead
    17. Ciphersuites
    18. Fault Attacks on Deterministic Signature Schemes
@@ -534,22 +534,22 @@ Table of Contents
 
    This section outlines the requirements for root CA certificates.
 
-15.2.1.  Subject
+15.3.  subjectName
 
-   [RFC5280] defines the Subject field as follows: "The subject field
-   identifies the entity associated with the public key stored in the
-   subject public key field."  RFC 5280 adds "If the subject is a CA
+   [RFC5280] defines the subjectName field as follows: "The subject
+   field identifies the entity associated with the public key stored in
+   the subject public key field."  RFC 5280 adds "If the subject is a CA
    then the subject field MUST be populated with a non-empty
    distinguished name matching the contents of the issuer field in all
    certificates issued by the subject CA."
 
    Root CA certificates MUST have a non-empty SubjectDN.
 
-   The Subject field MUST be set and MUST contain the commonName, the
-   organizationName, and the countryName attribute and MAY contain an
+   The subjectName MUST contain the commonName, the organizationName,
+   and the countryName attribute and MAY contain an
    organizationalUnitName attribute.
 
-15.2.2.  Authority Key Identifier
+15.3.1.  Authority Key Identifier
 
    Section 4.2.1.1 of [RFC5280] defines the Authority Key Identifier as
    follows: "The authority key identifier extension provides a means of
@@ -564,7 +564,7 @@ Table of Contents
    [Editor's Note: Do we need to set the Authority Key Identifier in the
    CA certificate?]
 
-15.2.3.  Subject Key Identifier
+15.3.2.  Subject Key Identifier
 
    Section 4.2.1.2 of [RFC5280] defines the Subject Key Identifier as
    follows: "The subject key identifier extension provides a means of
@@ -577,7 +577,7 @@ Table of Contents
    [Editor's Note: Do we need to set the Subject Key Identifier in the
    CA certificate?]
 
-15.2.4.  Key Usage
+15.3.3.  Key Usage
 
    [RFC5280] defines the key usage field as follows: "The key usage
    extension defines the purpose (e.g., encipherment, signature,
@@ -598,7 +598,7 @@ Table of Contents
 
    This extendedKeyUsage extension MUST NOT be set.
 
-15.2.5.  Basic Constraints
+15.3.4.  Basic Constraints
 
    [RFC5280] states that "The Basic Constraints extension identifies
    whether the subject of the certificate is a CA and the maximum depth
@@ -629,30 +629,30 @@ Table of Contents
    [Editor's Note: Should we soften the requirement to: "The
    pathLenConstraint field SHOULD NOT be present."]
 
-15.3.  Subordinate CA Certificate
+15.4.  Subordinate CA Certificate
 
    This section outlines the requirements for subordinate CA
    certificates.
 
-15.3.1.  Subject
+15.4.1.  subjectName
 
-   The Subject field MUST be set and MUST contain the commonName, the
-   organizationName, and the countryName attribute and MAY contain an
-   organizationalUnitName attribute.
+   The subjectName field MUST be set and MUST contain the commonName,
+   the organizationName, and the countryName attribute and MAY contain
+   an organizationalUnitName attribute.
 
-15.3.2.  Authority Key Identifier
+15.4.2.  Authority Key Identifier
 
    The Authority Key Identifier extension MUST be set, MUST NOT be
    marked critical, and MUST contain the subjectKeyIdentifier of the CA
    that issued this certificate.
 
-15.3.3.  Subject Key Identifier
+15.4.3.  Subject Key Identifier
 
    The Subject Key Identifier extension MUST be set, MUST NOT be marked
    critical, and MUST contain the key identifier of the public key
    contained in the subject public key info field.
 
-15.3.4.  Key Usage
+15.4.4.  Key Usage
 
    The Key Usage extension MUST be set, MUST be marked critical, the
    keyCertSign or cRLSign purposes MUST be set, and the digitalSignature
@@ -664,7 +664,7 @@ Table of Contents
    [Editor's Note: Should we harden the requirement to "The
    extendedKeyUsage MUST NOT be present."]
 
-15.3.5.  Basic Constraints
+15.4.5.  Basic Constraints
 
    The Basic Constraints extension MUST be set, MUST be marked critical,
    the cA flag MUST be set to true and the pathLenConstraint MUST be set
@@ -673,31 +673,31 @@ Table of Contents
    [Editor's Note: Should we soften the requriement to "The
    pathLenConstraint field MAY be present."]
 
-15.3.6.  CRL Distribution Point
+15.4.6.  CRL Distribution Point
 
    The CRL Distribution Point extension SHOULD NOT be set.  If it is
    set, it MUST NOT be marked critical and MUST identify the CRL
    relevant for this certificate.
 
-15.3.7.  Authority Information Access
+15.4.7.  Authority Information Access
 
    The Authority Information Access extension SHOULD NOT be set.  If it
    is set, it MUST NOT be marked critical and MUST identify the location
    of the certificate of the CA that issued this certificate and the
    location it provides an online certificate status service (OCSP).
 
-15.4.  End Entity Certificate
+15.5.  End Entity Certificate
 
    This section outlines the requirements for end entity certificates.
 
-15.4.1.  Subject
+15.5.1.  subjectName
 
-   [RFC9525], Section 2 mandates that the subjectDN not be be used to
-   identify a service, for IoT purposes, an empty SubjectDN avoids all
+   [RFC9525], Section 2 mandates that the subjectName not be be used to
+   identify a service, for IoT purposes, an empty subjectName avoids all
    confusion for End Entity certificates.
 
    The requirement in Section 4.4.2 of [RFC7925] to only use EUI-64 for
-   end entity certificates as a Subject name is lifted.
+   end entity certificates as a subjectName is lifted.
 
    Two fields are typically used to encode a device identifer, namely
    the Subject and the subjectAltName fields.  Protocol specifications
@@ -731,13 +731,13 @@ Table of Contents
    Trusted Platform Module (TPM), if present, in the HardwareModuleName.
    This specification does not follow this recommendation.
 
-15.4.2.  Authority Key Identifier
+15.5.2.  Authority Key Identifier
 
    The Authority Key Identifier extension MUST be set, MUST NOT be
    marked critical, and MUST contain the subjectKeyIdentifier of the CA
    that issued this certificate.
 
-15.4.3.  Subject Key Identifier
+15.5.3.  Subject Key Identifier
 
    The Subject Key Identifier SHOULD NOT be included in end-entity
    certificates.  If it is included, then the Subject Key Identifier
@@ -749,7 +749,7 @@ Table of Contents
    Subject Key Identifier MUST NOT be included in end-entity
    certificates."]
 
-15.4.4.  Key Usage
+15.5.4.  Key Usage
 
    The key usage extension MUST be set and MUST be marked as critical.
    For signature verification keys the digitialSignature key usage
