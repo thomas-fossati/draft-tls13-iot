@@ -489,7 +489,7 @@ field." RFC 5280 adds "If the subject is a CA then the subject field MUST be
 populated with a non-empty distinguished name matching the contents of the
 issuer field in all certificates issued by the subject CA."
 
-Root CA certificates MUST have a non-empty SubjectDN.
+Root CA certificates MUST have a non-empty subjectName.
 
 The subjectName MUST contain the commonName, the  organizationName, and the countryName attribute and MAY contain an organizationalUnitName attribute.
 
