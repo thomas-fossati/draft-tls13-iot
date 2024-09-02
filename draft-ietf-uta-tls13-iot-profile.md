@@ -489,7 +489,7 @@ field." RFC 5280 adds "If the subject is a CA then the subject field MUST be
 populated with a non-empty distinguished name matching the contents of the
 issuer field in all certificates issued by the subject CA."
 
-However, {{!RFC9525, Section 2.9}} now recommends that the SubjectDN be empty (null) for all End Entity certificates.
+However, as {{!RFC9525, Section 2}} mandates that the subjectDN not be be used to identify a service, for IoT purposes, an empty SubjectDN avoids all confusion for End Entity certificates.
 
 Root CA and Subordinate CAs must have a non-null SubjectDN as that value must match the IssuerDN of subordinate certificates.
 
