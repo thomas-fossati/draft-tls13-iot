@@ -1693,9 +1693,9 @@ to <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>.<a href="#sec
 <p id="section-15.1.5-1">In IoT deployment scenarios it is often expected that the IDevIDs have
 no maximum validity period. For this purpose the use of a special value
 for the notAfter date field, the GeneralizedTime value of 99991231235959Z,
-is utilized. If this is done, then CA certificates and certificates of
-subordinate CAs cannot have a maximum validity period either. Hence,
-it requires careful consideration whether it is appropriate to issue
+is utilized.
+If this is done, then the CA certificates and the certificates of subordinate CAs cannot have a maximum validity period either.
+Hence, it requires careful consideration whether it is appropriate to issue
 IDevID certificates with no maximum validity period.<a href="#section-15.1.5-1" class="pilcrow">¶</a></p>
 <p id="section-15.1.5-2">LDevID certificates are, however, issued by the operator or owner,
 and may be renewed at a regular interval using protocols, such
@@ -1801,8 +1801,9 @@ the entity associated with the public key stored in the subject public key
 field." RFC 5280 adds "If the subject is a CA then the subject field MUST be
 populated with a non-empty distinguished name matching the contents of the
 issuer field in all certificates issued by the subject CA."<a href="#section-15.2.1-1" class="pilcrow">¶</a></p>
-<p id="section-15.2.1-2">However, as <span>[<a href="#RFC9525" class="cite xref">RFC9525</a>], <a href="https://rfc-editor.org/rfc/rfc9525#section-2" class="relref">Section 2</a></span> mandates that the subjectDN not be be used to identify a service, for IoT purposes, an empty SubjectDN avoids all confusion for End Entity certificates.<a href="#section-15.2.1-2" class="pilcrow">¶</a></p>
-<p id="section-15.2.1-3">Root CA certificates and Subordinate CA certificates MUST have a non-empty SubjectDN, as the value MUST match the DN of the Issuer.<a href="#section-15.2.1-3" class="pilcrow">¶</a></p>
+<p id="section-15.2.1-2">Root CA certificates and Subordinate CA certificates MUST have a non-empty SubjectDN, as the value MUST match the DN of the Issuer.<a href="#section-15.2.1-2" class="pilcrow">¶</a></p>
+<p id="section-15.2.1-3">The Subject field MUST be set and MUST contain the commonName, the organizationName,
+and the countryName attribute and MAY contain an organizationalUnitName attribute.<a href="#section-15.2.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authority-key-identifier">
@@ -1977,30 +1978,31 @@ status service (OCSP).<a href="#section-15.3.7-1" class="pilcrow">¶</a></p>
           <h4 id="name-subject-3">
 <a href="#section-15.4.1" class="section-number selfRef">15.4.1. </a><a href="#name-subject-3" class="section-name selfRef">Subject</a>
           </h4>
-<p id="section-15.4.1-1">The requirement in Section 4.4.2 of <span>[<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> to only use EUI-64 for end
-entity certificates as a Subject name is lifted.<a href="#section-15.4.1-1" class="pilcrow">¶</a></p>
-<p id="section-15.4.1-2">Two fields are typically used to encode a device identifer, namely the
+<p id="section-15.4.1-1"><span>[<a href="#RFC9525" class="cite xref">RFC9525</a>], <a href="https://rfc-editor.org/rfc/rfc9525#section-2" class="relref">Section 2</a></span> mandates that the subjectDN not be be used to identify a service, for IoT purposes, an empty SubjectDN avoids all confusion for End Entity certificates.<a href="#section-15.4.1-1" class="pilcrow">¶</a></p>
+<p id="section-15.4.1-2">The requirement in Section 4.4.2 of <span>[<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> to only use EUI-64 for end
+entity certificates as a Subject name is lifted.<a href="#section-15.4.1-2" class="pilcrow">¶</a></p>
+<p id="section-15.4.1-3">Two fields are typically used to encode a device identifer, namely the
 Subject and the subjectAltName fields. Protocol specifications tend to offer
 recommendations what identifiers to use and the deployment situation is
-fragmented.<a href="#section-15.4.1-2" class="pilcrow">¶</a></p>
-<p id="section-15.4.1-3">The Subject field MAY include a unique device serial number. If the serial
-number is included, it MUST be encoded in the serialNumber attribute.<a href="#section-15.4.1-3" class="pilcrow">¶</a></p>
-<p id="section-15.4.1-4"><span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> defines: "The subject alternative name extension allows identities
+fragmented.<a href="#section-15.4.1-3" class="pilcrow">¶</a></p>
+<p id="section-15.4.1-4">The Subject field MAY include a unique device serial number. If the serial
+number is included, it MUST be encoded in the serialNumber attribute.<a href="#section-15.4.1-4" class="pilcrow">¶</a></p>
+<p id="section-15.4.1-5"><span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> defines: "The subject alternative name extension allows identities
 to be bound to the subject of the certificate. These identities may be included
-in addition to or in place of the identity in the subject field of the certificate."<a href="#section-15.4.1-4" class="pilcrow">¶</a></p>
-<p id="section-15.4.1-5">The subject alternative name extension MAY be set. If it is set, it MUST NOT be
-marked critical, except when the subject DN contains an empty sequence.<a href="#section-15.4.1-5" class="pilcrow">¶</a></p>
-<p id="section-15.4.1-6">If the EUI-64 format is used to identify the subject of an end entity
+in addition to or in place of the identity in the subject field of the certificate."<a href="#section-15.4.1-5" class="pilcrow">¶</a></p>
+<p id="section-15.4.1-6">The subject alternative name extension MAY be set. If it is set, it MUST NOT be
+marked critical, except when the subject DN contains an empty sequence.<a href="#section-15.4.1-6" class="pilcrow">¶</a></p>
+<p id="section-15.4.1-7">If the EUI-64 format is used to identify the subject of an end entity
 certificate, it MUST be encoded in a subjectAltName of type DNS-ID as a string
 of the form <code>HH-HH-HH-HH-HH-HH-HH-HH</code> where 'H' is one of the symbols '0'-'9'
-or 'A'-'F'.<a href="#section-15.4.1-6" class="pilcrow">¶</a></p>
-<p id="section-15.4.1-7">Domain names MUST NOT be encoded in the subject commonName. Instead they
+or 'A'-'F'.<a href="#section-15.4.1-7" class="pilcrow">¶</a></p>
+<p id="section-15.4.1-8">Domain names MUST NOT be encoded in the subject commonName. Instead they
 MUST be encoded in a subjectAltName of type DNS-ID. Domain names MUST NOT
 contain wildcard (<code>*</code>) characters. The subjectAltName MUST NOT contain multiple
-names.<a href="#section-15.4.1-7" class="pilcrow">¶</a></p>
-<p id="section-15.4.1-8">Note: The IEEE 802.1AR recomments to encode information about a Trusted
+names.<a href="#section-15.4.1-8" class="pilcrow">¶</a></p>
+<p id="section-15.4.1-9">Note: The IEEE 802.1AR recomments to encode information about a Trusted
 Platform Module (TPM), if present, in the HardwareModuleName. This
-specification does not follow this recommendation.<a href="#section-15.4.1-8" class="pilcrow">¶</a></p>
+specification does not follow this recommendation.<a href="#section-15.4.1-9" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authority-key-identifier-2">

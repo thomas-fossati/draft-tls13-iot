@@ -442,8 +442,8 @@ Table of Contents
    In IoT deployment scenarios it is often expected that the IDevIDs
    have no maximum validity period.  For this purpose the use of a
    special value for the notAfter date field, the GeneralizedTime value
-   of 99991231235959Z, is utilized.  If this is done, then CA
-   certificates and certificates of subordinate CAs cannot have a
+   of 99991231235959Z, is utilized.  If this is done, then the CA
+   certificates and the certificates of subordinate CAs cannot have a
    maximum validity period either.  Hence, it requires careful
    consideration whether it is appropriate to issue IDevID certificates
    with no maximum validity period.
@@ -543,12 +543,12 @@ Table of Contents
    distinguished name matching the contents of the issuer field in all
    certificates issued by the subject CA."
 
-   However, as [RFC9525], Section 2 mandates that the subjectDN not be
-   be used to identify a service, for IoT purposes, an empty SubjectDN
-   avoids all confusion for End Entity certificates.
-
    Root CA certificates and Subordinate CA certificates MUST have a non-
    empty SubjectDN, as the value MUST match the DN of the Issuer.
+
+   The Subject field MUST be set and MUST contain the commonName, the
+   organizationName, and the countryName attribute and MAY contain an
+   organizationalUnitName attribute.
 
 15.2.2.  Authority Key Identifier
 
@@ -692,6 +692,10 @@ Table of Contents
    This section outlines the requirements for end entity certificates.
 
 15.4.1.  Subject
+
+   [RFC9525], Section 2 mandates that the subjectDN not be be used to
+   identify a service, for IoT purposes, an empty SubjectDN avoids all
+   confusion for End Entity certificates.
 
    The requirement in Section 4.4.2 of [RFC7925] to only use EUI-64 for
    end entity certificates as a Subject name is lifted.
