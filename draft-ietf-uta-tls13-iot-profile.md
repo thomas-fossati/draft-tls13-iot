@@ -448,12 +448,14 @@ Since the publication of RFC 7925 the need for firmware update mechanisms
 has been reinforced and the work on standardizing a secure and
 interoperable firmware update mechanism has made substantial progress,
 see {{?RFC9019}}. RFC 7925 recommends to use a software / firmware update
-mechanism to provision devices with new trust anchors.
+mechanism to provision devices with new trust anchors. This approach does,
+however, only address the distribution of trust anchors and not end-entity
+certificates or certificates of subordinate CAs.
 
 The use of device management protocols for IoT devices, which often include
 an onboarding or bootstrapping mechanism, has also seen considerable uptake
 in deployed devices and these protocols, some of which are standardized,
-allow updates of certificates on demand. This enables a
+allow distribution and updates of certificates on demand. This enables a
 deployment model where IoT device utilize end-entity certificates with
 shorter lifetime making certificate revocation protocols, like OCSP
 and CRLs, less relevant. Whenever certificates
@@ -462,8 +464,9 @@ endpoints need to be aware of the new certificates. This is particularly
 important when long-lived TLS connections are used. In such a case, the
 a post-handshake authentication exchange needs to be triggered. TLS 1.3
 provides client-to-server post-handshake authentication only. Mutual
-authentication via post-handshake messages is available via {{?RFC9261}}
-but requires the application layer protocol to carry the payloads.
+authentication via post-handshake messages is available via the "Exported
+Authenticator" {{?RFC9261}} but requires the application layer protocol
+to carry the payloads.
 
 Hence, instead of performing certificate revocation checks on the IoT device
 itself this specification recommends to delegate this task to the IoT device
@@ -475,7 +478,6 @@ identify how CRL information is obtained. The authority information access
 extension indicates how to access information like the online certificate
 status service (OCSP). Both extensions SHOULD NOT be set. If set, they
 MUST NOT be marked critical.
-
 
 ## Root CA Certificate
 
