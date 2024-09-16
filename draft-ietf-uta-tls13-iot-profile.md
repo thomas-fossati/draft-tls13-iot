@@ -394,10 +394,26 @@ to {{!RFC5280}}.
 In IoT deployment scenarios it is often expected that the IDevIDs have
 no maximum validity period. For this purpose the use of a special value
 for the notAfter date field, the GeneralizedTime value of 99991231235959Z,
-is utilized. If this is done, then CA certificates and certificates of
-subordinate CAs cannot have a maximum validity period either. Hence,
-it requires careful consideration whether it is appropriate to issue
-IDevID certificates with no maximum validity period.
+is utilized.
+This is consistent with the {{8021AR}} specification.
+
+{{8021AR}} does not provide any advice on validity periods for certification authorities that sign the certificates.
+Root CAs are trust anchors, and their validity period can be considered irrelevant as they are never evaluated.
+
+For subordinate certification authorities, the question of the validity period of the subordinate certificate does arise.
+
+One solution is for the certificate authorizing the subordinate certification authority to have no expiry date either: a notAfter of 99991231235959Z.
+
+Another solution is for the subordinate certification authority's certificate to be resigned regularly by the root CA, extending the notAfter time each time.
+As the IDevID End-Entity certificates are not replaced, nor are any certificate chains in the device replaced when the certificates are renewed, this implies:
+
+* the subordinate CA must use the same public/private key pair.
+* the SubjectKeyInfo value must not change, as it must match the AuthorityKeyIdentifier in the End-Entity certificates
+* it must be possible for verifiers to retrieve the updated subordinate CA certificate in some way
+
+The last point is the most difficult to arrange in general.
+In many specific cases, such as when devices from the same manufacturer (IDevID) are involved, or when LDevID certificates are use, it may be possible for updates to the trust anchor to include updates to the subordinate CAs.
+For example, the /cacerts mechanism defined in {{RFC7030}} can be used to get new sets of trust anchors.
 
 LDevID certificates are, however, issued by the operator or owner,
 and may be renewed at a regular interval using protocols, such
