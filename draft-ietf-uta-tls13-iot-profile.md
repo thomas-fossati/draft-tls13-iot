@@ -448,14 +448,12 @@ Since the publication of RFC 7925 the need for firmware update mechanisms
 has been reinforced and the work on standardizing a secure and
 interoperable firmware update mechanism has made substantial progress,
 see {{?RFC9019}}. RFC 7925 recommends to use a software / firmware update
-mechanism to provision devices with new trust anchors. This approach does,
-however, only address the distribution of trust anchors and not end-entity
-certificates or certificates of subordinate CAs.
+mechanism to provision devices with new trust anchors. This approach only addresses the distribution of trust anchors and not end-entity certificates or certificates of subordinate CAs.
 
 The use of device management protocols for IoT devices, which often include
 an onboarding or bootstrapping mechanism, has also seen considerable uptake
-in deployed devices and these protocols, some of which are standardized,
-allow distribution and updates of certificates on demand. This enables a
+in deployed devices. These protocols, some of which are standardized,
+allow for the distribution and updating of certificates on demand. This enables a
 deployment model where IoT device utilize end-entity certificates with
 shorter lifetime making certificate revocation protocols, like OCSP
 and CRLs, less relevant. Whenever certificates are updated the TLS stack
