@@ -481,7 +481,7 @@ MUST NOT be marked critical.
 
 This section outlines the requirements for root CA certificates.
 
-## Subject
+### Subject
 
 {{!RFC5280}} mandates that Root CA certificates MUST have a non-empty subject field. The subject field MUST contain the commonName, the organizationName, and the countryName attribute and MAY contain an organizationalUnitName attribute.
 
