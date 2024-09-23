@@ -462,7 +462,7 @@ of the new certificates. This is particularly important when long-lived
 TLS connections are used. In such a case, the a post-handshake
 authentication exchange needs to be triggered. TLS 1.3 provides
 client-to-server post-handshake authentication only. Mutual
-authentication via post-handshake messages is available via the "Exported
+authentication via post-handshake messages is available by the use of the "Exported
 Authenticator" {{?RFC9261}} but requires the application layer protocol
 to carry the payloads.
 
