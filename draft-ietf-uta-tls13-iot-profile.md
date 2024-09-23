@@ -224,10 +224,16 @@ protocol. Additionally, the work on Compact TLS (cTLS) {{?I-D.ietf-tls-ctls}} ha
 a step further by utilizing out-of-band knowledge between the communication parties to reduce
 the amount of data to be transmitted at each individual handshake, among applying other techniques.
 
-# Perfect Forward Secrecy
+# Forward Secrecy
 
-TLS 1.3 allows the use of PFS with all ciphersuites since the support for it is
-negotiated independently.
+RFC 8446 has removed Static RSA and Static Diffie-Hellman cipher suites, therefore all public-key-based key exchange mechanisms available in TLS 1.3 provide forward secrecy.
+
+Pre-shared keys (PSKs) can be used with (EC)DHE key exchange to provide forward secrecy or can be used alone, at the cost of losing forward secrecy for the application data.
+
+# Authentication and Integrity-only Cipher Suites
+
+For a few, very specific Industrial IoT use cases {{?RFC9150}} defines two cipher suites that provide data authenticity, but not data confidentiality.
+Please review the security and privacy considerations about their use detailed in {{Section 9 of RFC9150}}.
 
 # Keep-Alive
 
