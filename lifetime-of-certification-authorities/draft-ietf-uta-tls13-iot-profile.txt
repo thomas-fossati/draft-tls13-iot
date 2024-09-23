@@ -6,9 +6,9 @@ UTA                                                        H. Tschofenig
 Internet-Draft                                                          
 Updates: 7925 (if approved)                                   T. Fossati
 Intended status: Standards Track                                  Linaro
-Expires: 22 March 2025                                     M. Richardson
+Expires: 27 March 2025                                     M. Richardson
                                                 Sandelman Software Works
-                                                       18 September 2024
+                                                       23 September 2024
 
 
             TLS/DTLS 1.3 Profiles for the Internet of Things
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 March 2025.
+   This Internet-Draft will expire on 27 March 2025.
 
 Copyright Notice
 
@@ -453,9 +453,9 @@ Table of Contents
    For subordinate certification authorities, the question of the
    validity period of the subordinate certificate does arise.
 
-   One solution is for the certificate authorizing the subordinate
-   certification authority to have no expiry date either: a notAfter of
-   99991231235959Z, as defined in Section 4.1.2.5 of [RFC5280].
+   One solution is for the subordinate certification authority's
+   certificate to have no expiry date indicated with the notAfter value
+   set to 99991231235959Z, as defined in Section 4.1.2.5 of [RFC5280].
 
    Another solution is for the subordinate certification authority's
    certificate to be resigned regularly by the root CA, extending the

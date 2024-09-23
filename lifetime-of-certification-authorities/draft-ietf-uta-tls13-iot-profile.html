@@ -1032,7 +1032,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Tschofenig, et al.</td>
-<td class="center">Expires 22 March 2025</td>
+<td class="center">Expires 27 March 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1048,12 +1048,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc7925" class="eref">7925</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-09-18" class="published">18 September 2024</time>
+<time datetime="2024-09-23" class="published">23 September 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-03-22">22 March 2025</time></dd>
+<dd class="expires"><time datetime="2025-03-27">27 March 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1104,7 +1104,7 @@ certificate profile.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 22 March 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 27 March 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1698,7 +1698,7 @@ This is consistent with the <span>[<a href="#_8021AR" class="cite xref">_8021AR<
 <p id="section-15.1.5-2"><span>[<a href="#_8021AR" class="cite xref">_8021AR</a>]</span> does not provide any advice on validity periods for certification authorities that sign the certificates.
 Root CAs are trust anchors, and their validity period can be considered irrelevant as they are never evaluated.<a href="#section-15.1.5-2" class="pilcrow">¶</a></p>
 <p id="section-15.1.5-3">For subordinate certification authorities, the question of the validity period of the subordinate certificate does arise.<a href="#section-15.1.5-3" class="pilcrow">¶</a></p>
-<p id="section-15.1.5-4">One solution is for the certificate authorizing the subordinate certification authority to have no expiry date either: a notAfter of 99991231235959Z, as defined in <span><a href="https://rfc-editor.org/rfc/rfc5280#section-4.1.2.5" class="relref">Section 4.1.2.5</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>.<a href="#section-15.1.5-4" class="pilcrow">¶</a></p>
+<p id="section-15.1.5-4">One solution is for the subordinate certification authority's certificate to have no expiry date indicated with the notAfter value set to 99991231235959Z, as defined in <span><a href="https://rfc-editor.org/rfc/rfc5280#section-4.1.2.5" class="relref">Section 4.1.2.5</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>.<a href="#section-15.1.5-4" class="pilcrow">¶</a></p>
 <p id="section-15.1.5-5">Another solution is for the subordinate certification authority's certificate to be resigned regularly by the root CA, extending the notAfter time each time.
 As the IDevID End-Entity certificates are not replaced, nor are any certificate chains in the device replaced when the certificates are renewed, this implies:<a href="#section-15.1.5-5" class="pilcrow">¶</a></p>
 <ul class="compact">
