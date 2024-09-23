@@ -460,7 +460,7 @@ and CRLs, less relevant. Whenever certificates are updated the TLS stack
 needs to be informed since the communication endpoints need to be aware
 of the new certificates. This is particularly important when long-lived
 TLS connections are used. In such a case, the a post-handshake
-authentication exchange needs to be triggered. TLS 1.3 provides
+authentication exchange is triggered when the application requires it. TLS 1.3 provides
 client-to-server post-handshake authentication only. Mutual
 authentication via post-handshake messages is available by the use of the "Exported
 Authenticator" {{?RFC9261}} but requires the application layer protocol
