@@ -560,7 +560,7 @@ This section outlines the requirements for subordinate CA certificates.
 
 ### Subject
 
-The subjectName field MUST be set and MUST contain the commonName, the organizationName,
+The subject field MUST be set and MUST contain the commonName, the organizationName,
 and the countryName attribute and MAY contain an organizationalUnitName attribute.
 
 
