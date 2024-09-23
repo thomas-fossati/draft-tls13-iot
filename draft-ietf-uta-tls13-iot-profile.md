@@ -493,7 +493,7 @@ issuer field in all certificates issued by the subject CA."
 
 Root CA certificates MUST have a non-empty subjectName.
 
-The subjectName MUST contain the commonName, the organizationName, and the countryName attribute and MAY contain an organizationalUnitName attribute.
+The subject field MUST contain the commonName, the organizationName, and the countryName attribute and MAY contain an organizationalUnitName attribute.
 
 ### Authority Key Identifier
 
