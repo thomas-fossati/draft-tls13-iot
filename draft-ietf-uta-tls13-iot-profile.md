@@ -226,7 +226,7 @@ the amount of data to be transmitted at each individual handshake, among applyin
 
 # Forward Secrecy
 
-RFC8446 has removed Static RSA and Diffie-Hellman cipher suites, therefore all public-key-based key exchange mechanisms available in TLS 1.3 provide forward secrecy.
+RFC 8446 has removed Static RSA and Static Diffie-Hellman cipher suites, therefore all public-key-based key exchange mechanisms available in TLS 1.3 provide forward secrecy.
 
 Pre-shared keys (PSKs) can be used with (EC)DHE key exchange to provide forward secrecy or can be used alone, at the cost of losing forward secrecy for the application data.
 
