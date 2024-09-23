@@ -402,7 +402,7 @@ Root CAs are trust anchors, and their validity period can be considered irreleva
 
 For subordinate certification authorities, the question of the validity period of the subordinate certificate does arise.
 
-One solution is for the certificate authorizing the subordinate certification authority to have no expiry date either: a notAfter of 99991231235959Z, as defined in {{Section 4.1.2.5 of RFC5280}}.
+One solution is for the subordinate certification authority's certificate to have no expiry date indicated with the notAfter value set to 99991231235959Z, as defined in {{Section 4.1.2.5 of RFC5280}}.
 
 Another solution is for the subordinate certification authority's certificate to be resigned regularly by the root CA, extending the notAfter time each time.
 As the IDevID End-Entity certificates are not replaced, nor are any certificate chains in the device replaced when the certificates are renewed, this implies:
