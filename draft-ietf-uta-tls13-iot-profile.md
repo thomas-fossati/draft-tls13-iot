@@ -608,7 +608,7 @@ status service (OCSP).
 
 This section outlines the requirements for end entity certificates.
 
-### subjectName
+### Subject
 
 {{!RFC9525, Section 2}} mandates that the subject field not be be used to identify a service, for IoT purposes, an empty subjectName avoids all confusion for End Entity certificates.
 
