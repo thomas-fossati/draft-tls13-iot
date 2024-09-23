@@ -400,9 +400,9 @@ to {{!RFC5280}}.
 In IoT deployment scenarios it is often expected that the IDevIDs have
 no maximum validity period. For this purpose the use of a special value
 for the notAfter date field, the GeneralizedTime value of 99991231235959Z,
-is utilized. If this is done, then CA certificates and certificates of
-subordinate CAs cannot have a maximum validity period either. Hence,
-it requires careful consideration whether it is appropriate to issue
+is utilized.
+If this is done, then the CA certificates and the certificates of subordinate CAs cannot have a maximum validity period either.
+Hence, it requires careful consideration whether it is appropriate to issue
 IDevID certificates with no maximum validity period.
 
 LDevID certificates are, however, issued by the operator or owner,
@@ -489,14 +489,7 @@ This section outlines the requirements for root CA certificates.
 
 ### Subject
 
-{{!RFC5280}} defines the Subject field as follows: "The subject field identifies
-the entity associated with the public key stored in the subject public key
-field." RFC 5280 adds "If the subject is a CA then the subject field MUST be
-populated with a non-empty distinguished name matching the contents of the
-issuer field in all certificates issued by the subject CA."
-
-The Subject field MUST be present and MUST contain the commonName, the organizationName,
-and the countryName attribute and MAY contain an organizationalUnitName attribute.
+{{!RFC5280}} mandates that Root CA certificates MUST have a non-empty subject field. The subject field MUST contain the commonName, the organizationName, and the countryName attribute and MAY contain an organizationalUnitName attribute.
 
 ### Authority Key Identifier
 
@@ -573,7 +566,7 @@ This section outlines the requirements for subordinate CA certificates.
 
 ### Subject
 
-The Subject field MUST be set and MUST contain the commonName, the organizationName,
+The subject field MUST be set and MUST contain the commonName, the organizationName,
 and the countryName attribute and MAY contain an organizationalUnitName attribute.
 
 
@@ -623,16 +616,19 @@ This section outlines the requirements for end entity certificates.
 
 ### Subject
 
+{{!RFC9525, Section 2}} mandates that the subject field not be used to identify a service.
+For IoT purposes, an empty subject field avoids all confusion for End Entity certificates.
+
 The requirement in Section 4.4.2 of {{!RFC7925}} to only use EUI-64 for end
-entity certificates as a Subject name is lifted.
+entity certificates as a subject field is lifted.
 
 Two fields are typically used to encode a device identifer, namely the
 Subject and the subjectAltName fields. Protocol specifications tend to offer
 recommendations what identifiers to use and the deployment situation is
 fragmented.
 
-The Subject field MAY include a unique device serial number. If the serial
-number is included, it MUST be encoded in the serialNumber attribute.
+The subject field MAY include a unique device serial number. If the serial
+number is included, it MUST be encoded in the X520SerialNumber attribute.
 
 {{!RFC5280}} defines: "The subject alternative name extension allows identities
 to be bound to the subject of the certificate. These identities may be included
