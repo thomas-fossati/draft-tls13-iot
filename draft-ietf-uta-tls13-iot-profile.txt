@@ -3,7 +3,7 @@
 
 
 UTA                                                        H. Tschofenig
-Internet-Draft                                                          
+Internet-Draft                                                     H-BRS
 Updates: 7925 (if approved)                                   T. Fossati
 Intended status: Standards Track                                  Linaro
 Expires: 3 April 2025                                      M. Richardson
@@ -1199,6 +1199,8 @@ Contributors
 Authors' Addresses
 
    Hannes Tschofenig
+   University of Applied Sciences Bonn-Rhein-Sieg
+   Germany
    Email: Hannes.Tschofenig@gmx.net
 
 
