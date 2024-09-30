@@ -224,10 +224,16 @@ protocol. Additionally, the work on Compact TLS (cTLS) {{?I-D.ietf-tls-ctls}} ha
 a step further by utilizing out-of-band knowledge between the communication parties to reduce
 the amount of data to be transmitted at each individual handshake, among applying other techniques.
 
-# Perfect Forward Secrecy
+# Forward Secrecy
 
-TLS 1.3 allows the use of PFS with all ciphersuites since the support for it is
-negotiated independently.
+RFC 8446 has removed Static RSA and Static Diffie-Hellman cipher suites, therefore all public-key-based key exchange mechanisms available in TLS 1.3 provide forward secrecy.
+
+Pre-shared keys (PSKs) can be used with (EC)DHE key exchange to provide forward secrecy or can be used alone, at the cost of losing forward secrecy for the application data.
+
+# Authentication and Integrity-only Cipher Suites
+
+For a few, very specific Industrial IoT use cases {{?RFC9150}} defines two cipher suites that provide data authenticity, but not data confidentiality.
+Please review the security and privacy considerations about their use detailed in {{Section 9 of RFC9150}}.
 
 # Keep-Alive
 
@@ -394,22 +400,10 @@ to {{!RFC5280}}.
 In IoT deployment scenarios it is often expected that the IDevIDs have
 no maximum validity period. For this purpose the use of a special value
 for the notAfter date field, the GeneralizedTime value of 99991231235959Z,
-is utilized.
-This is consistent with the {{8021AR}} specification.
-
-{{8021AR}} does not provide any advice on validity periods for certification authorities that sign the certificates.
-Root CAs are trust anchors, and their validity period can be considered irrelevant as they are never evaluated.
-
-For subordinate certification authorities, the question of the validity period of the subordinate certificate does arise.
-
-One solution is for the subordinate certification authority's certificate to have no expiry date indicated with the notAfter value set to 99991231235959Z, as defined in {{Section 4.1.2.5 of RFC5280}}.
-
-Another solution is for the subordinate certification authority's certificate to be resigned regularly by the root CA, extending the notAfter time each time.
-As the IDevID End-Entity certificates are not replaced, nor are any certificate chains in the device replaced when the certificates are renewed, this implies:
-
-* the subordinate CA must use the same public/private key pair.
-* the SubjectKeyInfo value must not change, as it must match the AuthorityKeyIdentifier in the End-Entity certificates
-* it must be possible for verifiers to retrieve the updated subordinate CA certificate in some way
+is utilized. If this is done, then the CA certificates and the certificates
+of subordinate CAs cannot have a maximum validity period either. Hence,
+it requires careful consideration whether it is appropriate to issue
+IDevID certificates with no maximum validity period.
 
 LDevID certificates are, however, issued by the operator or owner,
 and may be renewed at a regular interval using protocols, such
@@ -460,22 +454,23 @@ Since the publication of RFC 7925 the need for firmware update mechanisms
 has been reinforced and the work on standardizing a secure and
 interoperable firmware update mechanism has made substantial progress,
 see {{?RFC9019}}. RFC 7925 recommends to use a software / firmware update
-mechanism to provision devices with new trust anchors.
+mechanism to provision devices with new trust anchors. This approach only addresses the distribution of trust anchors and not end-entity certificates or certificates of subordinate CAs.
 
 The use of device management protocols for IoT devices, which often include
 an onboarding or bootstrapping mechanism, has also seen considerable uptake
-in deployed devices and these protocols, some of which are standardized,
-allow updates of certificates on demand. This enables a
+in deployed devices. These protocols, some of which are standardized,
+allow for the distribution and updating of certificates on demand. This enables a
 deployment model where IoT device utilize end-entity certificates with
 shorter lifetime making certificate revocation protocols, like OCSP
-and CRLs, less relevant. Whenever certificates
-are updated the TLS stack needs to be informed since the communication
-endpoints need to be aware of the new certificates. This is particularly
-important when long-lived TLS connections are used. In such a case, the
-a post-handshake authentication exchange needs to be triggered. TLS 1.3
-provides client-to-server post-handshake authentication only. Mutual
-authentication via post-handshake messages is available via {{?RFC9261}}
-but requires the application layer protocol to carry the payloads.
+and CRLs, less relevant. Whenever certificates are updated the TLS stack
+needs to be informed since the communication endpoints need to be aware
+of the new certificates. This is particularly important when long-lived
+TLS connections are used. In such a case, the a post-handshake
+authentication exchange is triggered when the application requires it. TLS 1.3 provides
+client-to-server post-handshake authentication only. Mutual
+authentication via post-handshake messages is available by the use of the "Exported
+Authenticator" {{?RFC9261}} but requires the application layer protocol
+to carry the payloads.
 
 Hence, instead of performing certificate revocation checks on the IoT device
 itself this specification recommends to delegate this task to the IoT device
@@ -488,21 +483,13 @@ extension indicates how to access information like the online certificate
 status service (OCSP). Both extensions SHOULD NOT be set. If set, they
 MUST NOT be marked critical.
 
-
 ## Root CA Certificate
 
 This section outlines the requirements for root CA certificates.
 
 ### Subject
 
-{{!RFC5280}} defines the Subject field as follows: "The subject field identifies
-the entity associated with the public key stored in the subject public key
-field." RFC 5280 adds "If the subject is a CA then the subject field MUST be
-populated with a non-empty distinguished name matching the contents of the
-issuer field in all certificates issued by the subject CA."
-
-The Subject field MUST be present and MUST contain the commonName, the organizationName,
-and the countryName attribute and MAY contain an organizationalUnitName attribute.
+{{!RFC5280}} mandates that Root CA certificates MUST have a non-empty subject field. The subject field MUST contain the commonName, the organizationName, and the countryName attribute and MAY contain an organizationalUnitName attribute.
 
 ### Authority Key Identifier
 
@@ -579,7 +566,7 @@ This section outlines the requirements for subordinate CA certificates.
 
 ### Subject
 
-The Subject field MUST be set and MUST contain the commonName, the organizationName,
+The subject field MUST be set and MUST contain the commonName, the organizationName,
 and the countryName attribute and MAY contain an organizationalUnitName attribute.
 
 
@@ -629,16 +616,19 @@ This section outlines the requirements for end entity certificates.
 
 ### Subject
 
+{{!RFC9525, Section 2}} mandates that the subject field not be used to identify a service.
+For IoT purposes, an empty subject field avoids all confusion for End Entity certificates.
+
 The requirement in Section 4.4.2 of {{!RFC7925}} to only use EUI-64 for end
-entity certificates as a Subject name is lifted.
+entity certificates as a subject field is lifted.
 
 Two fields are typically used to encode a device identifer, namely the
 Subject and the subjectAltName fields. Protocol specifications tend to offer
 recommendations what identifiers to use and the deployment situation is
 fragmented.
 
-The Subject field MAY include a unique device serial number. If the serial
-number is included, it MUST be encoded in the serialNumber attribute.
+The subject field MAY include a unique device serial number. If the serial
+number is included, it MUST be encoded in the X520SerialNumber attribute.
 
 {{!RFC5280}} defines: "The subject alternative name extension allows identities
 to be bound to the subject of the certificate. These identities may be included
