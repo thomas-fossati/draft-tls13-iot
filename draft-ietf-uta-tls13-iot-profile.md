@@ -411,10 +411,6 @@ As the IDevID End-Entity certificates are not replaced, nor are any certificate 
 * the SubjectKeyInfo value must not change, as it must match the AuthorityKeyIdentifier in the End-Entity certificates
 * it must be possible for verifiers to retrieve the updated subordinate CA certificate in some way
 
-The last point is the most difficult to arrange in general.
-In many specific cases, such as when devices from the same manufacturer (IDevID) are involved, or when LDevID certificates are used, it may be possible for updates to the trust anchor to include updates to the subordinate CAs.
-For example, the /cacerts mechanism defined in {{?RFC7030}} can be used to get new sets of trust anchors.
-
 LDevID certificates are, however, issued by the operator or owner,
 and may be renewed at a regular interval using protocols, such
 as Enrollment over Secure Transport (EST) {{?RFC7030}} or the
