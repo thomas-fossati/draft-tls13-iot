@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-09-29T01:03:29.198948+00:00",
+  "timestamp": "2024-10-01T01:04:29.106999+00:00",
   "repo": "thomas-fossati/draft-tls13-iot",
   "labels": [
     {
@@ -663,7 +663,7 @@
       "id": "I_kwDOEBGZx850lTa_",
       "title": "Maximum validity period",
       "url": "https://github.com/thomas-fossati/draft-tls13-iot/issues/34",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "hannestschofenig",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -674,8 +674,8 @@
       ],
       "body": "> In IoT deployment scenarios it is often expected that the IDevIDs have no maximum validity period. For this purpose the use of a special value for the notAfter date field, the GeneralizedTime value of 99991231235959Z, is utilized. If this is done, then CA certificates and certificates of subordinate CAs cannot have a maximum validity period either. Hence, it requires careful consideration whether it is appropriate to issue IDevID certificates with no maximum validity period.\r\n\r\n\r\nMichael:  One answer is that the RootCA->subordinateCA signatures might be limited, but resigned regularly, assuming that the new signature/certificate can somehow be retrieved by infrastructure that needs to verify it. It's not crazy that industrial IoT operators would receive regular updates. The subordinateCA->IDevID signature can not be replaced in the device, but it could be augumented in some way over time.\r\n\r\n",
       "createdAt": "2023-10-22T15:04:29Z",
-      "updatedAt": "2024-02-09T15:45:11Z",
-      "closedAt": null,
+      "updatedAt": "2024-09-30T14:12:03Z",
+      "closedAt": "2024-09-30T14:12:03Z",
       "comments": [
         {
           "author": "hannestschofenig",
@@ -3471,24 +3471,26 @@
       "id": "PR_kwDOEBGZx857onZ6",
       "title": "proposed text to deal with subordinate CA validity",
       "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/57",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "mcr",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "close #34 ",
       "createdAt": "2024-09-16T14:58:17Z",
-      "updatedAt": "2024-09-23T15:37:35Z",
+      "updatedAt": "2024-09-30T14:12:06Z",
       "baseRepository": "thomas-fossati/draft-tls13-iot",
       "baseRefName": "master",
-      "baseRefOid": "d7e5ab7d113b30243c66d9f3e5b88fe6954d6e34",
+      "baseRefOid": "3bd8e9855ccff5de192fa89ae0246ad8ee635a1d",
       "headRepository": "thomas-fossati/draft-tls13-iot",
       "headRefName": "lifetime-of-certification-authorities",
-      "headRefOid": "4cb2b65b193b12432afdb7b55955bf4b85516af0",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "a115e67c68746ae3f025a1cfedf286e6b1a3cb12",
+      "closedAt": "2024-09-30T14:12:02Z",
+      "mergedAt": "2024-09-30T14:12:02Z",
+      "mergedBy": "hannestschofenig",
+      "mergeCommit": {
+        "oid": "d387c9c195d090dcdf1ebd11071e80e322235a3b"
+      },
       "comments": [],
       "reviews": [
         {
