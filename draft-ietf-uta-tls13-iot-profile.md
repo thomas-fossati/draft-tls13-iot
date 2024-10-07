@@ -110,21 +110,17 @@ informative:
 
 This document is a companion to RFC 7925 and defines TLS/DTLS 1.3 profiles for
 Internet of Things devices.  It also updates RFC 7925 with regards to the X.509
-certificate profile.
+certificate profile and ciphersuite requirements.
 
 --- middle
 
 # Introduction
 
-This document defines a profile of DTLS 1.3 {{DTLS13}} and TLS
-1.3 {{!RFC8446}} that offers communication security services for IoT
-applications and is reasonably implementable on many constrained devices.
-Profile thereby means that available configuration options and protocol
-extensions are utilized to best support the IoT environment.
+In the rapidly evolving Internet of Things (IoT) ecosystem, securing device-to-device communication is a critical requirement. The Transport Layer Security (TLS) and Datagram Transport Layer Security (DTLS) protocols have been foundational for ensuring encryption, integrity, and authenticity in network communications. However, the inherent constraints of IoT devices, such as limited processing capacity, memory, and energy, render conventional, off-the-shelf TLS/DTLS implementations suboptimal for many IoT use cases. This document, TLS/DTLS 1.3 Profiles for the Internet of Things (IoT), addresses these limitations by specifying profiles of TLS 1.3 and DTLS 1.3, optimized for the operational constraints of resource-constrained IoT systems.
 
-For IoT profiles using TLS/DTLS 1.2 please consult {{!RFC7925}}. This document
-re-uses the communication pattern defined in {{!RFC7925}} and makes IoT-domain
-specific recommendations for version 1.3 (where necessary).
+These profiles aim to balance strong security with the hardware and software limitations of IoT devices. TLS/DTLS 1.3 introduces numerous enhancements over previous versions, including reduced handshake overhead, more efficient encryption schemes, and mechanisms to thwart replay and downgrade attacks. However, the default configurations may still present excessive computational and memory demands for constrained devices with limited CPU, RAM, and power resources. The document mitigates these challenges by defining lightweight protocol configurations while maintaining the essential security guarantees of TLS/DTLS. This specification also updates {{!RFC7925}} with regards to the X.509 certificate profile ({{certificate_profile}}) and ciphersuites requirements ({{ciphersuites}}).
+
+Key adaptations in the IoT-specific profiles include streamlining the handshake protocol, minimizing cryptographic operation complexity, and reducing the reliance on resource-heavy certificate chains. For example, where mutual authentication is needed, the profiles advocate the use of pre-shared keys (PSKs) over a full public key infrastructure (PKI) to mitigate the overhead associated with certificate management. Moreover, the profiles address session resumption techniques and the handling of stateful versus stateless session management, which are pivotal for maintaining resource-efficient, persistent connections in IoT deployments.
 
 TLS 1.3 has been re-designed and several previously defined extensions are not
 applicable to the new version of TLS/DTLS anymore. The following features changed
@@ -151,8 +147,12 @@ in TLS 1.3. The "PSK identity hint" defined in {{?RFC4279}}, which is used by th
 server to help the client in selecting which PSK identity to use, is, however, not
 available anymore in TLS 1.3.
 
-Finally, ciphersuites were depreciated and the RSA-based key transport is not yet
+- Finally, ciphersuites were depreciated and the RSA-based key transport is not yet
 supported in TLS 1.3.
+
+The profiles in this specification are designed to be adaptable to the broad spectrum of IoT applications, from low-power consumer devices to large-scale industrial deployments. It provides guidelines for implementing TLS/DTLS 1.3 in diverse networking contexts, including reliable, connection-oriented transport via TCP for TLS, and lightweight, connectionless communication via UDP for DTLS. In particular, DTLS is emphasized for scenarios where low-latency communication is paramount, such as multi-hop mesh networks and low-power wide-area networks, where the amount of data exchanged needs to be minimized.
+
+In conclusion, this document offers comprehensive guidance for deploying secure communication in resource-constrained IoT environments. It outlines best practices for configuring TLS/DTLS 1.3 to meet the unique needs of IoT devices, ensuring robust security without overwhelming their limited processing, memory, and power resources. The document plays a vital role in facilitating secure, efficient IoT deployments, supporting the broad adoption of secure communication standards.
 
 ## Conventions and Terminology
 
@@ -313,7 +313,7 @@ The recommendations in Section 20 of {{!RFC7925}} are applicable.
 At the time of writing, no such profile has been defined for CoAP {{CoAP}}.
 Therefore, 0-RTT MUST NOT be used by CoAP applications.
 
-# Certificate Profile
+# Certificate Profile {#certificate_profile}
 
 This section contains updates and clarifications to the certificate profile
 defined in {{!RFC7925}}. The content of Table 1 of {{!RFC7925}} has been
@@ -734,7 +734,7 @@ on the anticipated deployment environment, the availability of code, and the
 constraints imposed by already deployed infrastructure (e.g., CA
 infrastructure, tool support).
 
-# Ciphersuites
+# Ciphersuites {#ciphersuites}
 
 According to {{Section 4.5.3 of DTLS13}}, the use of AES-CCM with 8-octet
 authentication tags (CCM_8) is considered unsuitable for general use with DTLS.
