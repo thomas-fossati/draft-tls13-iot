@@ -109,7 +109,7 @@ informative:
 
 This document is a companion to RFC 7925 and defines TLS/DTLS 1.3 profiles for
 Internet of Things devices.  It also updates RFC 7925 with regards to the X.509
-certificate profile.
+certificate profile and ciphersuite requirements.
 
 --- middle
 
@@ -312,7 +312,7 @@ The recommendations in Section 20 of {{!RFC7925}} are applicable.
 At the time of writing, no such profile has been defined for CoAP {{CoAP}}.
 Therefore, 0-RTT MUST NOT be used by CoAP applications.
 
-# Certificate Profile
+# Certificate Profile {#certificate_profile}
 
 This section contains updates and clarifications to the certificate profile
 defined in {{!RFC7925}}. The content of Table 1 of {{!RFC7925}} has been
@@ -733,7 +733,7 @@ on the anticipated deployment environment, the availability of code, and the
 constraints imposed by already deployed infrastructure (e.g., CA
 infrastructure, tool support).
 
-# Ciphersuites
+# Ciphersuites {#ciphersuites}
 
 According to {{Section 4.5.3 of DTLS13}}, the use of AES-CCM with 8-octet
 authentication tags (CCM_8) is considered unsuitable for general use with DTLS.
