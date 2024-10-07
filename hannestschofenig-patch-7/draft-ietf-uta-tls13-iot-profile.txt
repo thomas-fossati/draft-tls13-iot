@@ -901,7 +901,7 @@ Table of Contents
 
 20.  Post-Quantum Cryptography (PQC) Considerations
 
-   As detailed in {I-D.ietf-pquip-pqc-engineers}, the IETF is actively
+   As detailed in [I-D.ietf-pquip-pqc-engineers], the IETF is actively
    working to address the challenges of adopting PQC in various
    protocols, including TLS.  The document highlights key aspects
    engineers must consider, such as algorithm selection, performance
