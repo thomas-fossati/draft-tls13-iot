@@ -141,8 +141,8 @@ Table of Contents
    demands for constrained devices with limited CPU, RAM, and power
    resources.  The document mitigates these challenges by defining
    lightweight protocol configurations while maintaining the essential
-   security guarantees of TLS/DTLS.  This specification extends the TLS/
-   DTLS 1.2 profiles for IoT defined in [RFC7925].
+   security guarantees of TLS/DTLS.  This specification also updates
+   [RFC7925] with regards to the X.509 certificate profile.
 
    Key adaptations in the IoT-specific profiles include streamlining the
    handshake protocol, minimizing cryptographic operation complexity,
