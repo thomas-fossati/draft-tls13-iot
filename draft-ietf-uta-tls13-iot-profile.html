@@ -1343,7 +1343,7 @@ does not provide forward secrecy and post-handshake authentication defined in
 <span><a href="https://rfc-editor.org/rfc/rfc8446#section-4.6.2" class="relref">Section 4.6.2</a> of [<a href="#TLS13" class="cite xref">TLS13</a>]</span> only offers client-to-server authentication.
 The "Exported Authenticator" specification, see <span>[<a href="#RFC9261" class="cite xref">RFC9261</a>]</span>, recently added support for mutual,
 post-handshake authentication but
-requires payloads to be exchanged by the application layer protocol.<a href="#section-1-5.1.1" class="pilcrow">¶</a></p>
+requires the Certificate, CertificateVerify and the Finished messages to be exchanged by the application layer protocol, as it is exercised for HTTP/2 and HTTP/3 in <span>[<a href="#I-D.ietf-httpbis-secondary-server-certs" class="cite xref">I-D.ietf-httpbis-secondary-server-certs</a>]</span>.<a href="#section-1-5.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="compact" id="section-1-5.2">
           <p id="section-1-5.2.1">Rekeying of the application traffic secret does not lead to an update of the
@@ -2357,6 +2357,10 @@ determinism, for example, as described in
 <dt id="I-D.ietf-dance-tls-clientid">[I-D.ietf-dance-tls-clientid]</dt>
         <dd>
 <span class="refAuthor">Huque, S.</span> and <span class="refAuthor">V. Dukhovni</span>, <span class="refTitle">"TLS Extension for DANE Client Identity"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-dance-tls-clientid-03</span>, <time datetime="2024-01-08" class="refDate">8 January 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-dance-tls-clientid-03">https://datatracker.ietf.org/doc/html/draft-ietf-dance-tls-clientid-03</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.ietf-httpbis-secondary-server-certs">[I-D.ietf-httpbis-secondary-server-certs]</dt>
+        <dd>
+<span class="refAuthor">Gorbaty, E.</span> and <span class="refAuthor">M. Bishop</span>, <span class="refTitle">"Secondary Certificate Authentication of HTTP Servers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-httpbis-secondary-server-certs-00</span>, <time datetime="2024-04-11" class="refDate">11 April 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-secondary-server-certs-00">https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-secondary-server-certs-00</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-pquip-pqc-engineers">[I-D.ietf-pquip-pqc-engineers]</dt>
         <dd>
