@@ -62,6 +62,7 @@ normative:
 
 informative:
   RFC9146:
+  I-D.ietf-pquip-pqc-engineers:
   CoAP: RFC7252
   ADD:
      author:
@@ -798,6 +799,12 @@ non-existent physical security.
 In this security model, it is recommended to combine both randomness and
 determinism, for example, as described in
 {{?I-D.irtf-cfrg-det-sigs-with-noise}}.
+
+# Post-Quantum Cryptography (PQC) Considerations
+
+As detailed in {{I-D.ietf-pquip-pqc-engineers}}, the IETF is actively working to address the challenges of adopting PQC in various protocols, including TLS. The document highlights key aspects engineers must consider, such as algorithm selection, performance impacts, and deployment strategies. It emphasizes the importance of gradual integration of PQC to ensure secure communication while accounting for the increased computational, memory, and bandwidth requirements of PQC algorithms. These challenges are especially relevant in the context of IoT, where device constraints limit the adoption of larger key sizes and more complex cryptographic operations.
+
+Incorporating PQC into TLS is still ongoing, with key exchange message sizes increasing due to larger public keys. These larger keys demand more flash storage and higher RAM usage, presenting significant obstacles for resource-constrained IoT devices. The transition from classical cryptographic algorithms to PQC will be a significant challenge for constrained IoT devices, requiring careful planning to select hardware suitable for the task considering the lifetime of an IoT product.
 
 # Open Issues
 
