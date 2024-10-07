@@ -1288,33 +1288,36 @@ certificate profile and ciphersuite requirements.<a href="#section-abstract-1" c
             <p id="section-toc.1-1.19.1"><a href="#section-19" class="auto internal xref">19</a>. <a href="#name-fault-attacks-on-determinis" class="internal xref">Fault Attacks on Deterministic Signature Schemes</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.20">
-            <p id="section-toc.1-1.20.1"><a href="#section-20" class="auto internal xref">20</a>. <a href="#name-open-issues" class="internal xref">Open Issues</a></p>
+            <p id="section-toc.1-1.20.1"><a href="#section-20" class="auto internal xref">20</a>. <a href="#name-post-quantum-cryptography-p" class="internal xref">Post-Quantum Cryptography (PQC) Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.21">
-            <p id="section-toc.1-1.21.1"><a href="#section-21" class="auto internal xref">21</a>. <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
+            <p id="section-toc.1-1.21.1"><a href="#section-21" class="auto internal xref">21</a>. <a href="#name-open-issues" class="internal xref">Open Issues</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.22">
-            <p id="section-toc.1-1.22.1"><a href="#section-22" class="auto internal xref">22</a>. <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
+            <p id="section-toc.1-1.22.1"><a href="#section-22" class="auto internal xref">22</a>. <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.23">
-            <p id="section-toc.1-1.23.1"><a href="#section-23" class="auto internal xref">23</a>. <a href="#name-references" class="internal xref">References</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.23.2.1">
-                <p id="section-toc.1-1.23.2.1.1"><a href="#section-23.1" class="auto internal xref">23.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+            <p id="section-toc.1-1.23.1"><a href="#section-23" class="auto internal xref">23</a>. <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.23.2.2">
-                <p id="section-toc.1-1.23.2.2.1"><a href="#section-23.2" class="auto internal xref">23.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.24">
+            <p id="section-toc.1-1.24.1"><a href="#section-24" class="auto internal xref">24</a>. <a href="#name-references" class="internal xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.24.2.1">
+                <p id="section-toc.1-1.24.2.1.1"><a href="#section-24.1" class="auto internal xref">24.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.24.2.2">
+                <p id="section-toc.1-1.24.2.2.1"><a href="#section-24.2" class="auto internal xref">24.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
 </li>
             </ul>
 </li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.24">
-            <p id="section-toc.1-1.24.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
-</li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.25">
-            <p id="section-toc.1-1.25.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-contributors" class="internal xref">Contributors</a></p>
+            <p id="section-toc.1-1.25.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.26">
-            <p id="section-toc.1-1.26.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.26.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-contributors" class="internal xref">Contributors</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.27">
+            <p id="section-toc.1-1.27.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1340,7 +1343,7 @@ does not provide forward secrecy and post-handshake authentication defined in
 <span><a href="https://rfc-editor.org/rfc/rfc8446#section-4.6.2" class="relref">Section 4.6.2</a> of [<a href="#TLS13" class="cite xref">TLS13</a>]</span> only offers client-to-server authentication.
 The "Exported Authenticator" specification, see <span>[<a href="#RFC9261" class="cite xref">RFC9261</a>]</span>, recently added support for mutual,
 post-handshake authentication but
-requires payloads to be exchanged by the application layer protocol.<a href="#section-1-5.1.1" class="pilcrow">¶</a></p>
+requires the Certificate, CertificateVerify and the Finished messages to be exchanged by the application layer protocol, as it is exercised for HTTP/2 and HTTP/3 in <span>[<a href="#I-D.ietf-httpbis-secondary-server-certs" class="cite xref">I-D.ietf-httpbis-secondary-server-certs</a>]</span>.<a href="#section-1-5.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="compact" id="section-1-5.2">
           <p id="section-1-5.2.1">Rekeying of the application traffic secret does not lead to an update of the
@@ -2218,39 +2221,48 @@ determinism, for example, as described in
 <span>[<a href="#I-D.irtf-cfrg-det-sigs-with-noise" class="cite xref">I-D.irtf-cfrg-det-sigs-with-noise</a>]</span>.<a href="#section-19-3" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="open-issues">
+<div id="post-quantum-cryptography-pqc-considerations">
 <section id="section-20">
-      <h2 id="name-open-issues">
-<a href="#section-20" class="section-number selfRef">20. </a><a href="#name-open-issues" class="section-name selfRef">Open Issues</a>
+      <h2 id="name-post-quantum-cryptography-p">
+<a href="#section-20" class="section-number selfRef">20. </a><a href="#name-post-quantum-cryptography-p" class="section-name selfRef">Post-Quantum Cryptography (PQC) Considerations</a>
       </h2>
-<p id="section-20-1">A list of open issues can be found at https://github.com/thomas-fossati/draft-tls13-iot/issues<a href="#section-20-1" class="pilcrow">¶</a></p>
+<p id="section-20-1">As detailed in <span>[<a href="#I-D.ietf-pquip-pqc-engineers" class="cite xref">I-D.ietf-pquip-pqc-engineers</a>]</span>, the IETF is actively working to address the challenges of adopting PQC in various protocols, including TLS. The document highlights key aspects engineers must consider, such as algorithm selection, performance impacts, and deployment strategies. It emphasizes the importance of gradual integration of PQC to ensure secure communication while accounting for the increased computational, memory, and bandwidth requirements of PQC algorithms. These challenges are especially relevant in the context of IoT, where device constraints limit the adoption of larger key sizes and more complex cryptographic operations.<a href="#section-20-1" class="pilcrow">¶</a></p>
+<p id="section-20-2">Incorporating PQC into TLS is still ongoing, with key exchange message sizes increasing due to larger public keys. These larger keys demand more flash storage and higher RAM usage, presenting significant obstacles for resource-constrained IoT devices. The transition from classical cryptographic algorithms to PQC will be a significant challenge for constrained IoT devices, requiring careful planning to select hardware suitable for the task considering the lifetime of an IoT product.<a href="#section-20-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="open-issues">
+<section id="section-21">
+      <h2 id="name-open-issues">
+<a href="#section-21" class="section-number selfRef">21. </a><a href="#name-open-issues" class="section-name selfRef">Open Issues</a>
+      </h2>
+<p id="section-21-1">A list of open issues can be found at https://github.com/thomas-fossati/draft-tls13-iot/issues<a href="#section-21-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">
-<section id="section-21">
+<section id="section-22">
       <h2 id="name-security-considerations">
-<a href="#section-21" class="section-number selfRef">21. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+<a href="#section-22" class="section-number selfRef">22. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-21-1">This entire document is about security.<a href="#section-21-1" class="pilcrow">¶</a></p>
+<p id="section-22-1">This entire document is about security.<a href="#section-22-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
-<section id="section-22">
+<section id="section-23">
       <h2 id="name-iana-considerations">
-<a href="#section-22" class="section-number selfRef">22. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+<a href="#section-23" class="section-number selfRef">23. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-22-1">This document makes no requests to IANA.<a href="#section-22-1" class="pilcrow">¶</a></p>
+<p id="section-23-1">This document makes no requests to IANA.<a href="#section-23-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-combined-references">
-<section id="section-23">
+<section id="section-24">
       <h2 id="name-references">
-<a href="#section-23" class="section-number selfRef">23. </a><a href="#name-references" class="section-name selfRef">References</a>
+<a href="#section-24" class="section-number selfRef">24. </a><a href="#name-references" class="section-name selfRef">References</a>
       </h2>
 <div id="sec-normative-references">
-<section id="section-23.1">
+<section id="section-24.1">
         <h3 id="name-normative-references">
-<a href="#section-23.1" class="section-number selfRef">23.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+<a href="#section-24.1" class="section-number selfRef">24.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
 <dt id="DTLS13">[DTLS13]</dt>
@@ -2317,9 +2329,9 @@ determinism, for example, as described in
 </section>
 </div>
 <div id="sec-informative-references">
-<section id="section-23.2">
+<section id="section-24.2">
         <h3 id="name-informative-references">
-<a href="#section-23.2" class="section-number selfRef">23.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+<a href="#section-24.2" class="section-number selfRef">24.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
 <dt id="ADD">[ADD]</dt>
@@ -2345,6 +2357,14 @@ determinism, for example, as described in
 <dt id="I-D.ietf-dance-tls-clientid">[I-D.ietf-dance-tls-clientid]</dt>
         <dd>
 <span class="refAuthor">Huque, S.</span> and <span class="refAuthor">V. Dukhovni</span>, <span class="refTitle">"TLS Extension for DANE Client Identity"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-dance-tls-clientid-03</span>, <time datetime="2024-01-08" class="refDate">8 January 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-dance-tls-clientid-03">https://datatracker.ietf.org/doc/html/draft-ietf-dance-tls-clientid-03</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.ietf-httpbis-secondary-server-certs">[I-D.ietf-httpbis-secondary-server-certs]</dt>
+        <dd>
+<span class="refAuthor">Gorbaty, E.</span> and <span class="refAuthor">M. Bishop</span>, <span class="refTitle">"Secondary Certificate Authentication of HTTP Servers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-httpbis-secondary-server-certs-00</span>, <time datetime="2024-04-11" class="refDate">11 April 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-secondary-server-certs-00">https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-secondary-server-certs-00</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.ietf-pquip-pqc-engineers">[I-D.ietf-pquip-pqc-engineers]</dt>
+        <dd>
+<span class="refAuthor">Banerjee, A.</span>, <span class="refAuthor">Reddy.K, T.</span>, <span class="refAuthor">Schoinianakis, D.</span>, <span class="refAuthor">Hollebeek, T.</span>, and <span class="refAuthor">M. Ounsworth</span>, <span class="refTitle">"Post-Quantum Cryptography for Engineers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-pquip-pqc-engineers-05</span>, <time datetime="2024-09-12" class="refDate">12 September 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-pquip-pqc-engineers-05">https://datatracker.ietf.org/doc/html/draft-ietf-pquip-pqc-engineers-05</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-tls-ctls">[I-D.ietf-tls-ctls]</dt>
         <dd>
