@@ -133,7 +133,7 @@ does not provide forward secrecy and post-handshake authentication defined in
 {{Section 4.6.2 of TLS13}} only offers client-to-server authentication.
 The "Exported Authenticator" specification, see {{?RFC9261}}, recently added support for mutual,
 post-handshake authentication but
-requires payloads to be exchanged by the application layer protocol.
+requires the Certificate, CertificateVerify and the Finished messages to be exchanged by the application layer protocol, as it is exercised for HTTP/2 and HTTP/3 in {{?I-D.ietf-httpbis-secondary-server-certs}}.
 
 - Rekeying of the application traffic secret does not lead to an update of the
 exporter secret (see {{Section 7.5 of TLS13}}) since the derived export secret is
