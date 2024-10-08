@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-06T01:03:11.587297+00:00",
+  "timestamp": "2024-10-08T00:58:42.826465+00:00",
   "repo": "thomas-fossati/draft-tls13-iot",
   "labels": [
     {
@@ -165,7 +165,7 @@
       "id": "MDU6SXNzdWU5MjAyODY0OTM=",
       "title": "certificate revocation checks in long lasting connections",
       "url": "https://github.com/thomas-fossati/draft-tls13-iot/issues/8",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "thomas-fossati",
       "authorAssociation": "OWNER",
       "assignees": [
@@ -176,8 +176,8 @@
       ],
       "body": "Now that renegotiation is gone, what recommendation can we make to deal with semi-permanent, mutually authenticated connections that need to rekey and check the associated certificate credentials?\r\nThis is a common use case in Industrial IoT.\r\n\r\nSee this long thread on the TLS mailing list: https://mailarchive.ietf.org/arch/msg/tls/vTxwj2iShME6c7AHg_Ub-_eS_fM/",
       "createdAt": "2021-06-14T10:48:04Z",
-      "updatedAt": "2024-09-16T14:03:50Z",
-      "closedAt": null,
+      "updatedAt": "2024-10-07T14:45:50Z",
+      "closedAt": "2024-10-07T14:45:50Z",
       "comments": [
         {
           "author": "thomas-fossati",
@@ -213,6 +213,20 @@
           "body": "The text is available now but the only problem is that there is no specification in standardized IoT protocols to carry the payloads.",
           "createdAt": "2024-09-16T14:03:48Z",
           "updatedAt": "2024-09-16T14:03:48Z"
+        },
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "body": "We could add a reference to https://datatracker.ietf.org/doc/draft-ietf-httpbis-secondary-server-certs/ as an example of how application protocols (in that case HTTP/{2,3}) can use 9261.",
+          "createdAt": "2024-10-07T14:43:42Z",
+          "updatedAt": "2024-10-07T14:44:01Z"
+        },
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "body": "Finalised in #63 ",
+          "createdAt": "2024-10-07T14:45:50Z",
+          "updatedAt": "2024-10-07T14:45:50Z"
         }
       ]
     },
@@ -481,6 +495,7 @@
       "author": "thomas-fossati",
       "authorAssociation": "OWNER",
       "assignees": [
+        "mcr",
         "hannestschofenig"
       ],
       "labels": [
@@ -488,7 +503,7 @@
       ],
       "body": "From [MCR review](https://mailarchive.ietf.org/arch/msg/uta/i5rhYTl_EhhJSEwwH4FbA4XwnIA/):\r\n\r\n```\r\nValidation of client certificates (whether factory provisioned IDevIDs, or\r\nlocally enrolled LDevIDs) is a topic that I care a lot about, and\r\nthis text is inadequate.\r\n\r\nAs the (industrial) IoT market embraces IDevID certificates, there is some\r\nconcern that different markets will put different requirements on IDevID\r\ncontents.  So far it does not appear that anyone has created a situation\r\nwhere a single (fat) IDevID certificate couldn't be used in a variety of\r\nmarket verticals, the concern remains.\r\n\r\nIt was my intention to introduce a document about this issue. I think that\r\nit's something that only the IETF can do.  Perhaps that would fit into this\r\nUTA document, or perhaps parts of this section 15 goes into another document.\r\n```",
       "createdAt": "2022-04-01T18:13:57Z",
-      "updatedAt": "2023-11-13T15:47:54Z",
+      "updatedAt": "2024-10-07T14:58:24Z",
       "closedAt": null,
       "comments": [
         {
@@ -561,7 +576,7 @@
       "id": "I_kwDOEBGZx85eBaCG",
       "title": "NIST LWC selection is ASCON",
       "url": "https://github.com/thomas-fossati/draft-tls13-iot/issues/28",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "thomas-fossati",
       "authorAssociation": "OWNER",
       "assignees": [],
@@ -570,8 +585,8 @@
       ],
       "body": "Nothing to do at the moment, but worth tracking.\r\n\r\nNIST announcement:\r\n* https://csrc.nist.gov/News/2023/lightweight-cryptography-nist-selects-ascon\r\n\r\nASCON:\r\n* https://ascon.iaik.tugraz.at/\r\n* https://github.com/ascon/ascon-c#performance-results-on-different-cpus-in-cycles-per-byte",
       "createdAt": "2023-02-09T08:06:21Z",
-      "updatedAt": "2023-09-08T07:47:27Z",
-      "closedAt": null,
+      "updatedAt": "2024-10-07T14:37:09Z",
+      "closedAt": "2024-10-07T14:37:09Z",
       "comments": []
     },
     {
@@ -899,29 +914,47 @@
       "state": "OPEN",
       "author": "hannestschofenig",
       "authorAssociation": "COLLABORATOR",
-      "assignees": [],
+      "assignees": [
+        "thomas-fossati"
+      ],
       "labels": [],
       "body": "There is ongoing work on doing moving to PQC algorithms. Add text about it.",
       "createdAt": "2024-09-02T14:11:04Z",
-      "updatedAt": "2024-09-02T14:11:04Z",
+      "updatedAt": "2024-10-07T14:17:22Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "body": "Maybe consider adding a few more refs, e.g.:\r\n\r\n* https://eprint.iacr.org/2023/506.pdf\r\n* https://eprint.iacr.org/2021/1553.pdf\r\n\r\nSee also https://eprint.iacr.org/search?q=PQC+IoT",
+          "createdAt": "2024-10-07T14:17:20Z",
+          "updatedAt": "2024-10-07T14:17:20Z"
+        }
+      ]
     },
     {
       "number": 58,
       "id": "I_kwDOEBGZx86XkP9M",
       "title": "Re-write of the introduction",
       "url": "https://github.com/thomas-fossati/draft-tls13-iot/issues/58",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "hannestschofenig",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "It is too detailed.",
       "createdAt": "2024-09-23T14:34:26Z",
-      "updatedAt": "2024-09-23T14:34:27Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2024-10-07T14:36:52Z",
+      "closedAt": "2024-10-07T14:36:39Z",
+      "comments": [
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "body": "Done in #61 ",
+          "createdAt": "2024-10-07T14:36:50Z",
+          "updatedAt": "2024-10-07T14:36:50Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -3673,6 +3706,192 @@
           "body": "short and sweet, I like it",
           "createdAt": "2024-09-23T14:56:07Z",
           "updatedAt": "2024-09-23T14:56:07Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 61,
+      "id": "PR_kwDOEBGZx8590Mjq",
+      "title": "Re-written Introduction",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/61",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Related to issue https://github.com/thomas-fossati/draft-tls13-iot/issues/58",
+      "createdAt": "2024-10-07T13:13:44Z",
+      "updatedAt": "2024-10-07T14:36:21Z",
+      "baseRepository": "thomas-fossati/draft-tls13-iot",
+      "baseRefName": "master",
+      "baseRefOid": "445935e361ca392ba1394d76621312a77f934cf7",
+      "headRepository": "thomas-fossati/draft-tls13-iot",
+      "headRefName": "hannestschofenig-patch-6",
+      "headRefOid": "1f824e90718f65ffcaf1dd9406f5e8911f363c0d",
+      "closedAt": "2024-10-07T14:36:18Z",
+      "mergedAt": "2024-10-07T14:36:18Z",
+      "mergedBy": "thomas-fossati",
+      "mergeCommit": {
+        "oid": "41f57bc452a1feca40bb07a5f6f147b7ca5e5e1f"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOEBGZx86MMluV",
+          "commit": {
+            "abbreviatedOid": "955e26e"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-07T14:23:28Z",
+          "updatedAt": "2024-10-07T14:23:29Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "```suggestion\r\nThese profiles aim to balance strong security with the hardware and software limitations of IoT devices. TLS/DTLS 1.3 introduces numerous enhancements over previous versions, including reduced handshake overhead, more efficient encryption schemes, and mechanisms to thwart replay and downgrade attacks. However, the default configurations may still present excessive computational and memory demands for constrained devices with limited CPU, RAM, and power resources. The document mitigates these challenges by defining lightweight protocol configurations while maintaining the essential security guarantees of TLS/DTLS. This specification also updates {{!RFC7925}} with regards to the X.509 certificate profile.\r\n```",
+              "createdAt": "2024-10-07T14:23:29Z",
+              "updatedAt": "2024-10-07T14:23:29Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOEBGZx86MMqf_",
+          "commit": {
+            "abbreviatedOid": "d3c492e"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-07T14:29:14Z",
+          "updatedAt": "2024-10-07T14:29:14Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "```suggestion\r\nThese profiles aim to balance strong security with the hardware and software limitations of IoT devices. TLS/DTLS 1.3 introduces numerous enhancements over previous versions, including reduced handshake overhead, more efficient encryption schemes, and mechanisms to thwart replay and downgrade attacks. However, the default configurations may still present excessive computational and memory demands for constrained devices with limited CPU, RAM, and power resources. The document mitigates these challenges by defining lightweight protocol configurations while maintaining the essential security guarantees of TLS/DTLS. This specification also updates {{!RFC7925}} with regards to the X.509 certificate profile ({{certificate_profile}}) and ciphersuites requirements ({{ciphersuites}}).\r\n```",
+              "createdAt": "2024-10-07T14:29:14Z",
+              "updatedAt": "2024-10-07T14:29:14Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOEBGZx86MMvWT",
+          "commit": {
+            "abbreviatedOid": "1f824e9"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "Awesome executive summary :-)",
+          "createdAt": "2024-10-07T14:36:12Z",
+          "updatedAt": "2024-10-07T14:36:12Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 62,
+      "id": "PR_kwDOEBGZx8590ZiI",
+      "title": "PQC Section",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/62",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Addressing issue https://github.com/thomas-fossati/draft-tls13-iot/issues/52",
+      "createdAt": "2024-10-07T13:37:29Z",
+      "updatedAt": "2024-10-07T14:18:29Z",
+      "baseRepository": "thomas-fossati/draft-tls13-iot",
+      "baseRefName": "master",
+      "baseRefOid": "445935e361ca392ba1394d76621312a77f934cf7",
+      "headRepository": "thomas-fossati/draft-tls13-iot",
+      "headRefName": "hannestschofenig-patch-7",
+      "headRefOid": "c77bbd1a36b9115925fa4742ca34692cbf730198",
+      "closedAt": "2024-10-07T14:18:24Z",
+      "mergedAt": "2024-10-07T14:18:24Z",
+      "mergedBy": "thomas-fossati",
+      "mergeCommit": {
+        "oid": "97186a4bd31b235ed53a165a0d7c6d251e128e07"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOEBGZx86MMf1M",
+          "commit": {
+            "abbreviatedOid": "9e6c125"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-07T14:15:16Z",
+          "updatedAt": "2024-10-07T14:15:35Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "```suggestion\r\nAs detailed in {{I-D.ietf-pquip-pqc-engineers}}, the IETF is actively working to address the challenges of adopting PQC in various protocols, including TLS. The document highlights key aspects engineers must consider, such as algorithm selection, performance impacts, and deployment strategies. It emphasizes the importance of gradual integration of PQC to ensure secure communication while accounting for the increased computational, memory, and bandwidth requirements of PQC algorithms. These challenges are especially relevant in the context of IoT, where device constraints limit the adoption of larger key sizes and more complex cryptographic operations.\r\n```",
+              "createdAt": "2024-10-07T14:15:16Z",
+              "updatedAt": "2024-10-07T14:15:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOEBGZx86MMiN-",
+          "commit": {
+            "abbreviatedOid": "c77bbd1"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "Good start, keeping the issue open to add a few more refs/considerations.",
+          "createdAt": "2024-10-07T14:18:17Z",
+          "updatedAt": "2024-10-07T14:18:17Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 63,
+      "id": "PR_kwDOEBGZx8591BFE",
+      "title": "Additional info for Exported authenticators",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/63",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-10-07T14:44:51Z",
+      "updatedAt": "2024-10-07T14:45:28Z",
+      "baseRepository": "thomas-fossati/draft-tls13-iot",
+      "baseRefName": "master",
+      "baseRefOid": "41f57bc452a1feca40bb07a5f6f147b7ca5e5e1f",
+      "headRepository": "thomas-fossati/draft-tls13-iot",
+      "headRefName": "hannestschofenig-patch-6",
+      "headRefOid": "e25521c57b4ac92a0fb6b81e447110a2f3ff0af9",
+      "closedAt": "2024-10-07T14:45:28Z",
+      "mergedAt": "2024-10-07T14:45:28Z",
+      "mergedBy": "thomas-fossati",
+      "mergeCommit": {
+        "oid": "9ba69502f5b4537b714bd815b60e96415b736423"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOEBGZx86MM1mu",
+          "commit": {
+            "abbreviatedOid": "e25521c"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "\ud83d\udc4d ",
+          "createdAt": "2024-10-07T14:45:22Z",
+          "updatedAt": "2024-10-07T14:45:22Z",
           "comments": []
         }
       ]
