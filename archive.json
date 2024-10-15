@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-13T01:02:56.041887+00:00",
+  "timestamp": "2024-10-15T00:59:41.471348+00:00",
   "repo": "thomas-fossati/draft-tls13-iot",
   "labels": [
     {
@@ -911,7 +911,7 @@
       "id": "I_kwDOEBGZx86VE1zz",
       "title": "Add text about PQC considerations",
       "url": "https://github.com/thomas-fossati/draft-tls13-iot/issues/52",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "hannestschofenig",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -920,8 +920,8 @@
       "labels": [],
       "body": "There is ongoing work on doing moving to PQC algorithms. Add text about it.",
       "createdAt": "2024-09-02T14:11:04Z",
-      "updatedAt": "2024-10-09T12:47:05Z",
-      "closedAt": null,
+      "updatedAt": "2024-10-14T14:07:20Z",
+      "closedAt": "2024-10-14T14:07:20Z",
       "comments": [
         {
           "author": "thomas-fossati",
@@ -3908,24 +3908,26 @@
       "id": "PR_kwDOEBGZx85-FKaA",
       "title": "add more refs on PQC experiments in TLS 1.3",
       "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/64",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "thomas-fossati",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "partially address #52 ",
       "createdAt": "2024-10-09T13:16:08Z",
-      "updatedAt": "2024-10-09T13:18:01Z",
+      "updatedAt": "2024-10-14T14:06:47Z",
       "baseRepository": "thomas-fossati/draft-tls13-iot",
       "baseRefName": "master",
       "baseRefOid": "9ba69502f5b4537b714bd815b60e96415b736423",
       "headRepository": "thomas-fossati/draft-tls13-iot",
       "headRefName": "pqc-again",
       "headRefOid": "233175437b0bd99fc9e7aac103cbd81804e19c8d",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-10-14T14:06:23Z",
+      "mergedAt": "2024-10-14T14:06:23Z",
+      "mergedBy": "hannestschofenig",
+      "mergeCommit": {
+        "oid": "70b235746881da6b691b034ea89a671c5f049162"
+      },
       "comments": [
         {
           "author": "thomas-fossati",
@@ -3935,7 +3937,21 @@
           "updatedAt": "2024-10-09T13:18:00Z"
         }
       ],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOEBGZx86NEfDJ",
+          "commit": {
+            "abbreviatedOid": "2331754"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "Thanks for adding these references.",
+          "createdAt": "2024-10-14T14:06:47Z",
+          "updatedAt": "2024-10-14T14:06:47Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
