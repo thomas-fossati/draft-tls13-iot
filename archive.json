@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-17T01:05:49.343900+00:00",
+  "timestamp": "2024-11-19T01:02:19.642420+00:00",
   "repo": "thomas-fossati/draft-tls13-iot",
   "labels": [
     {
@@ -330,7 +330,7 @@
       ],
       "body": "Now that we have relaxed the requirement to stick to EUI-64 for client EE IDs, we should add a few examples from IoT-specific profiles, e.g.:\r\n\r\n* [GSMA eUICC](https://www.gsma.com/esim/wp-content/uploads/2021/02/SGP.14-v2.1.pdf)\r\n* [LwM2M](http://www.openmobilealliance.org/release/LightweightM2M/V1_2-20201110-A/HTML-Version/OMA-TS-LightweightM2M_Core-V1_2-20201110-A.html#7-3-1-0-731-Endpoint-Client-Name)\r\n* other IIoT\r\n\r\nFor each chosen example, make sure it\u2019s applicable to our scope (i.e., it\u2019s used in (D)TLS).",
       "createdAt": "2021-10-11T16:29:32Z",
-      "updatedAt": "2024-02-09T15:50:09Z",
+      "updatedAt": "2024-11-18T15:42:51Z",
       "closedAt": null,
       "comments": [
         {
@@ -346,6 +346,13 @@
           "body": "We could add examples based on OPC-UA, IEEE 802.1AR,  etc.",
           "createdAt": "2024-02-09T15:50:03Z",
           "updatedAt": "2024-02-09T15:50:03Z"
+        },
+        {
+          "author": "mcr",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@mcr to bug: NIST/NCCoE people, also @esko and Siemens.",
+          "createdAt": "2024-11-18T15:42:50Z",
+          "updatedAt": "2024-11-18T15:42:50Z"
         }
       ]
     },
@@ -495,15 +502,14 @@
       "author": "thomas-fossati",
       "authorAssociation": "OWNER",
       "assignees": [
-        "mcr",
-        "hannestschofenig"
+        "mcr"
       ],
       "labels": [
         "cert"
       ],
       "body": "From [MCR review](https://mailarchive.ietf.org/arch/msg/uta/i5rhYTl_EhhJSEwwH4FbA4XwnIA/):\r\n\r\n```\r\nValidation of client certificates (whether factory provisioned IDevIDs, or\r\nlocally enrolled LDevIDs) is a topic that I care a lot about, and\r\nthis text is inadequate.\r\n\r\nAs the (industrial) IoT market embraces IDevID certificates, there is some\r\nconcern that different markets will put different requirements on IDevID\r\ncontents.  So far it does not appear that anyone has created a situation\r\nwhere a single (fat) IDevID certificate couldn't be used in a variety of\r\nmarket verticals, the concern remains.\r\n\r\nIt was my intention to introduce a document about this issue. I think that\r\nit's something that only the IETF can do.  Perhaps that would fit into this\r\nUTA document, or perhaps parts of this section 15 goes into another document.\r\n```",
       "createdAt": "2022-04-01T18:13:57Z",
-      "updatedAt": "2024-10-07T14:58:24Z",
+      "updatedAt": "2024-11-18T15:22:52Z",
       "closedAt": null,
       "comments": [
         {
@@ -526,6 +532,13 @@
           "body": "Re-reading -05, since it's been awhile.\r\n* subjectPublicKeyInfo: should be made mandatory by this profile.\r\n* Root CA Certificate: I don't understand why constraints on this, it's a trust anchor, not a certificate.  As such, it needs to be marked with whatever capabilities are relevant, when the trust anchor is loaded into the trust store.\r\n* subordinate CA: pathLenConstraint MAY be present, but you haven't said if it needs to be evaluated :-)\r\n* EE _extendedKeyUsage MUST be present and contain at least one of id-kp-serverAuth or id-kp-clientAuth_  IDevID, 802.1AR generally says that EKU should not be present, because IDevID SHOULD be as useful as possible, and EKU restricts useability significantly.  This is a thing where generalized uses really beat out legal nonsense with EKU.\r\n** But maybe you are trying to ail down the server certificate for a device that calls home, if so you need to say that\r\n\r\n_Avoid deep and complex CA hierarchies to reduce the number of subordinate CA certificates that need to be transmitted._  I suggest you reference https://www.ietf.org/archive/id/draft-irtf-t2trg-taxonomy-manufacturer-anchors-00.html#name-number-of-levels-of-certification here.\r\n\r\n_Use session resumption to reduce the number of times a full handshake is needed. Use Connection IDs [DTLS-CID], when possible, to enable long-lasting connections._\r\nI have wondered whether some devices might initiate a TLS session in the factory, load a session resumption ticket valid for years to decades, and just ALWAYS use that.\r\n\r\n_Use client certificate URLs [[RFC6066](https://www.ietf.org/archive/id/draft-ietf-uta-tls13-iot-profile-05.html#RFC6066)] instead of full certificates for clients._\r\nplease also reference https://datatracker.ietf.org/doc/draft-ietf-dance-tls-clientid/\r\n\r\n_Whether to utilize any of the above extensions or a combination of them depends on the anticipated deployment environment, the availability of code, and the constraints imposed by already deployed infrastructure (e.g., CA infrastructure, tool support)._\r\ntoo wishy-washy.  Let's actually set some goals that people can code against, and that enterprises can specify that they want.\r\n(Section 18 is way more specific, and I like that)\r\n",
           "createdAt": "2023-02-06T16:21:10Z",
           "updatedAt": "2023-02-06T16:21:10Z"
+        },
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "body": "ACTION(@mcr): check that the current text works - especially, around extended key usage for IDevIDs.",
+          "createdAt": "2024-11-18T15:22:51Z",
+          "updatedAt": "2024-11-18T15:22:51Z"
         }
       ]
     },
@@ -594,7 +607,7 @@
       "id": "I_kwDOEBGZx850lTOh",
       "title": "DNS-ID vs. dNSName",
       "url": "https://github.com/thomas-fossati/draft-tls13-iot/issues/31",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "hannestschofenig",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -605,8 +618,8 @@
       ],
       "body": "> If the EUI-64 format is used to identify the subject of an end entity certificate, it MUST be encoded in a subjectAltName of type DNS-ID as a string of the form `HH-HH-HH-HH-HH-HH-HH-HH` where 'H' is one of the symbols '0'-'9' or 'A'-'F'.\r\n\r\nMichael:\r\n\"DNS-ID\" is not how 5280 calls it...\r\nIt uses dNSName.\r\nI'm not sure I'd agree with dNSNAME, and you'll see that we tried to get something similar past RH on RFC8994, and wound up having to use otherName.\r\n\r\n\r\nThomas:\r\nyeah, this bit reuses bits of RFC6125 glossary, which I thought was established terminology:\r\n\r\n> DNS-ID = a subjectAltName entry of type dNSName; see [PKIX]\r\n\r\n\r\nMichael: \r\n\r\nokay, that's news to me that we can call it the extension DNS-ID. I thought that was the check. And, I don't see how an EUI-64 going to pass a DNS-ID check.\r\n\r\n",
       "createdAt": "2023-10-22T15:02:20Z",
-      "updatedAt": "2024-09-02T14:18:40Z",
-      "closedAt": null,
+      "updatedAt": "2024-11-18T15:20:19Z",
+      "closedAt": "2024-11-18T15:20:19Z",
       "comments": [
         {
           "author": "thomas-fossati",
@@ -614,6 +627,13 @@
           "body": "ACTION: cross-check this against [RFC9525](https://datatracker.ietf.org/doc/rfc9525/) (which updates 6125)",
           "createdAt": "2024-09-02T14:18:37Z",
           "updatedAt": "2024-09-02T14:18:37Z"
+        },
+        {
+          "author": "mcr",
+          "authorAssociation": "COLLABORATOR",
+          "body": "closed by #53 ",
+          "createdAt": "2024-11-18T15:20:19Z",
+          "updatedAt": "2024-11-18T15:20:19Z"
         }
       ]
     },
