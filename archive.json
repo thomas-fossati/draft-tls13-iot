@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-12-01T01:14:19.217515+00:00",
+  "timestamp": "2024-12-03T01:04:48.691273+00:00",
   "repo": "thomas-fossati/draft-tls13-iot",
   "labels": [
     {
@@ -330,7 +330,7 @@
       ],
       "body": "Now that we have relaxed the requirement to stick to EUI-64 for client EE IDs, we should add a few examples from IoT-specific profiles, e.g.:\r\n\r\n* [GSMA eUICC](https://www.gsma.com/esim/wp-content/uploads/2021/02/SGP.14-v2.1.pdf)\r\n* [LwM2M](http://www.openmobilealliance.org/release/LightweightM2M/V1_2-20201110-A/HTML-Version/OMA-TS-LightweightM2M_Core-V1_2-20201110-A.html#7-3-1-0-731-Endpoint-Client-Name)\r\n* other IIoT\r\n\r\nFor each chosen example, make sure it\u2019s applicable to our scope (i.e., it\u2019s used in (D)TLS).",
       "createdAt": "2021-10-11T16:29:32Z",
-      "updatedAt": "2024-11-18T15:42:51Z",
+      "updatedAt": "2024-12-02T15:30:02Z",
       "closedAt": null,
       "comments": [
         {
@@ -353,6 +353,13 @@
           "body": "@mcr to bug: NIST/NCCoE people, also @esko and Siemens.",
           "createdAt": "2024-11-18T15:42:50Z",
           "updatedAt": "2024-11-18T15:42:50Z"
+        },
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "body": "For OPC-UA, see https://reference.opcfoundation.org/Core/Part6/v105/docs/6.2",
+          "createdAt": "2024-12-02T15:30:01Z",
+          "updatedAt": "2024-12-02T15:30:01Z"
         }
       ]
     },
