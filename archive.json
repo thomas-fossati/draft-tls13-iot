@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-12-03T01:04:48.691273+00:00",
+  "timestamp": "2024-12-05T01:05:14.310642+00:00",
   "repo": "thomas-fossati/draft-tls13-iot",
   "labels": [
     {
@@ -989,6 +989,22 @@
           "updatedAt": "2024-10-07T14:36:50Z"
         }
       ]
+    },
+    {
+      "number": 65,
+      "id": "I_kwDOEBGZx86h1va3",
+      "title": "why is EUI-64 encoded as DNS-ID",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/issues/65",
+      "state": "OPEN",
+      "author": "mcr",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "````\r\nIf the EUI-64 format is used to identify the subject of an end entity\r\ncertificate, it MUST be encoded in a subjectAltName of type DNS-ID as a string\r\nof the form `HH-HH-HH-HH-HH-HH-HH-HH` where 'H' is one of the symbols '0'-'9'\r\nor 'A'-'F'.\r\n````\r\n\r\nthis seems really odd.  I was looking for a SN, or SAN that would encode EUI64, and I feel surprised not to find one.\r\n",
+      "createdAt": "2024-12-03T14:41:28Z",
+      "updatedAt": "2024-12-03T14:41:28Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
