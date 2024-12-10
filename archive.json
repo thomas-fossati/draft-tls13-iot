@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-12-08T01:10:37.455005+00:00",
+  "timestamp": "2024-12-10T01:05:54.332573+00:00",
   "repo": "thomas-fossati/draft-tls13-iot",
   "labels": [
     {
@@ -3993,6 +3993,113 @@
           "createdAt": "2024-10-14T14:06:47Z",
           "updatedAt": "2024-10-14T14:06:47Z",
           "comments": []
+        }
+      ]
+    },
+    {
+      "number": 66,
+      "id": "PR_kwDOEBGZx86EnOBH",
+      "title": "many small edits to clarify client cert profile text",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/66",
+      "state": "OPEN",
+      "author": "mcr",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fix #22 ",
+      "createdAt": "2024-12-09T22:19:40Z",
+      "updatedAt": "2024-12-09T23:00:45Z",
+      "baseRepository": "thomas-fossati/draft-tls13-iot",
+      "baseRefName": "master",
+      "baseRefOid": "70b235746881da6b691b034ea89a671c5f049162",
+      "headRepository": "thomas-fossati/draft-tls13-iot",
+      "headRefName": "client-cert-profile",
+      "headRefOid": "c179b34da9884f1e6a296b9eafbefcf9f471bdfe",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOEBGZx86UbjMN",
+          "commit": {
+            "abbreviatedOid": "c179b34"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "thanks!\r\n\r\nsome comments inlined",
+          "createdAt": "2024-12-09T22:26:03Z",
+          "updatedAt": "2024-12-09T23:00:32Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "I think either leave it as it was - SubjectPublicKeyInfo is the name of the type - or change \"subjectPublicKeyInfo structure\" into \"subjectPublicKeyInfo field\".\r\n\r\n",
+              "createdAt": "2024-12-09T22:26:03Z",
+              "updatedAt": "2024-12-09T23:00:32Z"
+            },
+            {
+              "originalPosition": 14,
+              "body": "\u00a74.2.1.2 does not define subjectKeyIdentifier, it defines the SubjectKeyIdentifier type and the extension OID.\r\n\r\n```suggestion\r\n{{Section 4.2.1.2 of !RFC5280}} defines the SubjectKeyIdentifier as follows:\r\n```",
+              "createdAt": "2024-12-09T22:31:19Z",
+              "updatedAt": "2024-12-09T23:00:32Z"
+            },
+            {
+              "originalPosition": 23,
+              "body": "I suspect this sentence is only intelligible by someone who already knows how chaining via SKID/AKID works.\r\n\r\nAlso maybe s/identity/CA/\r\n\r\n```suggestion\r\nThe subjectKeyIdentifier is used by path construction algorithms to identify which CA has signed a subordinate certificate.\r\n```",
+              "createdAt": "2024-12-09T22:35:09Z",
+              "updatedAt": "2024-12-09T23:00:32Z"
+            },
+            {
+              "originalPosition": 52,
+              "body": "This is a subsection of the \"Subordinate CA Certificate\" section.   I don't think the parenthetical adds value here.",
+              "createdAt": "2024-12-09T22:40:22Z",
+              "updatedAt": "2024-12-09T23:00:32Z"
+            },
+            {
+              "originalPosition": 65,
+              "body": "No need to capitalise EE.\r\n\r\n```suggestion\r\n{{RFC5280}} reserves EKUs to be meaningful only in end-entity certificates.\r\n```",
+              "createdAt": "2024-12-09T22:42:55Z",
+              "updatedAt": "2024-12-09T23:00:32Z"
+            },
+            {
+              "originalPosition": 73,
+              "body": "I am struggling to grok the rationale here.  We are saying:\r\n\r\n* the only pathLenConstraint value an intermediate CA can explicitly state is 0 (i.e., this CA can only issues EE certs), otherwise\r\n* the CA has no restrictions on the delegation depth.\r\n\r\nWhy is there no space between these two extremes?\r\n",
+              "createdAt": "2024-12-09T22:49:33Z",
+              "updatedAt": "2024-12-09T23:00:32Z"
+            },
+            {
+              "originalPosition": 82,
+              "body": "s/End Entity/end-entity/\r\n\r\nAlso, I'd like to revisit this text in light of the conversation we were having with Esko regarding Matter, IDevID and cBRSKI, which seem to prefer subject over sAN.",
+              "createdAt": "2024-12-09T22:54:17Z",
+              "updatedAt": "2024-12-09T23:00:32Z"
+            },
+            {
+              "originalPosition": 84,
+              "body": "typo nit\r\n\r\n```suggestion\r\nThe requirement in {{Section 4.4.2 of !RFC7925}} to only use EUI-64 for end\r\n```",
+              "createdAt": "2024-12-09T22:54:56Z",
+              "updatedAt": "2024-12-09T23:00:32Z"
+            },
+            {
+              "originalPosition": 114,
+              "body": "``` suggestion\r\nEnd-entity certificates are not used in path construction, so there is no ambiguity regarding which certificate chain to use, as there can be with subordinate CAs.\r\n```",
+              "createdAt": "2024-12-09T22:57:41Z",
+              "updatedAt": "2024-12-09T23:00:32Z"
+            },
+            {
+              "originalPosition": 125,
+              "body": "```suggestion\r\nIn IDevID certificates, the extendedKeyUsage SHOULD NOT be present, as it reduces the utility of the IDevID.\r\nIn locally assigned LDevID certificates, the extendedKeyUsage, if present, MUST contain at least one of id-kp-serverAuth or id-kp-clientAuth in order to be useable with TLS.\r\n```",
+              "createdAt": "2024-12-09T22:58:41Z",
+              "updatedAt": "2024-12-09T23:00:32Z"
+            },
+            {
+              "originalPosition": 133,
+              "body": "```suggestion\r\n  Most security requirements can be satisfied with a PKI depth of 3 (root CA, one subordinate CA, and end-entity certificates).\r\n```",
+              "createdAt": "2024-12-09T22:59:14Z",
+              "updatedAt": "2024-12-09T23:00:32Z"
+            }
+          ]
         }
       ]
     }
