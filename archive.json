@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-12-10T01:05:54.332573+00:00",
+  "timestamp": "2024-12-12T01:04:35.074981+00:00",
   "repo": "thomas-fossati/draft-tls13-iot",
   "labels": [
     {
@@ -4008,7 +4008,7 @@
       "labels": [],
       "body": "Fix #22 ",
       "createdAt": "2024-12-09T22:19:40Z",
-      "updatedAt": "2024-12-09T23:00:45Z",
+      "updatedAt": "2024-12-11T19:08:58Z",
       "baseRepository": "thomas-fossati/draft-tls13-iot",
       "baseRefName": "master",
       "baseRefOid": "70b235746881da6b691b034ea89a671c5f049162",
@@ -4098,6 +4098,76 @@
               "body": "```suggestion\r\n  Most security requirements can be satisfied with a PKI depth of 3 (root CA, one subordinate CA, and end-entity certificates).\r\n```",
               "createdAt": "2024-12-09T22:59:14Z",
               "updatedAt": "2024-12-09T23:00:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOEBGZx86Uzqjf",
+          "commit": {
+            "abbreviatedOid": "c179b34"
+          },
+          "author": "mcr",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-11T18:54:16Z",
+          "updatedAt": "2024-12-11T18:54:16Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "I'm open to either.  I just felt that we should match the case to make search easier.  I'm not strongly attached to this.  Changing to field works for me.",
+              "createdAt": "2024-12-11T18:54:16Z",
+              "updatedAt": "2024-12-11T18:54:16Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOEBGZx86Uzqx3",
+          "commit": {
+            "abbreviatedOid": "c179b34"
+          },
+          "author": "mcr",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "approved some suggestions.",
+          "createdAt": "2024-12-11T18:54:44Z",
+          "updatedAt": "2024-12-11T19:08:58Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\r\nThe subjectPublicKeyInfo field indicates the algorithm and any associated\r\n```",
+              "createdAt": "2024-12-11T18:54:45Z",
+              "updatedAt": "2024-12-11T19:08:59Z"
+            },
+            {
+              "originalPosition": 23,
+              "body": "5280 does not document the path construction algorithm... I'm not sure where it is, but i guess we should reference it?",
+              "createdAt": "2024-12-11T19:01:04Z",
+              "updatedAt": "2024-12-11T19:08:59Z"
+            },
+            {
+              "originalPosition": 52,
+              "body": "I added it because I was regularly confused by which section I was in.\r\n",
+              "createdAt": "2024-12-11T19:01:42Z",
+              "updatedAt": "2024-12-11T19:08:59Z"
+            },
+            {
+              "originalPosition": 65,
+              "body": "I disagree.  End-entity is not hyphenated in 5280.  True, it is not capitalized, but I think it ought to be.",
+              "createdAt": "2024-12-11T19:02:48Z",
+              "updatedAt": "2024-12-11T19:08:59Z"
+            },
+            {
+              "originalPosition": 73,
+              "body": "I'm just answering the question in the editorial note.    \"If present\"",
+              "createdAt": "2024-12-11T19:04:11Z",
+              "updatedAt": "2024-12-11T19:08:59Z"
+            },
+            {
+              "originalPosition": 82,
+              "body": "1. cBRSKI looks at X520SerialNumber, not CN. (And in IDevID, there won't be a SAN of dnsName)\r\n2. I can't comment about Matter.\r\n\r\nIDevID and LDevID ought to have different rules.\r\n",
+              "createdAt": "2024-12-11T19:07:43Z",
+              "updatedAt": "2024-12-11T19:08:59Z"
             }
           ]
         }
