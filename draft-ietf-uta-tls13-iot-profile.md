@@ -445,7 +445,7 @@ following algorithms:
 - id-ecPublicKey with secp521r1.
 
 There is no requirement to use CA certificates and certificates of
-subordinate CAs to use the same algorithm as the end-entity certificate.
+subordinate CAs to use the same algorithm as the end entity certificate.
 Certificates with longer lifetime may well use a cryptographic stronger
 algorithm.
 
@@ -459,13 +459,13 @@ Since the publication of RFC 7925 the need for firmware update mechanisms
 has been reinforced and the work on standardizing a secure and
 interoperable firmware update mechanism has made substantial progress,
 see {{?RFC9019}}. RFC 7925 recommends to use a software / firmware update
-mechanism to provision devices with new trust anchors. This approach only addresses the distribution of trust anchors and not end-entity certificates or certificates of subordinate CAs.
+mechanism to provision devices with new trust anchors. This approach only addresses the distribution of trust anchors and not end entity certificates or certificates of subordinate CAs.
 
 The use of device management protocols for IoT devices, which often include
 an onboarding or bootstrapping mechanism, has also seen considerable uptake
 in deployed devices. These protocols, some of which are standardized,
 allow for the distribution and updating of certificates on demand. This enables a
-deployment model where IoT device utilize end-entity certificates with
+deployment model where IoT device utilize end entity certificates with
 shorter lifetime making certificate revocation protocols, like OCSP
 and CRLs, less relevant. Whenever certificates are updated the TLS stack
 needs to be informed since the communication endpoints need to be aware
@@ -659,7 +659,7 @@ and MUST contain the subjectKeyIdentifier of the CA that issued this certificate
 
 ### Subject Key Identifier
 
-The Subject Key Identifier MUST NOT be included in end-entity certificates, as it can be calculated from the public key, so it just takes up space.
+The Subject Key Identifier MUST NOT be included in end entity certificates, as it can be calculated from the public key, so it just takes up space.
 End entity certificates are not used in path construction, so there is no ambiguity regarding which certificate chain to use, as there can be with subordinate CAs.
 
 ### Key Usage
