@@ -546,7 +546,7 @@ Table of Contents
    *  id-ecPublicKey with secp521r1.
 
    There is no requirement to use CA certificates and certificates of
-   subordinate CAs to use the same algorithm as the end-entity
+   subordinate CAs to use the same algorithm as the end entity
    certificate.  Certificates with longer lifetime may well use a
    cryptographic stronger algorithm.
 
@@ -563,7 +563,7 @@ Table of Contents
    progress, see [RFC9019].  RFC 7925 recommends to use a software /
    firmware update mechanism to provision devices with new trust
    anchors.  This approach only addresses the distribution of trust
-   anchors and not end-entity certificates or certificates of
+   anchors and not end entity certificates or certificates of
    subordinate CAs.
 
    The use of device management protocols for IoT devices, which often
@@ -571,7 +571,7 @@ Table of Contents
    considerable uptake in deployed devices.  These protocols, some of
    which are standardized, allow for the distribution and updating of
    certificates on demand.  This enables a deployment model where IoT
-   device utilize end-entity certificates with shorter lifetime making
+   device utilize end entity certificates with shorter lifetime making
    certificate revocation protocols, like OCSP and CRLs, less relevant.
    Whenever certificates are updated the TLS stack needs to be informed
    since the communication endpoints need to be aware of the new
@@ -789,7 +789,7 @@ Table of Contents
 
 16.4.3.  Subject Key Identifier
 
-   The Subject Key Identifier MUST NOT be included in end-entity
+   The Subject Key Identifier MUST NOT be included in end entity
    certificates, as it can be calculated from the public key, so it just
    takes up space.  End entity certificates are not used in path
    construction, so there is no ambiguity regarding which certificate
