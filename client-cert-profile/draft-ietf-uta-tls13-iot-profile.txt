@@ -719,7 +719,8 @@ Table of Contents
 16.3.5.  Basic Constraints
 
    The Basic Constraints extension MUST be set, MUST be marked critical,
-   the cA flag MUST be set to true.
+   the cA flag MUST be set to true and the pathLenConstraint SHOULD be
+   omitted.
 
 16.3.6.  CRL Distribution Point
 
