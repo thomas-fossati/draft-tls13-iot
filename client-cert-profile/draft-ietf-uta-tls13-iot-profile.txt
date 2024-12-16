@@ -623,7 +623,7 @@ Table of Contents
 
 16.2.3.  Subject Key Identifier
 
-   Section 4.2.1.2 of [RFC5280] defines the subjectKeyIdentifier as
+   Section 4.2.1.2 of [RFC5280] defines the SubjectKeyIdentifier as
    follows: "The subject key identifier extension provides a means of
    identifying certificates that contain a particular public key."
 
