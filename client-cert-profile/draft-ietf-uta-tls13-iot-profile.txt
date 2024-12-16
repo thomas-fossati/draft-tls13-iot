@@ -714,7 +714,7 @@ Table of Contents
 
    Subordinate certification authorities SHOULD NOT have any
    extendedKeyUsage.  [RFC5280] reserves EKUs to be meaningful only in
-   End Entity certificates.
+   end entity certificates.
 
 16.3.5.  Basic Constraints
 
