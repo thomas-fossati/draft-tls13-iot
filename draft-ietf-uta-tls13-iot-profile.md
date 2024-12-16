@@ -590,7 +590,7 @@ The Key Usage extension MUST be set, MUST be marked critical, the keyCertSign or
 cRLSign purposes MUST be set, and the digitalSignature purpose SHOULD be set.
 
 Subordinate certification authorities SHOULD NOT have any extendedKeyUsage.
-{{RFC5280}} reserves EKUs to be meaningful only in End Entity certificates.
+{{RFC5280}} reserves EKUs to be meaningful only in end entity certificates.
 
 ### Basic Constraints
 
