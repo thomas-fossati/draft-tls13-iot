@@ -792,9 +792,9 @@ Table of Contents
 
    The Subject Key Identifier MUST NOT be included in end-entity
    certificates, as it can be calculated from the public key, so it just
-   takes up space.  End Entity certificates are not used in path
-   construction, so there is no ambiguity in which certificate chain to
-   use, as there can be with subordinate CAs.
+   takes up space.  End entity certificates are not used in path
+   construction, so there is no ambiguity regarding which certificate
+   chain to use, as there can be with subordinate CAs.
 
 16.4.4.  Key Usage
 
