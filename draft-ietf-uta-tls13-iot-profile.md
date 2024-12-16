@@ -618,7 +618,7 @@ This section outlines the requirements for end entity certificates.
 {{!RFC9525, Section 2}} mandates that the subject field not be used to identify a service.
 For IoT purposes, an empty subject field avoids significant confusion for End Entity certificates.
 
-The requirement in Section 4.4.2 of {{!RFC7925}} to only use EUI-64 for end
+The requirement in {{Section 4.4.2 of !RFC7925}} to only use EUI-64 for end
 entity certificates as a subject field is lifted.
 
 Two fields are typically used to encode a device identifer, namely the
