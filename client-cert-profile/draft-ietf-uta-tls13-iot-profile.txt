@@ -95,8 +95,7 @@ Table of Contents
      16.3.  Subordinate CA Certificate
        16.3.1.  Subject
        16.3.2.  Authority Key Identifier
-       16.3.3.  Subject Key Identifier (subordinate
-               subjectKeyIdentifier)
+       16.3.3.  Subject Key Identifier
        16.3.4.  Key Usage
        16.3.5.  Basic Constraints
        16.3.6.  CRL Distribution Point
@@ -700,7 +699,7 @@ Table of Contents
    marked critical, and MUST contain the subjectKeyIdentifier of the CA
    that issued this certificate.
 
-16.3.3.  Subject Key Identifier (subordinate subjectKeyIdentifier)
+16.3.3.  Subject Key Identifier
 
    The Subject Key Identifier extension MUST be set, MUST NOT be marked
    critical, and MUST contain the key identifier of the public key

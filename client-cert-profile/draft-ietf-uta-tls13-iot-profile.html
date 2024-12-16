@@ -1263,7 +1263,7 @@ certificate profile and ciphersuite requirements.<a href="#section-abstract-1" c
                     <p id="section-toc.1-1.16.2.3.2.2.1"><a href="#section-16.3.2" class="auto internal xref">16.3.2</a>.  <a href="#name-authority-key-identifier-2" class="internal xref">Authority Key Identifier</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.16.2.3.2.3">
-                    <p id="section-toc.1-1.16.2.3.2.3.1"><a href="#section-16.3.3" class="auto internal xref">16.3.3</a>.  <a href="#name-subject-key-identifier-subo" class="internal xref">Subject Key Identifier (subordinate subjectKeyIdentifier)</a></p>
+                    <p id="section-toc.1-1.16.2.3.2.3.1"><a href="#section-16.3.3" class="auto internal xref">16.3.3</a>.  <a href="#name-subject-key-identifier-2" class="internal xref">Subject Key Identifier</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.16.2.3.2.4">
                     <p id="section-toc.1-1.16.2.3.2.4.1"><a href="#section-16.3.4" class="auto internal xref">16.3.4</a>.  <a href="#name-key-usage-2" class="internal xref">Key Usage</a></p>
@@ -1289,7 +1289,7 @@ certificate profile and ciphersuite requirements.<a href="#section-abstract-1" c
                     <p id="section-toc.1-1.16.2.4.2.2.1"><a href="#section-16.4.2" class="auto internal xref">16.4.2</a>.  <a href="#name-authority-key-identifier-3" class="internal xref">Authority Key Identifier</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.16.2.4.2.3">
-                    <p id="section-toc.1-1.16.2.4.2.3.1"><a href="#section-16.4.3" class="auto internal xref">16.4.3</a>.  <a href="#name-subject-key-identifier-2" class="internal xref">Subject Key Identifier</a></p>
+                    <p id="section-toc.1-1.16.2.4.2.3.1"><a href="#section-16.4.3" class="auto internal xref">16.4.3</a>.  <a href="#name-subject-key-identifier-3" class="internal xref">Subject Key Identifier</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.16.2.4.2.4">
                     <p id="section-toc.1-1.16.2.4.2.4.1"><a href="#section-16.4.4" class="auto internal xref">16.4.4</a>.  <a href="#name-key-usage-3" class="internal xref">Key Usage</a></p>
@@ -1941,10 +1941,10 @@ and the countryName attribute and MAY contain an organizationalUnitName attribut
 MUST contain the subjectKeyIdentifier of the CA that issued this certificate.<a href="#section-16.3.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="subject-key-identifier-subordinate-subjectkeyidentifier">
+<div id="subject-key-identifier-1">
 <section id="section-16.3.3">
-          <h4 id="name-subject-key-identifier-subo">
-<a href="#section-16.3.3" class="section-number selfRef">16.3.3. </a><a href="#name-subject-key-identifier-subo" class="section-name selfRef">Subject Key Identifier (subordinate subjectKeyIdentifier)</a>
+          <h4 id="name-subject-key-identifier-2">
+<a href="#section-16.3.3" class="section-number selfRef">16.3.3. </a><a href="#name-subject-key-identifier-2" class="section-name selfRef">Subject Key Identifier</a>
           </h4>
 <p id="section-16.3.3-1">The Subject Key Identifier extension MUST be set, MUST NOT be marked critical, and MUST
 contain the key identifier of the public key contained in the subject public key info
@@ -2042,10 +2042,10 @@ specification does not follow this recommendation.<a href="#section-16.4.1-9" cl
 and MUST contain the subjectKeyIdentifier of the CA that issued this certificate.<a href="#section-16.4.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="subject-key-identifier-1">
+<div id="subject-key-identifier-2">
 <section id="section-16.4.3">
-          <h4 id="name-subject-key-identifier-2">
-<a href="#section-16.4.3" class="section-number selfRef">16.4.3. </a><a href="#name-subject-key-identifier-2" class="section-name selfRef">Subject Key Identifier</a>
+          <h4 id="name-subject-key-identifier-3">
+<a href="#section-16.4.3" class="section-number selfRef">16.4.3. </a><a href="#name-subject-key-identifier-3" class="section-name selfRef">Subject Key Identifier</a>
           </h4>
 <p id="section-16.4.3-1">The Subject Key Identifier MUST NOT be included in end-entity certificates, as it can be calculated from the public key, so it just takes up space.
 End entity certificates are not used in path construction, so there is no ambiguity regarding which certificate chain to use, as there can be with subordinate CAs.<a href="#section-16.4.3-1" class="pilcrow">¶</a></p>
