@@ -434,7 +434,7 @@ that extends the capabilities offered by a raw public key approach.
 
 ### Subject Public Key Info
 
-The subjectPublicKeyInfo structure indicates the algorithm and any associated
+The subjectPublicKeyInfo field indicates the algorithm and any associated
 parameters for the ECC public key. This profile uses the id-ecPublicKey
 algorithm identifier for ECDSA signature keys, as defined and specified in
 {{!RFC5480}}. This specification assumes that devices supported one of the
