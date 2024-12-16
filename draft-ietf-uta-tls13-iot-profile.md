@@ -595,7 +595,7 @@ Subordinate certification authorities SHOULD NOT have any extendedKeyUsage.
 ### Basic Constraints
 
 The Basic Constraints extension MUST be set, MUST be marked critical, the cA flag
-MUST be set to true and the pathLenConstraint MUST, if present, be set to 0.
+MUST be set to true.
 
 ### CRL Distribution Point
 
