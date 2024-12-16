@@ -632,7 +632,7 @@ Table of Contents
    contained in the subject public key info field.
 
    The subjectKeyIdentifier is used by path construction algorithms to
-   identify which identity has signed a subordinate certificate.
+   identify which CA has signed a subordinate certificate.
 
 16.2.4.  Key Usage
 
