@@ -2005,7 +2005,7 @@ status service (OCSP).<a href="#section-16.3.7-1" class="pilcrow">¶</a></p>
 <a href="#section-16.4.1" class="section-number selfRef">16.4.1. </a><a href="#name-subject-3" class="section-name selfRef">Subject</a>
           </h4>
 <p id="section-16.4.1-1"><span>[<a href="#RFC9525" class="cite xref">RFC9525</a>], <a href="https://rfc-editor.org/rfc/rfc9525#section-2" class="relref">Section 2</a></span> mandates that the subject field not be used to identify a service.
-For IoT purposes, an empty subject field avoids significant confusion for End Entity certificates.<a href="#section-16.4.1-1" class="pilcrow">¶</a></p>
+However, certain IoT applications (for example, <span>[<a href="#I-D.ietf-anima-constrained-voucher" class="cite xref">I-D.ietf-anima-constrained-voucher</a>]</span>, <span>[<a href="#_8021AR" class="cite xref">_8021AR</a>]</span>) use the subject field to encode the device serial number.<a href="#section-16.4.1-1" class="pilcrow">¶</a></p>
 <p id="section-16.4.1-2">The requirement in <span><a href="https://rfc-editor.org/rfc/rfc7925#section-4.4.2" class="relref">Section 4.4.2</a> of [<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> to only use EUI-64 for end
 entity certificates as a subject field is lifted.<a href="#section-16.4.1-2" class="pilcrow">¶</a></p>
 <p id="section-16.4.1-3">Two fields are typically used to encode a device identifer, namely the
@@ -2365,6 +2365,10 @@ determinism, for example, as described in
 <dt id="FDO">[FDO]</dt>
         <dd>
 <span class="refAuthor">FIDO Alliance</span>, <span class="refTitle">"FIDO Device Onboard Specification 1.1"</span>, <time datetime="2022-04" class="refDate">April 2022</time>, <span>&lt;<a href="https://fidoalliance.org/specifications/download-iot-specifications/">https://fidoalliance.org/specifications/download-iot-specifications/</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.ietf-anima-constrained-voucher">[I-D.ietf-anima-constrained-voucher]</dt>
+        <dd>
+<span class="refAuthor">Richardson, M.</span>, <span class="refAuthor">Van der Stok, P.</span>, <span class="refAuthor">Kampanakis, P.</span>, and <span class="refAuthor">E. Dijk</span>, <span class="refTitle">"Constrained Bootstrapping Remote Secure Key Infrastructure (cBRSKI)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-anima-constrained-voucher-25</span>, <time datetime="2024-07-08" class="refDate">8 July 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-anima-constrained-voucher-25">https://datatracker.ietf.org/doc/html/draft-ietf-anima-constrained-voucher-25</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-cose-cbor-encoded-cert">[I-D.ietf-cose-cbor-encoded-cert]</dt>
         <dd>
