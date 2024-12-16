@@ -510,7 +510,7 @@ marked critical, and MUST contain the subjectKeyIdentifier of this certificate.
 
 ### Subject Key Identifier
 
-Section 4.2.1.2 of {{!RFC5280}} defines the subjectKeyIdentifier as follows:
+{{Section 4.2.1.2 of !RFC5280}} defines the SubjectKeyIdentifier as follows:
 "The subject key identifier extension provides a means of identifying
 certificates that contain a particular public key."
 
