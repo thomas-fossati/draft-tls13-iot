@@ -701,7 +701,7 @@ optimizations typically get implemented last.
   certificates that need to be transmitted and processed. See
   {{?I-D.irtf-t2trg-taxonomy-manufacturer-anchors}} for a discussion about CA
   hierarchies.
-  Most security requirements can be satisfied with a PKI depth of 3 (root CA, 1 subordinate CA, and End-Entity certificates).
+  Most security requirements can be satisfied with a PKI depth of 3 (root CA, one subordinate CA, and end entity certificates).
 * Pay attention to the amount of information conveyed inside certificates.
 * Use session resumption to reduce the number of times a full handshake is
   needed.  Use Connection IDs {{RFC9146}}, when possible, to enable
