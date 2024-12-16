@@ -518,7 +518,7 @@ The Subject Key Identifier extension MUST be set, MUST NOT be marked critical, a
 contain the key identifier of the public key contained in the subject public key
 info field.
 
-The subjectKeyIdentifier is used by path construction algorithms to identify which identity has signed a subordinate certificate.
+The subjectKeyIdentifier is used by path construction algorithms to identify which CA has signed a subordinate certificate.
 
 ### Key Usage
 
