@@ -660,7 +660,7 @@ and MUST contain the subjectKeyIdentifier of the CA that issued this certificate
 ### Subject Key Identifier
 
 The Subject Key Identifier MUST NOT be included in end-entity certificates, as it can be calculated from the public key, so it just takes up space.
-End Entity certificates are not used in path construction, so there is no ambiguity in which certificate chain to use, as there can be with subordinate CAs.
+End entity certificates are not used in path construction, so there is no ambiguity regarding which certificate chain to use, as there can be with subordinate CAs.
 
 ### Key Usage
 
