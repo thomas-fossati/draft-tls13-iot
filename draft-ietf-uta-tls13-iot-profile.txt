@@ -6,9 +6,9 @@ UTA                                                        H. Tschofenig
 Internet-Draft                                                     H-BRS
 Updates: 7925 (if approved)                                   T. Fossati
 Intended status: Standards Track                                  Linaro
-Expires: 17 April 2025                                     M. Richardson
+Expires: 19 June 2025                                      M. Richardson
                                                 Sandelman Software Works
-                                                         14 October 2024
+                                                        16 December 2024
 
 
             TLS/DTLS 1.3 Profiles for the Internet of Things
@@ -43,7 +43,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 April 2025.
+   This Internet-Draft will expire on 19 June 2025.
 
 Copyright Notice
 
@@ -535,7 +535,7 @@ Table of Contents
 
 16.1.6.   Subject Public Key Info
 
-   The SubjectPublicKeyInfo structure indicates the algorithm and any
+   The subjectPublicKeyInfo field indicates the algorithm and any
    associated parameters for the ECC public key.  This profile uses the
    id-ecPublicKey algorithm identifier for ECDSA signature keys, as
    defined and specified in [RFC5480].  This specification assumes that
@@ -622,7 +622,7 @@ Table of Contents
 
 16.2.3.  Subject Key Identifier
 
-   Section 4.2.1.2 of [RFC5280] defines the Subject Key Identifier as
+   Section 4.2.1.2 of [RFC5280] defines the SubjectKeyIdentifier as
    follows: "The subject key identifier extension provides a means of
    identifying certificates that contain a particular public key."
 
@@ -630,8 +630,8 @@ Table of Contents
    critical, and MUST contain the key identifier of the public key
    contained in the subject public key info field.
 
-   [Editor's Note: Do we need to set the Subject Key Identifier in the
-   CA certificate?]
+   The subjectKeyIdentifier is used by path construction algorithms to
+   identify which CA has signed a subordinate certificate.
 
 16.2.4.  Key Usage
 
@@ -639,20 +639,17 @@ Table of Contents
    extension defines the purpose (e.g., encipherment, signature,
    certificate signing) of the key contained in the certificate."
 
-   The Key Usage extension SHOULD be set.  If it is set, it MUST be
-   marked critical and the keyCertSign or cRLSign purposes MUST be set.
+   The Key Usage extension MAY be set.  If it is set, it MUST be marked
+   critical and the keyCertSign or cRLSign purposes MUST be set.
    Additional key usages MAY be set depending on the intended usage of
    the public key.
-
-   [Editor's Note: Should we harden the requirement to "The Key Usage
-   extension MUST be set.]
 
    [RFC5280] defines the extended key usage as follows: "This extension
    indicates one or more purposes for which the certified public key may
    be used, in addition to or in place of the basic purposes indicated
    in the key usage extension."
 
-   This extendedKeyUsage extension MUST NOT be set.
+   This extendedKeyUsage extension MUST NOT be set in CA certificates.
 
 16.2.5.  Basic Constraints
 
@@ -714,20 +711,15 @@ Table of Contents
    keyCertSign or cRLSign purposes MUST be set, and the digitalSignature
    purpose SHOULD be set.
 
-   The extendedKeyUsage extensed MAY be set depending on the intended
-   usage of the public key.
-
-   [Editor's Note: Should we harden the requirement to "The
-   extendedKeyUsage MUST NOT be present."]
+   Subordinate certification authorities SHOULD NOT have any
+   extendedKeyUsage.  [RFC5280] reserves EKUs to be meaningful only in
+   end entity certificates.
 
 16.3.5.  Basic Constraints
 
    The Basic Constraints extension MUST be set, MUST be marked critical,
-   the cA flag MUST be set to true and the pathLenConstraint MUST be set
-   to 0.
-
-   [Editor's Note: Should we soften the requriement to "The
-   pathLenConstraint field MAY be present."]
+   the cA flag MUST be set to true and the pathLenConstraint SHOULD be
+   omitted.
 
 16.3.6.  CRL Distribution Point
 
@@ -749,8 +741,9 @@ Table of Contents
 16.4.1.  Subject
 
    [RFC9525], Section 2 mandates that the subject field not be used to
-   identify a service.  For IoT purposes, an empty subject field avoids
-   all confusion for End Entity certificates.
+   identify a service.  However, certain IoT applications (for example,
+   [I-D.ietf-anima-constrained-voucher], [_8021AR]) use the subject
+   field to encode the device serial number.
 
    The requirement in Section 4.4.2 of [RFC7925] to only use EUI-64 for
    end entity certificates as a subject field is lifted.
@@ -762,7 +755,8 @@ Table of Contents
 
    The subject field MAY include a unique device serial number.  If the
    serial number is included, it MUST be encoded in the X520SerialNumber
-   attribute.
+   attribute. e.g., [RFC8995] use requires a serial number in IDevID
+   certificates.
 
    [RFC5280] defines: "The subject alternative name extension allows
    identities to be bound to the subject of the certificate.  These
@@ -778,10 +772,10 @@ Table of Contents
    a string of the form HH-HH-HH-HH-HH-HH-HH-HH where 'H' is one of the
    symbols '0'-'9' or 'A'-'F'.
 
-   Domain names MUST NOT be encoded in the subject commonName.  Instead
-   they MUST be encoded in a subjectAltName of type DNS-ID.  Domain
-   names MUST NOT contain wildcard (*) characters.  The subjectAltName
-   MUST NOT contain multiple names.
+   Per [RFC9525] Domain names MUST NOT be encoded in the subject
+   commonName.  Instead they MUST be encoded in a subjectAltName of type
+   DNS-ID.  Domain names MUST NOT contain wildcard (*) characters.  The
+   subjectAltName MUST NOT contain multiple names.
 
    Note: The IEEE 802.1AR recomments to encode information about a
    Trusted Platform Module (TPM), if present, in the HardwareModuleName.
@@ -795,15 +789,11 @@ Table of Contents
 
 16.4.3.  Subject Key Identifier
 
-   The Subject Key Identifier SHOULD NOT be included in end-entity
-   certificates.  If it is included, then the Subject Key Identifier
-   extension MUST NOT be marked critical, and MUST contain the key
-   identifier of the public key contained in the subject public key info
-   field.
-
-   [Editor's Note: Should we harden the requirement and state: "The
-   Subject Key Identifier MUST NOT be included in end-entity
-   certificates."]
+   The Subject Key Identifier MUST NOT be included in end-entity
+   certificates, as it can be calculated from the public key, so it just
+   takes up space.  End entity certificates are not used in path
+   construction, so there is no ambiguity regarding which certificate
+   chain to use, as there can be with subordinate CAs.
 
 16.4.4.  Key Usage
 
@@ -819,8 +809,11 @@ Table of Contents
    agreement of a symmetric key.  On-device key generation is, however,
    the preferred approach.
 
-   The extendedKeyUsage MUST be present and contain at least one of id-
-   kp-serverAuth or id-kp-clientAuth.
+   In IDevID certificates, the extendedKeyUsage SHOULD NOT be present,
+   as it reduces the utility of the IDevID.  In locally assigned LDevID
+   certificates, the extendedKeyUsage, if present, MUST contain at least
+   one of id-kp-serverAuth or id-kp-clientAuth in order to be useable
+   with TLS.
 
 17.  Certificate Overhead
 
@@ -845,7 +838,9 @@ Table of Contents
    *  Avoid deep and complex CA hierarchies to reduce the number of
       subordinate CA certificates that need to be transmitted and
       processed.  See [I-D.irtf-t2trg-taxonomy-manufacturer-anchors] for
-      a discussion about CA hierarchies.
+      a discussion about CA hierarchies.  Most security requirements can
+      be satisfied with a PKI depth of 3 (root CA, one subordinate CA,
+      and end entity certificates).
    *  Pay attention to the amount of information conveyed inside
       certificates.
    *  Use session resumption to reduce the number of times a full
@@ -1085,6 +1080,14 @@ Table of Contents
               April 2022, <https://fidoalliance.org/specifications/
               download-iot-specifications/>.
 
+   [I-D.ietf-anima-constrained-voucher]
+              Richardson, M., Van der Stok, P., Kampanakis, P., and E.
+              Dijk, "Constrained Bootstrapping Remote Secure Key
+              Infrastructure (cBRSKI)", Work in Progress, Internet-
+              Draft, draft-ietf-anima-constrained-voucher-25, 8 July
+              2024, <https://datatracker.ietf.org/doc/html/draft-ietf-
+              anima-constrained-voucher-25>.
+
    [I-D.ietf-cose-cbor-encoded-cert]
               Mattsson, J. P., Selander, G., Raza, S., Höglund, J., and
               M. Furuhed, "CBOR Encoded X.509 Certificates (C509
@@ -1096,9 +1099,9 @@ Table of Contents
    [I-D.ietf-dance-tls-clientid]
               Huque, S. and V. Dukhovni, "TLS Extension for DANE Client
               Identity", Work in Progress, Internet-Draft, draft-ietf-
-              dance-tls-clientid-03, 8 January 2024,
+              dance-tls-clientid-04, 7 November 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-dance-
-              tls-clientid-03>.
+              tls-clientid-04>.
 
    [I-D.ietf-httpbis-secondary-server-certs]
               Gorbaty, E. and M. Bishop, "Secondary Certificate
@@ -1112,9 +1115,9 @@ Table of Contents
               Banerjee, A., Reddy.K, T., Schoinianakis, D., Hollebeek,
               T., and M. Ounsworth, "Post-Quantum Cryptography for
               Engineers", Work in Progress, Internet-Draft, draft-ietf-
-              pquip-pqc-engineers-05, 12 September 2024,
+              pquip-pqc-engineers-06, 21 October 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-pquip-
-              pqc-engineers-05>.
+              pqc-engineers-06>.
 
    [I-D.ietf-tls-ctls]
               Rescorla, E., Barnes, R., Tschofenig, H., and B. M.
@@ -1140,9 +1143,9 @@ Table of Contents
    [I-D.irtf-cfrg-det-sigs-with-noise]
               Mattsson, J. P., Thormarker, E., and S. Ruohomaa, "Hedged
               ECDSA and EdDSA Signatures", Work in Progress, Internet-
-              Draft, draft-irtf-cfrg-det-sigs-with-noise-03, 16 March
+              Draft, draft-irtf-cfrg-det-sigs-with-noise-04, 6 November
               2024, <https://datatracker.ietf.org/doc/html/draft-irtf-
-              cfrg-det-sigs-with-noise-03>.
+              cfrg-det-sigs-with-noise-04>.
 
    [I-D.irtf-cfrg-hpke]
               Barnes, R., Bhargavan, K., Lipp, B., and C. A. Wood,
@@ -1170,9 +1173,9 @@ Table of Contents
               Sakzad, A., and R. Steinfeld, "Energy Consumption
               Evaluation of Post-Quantum TLS 1.3 for Resource-
               Constrained Embedded Devices", ACM, Proceedings of the
-              20th ACM International Conference on Computing Frontiers,
-              DOI 10.1145/3587135.3592821, May 2023,
-              <https://doi.org/10.1145/3587135.3592821>.
+              20th ACM International Conference on Computing
+              Frontiers pp. 366-374, DOI 10.1145/3587135.3592821, May
+              2023, <https://doi.org/10.1145/3587135.3592821>.
 
    [PQC-PERF] Tasopoulos, G., Li, J., Fournaris, A., Zhao, R., Sakzad,
               A., and R. Steinfeld, "Performance Evaluation of Post-
