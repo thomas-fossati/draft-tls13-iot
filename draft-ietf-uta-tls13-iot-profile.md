@@ -578,7 +578,7 @@ and the countryName attribute and MAY contain an organizationalUnitName attribut
 The Authority Key Identifier extension MUST be set, MUST NOT be marked critical, and
 MUST contain the subjectKeyIdentifier of the CA that issued this certificate.
 
-### Subject Key Identifier (subordinate subjectKeyIdentifier)
+### Subject Key Identifier
 
 The Subject Key Identifier extension MUST be set, MUST NOT be marked critical, and MUST
 contain the key identifier of the public key contained in the subject public key info
