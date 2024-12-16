@@ -434,7 +434,7 @@ that extends the capabilities offered by a raw public key approach.
 
 ### Subject Public Key Info
 
-The SubjectPublicKeyInfo structure indicates the algorithm and any associated
+The subjectPublicKeyInfo field indicates the algorithm and any associated
 parameters for the ECC public key. This profile uses the id-ecPublicKey
 algorithm identifier for ECDSA signature keys, as defined and specified in
 {{!RFC5480}}. This specification assumes that devices supported one of the
@@ -510,7 +510,7 @@ marked critical, and MUST contain the subjectKeyIdentifier of this certificate.
 
 ### Subject Key Identifier
 
-Section 4.2.1.2 of {{!RFC5280}} defines the Subject Key Identifier as follows:
+{{Section 4.2.1.2 of !RFC5280}} defines the SubjectKeyIdentifier as follows:
 "The subject key identifier extension provides a means of identifying
 certificates that contain a particular public key."
 
@@ -518,7 +518,7 @@ The Subject Key Identifier extension MUST be set, MUST NOT be marked critical, a
 contain the key identifier of the public key contained in the subject public key
 info field.
 
-[Editor's Note: Do we need to set the Subject Key Identifier in the CA certificate?]
+The subjectKeyIdentifier is used by path construction algorithms to identify which CA has signed a subordinate certificate.
 
 ### Key Usage
 
@@ -526,17 +526,15 @@ info field.
 the purpose (e.g., encipherment, signature, certificate signing) of the key contained
 in the certificate."
 
-The Key Usage extension SHOULD be set. If it is set, it MUST be marked critical and
+The Key Usage extension MAY be set. If it is set, it MUST be marked critical and
 the keyCertSign or cRLSign purposes MUST be set. Additional key usages MAY be set
 depending on the intended usage of the public key.
-
-[Editor's Note: Should we harden the requirement to "The Key Usage extension MUST  be set.]
 
 {{!RFC5280}} defines the extended key usage as follows: "This extension indicates
 one or more purposes for which the certified public key may be used, in addition to
 or in place of the basic purposes indicated in the key usage extension."
 
-This extendedKeyUsage extension MUST NOT be set.
+This extendedKeyUsage extension MUST NOT be set in CA certificates.
 
 
 ### Basic Constraints
@@ -591,17 +589,13 @@ field.
 The Key Usage extension MUST be set, MUST be marked critical, the keyCertSign or
 cRLSign purposes MUST be set, and the digitalSignature purpose SHOULD be set.
 
-The extendedKeyUsage extensed MAY be set depending on the intended usage of the
-public key.
-
-[Editor's Note: Should we harden the requirement to "The extendedKeyUsage MUST NOT be present."]
+Subordinate certification authorities SHOULD NOT have any extendedKeyUsage.
+{{RFC5280}} reserves EKUs to be meaningful only in end entity certificates.
 
 ### Basic Constraints
 
 The Basic Constraints extension MUST be set, MUST be marked critical, the cA flag
-MUST be set to true and the pathLenConstraint MUST be set to 0.
-
-[Editor's Note: Should we soften the requriement to "The pathLenConstraint field MAY be present."]
+MUST be set to true and the pathLenConstraint SHOULD be omitted.
 
 ### CRL Distribution Point
 
@@ -622,9 +616,9 @@ This section outlines the requirements for end entity certificates.
 ### Subject
 
 {{!RFC9525, Section 2}} mandates that the subject field not be used to identify a service.
-For IoT purposes, an empty subject field avoids all confusion for End Entity certificates.
+However, certain IoT applications (for example, {{?I-D.ietf-anima-constrained-voucher}}, {{8021AR}}) use the subject field to encode the device serial number.
 
-The requirement in Section 4.4.2 of {{!RFC7925}} to only use EUI-64 for end
+The requirement in {{Section 4.4.2 of !RFC7925}} to only use EUI-64 for end
 entity certificates as a subject field is lifted.
 
 Two fields are typically used to encode a device identifer, namely the
@@ -634,6 +628,7 @@ fragmented.
 
 The subject field MAY include a unique device serial number. If the serial
 number is included, it MUST be encoded in the X520SerialNumber attribute.
+e.g., {{?RFC8995}} use requires a serial number in IDevID certificates.
 
 {{!RFC5280}} defines: "The subject alternative name extension allows identities
 to be bound to the subject of the certificate. These identities may be included
@@ -647,7 +642,7 @@ certificate, it MUST be encoded in a subjectAltName of type DNS-ID as a string
 of the form `HH-HH-HH-HH-HH-HH-HH-HH` where 'H' is one of the symbols '0'-'9'
 or 'A'-'F'.
 
-Domain names MUST NOT be encoded in the subject commonName. Instead they
+Per {{!RFC9525}} Domain names MUST NOT be encoded in the subject commonName. Instead they
 MUST be encoded in a subjectAltName of type DNS-ID. Domain names MUST NOT
 contain wildcard (`*`) characters. The subjectAltName MUST NOT contain multiple
 names.
@@ -664,12 +659,8 @@ and MUST contain the subjectKeyIdentifier of the CA that issued this certificate
 
 ### Subject Key Identifier
 
-The Subject Key Identifier SHOULD NOT be included in end-entity certificates.
-If it is included, then the Subject Key Identifier extension MUST NOT be marked
-critical, and MUST contain the key identifier of the public key contained in the
-subject public key info field.
-
-[Editor's Note: Should we harden the requirement and state: "The Subject Key Identifier MUST NOT be included in end-entity certificates."]
+The Subject Key Identifier MUST NOT be included in end-entity certificates, as it can be calculated from the public key, so it just takes up space.
+End entity certificates are not used in path construction, so there is no ambiguity regarding which certificate chain to use, as there can be with subordinate CAs.
 
 ### Key Usage
 
@@ -684,8 +675,8 @@ keyEncipherment or keyAgreement MUST be set because the encrypted delivery
 of the newly generated key involves encryption or agreement of a symmetric
 key. On-device key generation is, however, the preferred approach.
 
-The extendedKeyUsage MUST be present and contain at least one of
-id-kp-serverAuth or id-kp-clientAuth.
+In IDevID certificates, the extendedKeyUsage SHOULD NOT be present, as it reduces the utility of the IDevID.
+In locally assigned LDevID certificates, the extendedKeyUsage, if present, MUST contain at least one of id-kp-serverAuth or id-kp-clientAuth in order to be useable with TLS.
 
 
 # Certificate Overhead
@@ -710,6 +701,7 @@ optimizations typically get implemented last.
   certificates that need to be transmitted and processed. See
   {{?I-D.irtf-t2trg-taxonomy-manufacturer-anchors}} for a discussion about CA
   hierarchies.
+  Most security requirements can be satisfied with a PKI depth of 3 (root CA, one subordinate CA, and end entity certificates).
 * Pay attention to the amount of information conveyed inside certificates.
 * Use session resumption to reduce the number of times a full handshake is
   needed.  Use Connection IDs {{RFC9146}}, when possible, to enable
