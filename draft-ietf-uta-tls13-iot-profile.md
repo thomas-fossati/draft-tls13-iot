@@ -753,10 +753,10 @@ eliminate the security and availability threats related to CCM_8 while retaining
 interoperability with the larger ecosystem.
 
 In order to ameliorate the situation, this document RECOMMENDS that
-implementations support the following two ciphersuites:
+implementations support the following two ciphersuites for TLS 1.3:
 
-* `TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256`
-* `TLS_ECDHE_ECDSA_WITH_AES_128_CCM`
+* `TLS_AES_128_GCM_SHA256`
+* `TLS_AES_128_CCM`
 
 and offer them as their first choice.  These ciphersuites provide
 confidentiality and integrity limits that are considered acceptable in the most
@@ -772,12 +772,12 @@ of !RFC9325}} also apply.
 
 {{tab-cipher-reqs}} summarizes the recommendations regarding ciphersuites:
 
-| Ciphersuite | Requirement |
+| Ciphersuite | MTI Requirement |
 |--|--|
 | `TLS_AES_128_CCM_8_SHA256` | MUST- |
-| `TLS_ECDHE_ECDSA_WITH_AES_128_CCM` | SHOULD+ |
-| `TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256` | SHOULD+ |
-{: #tab-cipher-reqs align="left" title="Ciphersuite requirements"}
+| `TLS_AES_128_CCM` | SHOULD+ |
+| `TLS_AES_128_GCM_SHA256` | SHOULD+ |
+{: #tab-cipher-reqs align="left" title="TLS 1.3 Ciphersuite Requirements"}
 
 # Fault Attacks on Deterministic Signature Schemes
 
