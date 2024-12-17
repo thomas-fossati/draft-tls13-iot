@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-12-15T01:09:50.593686+00:00",
+  "timestamp": "2024-12-17T01:04:54.470050+00:00",
   "repo": "thomas-fossati/draft-tls13-iot",
   "labels": [
     {
@@ -505,7 +505,7 @@
       "id": "I_kwDOEBGZx85G7-c_",
       "title": "Improve text around client cert profile",
       "url": "https://github.com/thomas-fossati/draft-tls13-iot/issues/22",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "thomas-fossati",
       "authorAssociation": "OWNER",
       "assignees": [
@@ -516,8 +516,8 @@
       ],
       "body": "From [MCR review](https://mailarchive.ietf.org/arch/msg/uta/i5rhYTl_EhhJSEwwH4FbA4XwnIA/):\r\n\r\n```\r\nValidation of client certificates (whether factory provisioned IDevIDs, or\r\nlocally enrolled LDevIDs) is a topic that I care a lot about, and\r\nthis text is inadequate.\r\n\r\nAs the (industrial) IoT market embraces IDevID certificates, there is some\r\nconcern that different markets will put different requirements on IDevID\r\ncontents.  So far it does not appear that anyone has created a situation\r\nwhere a single (fat) IDevID certificate couldn't be used in a variety of\r\nmarket verticals, the concern remains.\r\n\r\nIt was my intention to introduce a document about this issue. I think that\r\nit's something that only the IETF can do.  Perhaps that would fit into this\r\nUTA document, or perhaps parts of this section 15 goes into another document.\r\n```",
       "createdAt": "2022-04-01T18:13:57Z",
-      "updatedAt": "2024-11-18T15:22:52Z",
-      "closedAt": null,
+      "updatedAt": "2024-12-16T16:02:29Z",
+      "closedAt": "2024-12-16T16:02:29Z",
       "comments": [
         {
           "author": "mcr",
@@ -1004,6 +1004,24 @@
       "createdAt": "2024-12-03T14:41:28Z",
       "updatedAt": "2024-12-03T14:41:28Z",
       "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 67,
+      "id": "I_kwDOEBGZx86jelWb",
+      "title": "Consistency in Terminology",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/issues/67",
+      "state": "CLOSED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "thomas-fossati"
+      ],
+      "labels": [],
+      "body": "Use RFC 5280.\r\n\r\nExample: end entity instead of end-entity",
+      "createdAt": "2024-12-16T15:30:31Z",
+      "updatedAt": "2024-12-16T20:15:36Z",
+      "closedAt": "2024-12-16T20:15:36Z",
       "comments": []
     }
   ],
@@ -4001,24 +4019,26 @@
       "id": "PR_kwDOEBGZx86EnOBH",
       "title": "many small edits to clarify client cert profile text",
       "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/66",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "mcr",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Fix #22 ",
       "createdAt": "2024-12-09T22:19:40Z",
-      "updatedAt": "2024-12-11T19:08:58Z",
+      "updatedAt": "2024-12-16T16:02:30Z",
       "baseRepository": "thomas-fossati/draft-tls13-iot",
       "baseRefName": "master",
       "baseRefOid": "70b235746881da6b691b034ea89a671c5f049162",
       "headRepository": "thomas-fossati/draft-tls13-iot",
       "headRefName": "client-cert-profile",
-      "headRefOid": "c179b34da9884f1e6a296b9eafbefcf9f471bdfe",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "e39a994098aedf02409bdd2540f88b56a89ed85d",
+      "closedAt": "2024-12-16T16:02:28Z",
+      "mergedAt": "2024-12-16T16:02:28Z",
+      "mergedBy": "hannestschofenig",
+      "mergeCommit": {
+        "oid": "4d5beb765ec02e22cd1152ac988c90285ef67d6c"
+      },
       "comments": [],
       "reviews": [
         {
@@ -4083,9 +4103,9 @@
             },
             {
               "originalPosition": 114,
-              "body": "``` suggestion\r\nEnd-entity certificates are not used in path construction, so there is no ambiguity regarding which certificate chain to use, as there can be with subordinate CAs.\r\n```",
+              "body": "``` suggestion\r\nEnd entity certificates are not used in path construction, so there is no ambiguity regarding which certificate chain to use, as there can be with subordinate CAs.\r\n```",
               "createdAt": "2024-12-09T22:57:41Z",
-              "updatedAt": "2024-12-09T23:00:32Z"
+              "updatedAt": "2024-12-16T15:59:05Z"
             },
             {
               "originalPosition": 125,
@@ -4095,9 +4115,9 @@
             },
             {
               "originalPosition": 133,
-              "body": "```suggestion\r\n  Most security requirements can be satisfied with a PKI depth of 3 (root CA, one subordinate CA, and end-entity certificates).\r\n```",
+              "body": "```suggestion\r\n  Most security requirements can be satisfied with a PKI depth of 3 (root CA, one subordinate CA, and end entity certificates).\r\n```",
               "createdAt": "2024-12-09T22:59:14Z",
-              "updatedAt": "2024-12-09T23:00:32Z"
+              "updatedAt": "2024-12-16T16:00:35Z"
             }
           ]
         },
@@ -4170,6 +4190,168 @@
               "updatedAt": "2024-12-11T19:08:59Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOEBGZx86VZsSo",
+          "commit": {
+            "abbreviatedOid": "85f5fb3"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-16T15:33:00Z",
+          "updatedAt": "2024-12-16T15:33:00Z",
+          "comments": [
+            {
+              "originalPosition": 73,
+              "body": "```suggestion\r\nMUST be set to true.\r\n```",
+              "createdAt": "2024-12-16T15:33:00Z",
+              "updatedAt": "2024-12-16T15:33:00Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOEBGZx86VZ1Ju",
+          "commit": {
+            "abbreviatedOid": "18819c3"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-16T15:45:00Z",
+          "updatedAt": "2024-12-16T15:45:00Z",
+          "comments": [
+            {
+              "originalPosition": 73,
+              "body": "```suggestion\r\nMUST be set to true and the pathLenConstraint SHOULD be omitted.\r\n```",
+              "createdAt": "2024-12-16T15:45:00Z",
+              "updatedAt": "2024-12-16T15:45:00Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOEBGZx86VZ8vS",
+          "commit": {
+            "abbreviatedOid": "e10eae5"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-16T15:56:11Z",
+          "updatedAt": "2024-12-16T15:56:11Z",
+          "comments": [
+            {
+              "originalPosition": 82,
+              "body": "However, certain IoT applications (for example, {{?I-D.ietf-anima-constrained-voucher}}, {{8021AR}}) use the subject field to encode the device serial number.",
+              "createdAt": "2024-12-16T15:56:11Z",
+              "updatedAt": "2024-12-16T15:57:25Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOEBGZx86VZ9IW",
+          "commit": {
+            "abbreviatedOid": "e10eae5"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-16T15:56:48Z",
+          "updatedAt": "2024-12-16T15:56:49Z",
+          "comments": [
+            {
+              "originalPosition": 82,
+              "body": "```suggestion\r\nHowever, certain IoT applications (for example, {{?I-D.ietf-anima-constrained-voucher}}, {{8021AR}}) use the subject field to encode the device serial number.\r\n```",
+              "createdAt": "2024-12-16T15:56:48Z",
+              "updatedAt": "2024-12-16T15:57:38Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOEBGZx86VZ_Lq",
+          "commit": {
+            "abbreviatedOid": "c488a42"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-16T16:00:08Z",
+          "updatedAt": "2024-12-16T16:00:09Z",
+          "comments": [
+            {
+              "originalPosition": 65,
+              "body": "```suggestion\r\n{{RFC5280}} reserves EKUs to be meaningful only in end entity certificates.\r\n```",
+              "createdAt": "2024-12-16T16:00:08Z",
+              "updatedAt": "2024-12-16T16:00:09Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOEBGZx86VaAfm",
+          "commit": {
+            "abbreviatedOid": "c3e229a"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-16T16:01:34Z",
+          "updatedAt": "2024-12-16T16:01:34Z",
+          "comments": [
+            {
+              "originalPosition": 52,
+              "body": "```suggestion\r\n### Subject Key Identifier\r\n```",
+              "createdAt": "2024-12-16T16:01:34Z",
+              "updatedAt": "2024-12-16T16:01:34Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 68,
+      "id": "PR_kwDOEBGZx86FYjCQ",
+      "title": "chore: use \"end entity certificate\" consistently, per RFC5280",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/68",
+      "state": "MERGED",
+      "author": "thomas-fossati",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Fix #67",
+      "createdAt": "2024-12-16T16:43:02Z",
+      "updatedAt": "2024-12-16T20:15:39Z",
+      "baseRepository": "thomas-fossati/draft-tls13-iot",
+      "baseRefName": "master",
+      "baseRefOid": "4d5beb765ec02e22cd1152ac988c90285ef67d6c",
+      "headRepository": "thomas-fossati/draft-tls13-iot",
+      "headRefName": "consistency",
+      "headRefOid": "7d32548cc8f0740d06f0180603e31f5cae2125a8",
+      "closedAt": "2024-12-16T20:15:35Z",
+      "mergedAt": "2024-12-16T20:15:35Z",
+      "mergedBy": "mcr",
+      "mergeCommit": {
+        "oid": "47d05cf2168b33b371a1e623c61f326143e477b3"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOEBGZx86VcfDa",
+          "commit": {
+            "abbreviatedOid": "7d32548"
+          },
+          "author": "mcr",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-12-16T20:15:28Z",
+          "updatedAt": "2024-12-16T20:15:28Z",
+          "comments": []
         }
       ]
     }
