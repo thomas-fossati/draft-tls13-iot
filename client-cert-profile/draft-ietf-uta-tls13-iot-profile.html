@@ -18,15 +18,15 @@ certificate profile and ciphersuite requirements.
 <meta content="draft-ietf-uta-tls13-iot-profile-latest" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.25.0
-    Python 3.12.7
+    Python 3.12.8
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
-    Jinja2 3.1.4
+    Jinja2 3.1.5
     lxml 5.3.0
     platformdirs 4.3.6
-    pycountry 22.3.5
-    PyYAML 6.0.1
+    pycountry 24.6.1
+    PyYAML 6.0.2
     requests 2.32.3
     setuptools 70.3.0
     wcwidth 0.2.13
@@ -1048,11 +1048,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">TLS/DTLS 1.3 IoT Profiles</td>
-<td class="right">December 2024</td>
+<td class="right">January 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Tschofenig, et al.</td>
-<td class="center">Expires 19 June 2025</td>
+<td class="center">Expires 10 July 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1068,12 +1068,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc7925" class="eref">7925</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-12-16" class="published">16 December 2024</time>
+<time datetime="2025-01-06" class="published">6 January 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-06-19">19 June 2025</time></dd>
+<dd class="expires"><time datetime="2025-07-10">10 July 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1125,7 +1125,7 @@ certificate profile and ciphersuite requirements.<a href="#section-abstract-1" c
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 19 June 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 10 July 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1134,7 +1134,7 @@ certificate profile and ciphersuite requirements.<a href="#section-abstract-1" c
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2024 IETF Trust and the persons identified as the
+            Copyright (c) 2025 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1263,7 +1263,7 @@ certificate profile and ciphersuite requirements.<a href="#section-abstract-1" c
                     <p id="section-toc.1-1.16.2.3.2.2.1"><a href="#section-16.3.2" class="auto internal xref">16.3.2</a>.  <a href="#name-authority-key-identifier-2" class="internal xref">Authority Key Identifier</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.16.2.3.2.3">
-                    <p id="section-toc.1-1.16.2.3.2.3.1"><a href="#section-16.3.3" class="auto internal xref">16.3.3</a>.  <a href="#name-subject-key-identifier-2" class="internal xref">Subject Key Identifier</a></p>
+                    <p id="section-toc.1-1.16.2.3.2.3.1"><a href="#section-16.3.3" class="auto internal xref">16.3.3</a>.  <a href="#name-subject-key-identifier-subo" class="internal xref">Subject Key Identifier (subordinate subjectKeyIdentifier)</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.16.2.3.2.4">
                     <p id="section-toc.1-1.16.2.3.2.4.1"><a href="#section-16.3.4" class="auto internal xref">16.3.4</a>.  <a href="#name-key-usage-2" class="internal xref">Key Usage</a></p>
@@ -1289,7 +1289,7 @@ certificate profile and ciphersuite requirements.<a href="#section-abstract-1" c
                     <p id="section-toc.1-1.16.2.4.2.2.1"><a href="#section-16.4.2" class="auto internal xref">16.4.2</a>.  <a href="#name-authority-key-identifier-3" class="internal xref">Authority Key Identifier</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.16.2.4.2.3">
-                    <p id="section-toc.1-1.16.2.4.2.3.1"><a href="#section-16.4.3" class="auto internal xref">16.4.3</a>.  <a href="#name-subject-key-identifier-3" class="internal xref">Subject Key Identifier</a></p>
+                    <p id="section-toc.1-1.16.2.4.2.3.1"><a href="#section-16.4.3" class="auto internal xref">16.4.3</a>.  <a href="#name-subject-key-identifier-2" class="internal xref">Subject Key Identifier</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.16.2.4.2.4">
                     <p id="section-toc.1-1.16.2.4.2.4.1"><a href="#section-16.4.4" class="auto internal xref">16.4.4</a>.  <a href="#name-key-usage-3" class="internal xref">Key Usage</a></p>
@@ -1758,7 +1758,7 @@ that extends the capabilities offered by a raw public key approach.<a href="#sec
           <h4 id="name-subject-public-key-info">
 <a href="#section-16.1.6" class="section-number selfRef">16.1.6. </a><a href="#name-subject-public-key-info" class="section-name selfRef">Subject Public Key Info</a>
           </h4>
-<p id="section-16.1.6-1">The subjectPublicKeyInfo field indicates the algorithm and any associated
+<p id="section-16.1.6-1">The subjectPublicKeyInfo structure indicates the algorithm and any associated
 parameters for the ECC public key. This profile uses the id-ecPublicKey
 algorithm identifier for ECDSA signature keys, as defined and specified in
 <span>[<a href="#RFC5480" class="cite xref">RFC5480</a>]</span>. This specification assumes that devices supported one of the
@@ -1854,13 +1854,13 @@ marked critical, and MUST contain the subjectKeyIdentifier of this certificate.<
           <h4 id="name-subject-key-identifier">
 <a href="#section-16.2.3" class="section-number selfRef">16.2.3. </a><a href="#name-subject-key-identifier" class="section-name selfRef">Subject Key Identifier</a>
           </h4>
-<p id="section-16.2.3-1"><span><a href="https://rfc-editor.org/rfc/rfc5280#section-4.2.1.2" class="relref">Section 4.2.1.2</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> defines the SubjectKeyIdentifier as follows:
+<p id="section-16.2.3-1">Section 4.2.1.2 of <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> defines the subjectKeyIdentifier as follows:
 "The subject key identifier extension provides a means of identifying
 certificates that contain a particular public key."<a href="#section-16.2.3-1" class="pilcrow">¶</a></p>
 <p id="section-16.2.3-2">The Subject Key Identifier extension MUST be set, MUST NOT be marked critical, and MUST
 contain the key identifier of the public key contained in the subject public key
 info field.<a href="#section-16.2.3-2" class="pilcrow">¶</a></p>
-<p id="section-16.2.3-3">The subjectKeyIdentifier is used by path construction algorithms to identify which CA has signed a subordinate certificate.<a href="#section-16.2.3-3" class="pilcrow">¶</a></p>
+<p id="section-16.2.3-3">The subjectKeyIdentifier is used by path construction algorithms to identify which identity has signed a subordinate certificate.<a href="#section-16.2.3-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="key-usage">
@@ -1941,10 +1941,10 @@ and the countryName attribute and MAY contain an organizationalUnitName attribut
 MUST contain the subjectKeyIdentifier of the CA that issued this certificate.<a href="#section-16.3.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="subject-key-identifier-1">
+<div id="subject-key-identifier-subordinate-subjectkeyidentifier">
 <section id="section-16.3.3">
-          <h4 id="name-subject-key-identifier-2">
-<a href="#section-16.3.3" class="section-number selfRef">16.3.3. </a><a href="#name-subject-key-identifier-2" class="section-name selfRef">Subject Key Identifier</a>
+          <h4 id="name-subject-key-identifier-subo">
+<a href="#section-16.3.3" class="section-number selfRef">16.3.3. </a><a href="#name-subject-key-identifier-subo" class="section-name selfRef">Subject Key Identifier (subordinate subjectKeyIdentifier)</a>
           </h4>
 <p id="section-16.3.3-1">The Subject Key Identifier extension MUST be set, MUST NOT be marked critical, and MUST
 contain the key identifier of the public key contained in the subject public key info
@@ -1959,7 +1959,7 @@ field.<a href="#section-16.3.3-1" class="pilcrow">¶</a></p>
 <p id="section-16.3.4-1">The Key Usage extension MUST be set, MUST be marked critical, the keyCertSign or
 cRLSign purposes MUST be set, and the digitalSignature purpose SHOULD be set.<a href="#section-16.3.4-1" class="pilcrow">¶</a></p>
 <p id="section-16.3.4-2">Subordinate certification authorities SHOULD NOT have any extendedKeyUsage.
-<span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> reserves EKUs to be meaningful only in end entity certificates.<a href="#section-16.3.4-2" class="pilcrow">¶</a></p>
+<span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> reserves EKUs to be meaningful only in End Entity certificates.<a href="#section-16.3.4-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="basic-constraints-1">
@@ -1968,7 +1968,7 @@ cRLSign purposes MUST be set, and the digitalSignature purpose SHOULD be set.<a 
 <a href="#section-16.3.5" class="section-number selfRef">16.3.5. </a><a href="#name-basic-constraints-2" class="section-name selfRef">Basic Constraints</a>
           </h4>
 <p id="section-16.3.5-1">The Basic Constraints extension MUST be set, MUST be marked critical, the cA flag
-MUST be set to true and the pathLenConstraint SHOULD be omitted.<a href="#section-16.3.5-1" class="pilcrow">¶</a></p>
+MUST be set to true and the pathLenConstraint MUST, if present, be set to 0.<a href="#section-16.3.5-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="crl-distribution-point">
@@ -2005,8 +2005,8 @@ status service (OCSP).<a href="#section-16.3.7-1" class="pilcrow">¶</a></p>
 <a href="#section-16.4.1" class="section-number selfRef">16.4.1. </a><a href="#name-subject-3" class="section-name selfRef">Subject</a>
           </h4>
 <p id="section-16.4.1-1"><span>[<a href="#RFC9525" class="cite xref">RFC9525</a>], <a href="https://rfc-editor.org/rfc/rfc9525#section-2" class="relref">Section 2</a></span> mandates that the subject field not be used to identify a service.
-However, certain IoT applications (for example, <span>[<a href="#I-D.ietf-anima-constrained-voucher" class="cite xref">I-D.ietf-anima-constrained-voucher</a>]</span>, <span>[<a href="#_8021AR" class="cite xref">_8021AR</a>]</span>) use the subject field to encode the device serial number.<a href="#section-16.4.1-1" class="pilcrow">¶</a></p>
-<p id="section-16.4.1-2">The requirement in <span><a href="https://rfc-editor.org/rfc/rfc7925#section-4.4.2" class="relref">Section 4.4.2</a> of [<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> to only use EUI-64 for end
+For IoT purposes, an empty subject field avoids significant confusion for End Entity certificates.<a href="#section-16.4.1-1" class="pilcrow">¶</a></p>
+<p id="section-16.4.1-2">The requirement in Section 4.4.2 of <span>[<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> to only use EUI-64 for end
 entity certificates as a subject field is lifted.<a href="#section-16.4.1-2" class="pilcrow">¶</a></p>
 <p id="section-16.4.1-3">Two fields are typically used to encode a device identifer, namely the
 Subject and the subjectAltName fields. Protocol specifications tend to offer
@@ -2020,17 +2020,14 @@ to be bound to the subject of the certificate. These identities may be included
 in addition to or in place of the identity in the subject field of the certificate."<a href="#section-16.4.1-5" class="pilcrow">¶</a></p>
 <p id="section-16.4.1-6">The subject alternative name extension MAY be set. If it is set, it MUST NOT be
 marked critical, except when the subject DN contains an empty sequence.<a href="#section-16.4.1-6" class="pilcrow">¶</a></p>
-<p id="section-16.4.1-7">If the EUI-64 format is used to identify the subject of an end entity
-certificate, it MUST be encoded in a subjectAltName of type DNS-ID as a string
+<p id="section-16.4.1-7">Per <span>[<a href="#RFC9525" class="cite xref">RFC9525</a>]</span>, when an end-entity certificate is used to respond to TLS connections (as a server), then in order to comply with formats valid for the SNI <span>[<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>, the use of a dNSName format for the SubjectAltName is required.<a href="#section-16.4.1-7" class="pilcrow">¶</a></p>
+<p id="section-16.4.1-8">When the server identity is given by an EUI-64 format, then it MUST be encoded in a subjectAltName of type DNS-ID <span>[<a href="#RFC9525" class="cite xref">RFC9525</a>], <a href="https://rfc-editor.org/rfc/rfc9525#section-1.5" class="relref">Section 1.5</a></span>, as a string
 of the form <code>HH-HH-HH-HH-HH-HH-HH-HH</code> where 'H' is one of the symbols '0'-'9'
-or 'A'-'F'.<a href="#section-16.4.1-7" class="pilcrow">¶</a></p>
-<p id="section-16.4.1-8">Per <span>[<a href="#RFC9525" class="cite xref">RFC9525</a>]</span> Domain names MUST NOT be encoded in the subject commonName. Instead they
-MUST be encoded in a subjectAltName of type DNS-ID. Domain names MUST NOT
-contain wildcard (<code>*</code>) characters. The subjectAltName MUST NOT contain multiple
-names.<a href="#section-16.4.1-8" class="pilcrow">¶</a></p>
-<p id="section-16.4.1-9">Note: The IEEE 802.1AR recomments to encode information about a Trusted
+or 'A'-'F'.<a href="#section-16.4.1-8" class="pilcrow">¶</a></p>
+<p id="section-16.4.1-9">Domain names MUST NOT contain wildcard (<code>*</code>) characters. The subjectAltName  MUST NOT contain multiple names.<a href="#section-16.4.1-9" class="pilcrow">¶</a></p>
+<p id="section-16.4.1-10">Note: The IEEE 802.1AR recomments to encode information about a Trusted
 Platform Module (TPM), if present, in the HardwareModuleName. This
-specification does not follow this recommendation.<a href="#section-16.4.1-9" class="pilcrow">¶</a></p>
+specification does not follow this recommendation.<a href="#section-16.4.1-10" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authority-key-identifier-2">
@@ -2042,13 +2039,13 @@ specification does not follow this recommendation.<a href="#section-16.4.1-9" cl
 and MUST contain the subjectKeyIdentifier of the CA that issued this certificate.<a href="#section-16.4.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="subject-key-identifier-2">
+<div id="subject-key-identifier-1">
 <section id="section-16.4.3">
-          <h4 id="name-subject-key-identifier-3">
-<a href="#section-16.4.3" class="section-number selfRef">16.4.3. </a><a href="#name-subject-key-identifier-3" class="section-name selfRef">Subject Key Identifier</a>
+          <h4 id="name-subject-key-identifier-2">
+<a href="#section-16.4.3" class="section-number selfRef">16.4.3. </a><a href="#name-subject-key-identifier-2" class="section-name selfRef">Subject Key Identifier</a>
           </h4>
 <p id="section-16.4.3-1">The Subject Key Identifier MUST NOT be included in end-entity certificates, as it can be calculated from the public key, so it just takes up space.
-End entity certificates are not used in path construction, so there is no ambiguity regarding which certificate chain to use, as there can be with subordinate CAs.<a href="#section-16.4.3-1" class="pilcrow">¶</a></p>
+End Entity certificates are not used in path construction, so there is no ambiguity in which certificate chain to use, as there can be with subordinate CAs.<a href="#section-16.4.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="key-usage-2">
@@ -2065,8 +2062,8 @@ delivery of the private key is required. In such cases the key usage
 keyEncipherment or keyAgreement MUST be set because the encrypted delivery
 of the newly generated key involves encryption or agreement of a symmetric
 key. On-device key generation is, however, the preferred approach.<a href="#section-16.4.4-2" class="pilcrow">¶</a></p>
-<p id="section-16.4.4-3">In IDevID certificates, the extendedKeyUsage SHOULD NOT be present, as it reduces the utility of the IDevID.
-In locally assigned LDevID certificates, the extendedKeyUsage, if present, MUST contain at least one of id-kp-serverAuth or id-kp-clientAuth in order to be useable with TLS.<a href="#section-16.4.4-3" class="pilcrow">¶</a></p>
+<p id="section-16.4.4-3">On IDevID certificates, the extendedKeyUsage SHOULD NOT be present, as it reduces the utility of the IDevID.
+On locally assigned LDevID certificates, the extendedKeyUsage, if present MUST contain at least one of id-kp-serverAuth or id-kp-clientAuth in order to be useable with TLS.<a href="#section-16.4.4-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2100,7 +2097,7 @@ curve cryptography only.<a href="#section-17-3.1.1" class="pilcrow">¶</a></p>
 certificates that need to be transmitted and processed. See
 <span>[<a href="#I-D.irtf-t2trg-taxonomy-manufacturer-anchors" class="cite xref">I-D.irtf-t2trg-taxonomy-manufacturer-anchors</a>]</span> for a discussion about CA
 hierarchies.
-Most security requirements can be satisfied with a PKI depth of 3 (root CA, one subordinate CA, and end entity certificates).<a href="#section-17-3.2.1" class="pilcrow">¶</a></p>
+Most security requirements can be satisfied with a PKI depth of 3 (root CA, 1 subordinate CA, and End-Entity certificates).<a href="#section-17-3.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="compact" id="section-17-3.3">
           <p id="section-17-3.3.1">Pay attention to the amount of information conveyed inside certificates.<a href="#section-17-3.3.1" class="pilcrow">¶</a></p>
@@ -2366,10 +2363,6 @@ determinism, for example, as described in
         <dd>
 <span class="refAuthor">FIDO Alliance</span>, <span class="refTitle">"FIDO Device Onboard Specification 1.1"</span>, <time datetime="2022-04" class="refDate">April 2022</time>, <span>&lt;<a href="https://fidoalliance.org/specifications/download-iot-specifications/">https://fidoalliance.org/specifications/download-iot-specifications/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="I-D.ietf-anima-constrained-voucher">[I-D.ietf-anima-constrained-voucher]</dt>
-        <dd>
-<span class="refAuthor">Richardson, M.</span>, <span class="refAuthor">Van der Stok, P.</span>, <span class="refAuthor">Kampanakis, P.</span>, and <span class="refAuthor">E. Dijk</span>, <span class="refTitle">"Constrained Bootstrapping Remote Secure Key Infrastructure (cBRSKI)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-anima-constrained-voucher-25</span>, <time datetime="2024-07-08" class="refDate">8 July 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-anima-constrained-voucher-25">https://datatracker.ietf.org/doc/html/draft-ietf-anima-constrained-voucher-25</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="I-D.ietf-cose-cbor-encoded-cert">[I-D.ietf-cose-cbor-encoded-cert]</dt>
         <dd>
 <span class="refAuthor">Mattsson, J. P.</span>, <span class="refAuthor">Selander, G.</span>, <span class="refAuthor">Raza, S.</span>, <span class="refAuthor">Höglund, J.</span>, and <span class="refAuthor">M. Furuhed</span>, <span class="refTitle">"CBOR Encoded X.509 Certificates (C509 Certificates)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-cbor-encoded-cert-11</span>, <time datetime="2024-07-08" class="refDate">8 July 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-11">https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-11</a>&gt;</span>. </dd>
@@ -2408,7 +2401,7 @@ determinism, for example, as described in
 <dd class="break"></dd>
 <dt id="I-D.irtf-t2trg-taxonomy-manufacturer-anchors">[I-D.irtf-t2trg-taxonomy-manufacturer-anchors]</dt>
         <dd>
-<span class="refAuthor">Richardson, M.</span>, <span class="refTitle">"A Taxonomy of operational security considerations for manufacturer installed keys and Trust Anchors"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-t2trg-taxonomy-manufacturer-anchors-04</span>, <time datetime="2024-08-26" class="refDate">26 August 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-t2trg-taxonomy-manufacturer-anchors-04">https://datatracker.ietf.org/doc/html/draft-irtf-t2trg-taxonomy-manufacturer-anchors-04</a>&gt;</span>. </dd>
+<span class="refAuthor">Richardson, M.</span>, <span class="refTitle">"A Taxonomy of operational security considerations for manufacturer installed keys and Trust Anchors"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-t2trg-taxonomy-manufacturer-anchors-05</span>, <time datetime="2025-01-02" class="refDate">2 January 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-t2trg-taxonomy-manufacturer-anchors-05">https://datatracker.ietf.org/doc/html/draft-irtf-t2trg-taxonomy-manufacturer-anchors-05</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="LwM2M">[LwM2M]</dt>
         <dd>
