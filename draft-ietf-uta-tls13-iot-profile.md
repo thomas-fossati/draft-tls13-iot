@@ -270,7 +270,15 @@ gmt_unix_time component anymore.
 # Server Name Indication
 
 This specification mandates the implementation of the Server Name Indication (SNI)
-extension. Where privacy requirements require it, the ECH (Encrypted Client Hello)
+extension on clients.
+Whenever there is a client to server connection where the server has been identified by a DNS name, then a SNI extension MUST be present.
+
+Where IoT devices are accepting (D)TLS connections, it is unlikely that there will be a useful name that can go into the SNI.
+The IoT device can not depend upon the SNI being correct, and so it must ignore the extension.
+This implies that IoT devices can not do name-based virtual hosting of TLS connections.
+In the unlikely even that an IoT device must have multiple servers responding with different server certificate, then IP or port-based distinctions will be needed.
+
+Where privacy requirements require it, the ECH (Encrypted Client Hello)
 extension {{?I-D.ietf-tls-esni}} prevents an on-path attacker to determine the domain
 name the client is trying to connect to.
 
@@ -638,11 +646,9 @@ The subject alternative name extension MAY be set. If it is set, it MUST NOT be
 marked critical, except when the subject DN contains an empty sequence.
 
 If the EUI-64 format is used to identify the subject of an end entity
-certificate, it MUST be encoded in a subjectAltName of type DNS-ID as a string
-of the form `HH-HH-HH-HH-HH-HH-HH-HH` where 'H' is one of the symbols '0'-'9'
-or 'A'-'F'.
+certificate, it MUST be encoded as a Subject DN using the X520SerialNumber attribute.  The contents of the field is a string of the form `HH-HH-HH-HH-HH-HH-HH-HH` where 'H' is one of the symbols '0'-'9' or 'A'-'F'.
 
-Per {{!RFC9525}} Domain names MUST NOT be encoded in the subject commonName. Instead they
+Per {{!RFC9525}} domain names MUST NOT be encoded in the subject commonName. Instead they
 MUST be encoded in a subjectAltName of type DNS-ID. Domain names MUST NOT
 contain wildcard (`*`) characters. The subjectAltName MUST NOT contain multiple
 names.
