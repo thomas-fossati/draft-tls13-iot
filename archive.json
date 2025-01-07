@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-05T01:04:28.797073+00:00",
+  "timestamp": "2025-01-07T00:59:56.868860+00:00",
   "repo": "thomas-fossati/draft-tls13-iot",
   "labels": [
     {
@@ -1002,9 +1002,45 @@
       "labels": [],
       "body": "````\r\nIf the EUI-64 format is used to identify the subject of an end entity\r\ncertificate, it MUST be encoded in a subjectAltName of type DNS-ID as a string\r\nof the form `HH-HH-HH-HH-HH-HH-HH-HH` where 'H' is one of the symbols '0'-'9'\r\nor 'A'-'F'.\r\n````\r\n\r\nthis seems really odd.  I was looking for a SN, or SAN that would encode EUI64, and I feel surprised not to find one.\r\n",
       "createdAt": "2024-12-03T14:41:28Z",
-      "updatedAt": "2024-12-03T14:41:28Z",
+      "updatedAt": "2025-01-06T21:01:07Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "body": "This seems to come from [RFC7925 \u00a74.4.2](https://datatracker.ietf.org/doc/html/rfc7925#section-4.4.2). Note that the requirement for DNS-compatibility is in order to support SNI for server EE certs.",
+          "createdAt": "2025-01-06T15:19:18Z",
+          "updatedAt": "2025-01-06T15:19:43Z"
+        },
+        {
+          "author": "mcr",
+          "authorAssociation": "COLLABORATOR",
+          "body": "It seems that we have put a bad constraint on dNSName here.\r\nIt is required in order to satisfy SNI encoding.  This would occur only when the following things are *ALL* true:\r\n\r\n1. the IoT device is acting as a (D)TLS endpoint. {such as CoAPS!}\r\n2. the IoT device is using EUI-64 as it's identity (vs having an LDevID assigned)\r\n3. there are more than one (D)TLS endpoint on the device, making an accurate SNI important\r\n\r\n(3) seems very suspect.\r\n",
+          "createdAt": "2025-01-06T15:58:42Z",
+          "updatedAt": "2025-01-06T15:59:51Z"
+        },
+        {
+          "author": "richsalz",
+          "authorAssociation": "NONE",
+          "body": "@thomas-fossati that reference to RFC 7925 says to put it in the CN, *not* the SAN.  This is a really bad idea.  It's not a hostname, do not try to make it look like one.  Define a URI scheme and use that in the SAN entry.\r\n",
+          "createdAt": "2025-01-06T19:49:15Z",
+          "updatedAt": "2025-01-06T19:49:15Z"
+        },
+        {
+          "author": "mcr",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> @thomas-fossati that reference to RFC 7925 says to put it in the CN, _not_ the SAN. This is a really bad idea. It's not a hostname, do not try to make it look like one. Define a URI scheme and use that in the SAN entry.\r\n\r\nfair enough suggestion as to where to put it.  URI scheme or otherName, I don't care that much.\r\nBut neither fits into SNI.",
+          "createdAt": "2025-01-06T20:08:06Z",
+          "updatedAt": "2025-01-06T20:08:06Z"
+        },
+        {
+          "author": "richsalz",
+          "authorAssociation": "NONE",
+          "body": "Technically RFC 6066 has an escape hatch, this sentence near the top of page 7: \"TLS MAY treat provided server names as opaque data and pass the names and types to the application.\" Although the following sentences say that it should be a FQDN, they don't use 2119 MUST, etc., language.",
+          "createdAt": "2025-01-06T21:01:06Z",
+          "updatedAt": "2025-01-06T21:01:06Z"
+        }
+      ]
     },
     {
       "number": 67,
@@ -4354,6 +4390,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 69,
+      "id": "PR_kwDOEBGZx86G1cmg",
+      "title": "rewrite EUI-64 format, explaining why dNSName",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/69",
+      "state": "OPEN",
+      "author": "mcr",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-01-06T15:24:48Z",
+      "updatedAt": "2025-01-06T15:24:48Z",
+      "baseRepository": "thomas-fossati/draft-tls13-iot",
+      "baseRefName": "master",
+      "baseRefOid": "e05202b21c45c12f09f7716a6b8ca0f6f8aede31",
+      "headRepository": "thomas-fossati/draft-tls13-iot",
+      "headRefName": "client-cert-profile",
+      "headRefOid": "38165fb4d19227bd289044e32b6b320a58eb185f",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
