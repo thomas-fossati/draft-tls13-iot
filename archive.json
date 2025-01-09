@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-07T00:59:56.868860+00:00",
+  "timestamp": "2025-01-09T00:59:20.614102+00:00",
   "repo": "thomas-fossati/draft-tls13-iot",
   "labels": [
     {
@@ -1002,7 +1002,7 @@
       "labels": [],
       "body": "````\r\nIf the EUI-64 format is used to identify the subject of an end entity\r\ncertificate, it MUST be encoded in a subjectAltName of type DNS-ID as a string\r\nof the form `HH-HH-HH-HH-HH-HH-HH-HH` where 'H' is one of the symbols '0'-'9'\r\nor 'A'-'F'.\r\n````\r\n\r\nthis seems really odd.  I was looking for a SN, or SAN that would encode EUI64, and I feel surprised not to find one.\r\n",
       "createdAt": "2024-12-03T14:41:28Z",
-      "updatedAt": "2025-01-06T21:01:07Z",
+      "updatedAt": "2025-01-07T20:13:07Z",
       "closedAt": null,
       "comments": [
         {
@@ -1039,6 +1039,97 @@
           "body": "Technically RFC 6066 has an escape hatch, this sentence near the top of page 7: \"TLS MAY treat provided server names as opaque data and pass the names and types to the application.\" Although the following sentences say that it should be a FQDN, they don't use 2119 MUST, etc., language.",
           "createdAt": "2025-01-06T21:01:06Z",
           "updatedAt": "2025-01-06T21:01:06Z"
+        },
+        {
+          "author": "boaks",
+          "authorAssociation": "NONE",
+          "body": "I'm little mixed up.\r\n\r\nThere are two points mentions the SAN in x509  and the SNI, both are related, but my feeling is, that we should be clear on the usage.\r\n\r\nA device certificate will mainly be used by a DTLS client to authenticate itself, right?\r\nOr do we assume a DTLS role exchange, where the device acts as DTLS server?\r\n\r\nIf the device acts as DTLS client, then I hardly see the relation to SNI (as that name already implies, this is about the server's name).\r\n\r\nSo, before continue, please clarify, if it's considered, that a device acts as DTLS server.\r\n\r\nEdited:\r\nI guess, the main topic is [RFC 7925, 4.4.1 Certificates Used by Servers](https://datatracker.ietf.org/doc/html/rfc7925#section-4.4.1). That addresses the requirement, that a DTLS server (running on a device) may not necessarily be identified by it's (temporary) ip-address nor does it have a DNS name assigned. For that case \r\n\r\n\"When such constrained servers are used, then the use of certificates as described in [Section 4.4.2](https://datatracker.ietf.org/doc/html/rfc7925#section-4.4.2) is applicable. Note that the SNI extension cannot be used in this case since SNI does not offer the ability to convey a 64-bit Extended Unique Identifier (EUI-64).\" \r\n\r\nBut with that I'm struggling to see the issues. It explicitly states, not to use SNI. ",
+          "createdAt": "2025-01-07T07:41:53Z",
+          "updatedAt": "2025-01-07T08:12:09Z"
+        },
+        {
+          "author": "boaks",
+          "authorAssociation": "NONE",
+          "body": ">  I was looking for a SN, or SAN that would encode EUI64, and I feel surprised not to find one.\r\n\r\nI may be wrong, but RFC 7925 is intended to show to use what is \"already specified\" rather then introduce \"new specifications\".\r\nIf SAN doesn't support EUI64, then that's a issue of that, but not of RFC 7925.\r\n ",
+          "createdAt": "2025-01-07T08:15:35Z",
+          "updatedAt": "2025-01-07T08:15:35Z"
+        },
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "body": "> @thomas-fossati that reference to RFC 7925 says to put it in the CN, _not_ the SAN.\r\n\r\nRich, I'm not sure I'm getting your point.  The referenced text says to put it in the CN _or_ the SAN: _\"For client certificates, the identifier used in the **SubjectAltName** or in the **leftmost CN component** of subject name MUST be an EUI-64.\"_\r\n\r\n> This is a really bad idea. It's not a hostname, do not try to make it look like one. Define a URI scheme and use that in the SAN entry.\r\n\r\nYes, it looks bad.  However, (likely due to a lack of imagination) it's the only solution we could devise to work around the SNI limitation.",
+          "createdAt": "2025-01-07T09:29:10Z",
+          "updatedAt": "2025-01-07T09:29:10Z"
+        },
+        {
+          "author": "boaks",
+          "authorAssociation": "NONE",
+          "body": "FMPOV, there are different assumption applied to client- and server-certificates.\r\nI guess, the intention of this convention is to use it mainly for client-certificates.\r\nIf used for server-certificates, then this will only be the case in iot-specific use-cases.",
+          "createdAt": "2025-01-07T09:56:32Z",
+          "updatedAt": "2025-01-07T09:56:32Z"
+        },
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "body": "> If used for server-certificates, then this will only be the case in iot-specific use-cases.\r\n\r\nYes, this is scoped to EE certs issued to IoT (D)TLS servers.\r\n",
+          "createdAt": "2025-01-07T10:08:27Z",
+          "updatedAt": "2025-01-07T10:08:27Z"
+        },
+        {
+          "author": "boaks",
+          "authorAssociation": "NONE",
+          "body": "> Yes, this is scoped to EE certs issued to IoT (D)TLS servers.\r\n\r\nIf so, will RFC 7925\r\n\r\n\"Note that the SNI extension cannot be used in this case since SNI does not offer the ability to convey a 64-bit Extended Unique Identifier (EUI-64).\" \r\n\r\nstill apply for \"draft-tls13-iot\"?\r\n ",
+          "createdAt": "2025-01-07T10:50:16Z",
+          "updatedAt": "2025-01-07T10:50:16Z"
+        },
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "body": "> > Yes, this is scoped to EE certs issued to IoT (D)TLS servers.\r\n> \r\n> If so, will RFC 7925\r\n> \r\n> \"Note that the SNI extension cannot be used in this case since SNI does not offer the ability to convey a 64-bit Extended Unique Identifier (EUI-64).\"\r\n> \r\n> still apply for \"draft-tls13-iot\"?\r\n\r\nIt looks like this would be one of the \"updates\" to 7925 -- depending, of course, on how this conversation ends :-)",
+          "createdAt": "2025-01-07T10:58:57Z",
+          "updatedAt": "2025-01-07T10:58:57Z"
+        },
+        {
+          "author": "boaks",
+          "authorAssociation": "NONE",
+          "body": "OK, I understand.\r\n\r\nSo it seems to be the question, \r\nif (even if I don't know, who will work on that) EUI64 should be supported directly in x509 and SNI is then still not to be used. \r\nOr if the approach is to \"encode\" the EUI64 in a way, that SNI has a chance.\r\n\r\nMy 2 cents:\r\nThe D2D use-case is pretty rare ... maybe it gets more used in the future \r\n(but at least the last request for D2D, which reached me last week, then turned out to use a \"broker\").\r\nI'm not sure, if such a setup will use x509 anyway.\r\nTherefore I guess, it will not get the attention required to add EUI64 to x509.\r\nAnd also therefore, I'm not sure, if using then SNI pays-off, at least in the sense of \"interoperable out-of-the-box\" ;-).\r\n",
+          "createdAt": "2025-01-07T11:07:48Z",
+          "updatedAt": "2025-01-07T11:07:48Z"
+        },
+        {
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "body": "@boaks thanks a lot for your input.",
+          "createdAt": "2025-01-07T11:34:29Z",
+          "updatedAt": "2025-01-07T11:34:29Z"
+        },
+        {
+          "author": "richsalz",
+          "authorAssociation": "NONE",
+          "body": "If you put it in the CN component, I have no concerns. If you say \"put it in the SAN field as a dNSName\" I am bothered by that. I hope you make it clear that the CN is the only place to put it.  (In fact, that makes the 9525 case stronger, which says that the CN field has no typing associated with it :)\r\n\r\nI do not care about the SNI value in the TLS handshake.\r\n",
+          "createdAt": "2025-01-07T13:48:42Z",
+          "updatedAt": "2025-01-07T13:48:42Z"
+        },
+        {
+          "author": "primetomas",
+          "authorAssociation": "NONE",
+          "body": "> **leftmost CN component**\r\n\r\nWhat does letfmost CN component refer to? The Subject DN is an ASN.1 sequence so there is nothing leftmost in a subjectDN. Depending on order of DN components is a bad practice and should be avoided, different tools may print it in different order. If you want to use the CN I would specify that the CN must be a specific value, and there must be only one.",
+          "createdAt": "2025-01-07T15:30:24Z",
+          "updatedAt": "2025-01-07T15:30:24Z"
+        },
+        {
+          "author": "mcr",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@Achim asked about what is going on client vs server.\nThe answer is subtle, and he really got the entire client authentication\nstorey.  No, there is no turn around client/server, but rather one can have\ninteractions which are device to device (one a client, one a server), and\nalso have device to cloud interactions (the device a client, the cloud a\nserver).\n\nWhile I guess SNI has that escape hatch which lets us put non-DNS things into\nthe SNI.  This lets the server pick the right keypair to respond with.\nThe problem is then, having picked a certificate, the client has to validate\nthat it got a reasonable certificate.  9525 says we do DNS-ID checks only on\nthe SAN, so we wind up putting junk into the SAN.\n\nMy answer is: don't use (have server ignore) SNI for device to device.\n",
+          "createdAt": "2025-01-07T19:48:30Z",
+          "updatedAt": "2025-01-07T19:48:30Z"
+        },
+        {
+          "author": "boaks",
+          "authorAssociation": "NONE",
+          "body": "@mcr \r\n\r\n\"@boaks\" and \"@achim\" are the same person ;-).\r\n\r\n> My answer is: don't use (have server ignore) SNI for device to device.\r\n\r\nOK, that answer about SNI I do understand.\r\n\r\nBut I still don't get your intention about the EUI64 and certificates.\r\n\r\nMy question from the mailing list:\r\n\r\n> So, please:\r\n> Is it about direct EUI64 support in x509?\r\n> Or about omit EUI64 in device certificates? ",
+          "createdAt": "2025-01-07T20:13:06Z",
+          "updatedAt": "2025-01-07T20:13:06Z"
         }
       ]
     },
@@ -4416,6 +4507,53 @@
       "mergeCommit": null,
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 70,
+      "id": "PR_kwDOEBGZx86G-1In",
+      "title": "put EUI-64 into X520SerialNumber, and note that SNI-based virtual hos\u2026",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/70",
+      "state": "OPEN",
+      "author": "mcr",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "put EUI-64 into X520SerialNumber, and note that SNI-based virtual hosting on IoT servers does not work\r\nclose #65 ",
+      "createdAt": "2025-01-07T20:12:48Z",
+      "updatedAt": "2025-01-07T20:21:18Z",
+      "baseRepository": "thomas-fossati/draft-tls13-iot",
+      "baseRefName": "master",
+      "baseRefOid": "e05202b21c45c12f09f7716a6b8ca0f6f8aede31",
+      "headRepository": "thomas-fossati/draft-tls13-iot",
+      "headRefName": "eui-64-identities",
+      "headRefOid": "15cd08b8180b854ccefa174aba9c134b40c3b4dd",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOEBGZx86XHXqF",
+          "commit": {
+            "abbreviatedOid": "15cd08b"
+          },
+          "author": "boaks",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-07T20:21:18Z",
+          "updatedAt": "2025-01-07T20:21:18Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "AFAIK not all (d)tls implementations supports the SNI extension. \r\nSo a MUST may be critical. If the MUST is really the intention, then it will require a definition, what the server should then do, if the client sends no SNI extension.",
+              "createdAt": "2025-01-07T20:21:18Z",
+              "updatedAt": "2025-01-07T20:21:18Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
