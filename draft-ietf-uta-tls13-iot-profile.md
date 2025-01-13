@@ -638,11 +638,11 @@ The subject alternative name extension MAY be set. If it is set, it MUST NOT be
 marked critical, except when the subject DN contains an empty sequence.
 
 If the EUI-64 format is used to identify the subject of an end entity
-certificate, it MUST be encoded in a subjectAltName of type DNS-ID as a string
-of the form `HH-HH-HH-HH-HH-HH-HH-HH` where 'H' is one of the symbols '0'-'9'
-or 'A'-'F'.
+certificate, it MUST be encoded as a Subject DN using the X520SerialNumber
+attribute.  The contents of the field is a string of the form `HH-HH-HH-HH-HH-HH-HH-HH`
+where 'H' is one of the symbols '0'-'9' or 'A'-'F'.
 
-Per {{!RFC9525}} Domain names MUST NOT be encoded in the subject commonName. Instead they
+Per {{!RFC9525}} domain names MUST NOT be encoded in the subject commonName. Instead they
 MUST be encoded in a subjectAltName of type DNS-ID. Domain names MUST NOT
 contain wildcard (`*`) characters. The subjectAltName MUST NOT contain multiple
 names.
