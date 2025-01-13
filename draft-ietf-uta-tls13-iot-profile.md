@@ -637,13 +637,13 @@ in addition to or in place of the identity in the subject field of the certifica
 The subject alternative name extension MAY be set. If it is set, it MUST NOT be
 marked critical, except when the subject DN contains an empty sequence.
 
-Per {{!RFC9525}}, when an end-entity certificate is used to respond to TLS connections (as a server), then in order to comply with formats valid for the SNI {{RFC8446}}, the use of a dNSName format for the SubjectAltName is required.
+According to {{!RFC9525}}, when an end-entity certificate is used to respond to TLS connections as a server, it must include a dNSName in the SubjectAltName extension to comply with the Server Name Indication (SNI) format defined in {{RFC8446}}.
 
 When the server identity is given by an EUI-64 format, then it MUST be encoded in a subjectAltName of type DNS-ID {{RFC9525, Section 1.5}}, as a string
 of the form `HH-HH-HH-HH-HH-HH-HH-HH` where 'H' is one of the symbols '0'-'9'
 or 'A'-'F'.
 
-Domain names MUST NOT contain wildcard (`*`) characters. The subjectAltName  MUST NOT contain multiple names.
+Domain names MUST NOT contain wildcard ('*') characters. The subjectAltName MUST NOT contain multiple names.
 
 Note: The IEEE 802.1AR recomments to encode information about a Trusted
 Platform Module (TPM), if present, in the HardwareModuleName. This
