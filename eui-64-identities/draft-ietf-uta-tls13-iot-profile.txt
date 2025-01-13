@@ -6,9 +6,9 @@ UTA                                                        H. Tschofenig
 Internet-Draft                                                     H-BRS
 Updates: 7925 (if approved)                                   T. Fossati
 Intended status: Standards Track                                  Linaro
-Expires: 11 July 2025                                      M. Richardson
+Expires: 17 July 2025                                      M. Richardson
                                                 Sandelman Software Works
-                                                          7 January 2025
+                                                         13 January 2025
 
 
             TLS/DTLS 1.3 Profiles for the Internet of Things
@@ -43,7 +43,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 11 July 2025.
+   This Internet-Draft will expire on 17 July 2025.
 
 Copyright Notice
 
@@ -367,7 +367,7 @@ Table of Contents
    that there will be a useful name that can go into the SNI.  The IoT
    device can not depend upon the SNI being correct, and so it must
    ignore the extension.  This implies that IoT devices can not do name-
-   based virtual hosting of TLS connections.  In the unlikely even that
+   based virtual hosting of TLS connections.  In the unlikely event that
    an IoT device must have multiple servers responding with different
    server certificate, then IP or port-based distinctions will be
    needed.
@@ -1097,17 +1097,17 @@ Table of Contents
               Richardson, M., Van der Stok, P., Kampanakis, P., and E.
               Dijk, "Constrained Bootstrapping Remote Secure Key
               Infrastructure (cBRSKI)", Work in Progress, Internet-
-              Draft, draft-ietf-anima-constrained-voucher-25, 8 July
-              2024, <https://datatracker.ietf.org/doc/html/draft-ietf-
-              anima-constrained-voucher-25>.
+              Draft, draft-ietf-anima-constrained-voucher-26, 8 January
+              2025, <https://datatracker.ietf.org/doc/html/draft-ietf-
+              anima-constrained-voucher-26>.
 
    [I-D.ietf-cose-cbor-encoded-cert]
               Mattsson, J. P., Selander, G., Raza, S., Höglund, J., and
               M. Furuhed, "CBOR Encoded X.509 Certificates (C509
               Certificates)", Work in Progress, Internet-Draft, draft-
-              ietf-cose-cbor-encoded-cert-11, 8 July 2024,
+              ietf-cose-cbor-encoded-cert-12, 8 January 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
-              cbor-encoded-cert-11>.
+              cbor-encoded-cert-12>.
 
    [I-D.ietf-dance-tls-clientid]
               Huque, S. and V. Dukhovni, "TLS Extension for DANE Client
