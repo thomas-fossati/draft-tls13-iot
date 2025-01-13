@@ -276,7 +276,7 @@ Whenever there is a client to server connection where the server has been identi
 Where IoT devices are accepting (D)TLS connections, it is unlikely that there will be a useful name that can go into the SNI.
 The IoT device can not depend upon the SNI being correct, and so it must ignore the extension.
 This implies that IoT devices can not do name-based virtual hosting of TLS connections.
-In the unlikely even that an IoT device must have multiple servers responding with different server certificate, then IP or port-based distinctions will be needed.
+In the unlikely event that an IoT device must have multiple servers responding with different server certificate, then IP or port-based distinctions will be needed.
 
 Where privacy requirements require it, the ECH (Encrypted Client Hello)
 extension {{?I-D.ietf-tls-esni}} prevents an on-path attacker to determine the domain
