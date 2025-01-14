@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-12T01:05:30.750990+00:00",
+  "timestamp": "2025-01-14T00:56:56.443379+00:00",
   "repo": "thomas-fossati/draft-tls13-iot",
   "labels": [
     {
@@ -1002,7 +1002,7 @@
       "labels": [],
       "body": "````\r\nIf the EUI-64 format is used to identify the subject of an end entity\r\ncertificate, it MUST be encoded in a subjectAltName of type DNS-ID as a string\r\nof the form `HH-HH-HH-HH-HH-HH-HH-HH` where 'H' is one of the symbols '0'-'9'\r\nor 'A'-'F'.\r\n````\r\n\r\nthis seems really odd.  I was looking for a SN, or SAN that would encode EUI64, and I feel surprised not to find one.\r\n",
       "createdAt": "2024-12-03T14:41:28Z",
-      "updatedAt": "2025-01-07T20:13:07Z",
+      "updatedAt": "2025-01-13T18:33:00Z",
       "closedAt": null,
       "comments": [
         {
@@ -1130,6 +1130,13 @@
           "body": "@mcr \r\n\r\n\"@boaks\" and \"@achim\" are the same person ;-).\r\n\r\n> My answer is: don't use (have server ignore) SNI for device to device.\r\n\r\nOK, that answer about SNI I do understand.\r\n\r\nBut I still don't get your intention about the EUI64 and certificates.\r\n\r\nMy question from the mailing list:\r\n\r\n> So, please:\r\n> Is it about direct EUI64 support in x509?\r\n> Or about omit EUI64 in device certificates? ",
           "createdAt": "2025-01-07T20:13:06Z",
           "updatedAt": "2025-01-07T20:13:06Z"
+        },
+        {
+          "author": "boaks",
+          "authorAssociation": "NONE",
+          "body": "For those who missed the discussion on the mailing-list:\r\n\r\n[UTA mailing-list, Michael](https://mailarchive.ietf.org/arch/msg/uta/-N4PkGJGW6sLfZppIuBpQUrseIo/)\r\n\r\n```\r\n    > So, please: Is it about direct EUI64 support in x509?  Or about omit\r\n    > EUI64 in device certificates?\r\n\r\nThis is about what SNI supports vs what X509 supports.\r\n```\r\n\r\n[UTA mailing-list, Valery](https://mailarchive.ietf.org/arch/msg/uta/UG1JIHXBCVbYeiXanEQsFh3ee6U/)\r\n\r\n```\r\nHmm, RFC 6066 actually says:\r\n\r\n    For backward compatibility, all future data structures associated with\r\n    new NameTypes MUST begin with a 16-bit length field.\r\n\r\nIn my reading of this requirement, it allows servers to effectively skip unknown Name Types.\r\nAm I missing something?\r\n\r\nRegards,\r\nValery.\r\n```\r\n\r\n",
+          "createdAt": "2025-01-13T18:32:59Z",
+          "updatedAt": "2025-01-13T18:32:59Z"
         }
       ]
     },
@@ -4494,19 +4501,60 @@
       "labels": [],
       "body": "",
       "createdAt": "2025-01-06T15:24:48Z",
-      "updatedAt": "2025-01-06T15:24:48Z",
+      "updatedAt": "2025-01-13T17:56:49Z",
       "baseRepository": "thomas-fossati/draft-tls13-iot",
       "baseRefName": "master",
       "baseRefOid": "e05202b21c45c12f09f7716a6b8ca0f6f8aede31",
       "headRepository": "thomas-fossati/draft-tls13-iot",
       "headRefName": "client-cert-profile",
-      "headRefOid": "38165fb4d19227bd289044e32b6b320a58eb185f",
+      "headRefOid": "946c7df721c18309771c2692a5c1adce8a7eade9",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOEBGZx86Xzawy",
+          "commit": {
+            "abbreviatedOid": "38165fb"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-13T14:43:36Z",
+          "updatedAt": "2025-01-13T14:43:36Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "```suggestion\r\nAccording to {{!RFC9525}}, when an end-entity certificate is used to respond to TLS connections as a server, it must include a dNSName in the SubjectAltName extension to comply with the Server Name Indication (SNI) format defined in {{RFC8446}}.\r\n```",
+              "createdAt": "2025-01-13T14:43:36Z",
+              "updatedAt": "2025-01-13T14:43:36Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOEBGZx86XzbQg",
+          "commit": {
+            "abbreviatedOid": "38165fb"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-13T14:44:09Z",
+          "updatedAt": "2025-01-13T14:44:09Z",
+          "comments": [
+            {
+              "originalPosition": 16,
+              "body": "```suggestion\r\nDomain names MUST NOT contain wildcard ('*') characters. The subjectAltName MUST NOT contain multiple names.\r\n```",
+              "createdAt": "2025-01-13T14:44:09Z",
+              "updatedAt": "2025-01-13T14:44:09Z"
+            }
+          ]
+        }
+      ]
     },
     {
       "number": 70,
@@ -4520,13 +4568,13 @@
       "labels": [],
       "body": "put EUI-64 into X520SerialNumber, and note that SNI-based virtual hosting on IoT servers does not work\r\nclose #65 ",
       "createdAt": "2025-01-07T20:12:48Z",
-      "updatedAt": "2025-01-07T20:21:18Z",
+      "updatedAt": "2025-01-13T18:17:47Z",
       "baseRepository": "thomas-fossati/draft-tls13-iot",
       "baseRefName": "master",
       "baseRefOid": "e05202b21c45c12f09f7716a6b8ca0f6f8aede31",
       "headRepository": "thomas-fossati/draft-tls13-iot",
       "headRefName": "eui-64-identities",
-      "headRefOid": "15cd08b8180b854ccefa174aba9c134b40c3b4dd",
+      "headRefOid": "3ee9c67071cd3c66b2e6a7d79a14f4dde838add2",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -4552,6 +4600,106 @@
               "updatedAt": "2025-01-07T20:21:18Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOEBGZx86XzdWy",
+          "commit": {
+            "abbreviatedOid": "15cd08b"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-13T14:46:23Z",
+          "updatedAt": "2025-01-13T14:46:23Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "```suggestion\r\nIn the unlikely event that an IoT device must have multiple servers responding with different server certificate, then IP or port-based distinctions will be needed.\r\n```",
+              "createdAt": "2025-01-13T14:46:23Z",
+              "updatedAt": "2025-01-13T14:46:23Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOEBGZx86X1gK3",
+          "commit": {
+            "abbreviatedOid": "15cd08b"
+          },
+          "author": "mcr",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-13T17:59:45Z",
+          "updatedAt": "2025-01-13T17:59:45Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "TLS1.2 implementations which do not have SNI support are likely gonna have other major issues.\r\nNote the conditions:\r\n1. client to server connection\r\n2. server identified by DNS name\r\n\r\n",
+              "createdAt": "2025-01-13T17:59:45Z",
+              "updatedAt": "2025-01-13T17:59:46Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOEBGZx86X1uYa",
+          "commit": {
+            "abbreviatedOid": "15cd08b"
+          },
+          "author": "boaks",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-13T18:17:47Z",
+          "updatedAt": "2025-01-13T18:17:47Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "I hardly understand the alternatives to condition 1., though the term \"client\" and \"server\" are pretty common to connections.\r\n\r\nIntroducing a MUST to [RFC6066](https://www.rfc-editor.org/rfc/rfc6066#section-3), where MAY is used, will harm much more. Anyway, we will see, if a introduced MUST will pass the TLS/UTA group. \r\n\r\n",
+              "createdAt": "2025-01-13T18:17:47Z",
+              "updatedAt": "2025-01-13T18:40:14Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 71,
+      "id": "PR_kwDOEBGZx86Hjj8U",
+      "title": "Dealing with EUI-64 in Certificates",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/71",
+      "state": "OPEN",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-01-13T15:51:05Z",
+      "updatedAt": "2025-01-13T16:59:28Z",
+      "baseRepository": "thomas-fossati/draft-tls13-iot",
+      "baseRefName": "master",
+      "baseRefOid": "e05202b21c45c12f09f7716a6b8ca0f6f8aede31",
+      "headRepository": "thomas-fossati/draft-tls13-iot",
+      "headRefName": "hannestschofenig-patch-7",
+      "headRefOid": "1beef14e2978651661c5f2912add6eee23291869",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOEBGZx86X0_iX",
+          "commit": {
+            "abbreviatedOid": "1beef14"
+          },
+          "author": "mcr",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-01-13T16:59:28Z",
+          "updatedAt": "2025-01-13T16:59:28Z",
+          "comments": []
         }
       ]
     }
