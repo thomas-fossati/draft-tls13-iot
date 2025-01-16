@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-14T00:56:56.443379+00:00",
+  "timestamp": "2025-01-16T00:57:46.763095+00:00",
   "repo": "thomas-fossati/draft-tls13-iot",
   "labels": [
     {
@@ -4568,7 +4568,7 @@
       "labels": [],
       "body": "put EUI-64 into X520SerialNumber, and note that SNI-based virtual hosting on IoT servers does not work\r\nclose #65 ",
       "createdAt": "2025-01-07T20:12:48Z",
-      "updatedAt": "2025-01-13T18:17:47Z",
+      "updatedAt": "2025-01-16T00:19:43Z",
       "baseRepository": "thomas-fossati/draft-tls13-iot",
       "baseRefName": "master",
       "baseRefOid": "e05202b21c45c12f09f7716a6b8ca0f6f8aede31",
@@ -4658,6 +4658,26 @@
               "body": "I hardly understand the alternatives to condition 1., though the term \"client\" and \"server\" are pretty common to connections.\r\n\r\nIntroducing a MUST to [RFC6066](https://www.rfc-editor.org/rfc/rfc6066#section-3), where MAY is used, will harm much more. Anyway, we will see, if a introduced MUST will pass the TLS/UTA group. \r\n\r\n",
               "createdAt": "2025-01-13T18:17:47Z",
               "updatedAt": "2025-01-13T18:40:14Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOEBGZx86YQM5T",
+          "commit": {
+            "abbreviatedOid": "15cd08b"
+          },
+          "author": "mcr",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-16T00:19:43Z",
+          "updatedAt": "2025-01-16T00:19:43Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "1. client to *cloud server* connection.\r\n\r\nvs device to device, done by IP address.",
+              "createdAt": "2025-01-16T00:19:43Z",
+              "updatedAt": "2025-01-16T00:19:43Z"
             }
           ]
         }
