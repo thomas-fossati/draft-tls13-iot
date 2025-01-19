@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-16T00:57:46.763095+00:00",
+  "timestamp": "2025-01-19T01:02:18.008340+00:00",
   "repo": "thomas-fossati/draft-tls13-iot",
   "labels": [
     {
@@ -4568,7 +4568,7 @@
       "labels": [],
       "body": "put EUI-64 into X520SerialNumber, and note that SNI-based virtual hosting on IoT servers does not work\r\nclose #65 ",
       "createdAt": "2025-01-07T20:12:48Z",
-      "updatedAt": "2025-01-16T00:19:43Z",
+      "updatedAt": "2025-01-16T08:13:23Z",
       "baseRepository": "thomas-fossati/draft-tls13-iot",
       "baseRefName": "master",
       "baseRefOid": "e05202b21c45c12f09f7716a6b8ca0f6f8aede31",
@@ -4678,6 +4678,26 @@
               "body": "1. client to *cloud server* connection.\r\n\r\nvs device to device, done by IP address.",
               "createdAt": "2025-01-16T00:19:43Z",
               "updatedAt": "2025-01-16T00:19:43Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOEBGZx86YS2U0",
+          "commit": {
+            "abbreviatedOid": "15cd08b"
+          },
+          "author": "boaks",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-16T08:13:23Z",
+          "updatedAt": "2025-01-16T08:13:23Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "Thanks for correcting point 1.\r\n",
+              "createdAt": "2025-01-16T08:13:23Z",
+              "updatedAt": "2025-01-16T08:13:23Z"
             }
           ]
         }
