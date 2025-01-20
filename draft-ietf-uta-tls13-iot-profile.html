@@ -2035,13 +2035,13 @@ names.<a href="#section-16.4.1-9" class="pilcrow">¶</a></p>
 <p id="section-16.4.1-10">Note: The IEEE 802.1AR recomments to encode information about a Trusted
 Platform Module (TPM), if present, in the HardwareModuleName. This
 specification does not follow this recommendation.<a href="#section-16.4.1-10" class="pilcrow">¶</a></p>
-<p id="section-16.4.1-11">Where IoT devices are accepting (D)TLS connections, i.e. they are acting as a server,
+<p id="section-16.4.1-11">Where IoT devices are accepting (D)TLS connections, i.e., they are acting as a server,
 it is unlikely that there will be a useful name that can go into the SNI. In general,
 the use of SNI for the purpose of virtual hosting on constrained IoT devices is rare.
-The IoT device can not depend on a client providing a correct SNI, and so it must ignore the extension.
-This implies that IoT devices can not do name-based virtual hosting of TLS connections.
-In the unlikely event that an IoT device must have multiple servers responding with different
-server certificate, then the server should use different IP addresses or different port numbers.<a href="#section-16.4.1-11" class="pilcrow">¶</a></p>
+The IoT device cannot depend on a client providing a correct SNI, and so it MUST ignore the extension.
+This implies that IoT devices cannot do name-based virtual hosting of TLS connections.
+In the unlikely event that an IoT device has multiple servers responding with different
+server certificate, then the server SHOULD use different IP addresses or port numbers.<a href="#section-16.4.1-11" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authority-key-identifier-2">
