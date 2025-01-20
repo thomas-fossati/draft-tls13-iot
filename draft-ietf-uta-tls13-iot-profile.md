@@ -615,8 +615,13 @@ This section outlines the requirements for end entity certificates.
 
 ### Subject
 
+This section describes the use of end entity certificate primarily for (D)TLS
+clients running on IoT devices. Operating (D)TLS servers on IoT devices is
+possible but less common.
+
 {{!RFC9525, Section 2}} mandates that the subject field not be used to identify a service.
-However, certain IoT applications (for example, {{?I-D.ietf-anima-constrained-voucher}}, {{8021AR}}) use the subject field to encode the device serial number.
+However, certain IoT applications (for example, {{?I-D.ietf-anima-constrained-voucher}},
+{{8021AR}}) use the subject field to encode the device serial number.
 
 The requirement in {{Section 4.4.2 of !RFC7925}} to only use EUI-64 for end
 entity certificates as a subject field is lifted.
@@ -638,11 +643,11 @@ The subject alternative name extension MAY be set. If it is set, it MUST NOT be
 marked critical, except when the subject DN contains an empty sequence.
 
 If the EUI-64 format is used to identify the subject of an end entity
-certificate, it MUST be encoded in a subjectAltName of type DNS-ID as a string
-of the form `HH-HH-HH-HH-HH-HH-HH-HH` where 'H' is one of the symbols '0'-'9'
-or 'A'-'F'.
+certificate, it MUST be encoded as a Subject DN using the X520SerialNumber
+attribute.  The contents of the field is a string of the form `HH-HH-HH-HH-HH-HH-HH-HH`
+where 'H' is one of the symbols '0'-'9' or 'A'-'F'.
 
-Per {{!RFC9525}} Domain names MUST NOT be encoded in the subject commonName. Instead they
+Per {{!RFC9525}} domain names MUST NOT be encoded in the subject commonName. Instead they
 MUST be encoded in a subjectAltName of type DNS-ID. Domain names MUST NOT
 contain wildcard (`*`) characters. The subjectAltName MUST NOT contain multiple
 names.
@@ -650,6 +655,14 @@ names.
 Note: The IEEE 802.1AR recomments to encode information about a Trusted
 Platform Module (TPM), if present, in the HardwareModuleName. This
 specification does not follow this recommendation.
+
+Where IoT devices are accepting (D)TLS connections, i.e. they are acting as a server,
+it is unlikely that there will be a useful name that can go into the SNI. In general,
+the use of SNI for the purpose of virtual hosting on constrained IoT devices is rare.
+The IoT device can not depend on a client providing a correct SNI, and so it must ignore the extension.
+This implies that IoT devices can not do name-based virtual hosting of TLS connections.
+In the unlikely event that an IoT device must have multiple servers responding with different
+server certificate, then the server should use different IP addresses or different port numbers.
 
 
 ### Authority Key Identifier
