@@ -6,9 +6,9 @@ UTA                                                        H. Tschofenig
 Internet-Draft                                                     H-BRS
 Updates: 7925 (if approved)                                   T. Fossati
 Intended status: Standards Track                                  Linaro
-Expires: 20 June 2025                                      M. Richardson
+Expires: 24 July 2025                                      M. Richardson
                                                 Sandelman Software Works
-                                                        17 December 2024
+                                                         20 January 2025
 
 
             TLS/DTLS 1.3 Profiles for the Internet of Things
@@ -43,11 +43,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 June 2025.
+   This Internet-Draft will expire on 24 July 2025.
 
 Copyright Notice
 
-   Copyright (c) 2024 IETF Trust and the persons identified as the
+   Copyright (c) 2025 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -740,6 +740,10 @@ Table of Contents
 
 16.4.1.  Subject
 
+   This section describes the use of end entity certificate primarily
+   for (D)TLS clients running on IoT devices.  Operating (D)TLS servers
+   on IoT devices is possible but less common.
+
    [RFC9525], Section 2 mandates that the subject field not be used to
    identify a service.  However, certain IoT applications (for example,
    [I-D.ietf-anima-constrained-voucher], [_8021AR]) use the subject
@@ -768,11 +772,12 @@ Table of Contents
    empty sequence.
 
    If the EUI-64 format is used to identify the subject of an end entity
-   certificate, it MUST be encoded in a subjectAltName of type DNS-ID as
-   a string of the form HH-HH-HH-HH-HH-HH-HH-HH where 'H' is one of the
-   symbols '0'-'9' or 'A'-'F'.
+   certificate, it MUST be encoded as a Subject DN using the
+   X520SerialNumber attribute.  The contents of the field is a string of
+   the form HH-HH-HH-HH-HH-HH-HH-HH where 'H' is one of the symbols
+   '0'-'9' or 'A'-'F'.
 
-   Per [RFC9525] Domain names MUST NOT be encoded in the subject
+   Per [RFC9525] domain names MUST NOT be encoded in the subject
    commonName.  Instead they MUST be encoded in a subjectAltName of type
    DNS-ID.  Domain names MUST NOT contain wildcard (*) characters.  The
    subjectAltName MUST NOT contain multiple names.
@@ -780,6 +785,17 @@ Table of Contents
    Note: The IEEE 802.1AR recomments to encode information about a
    Trusted Platform Module (TPM), if present, in the HardwareModuleName.
    This specification does not follow this recommendation.
+
+   Where IoT devices are accepting (D)TLS connections, i.e. they are
+   acting as a server, it is unlikely that there will be a useful name
+   that can go into the SNI.  In general, the use of SNI for the purpose
+   of virtual hosting on constrained IoT devices is rare.  The IoT
+   device can not depend on a client providing a correct SNI, and so it
+   must ignore the extension.  This implies that IoT devices can not do
+   name-based virtual hosting of TLS connections.  In the unlikely event
+   that an IoT device must have multiple servers responding with
+   different server certificate, then the server should use different IP
+   addresses or different port numbers.
 
 16.4.2.  Authority Key Identifier
 
@@ -1084,17 +1100,17 @@ Table of Contents
               Richardson, M., Van der Stok, P., Kampanakis, P., and E.
               Dijk, "Constrained Bootstrapping Remote Secure Key
               Infrastructure (cBRSKI)", Work in Progress, Internet-
-              Draft, draft-ietf-anima-constrained-voucher-25, 8 July
-              2024, <https://datatracker.ietf.org/doc/html/draft-ietf-
-              anima-constrained-voucher-25>.
+              Draft, draft-ietf-anima-constrained-voucher-26, 8 January
+              2025, <https://datatracker.ietf.org/doc/html/draft-ietf-
+              anima-constrained-voucher-26>.
 
    [I-D.ietf-cose-cbor-encoded-cert]
               Mattsson, J. P., Selander, G., Raza, S., Höglund, J., and
               M. Furuhed, "CBOR Encoded X.509 Certificates (C509
               Certificates)", Work in Progress, Internet-Draft, draft-
-              ietf-cose-cbor-encoded-cert-11, 8 July 2024,
+              ietf-cose-cbor-encoded-cert-12, 8 January 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
-              cbor-encoded-cert-11>.
+              cbor-encoded-cert-12>.
 
    [I-D.ietf-dance-tls-clientid]
               Huque, S. and V. Dukhovni, "TLS Extension for DANE Client
@@ -1158,9 +1174,9 @@ Table of Contents
               Richardson, M., "A Taxonomy of operational security
               considerations for manufacturer installed keys and Trust
               Anchors", Work in Progress, Internet-Draft, draft-irtf-
-              t2trg-taxonomy-manufacturer-anchors-04, 26 August 2024,
+              t2trg-taxonomy-manufacturer-anchors-05, 2 January 2025,
               <https://datatracker.ietf.org/doc/html/draft-irtf-t2trg-
-              taxonomy-manufacturer-anchors-04>.
+              taxonomy-manufacturer-anchors-05>.
 
    [LwM2M]    OMA SpecWorks, "Lightweight Machine to Machine (LwM2M)
               V.1.2.1 Technical Specification: Transport Bindings",
