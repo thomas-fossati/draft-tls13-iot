@@ -662,7 +662,7 @@ the use of SNI for the purpose of virtual hosting on constrained IoT devices is 
 The IoT device cannot depend on a client providing a correct SNI, and so it MUST ignore the extension.
 This implies that IoT devices cannot do name-based virtual hosting of TLS connections.
 In the unlikely event that an IoT device has multiple servers responding with different
-server certificate, then the server SHOULD use different IP addresses or different port numbers.
+server certificate, then the server SHOULD use different IP addresses or port numbers.
 
 
 ### Authority Key Identifier
