@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-19T01:02:18.008340+00:00",
+  "timestamp": "2025-01-21T00:57:40.249626+00:00",
   "repo": "thomas-fossati/draft-tls13-iot",
   "labels": [
     {
@@ -995,15 +995,15 @@
       "id": "I_kwDOEBGZx86h1va3",
       "title": "why is EUI-64 encoded as DNS-ID",
       "url": "https://github.com/thomas-fossati/draft-tls13-iot/issues/65",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "mcr",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "````\r\nIf the EUI-64 format is used to identify the subject of an end entity\r\ncertificate, it MUST be encoded in a subjectAltName of type DNS-ID as a string\r\nof the form `HH-HH-HH-HH-HH-HH-HH-HH` where 'H' is one of the symbols '0'-'9'\r\nor 'A'-'F'.\r\n````\r\n\r\nthis seems really odd.  I was looking for a SN, or SAN that would encode EUI64, and I feel surprised not to find one.\r\n",
       "createdAt": "2024-12-03T14:41:28Z",
-      "updatedAt": "2025-01-13T18:33:00Z",
-      "closedAt": null,
+      "updatedAt": "2025-01-20T15:28:37Z",
+      "closedAt": "2025-01-20T15:28:36Z",
       "comments": [
         {
           "author": "thomas-fossati",
@@ -1137,6 +1137,13 @@
           "body": "For those who missed the discussion on the mailing-list:\r\n\r\n[UTA mailing-list, Michael](https://mailarchive.ietf.org/arch/msg/uta/-N4PkGJGW6sLfZppIuBpQUrseIo/)\r\n\r\n```\r\n    > So, please: Is it about direct EUI64 support in x509?  Or about omit\r\n    > EUI64 in device certificates?\r\n\r\nThis is about what SNI supports vs what X509 supports.\r\n```\r\n\r\n[UTA mailing-list, Valery](https://mailarchive.ietf.org/arch/msg/uta/UG1JIHXBCVbYeiXanEQsFh3ee6U/)\r\n\r\n```\r\nHmm, RFC 6066 actually says:\r\n\r\n    For backward compatibility, all future data structures associated with\r\n    new NameTypes MUST begin with a 16-bit length field.\r\n\r\nIn my reading of this requirement, it allows servers to effectively skip unknown Name Types.\r\nAm I missing something?\r\n\r\nRegards,\r\nValery.\r\n```\r\n\r\n",
           "createdAt": "2025-01-13T18:32:59Z",
           "updatedAt": "2025-01-13T18:32:59Z"
+        },
+        {
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Closed because of PR#71",
+          "createdAt": "2025-01-20T15:28:36Z",
+          "updatedAt": "2025-01-20T15:28:36Z"
         }
       ]
     },
@@ -4494,25 +4501,33 @@
       "id": "PR_kwDOEBGZx86G1cmg",
       "title": "rewrite EUI-64 format, explaining why dNSName",
       "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/69",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "mcr",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-01-06T15:24:48Z",
-      "updatedAt": "2025-01-13T17:56:49Z",
+      "updatedAt": "2025-01-20T15:28:06Z",
       "baseRepository": "thomas-fossati/draft-tls13-iot",
       "baseRefName": "master",
       "baseRefOid": "e05202b21c45c12f09f7716a6b8ca0f6f8aede31",
       "headRepository": "thomas-fossati/draft-tls13-iot",
       "headRefName": "client-cert-profile",
       "headRefOid": "946c7df721c18309771c2692a5c1adce8a7eade9",
-      "closedAt": null,
+      "closedAt": "2025-01-20T15:28:05Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Closed because of PR#71",
+          "createdAt": "2025-01-20T15:28:05Z",
+          "updatedAt": "2025-01-20T15:28:05Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOEBGZx86Xzawy",
@@ -4561,25 +4576,33 @@
       "id": "PR_kwDOEBGZx86G-1In",
       "title": "put EUI-64 into X520SerialNumber, and note that SNI-based virtual hos\u2026",
       "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/70",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "mcr",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "put EUI-64 into X520SerialNumber, and note that SNI-based virtual hosting on IoT servers does not work\r\nclose #65 ",
       "createdAt": "2025-01-07T20:12:48Z",
-      "updatedAt": "2025-01-16T08:13:23Z",
+      "updatedAt": "2025-01-20T15:27:50Z",
       "baseRepository": "thomas-fossati/draft-tls13-iot",
       "baseRefName": "master",
       "baseRefOid": "e05202b21c45c12f09f7716a6b8ca0f6f8aede31",
       "headRepository": "thomas-fossati/draft-tls13-iot",
       "headRefName": "eui-64-identities",
       "headRefOid": "3ee9c67071cd3c66b2e6a7d79a14f4dde838add2",
-      "closedAt": null,
+      "closedAt": "2025-01-20T15:27:50Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Closed because of PR#71",
+          "createdAt": "2025-01-20T15:27:50Z",
+          "updatedAt": "2025-01-20T15:27:50Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOEBGZx86XHXqF",
@@ -4708,24 +4731,26 @@
       "id": "PR_kwDOEBGZx86Hjj8U",
       "title": "Dealing with EUI-64 in Certificates",
       "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/71",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "hannestschofenig",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-01-13T15:51:05Z",
-      "updatedAt": "2025-01-13T16:59:28Z",
+      "updatedAt": "2025-01-20T15:27:13Z",
       "baseRepository": "thomas-fossati/draft-tls13-iot",
       "baseRefName": "master",
       "baseRefOid": "e05202b21c45c12f09f7716a6b8ca0f6f8aede31",
       "headRepository": "thomas-fossati/draft-tls13-iot",
       "headRefName": "hannestschofenig-patch-7",
-      "headRefOid": "1beef14e2978651661c5f2912add6eee23291869",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "cb97d9274750db2c3bf0127171823fff7098286a",
+      "closedAt": "2025-01-20T15:27:11Z",
+      "mergedAt": "2025-01-20T15:27:10Z",
+      "mergedBy": "hannestschofenig",
+      "mergeCommit": {
+        "oid": "18347ed5aaa847dc6bf9d1d6ffc2b36a9f667142"
+      },
       "comments": [],
       "reviews": [
         {
@@ -4740,6 +4765,55 @@
           "createdAt": "2025-01-13T16:59:28Z",
           "updatedAt": "2025-01-13T16:59:28Z",
           "comments": []
+        }
+      ]
+    },
+    {
+      "number": 72,
+      "id": "PR_kwDOEBGZx86IX9k4",
+      "title": "add some normative language around use of SNI",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/72",
+      "state": "MERGED",
+      "author": "thomas-fossati",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-01-20T15:42:21Z",
+      "updatedAt": "2025-01-20T15:43:50Z",
+      "baseRepository": "thomas-fossati/draft-tls13-iot",
+      "baseRefName": "master",
+      "baseRefOid": "18347ed5aaa847dc6bf9d1d6ffc2b36a9f667142",
+      "headRepository": "thomas-fossati/draft-tls13-iot",
+      "headRefName": "normative",
+      "headRefOid": "056b5ad1cced5550743ae696ef61f411edac687c",
+      "closedAt": "2025-01-20T15:43:47Z",
+      "mergedAt": "2025-01-20T15:43:47Z",
+      "mergedBy": "hannestschofenig",
+      "mergeCommit": {
+        "oid": "7be3b99d6459f40e3739f5ecc3b8f31bc0d8d239"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOEBGZx86Yv8HK",
+          "commit": {
+            "abbreviatedOid": "6986480"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-20T15:43:08Z",
+          "updatedAt": "2025-01-20T15:43:08Z",
+          "comments": [
+            {
+              "originalPosition": 15,
+              "body": "```suggestion\r\nserver certificate, then the server SHOULD use different IP addresses or port numbers.\r\n```",
+              "createdAt": "2025-01-20T15:43:08Z",
+              "updatedAt": "2025-01-20T15:43:08Z"
+            }
+          ]
         }
       ]
     }
