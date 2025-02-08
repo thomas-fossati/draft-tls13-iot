@@ -325,13 +325,22 @@ recommendations apply to which entity in the PKI hierarchy.
 The content is also better aligned with the IEEE 802.1AR {{8021AR}}
 specification, which introduces the terms Initial Device Identifier
 (IDevID) and Locally Significant Device Identifiers (LDevIDs).
-IDevIDs and LDevIDs are Device Identifier (DevID) and a DevID consists of
+IDevIDs and LDevIDs are Device Identifiers (DevIDs). A DevID consists of
 
 - a private key,
 - a certificate (containing the public key and the identifier certified by
 the certificate's issuer), and
 - a certificate chain up to a trust anchor. The trust anchor is is usually
 the root certificate).
+
+Note that the trust anchor does not need to be transmitted in the TLS Certificate
+message sent by the server. The client MUST NOT use any trust anchor provided in the
+Certificate message, because the trust anchor is provisioned via out-of-band means.
+Consequently, transmitting the trust anchor is a waste of bandwidth, as it is not
+used for path validation. If the trust anchor is not the root CA certificate,
+the server may be unaware of which trust anchor the client has. In such cases, the
+client can use the Trusted CA Indication, defined in {{RFC6066}}, to indicate
+which trust anchors it possesses.
 
 The IDevID is typically provisioned by a manufacturer and signed by the
 manufacturer CA. It is then used to obtain operational certificates,
