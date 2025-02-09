@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-06T00:59:09.984725+00:00",
+  "timestamp": "2025-02-09T01:02:13.060986+00:00",
   "repo": "thomas-fossati/draft-tls13-iot",
   "labels": [
     {
@@ -4816,6 +4816,144 @@
           ]
         }
       ]
+    },
+    {
+      "number": 73,
+      "id": "PR_kwDOEBGZx86KhCal",
+      "title": "Indentation of the Terminology Section",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/73",
+      "state": "OPEN",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-02-08T13:09:53Z",
+      "updatedAt": "2025-02-08T13:09:53Z",
+      "baseRepository": "thomas-fossati/draft-tls13-iot",
+      "baseRefName": "master",
+      "baseRefOid": "7be3b99d6459f40e3739f5ecc3b8f31bc0d8d239",
+      "headRepository": "thomas-fossati/draft-tls13-iot",
+      "headRefName": "hannestschofenig-patch-7",
+      "headRefOid": "a5553a3d0df2f493783728f62c9612c208b8c94b",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 74,
+      "id": "PR_kwDOEBGZx86KhIx0",
+      "title": "Text about Trust Anchor in Certificate Message",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/74",
+      "state": "OPEN",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Following an off-list discussion about transmitting trust anchors in Certificate messages.",
+      "createdAt": "2025-02-08T13:31:46Z",
+      "updatedAt": "2025-02-08T13:31:55Z",
+      "baseRepository": "thomas-fossati/draft-tls13-iot",
+      "baseRefName": "master",
+      "baseRefOid": "7be3b99d6459f40e3739f5ecc3b8f31bc0d8d239",
+      "headRepository": "thomas-fossati/draft-tls13-iot",
+      "headRefName": "hannestschofenig-patch-8",
+      "headRefOid": "6b8eae88b57e0a1311240568bce09c1ba6634769",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 75,
+      "id": "PR_kwDOEBGZx86KhQd5",
+      "title": "Abstract Update",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/75",
+      "state": "OPEN",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-02-08T14:19:02Z",
+      "updatedAt": "2025-02-08T18:56:36Z",
+      "baseRepository": "thomas-fossati/draft-tls13-iot",
+      "baseRefName": "master",
+      "baseRefOid": "7be3b99d6459f40e3739f5ecc3b8f31bc0d8d239",
+      "headRepository": "thomas-fossati/draft-tls13-iot",
+      "headRefName": "hannestschofenig-patch-9",
+      "headRefOid": "3f0f4a83f93e6b146a0e8cb7eb841a121a4219cd",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOEBGZx86bNfXl",
+          "commit": {
+            "abbreviatedOid": "3f0f4a8"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-08T18:55:46Z",
+          "updatedAt": "2025-02-08T18:55:46Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "```suggestion\r\nRFC 7925 offers guidance to developers on using TLS/DTLS 1.2 for Internet of\r\nThings (IoT) devices with resource constraints. This document is a\r\ncompanion to RFC 7925, defining TLS/DTLS 1.3 profiles for IoT devices.\r\nAdditionally, it updates RFC 7925 with respect to the X.509 certificate\r\nprofile and ciphersuite requirements.\r\n```",
+              "createdAt": "2025-02-08T18:55:46Z",
+              "updatedAt": "2025-02-08T18:55:46Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOEBGZx86bNfZy",
+          "commit": {
+            "abbreviatedOid": "3f0f4a8"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2025-02-08T18:56:36Z",
+          "updatedAt": "2025-02-08T18:56:36Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 76,
+      "id": "PR_kwDOEBGZx86KhSzo",
+      "title": "Reworked Introduction",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/76",
+      "state": "OPEN",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I know that I have just recently re-written the introduction but when I read again today I did not like it.\r\n\r\nI do not give any guarantee that I will not change it again.",
+      "createdAt": "2025-02-08T14:38:35Z",
+      "updatedAt": "2025-02-08T14:38:35Z",
+      "baseRepository": "thomas-fossati/draft-tls13-iot",
+      "baseRefName": "master",
+      "baseRefOid": "7be3b99d6459f40e3739f5ecc3b8f31bc0d8d239",
+      "headRepository": "thomas-fossati/draft-tls13-iot",
+      "headRefName": "hannestschofenig-patch-10",
+      "headRefOid": "f92c5fddb520c407f4586b11a52be3618e31d902",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
