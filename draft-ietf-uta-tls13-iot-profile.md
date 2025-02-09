@@ -156,7 +156,7 @@ The profiles in this specification are designed to be adaptable to the broad spe
 
 In conclusion, this document offers comprehensive guidance for deploying secure communication in resource-constrained IoT environments. It outlines best practices for configuring TLS/DTLS 1.3 to meet the unique needs of IoT devices, ensuring robust security without overwhelming their limited processing, memory, and power resources. The document plays a vital role in facilitating secure, efficient IoT deployments, supporting the broad adoption of secure communication standards.
 
-## Conventions and Terminology
+# Conventions and Terminology
 
 {::boilerplate bcp14}
 
