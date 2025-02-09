@@ -111,7 +111,7 @@ informative:
 --- abstract
 
 RFC 7925 offers guidance to developers on using TLS/DTLS 1.2 for Internet of
-Things (IoT) devices with resource constraints. This document serves as a
+Things (IoT) devices with resource constraints. This document is a
 companion to RFC 7925, defining TLS/DTLS 1.3 profiles for IoT devices.
 Additionally, it updates RFC 7925 with respect to the X.509 certificate
 profile and ciphersuite requirements.
