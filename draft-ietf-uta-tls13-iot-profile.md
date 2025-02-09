@@ -110,9 +110,11 @@ informative:
 
 --- abstract
 
-This document is a companion to RFC 7925 and defines TLS/DTLS 1.3 profiles for
-Internet of Things devices.  It also updates RFC 7925 with regards to the X.509
-certificate profile and ciphersuite requirements.
+RFC 7925 offers guidance to developers on using TLS/DTLS 1.2 for Internet of
+Things (IoT) devices with resource constraints. This document is a
+companion to RFC 7925, defining TLS/DTLS 1.3 profiles for IoT devices.
+Additionally, it updates RFC 7925 with respect to the X.509 certificate
+profile and ciphersuite requirements.
 
 --- middle
 
