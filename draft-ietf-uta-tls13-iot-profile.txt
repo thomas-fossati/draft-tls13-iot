@@ -6,9 +6,9 @@ UTA                                                        H. Tschofenig
 Internet-Draft                                                     H-BRS
 Updates: 7925 (if approved)                                   T. Fossati
 Intended status: Standards Track                                  Linaro
-Expires: 13 August 2025                                    M. Richardson
+Expires: 31 August 2025                                    M. Richardson
                                                 Sandelman Software Works
-                                                         9 February 2025
+                                                        27 February 2025
 
 
             TLS/DTLS 1.3 Profiles for the Internet of Things
@@ -16,10 +16,11 @@ Expires: 13 August 2025                                    M. Richardson
 
 Abstract
 
-   This document is a companion to RFC 7925 and defines TLS/DTLS 1.3
-   profiles for Internet of Things devices.  It also updates RFC 7925
-   with regards to the X.509 certificate profile and ciphersuite
-   requirements.
+   RFC 7925 offers guidance to developers on using TLS/DTLS 1.2 for
+   Internet of Things (IoT) devices with resource constraints.  This
+   document is a companion to RFC 7925, defining TLS/DTLS 1.3 profiles
+   for IoT devices.  Additionally, it updates RFC 7925 with respect to
+   the X.509 certificate profile and ciphersuite requirements.
 
 Discussion Venues
 
@@ -43,7 +44,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 August 2025.
+   This Internet-Draft will expire on 31 August 2025.
 
 Copyright Notice
 
@@ -1131,9 +1132,9 @@ Table of Contents
               Banerjee, A., Reddy.K, T., Schoinianakis, D., Hollebeek,
               T., and M. Ounsworth, "Post-Quantum Cryptography for
               Engineers", Work in Progress, Internet-Draft, draft-ietf-
-              pquip-pqc-engineers-07, 24 January 2025,
+              pquip-pqc-engineers-09, 13 February 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-pquip-
-              pqc-engineers-07>.
+              pqc-engineers-09>.
 
    [I-D.ietf-tls-ctls]
               Rescorla, E., Barnes, R., Tschofenig, H., and B. M.
@@ -1145,9 +1146,9 @@ Table of Contents
    [I-D.ietf-tls-esni]
               Rescorla, E., Oku, K., Sullivan, N., and C. A. Wood, "TLS
               Encrypted Client Hello", Work in Progress, Internet-Draft,
-              draft-ietf-tls-esni-22, 15 September 2024,
+              draft-ietf-tls-esni-23, 19 February 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-tls-
-              esni-22>.
+              esni-23>.
 
    [I-D.irtf-cfrg-aead-limits]
               Günther, F., Thomson, M., and C. A. Wood, "Usage Limits on
