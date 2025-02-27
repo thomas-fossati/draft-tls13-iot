@@ -122,42 +122,26 @@ Table of Contents
 
 1.  Introduction
 
-   In the rapidly evolving Internet of Things (IoT) ecosystem, securing
-   device-to-device communication is a critical requirement.  The
-   Transport Layer Security (TLS) and Datagram Transport Layer Security
-   (DTLS) protocols have been foundational for ensuring encryption,
-   integrity, and authenticity in network communications.  However, the
-   inherent constraints of IoT devices, such as limited processing
-   capacity, memory, and energy, render conventional, off-the-shelf TLS/
+   In the rapidly evolving Internet of Things (IoT) ecosystem,
+   communication security is a critical requirement.  The Transport
+   Layer Security (TLS) and Datagram Transport Layer Security (DTLS)
+   protocols have been foundational for ensuring encryption, integrity,
+   and authenticity in communications.  However, the constraints of a
+   certain class of IoT devices render conventional, off-the-shelf TLS/
    DTLS implementations suboptimal for many IoT use cases.  This
-   document, TLS/DTLS 1.3 Profiles for the Internet of Things (IoT),
-   addresses these limitations by specifying profiles of TLS 1.3 and
-   DTLS 1.3, optimized for the operational constraints of resource-
-   constrained IoT systems.
+   document addresses these limitations by specifying profiles of TLS
+   1.3 and DTLS 1.3, optimized for resource-constrained IoT devices.
 
-   These profiles aim to balance strong security with the hardware and
-   software limitations of IoT devices.  TLS/DTLS 1.3 introduces
-   numerous enhancements over previous versions, including reduced
-   handshake overhead, more efficient encryption schemes, and mechanisms
-   to thwart replay and downgrade attacks.  However, the default
-   configurations may still present excessive computational and memory
-   demands for constrained devices with limited CPU, RAM, and power
-   resources.  The document mitigates these challenges by defining
-   lightweight protocol configurations while maintaining the essential
-   security guarantees of TLS/DTLS.  This specification also updates
-   [RFC7925] with regards to the X.509 certificate profile (Section 17)
-   and ciphersuites requirements (Section 19).
-
-   Key adaptations in the IoT-specific profiles include streamlining the
-   handshake protocol, minimizing cryptographic operation complexity,
-   and reducing the reliance on resource-heavy certificate chains.  For
-   example, where mutual authentication is needed, the profiles advocate
-   the use of pre-shared keys (PSKs) over a full public key
-   infrastructure (PKI) to mitigate the overhead associated with
-   certificate management.  Moreover, the profiles address session
-   resumption techniques and the handling of stateful versus stateless
-   session management, which are pivotal for maintaining resource-
-   efficient, persistent connections in IoT deployments.
+   Note that IoT devices vary widely in terms of capabilities.  While
+   some are highly resource-constrained, others offer performance
+   comparable to regular desktop computers but operate without end-user
+   interfaces.  For a detailed description of the different classes of
+   IoT devices, please refer to [RFC7228] and [I-D.ietf-iotops-7228bis].
+   It is crucial for developers to thoroughly assess the limitations of
+   their IoT devices and communication technologies to implement the
+   most suitable optimizations.  The profiles in this document aim to
+   balance strong security with the hardware and software limitations of
+   IoT devices.
 
    TLS 1.3 has been re-designed and several previously defined
    extensions are not applicable to the new version of TLS/DTLS anymore.
@@ -189,7 +173,8 @@ Table of Contents
       selecting which PSK identity to use, is, however, not available
       anymore in TLS 1.3.
    *  Finally, ciphersuites were depreciated and the RSA-based key
-      transport is not yet supported in TLS 1.3.
+      transport is not yet supported in TLS 1.3.  As a consequence, only
+      a Diffie-Hellman-based key exchange is available.
 
    The profiles in this specification are designed to be adaptable to
    the broad spectrum of IoT applications, from low-power consumer
@@ -1128,6 +1113,13 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-
               secondary-server-certs-01>.
 
+   [I-D.ietf-iotops-7228bis]
+              Bormann, C., Ersue, M., Keränen, A., and C. Gomez,
+              "Terminology for Constrained-Node Networks", Work in
+              Progress, Internet-Draft, draft-ietf-iotops-7228bis-01, 8
+              January 2025, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-iotops-7228bis-01>.
+
    [I-D.ietf-pquip-pqc-engineers]
               Banerjee, A., Reddy.K, T., Schoinianakis, D., Hollebeek,
               T., and M. Ounsworth, "Post-Quantum Cryptography for
@@ -1236,6 +1228,11 @@ Table of Contents
               "Enrollment over Secure Transport", RFC 7030,
               DOI 10.17487/RFC7030, October 2013,
               <https://www.rfc-editor.org/rfc/rfc7030>.
+
+   [RFC7228]  Bormann, C., Ersue, M., and A. Keranen, "Terminology for
+              Constrained-Node Networks", RFC 7228,
+              DOI 10.17487/RFC7228, May 2014,
+              <https://www.rfc-editor.org/rfc/rfc7228>.
 
    [RFC7250]  Wouters, P., Ed., Tschofenig, H., Ed., Gilmore, J.,
               Weiler, S., and T. Kivinen, "Using Raw Public Keys in

@@ -1350,45 +1350,70 @@ profile and ciphersuite requirements.<a href="#section-abstract-1" class="pilcro
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">In the rapidly evolving Internet of Things (IoT) ecosystem, securing device-to-device communication is a critical requirement. The Transport Layer Security (TLS) and Datagram Transport Layer Security (DTLS) protocols have been foundational for ensuring encryption, integrity, and authenticity in network communications. However, the inherent constraints of IoT devices, such as limited processing capacity, memory, and energy, render conventional, off-the-shelf TLS/DTLS implementations suboptimal for many IoT use cases. This document, TLS/DTLS 1.3 Profiles for the Internet of Things (IoT), addresses these limitations by specifying profiles of TLS 1.3 and DTLS 1.3, optimized for the operational constraints of resource-constrained IoT systems.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">These profiles aim to balance strong security with the hardware and software limitations of IoT devices. TLS/DTLS 1.3 introduces numerous enhancements over previous versions, including reduced handshake overhead, more efficient encryption schemes, and mechanisms to thwart replay and downgrade attacks. However, the default configurations may still present excessive computational and memory demands for constrained devices with limited CPU, RAM, and power resources. The document mitigates these challenges by defining lightweight protocol configurations while maintaining the essential security guarantees of TLS/DTLS. This specification also updates <span>[<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> with regards to the X.509 certificate profile (<a href="#certificate_profile" class="auto internal xref">Section 17</a>) and ciphersuites requirements (<a href="#ciphersuites" class="auto internal xref">Section 19</a>).<a href="#section-1-2" class="pilcrow">¶</a></p>
-<p id="section-1-3">Key adaptations in the IoT-specific profiles include streamlining the handshake protocol, minimizing cryptographic operation complexity, and reducing the reliance on resource-heavy certificate chains. For example, where mutual authentication is needed, the profiles advocate the use of pre-shared keys (PSKs) over a full public key infrastructure (PKI) to mitigate the overhead associated with certificate management. Moreover, the profiles address session resumption techniques and the handling of stateful versus stateless session management, which are pivotal for maintaining resource-efficient, persistent connections in IoT deployments.<a href="#section-1-3" class="pilcrow">¶</a></p>
-<p id="section-1-4">TLS 1.3 has been re-designed and several previously defined extensions are not
+<p id="section-1-1">In the rapidly evolving Internet of Things (IoT) ecosystem, communication security
+is a critical requirement. The Transport Layer Security (TLS) and Datagram Transport
+Layer Security (DTLS) protocols have been foundational for ensuring encryption,
+integrity, and authenticity in communications. However, the constraints of a certain
+class of IoT devices render conventional, off-the-shelf TLS/DTLS implementations
+suboptimal for many IoT use cases. This document addresses these limitations by specifying profiles of TLS 1.3 and DTLS 1.3, optimized for resource-constrained IoT devices.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">Note that IoT devices vary widely in terms of capabilities. While some are highly
+resource-constrained, others offer performance comparable to regular desktop computers
+but operate without end-user interfaces. For a detailed description of the different
+classes of IoT devices, please refer to <span>[<a href="#RFC7228" class="cite xref">RFC7228</a>]</span> and <span>[<a href="#I-D.ietf-iotops-7228bis" class="cite xref">I-D.ietf-iotops-7228bis</a>]</span>.
+It is crucial for developers to thoroughly assess the limitations of their IoT devices
+and communication technologies to implement the most suitable optimizations.
+The profiles in this document aim to balance strong security with the hardware and
+software limitations of IoT devices.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">TLS 1.3 has been re-designed and several previously defined extensions are not
 applicable to the new version of TLS/DTLS anymore. The following features changed
-with the transition from TLS 1.2 to 1.3:<a href="#section-1-4" class="pilcrow">¶</a></p>
+with the transition from TLS 1.2 to 1.3:<a href="#section-1-3" class="pilcrow">¶</a></p>
 <ul class="compact">
-<li class="compact" id="section-1-5.1">
-          <p id="section-1-5.1.1">TLS 1.3 introduced the concept of post-handshake authentication messages, which
+<li class="compact" id="section-1-4.1">
+          <p id="section-1-4.1.1">TLS 1.3 introduced the concept of post-handshake authentication messages, which
 partially replaced the need for the re-negotiation feature <span>[<a href="#RFC5746" class="cite xref">RFC5746</a>]</span> available
 in earlier TLS versions. However, rekeying defined in <span><a href="https://rfc-editor.org/rfc/rfc8446#section-4.6.3" class="relref">Section 4.6.3</a> of [<a href="#TLS13" class="cite xref">TLS13</a>]</span>
 does not provide forward secrecy and post-handshake authentication defined in
 <span><a href="https://rfc-editor.org/rfc/rfc8446#section-4.6.2" class="relref">Section 4.6.2</a> of [<a href="#TLS13" class="cite xref">TLS13</a>]</span> only offers client-to-server authentication.
-The "Exported Authenticator" specification, see <span>[<a href="#RFC9261" class="cite xref">RFC9261</a>]</span>, recently added support for mutual,
-post-handshake authentication but
-requires the Certificate, CertificateVerify and the Finished messages to be exchanged by the application layer protocol, as it is exercised for HTTP/2 and HTTP/3 in <span>[<a href="#I-D.ietf-httpbis-secondary-server-certs" class="cite xref">I-D.ietf-httpbis-secondary-server-certs</a>]</span>.<a href="#section-1-5.1.1" class="pilcrow">¶</a></p>
+The "Exported Authenticator" specification, see <span>[<a href="#RFC9261" class="cite xref">RFC9261</a>]</span>, recently added support
+for mutual, post-handshake authentication but requires the Certificate,
+CertificateVerify and the Finished messages to be exchanged by the application
+layer protocol, as it is exercised for HTTP/2 and HTTP/3 in <span>[<a href="#I-D.ietf-httpbis-secondary-server-certs" class="cite xref">I-D.ietf-httpbis-secondary-server-certs</a>]</span>.<a href="#section-1-4.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="compact" id="section-1-5.2">
-          <p id="section-1-5.2.1">Rekeying of the application traffic secret does not lead to an update of the
+        <li class="compact" id="section-1-4.2">
+          <p id="section-1-4.2.1">Rekeying of the application traffic secret does not lead to an update of the
 exporter secret (see <span><a href="https://rfc-editor.org/rfc/rfc8446#section-7.5" class="relref">Section 7.5</a> of [<a href="#TLS13" class="cite xref">TLS13</a>]</span>) since the derived export secret is
-based on the exporter_master_secret and not on the application traffic secret.<a href="#section-1-5.2.1" class="pilcrow">¶</a></p>
+based on the exporter_master_secret and not on the application traffic secret.<a href="#section-1-4.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="compact" id="section-1-5.3">
-          <p id="section-1-5.3.1">Flight #4, which was used by EAP-TLS 1.2 <span>[<a href="#RFC5216" class="cite xref">RFC5216</a>]</span>, does not exist in TLS 1.3.
-As a consequence, EAP-TLS 1.3 <span>[<a href="#RFC9190" class="cite xref">RFC9190</a>]</span> introduced a dummy message.<a href="#section-1-5.3.1" class="pilcrow">¶</a></p>
+        <li class="compact" id="section-1-4.3">
+          <p id="section-1-4.3.1">Flight #4, which was used by EAP-TLS 1.2 <span>[<a href="#RFC5216" class="cite xref">RFC5216</a>]</span>, does not exist in TLS 1.3.
+As a consequence, EAP-TLS 1.3 <span>[<a href="#RFC9190" class="cite xref">RFC9190</a>]</span> introduced a dummy message.<a href="#section-1-4.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="compact" id="section-1-5.4">
-          <p id="section-1-5.4.1"><span>[<a href="#RFC4279" class="cite xref">RFC4279</a>]</span> introduced PSK-based authentication to TLS, a feature re-designed
+        <li class="compact" id="section-1-4.4">
+          <p id="section-1-4.4.1"><span>[<a href="#RFC4279" class="cite xref">RFC4279</a>]</span> introduced PSK-based authentication to TLS, a feature re-designed
 in TLS 1.3. The "PSK identity hint" defined in <span>[<a href="#RFC4279" class="cite xref">RFC4279</a>]</span>, which is used by the
 server to help the client in selecting which PSK identity to use, is, however, not
-available anymore in TLS 1.3.<a href="#section-1-5.4.1" class="pilcrow">¶</a></p>
+available anymore in TLS 1.3.<a href="#section-1-4.4.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="compact" id="section-1-5.5">
-          <p id="section-1-5.5.1">Finally, ciphersuites were depreciated and the RSA-based key transport is not yet
-supported in TLS 1.3.<a href="#section-1-5.5.1" class="pilcrow">¶</a></p>
+        <li class="compact" id="section-1-4.5">
+          <p id="section-1-4.5.1">Finally, ciphersuites were depreciated and the RSA-based key transport is not yet
+supported in TLS 1.3. As a consequence, only a Diffie-Hellman-based key exchange
+is available.<a href="#section-1-4.5.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-1-6">The profiles in this specification are designed to be adaptable to the broad spectrum of IoT applications, from low-power consumer devices to large-scale industrial deployments. It provides guidelines for implementing TLS/DTLS 1.3 in diverse networking contexts, including reliable, connection-oriented transport via TCP for TLS, and lightweight, connectionless communication via UDP for DTLS. In particular, DTLS is emphasized for scenarios where low-latency communication is paramount, such as multi-hop mesh networks and low-power wide-area networks, where the amount of data exchanged needs to be minimized.<a href="#section-1-6" class="pilcrow">¶</a></p>
-<p id="section-1-7">In conclusion, this document offers comprehensive guidance for deploying secure communication in resource-constrained IoT environments. It outlines best practices for configuring TLS/DTLS 1.3 to meet the unique needs of IoT devices, ensuring robust security without overwhelming their limited processing, memory, and power resources. The document plays a vital role in facilitating secure, efficient IoT deployments, supporting the broad adoption of secure communication standards.<a href="#section-1-7" class="pilcrow">¶</a></p>
+<p id="section-1-5">The profiles in this specification are designed to be adaptable to the broad spectrum
+of IoT applications, from low-power consumer devices to large-scale industrial
+deployments. It provides guidelines for implementing TLS/DTLS 1.3 in diverse
+networking contexts, including reliable, connection-oriented transport via TCP
+for TLS, and lightweight, connectionless communication via UDP for DTLS. In
+particular, DTLS is emphasized for scenarios where low-latency communication is
+paramount, such as multi-hop mesh networks and low-power wide-area networks,
+where the amount of data exchanged needs to be minimized.<a href="#section-1-5" class="pilcrow">¶</a></p>
+<p id="section-1-6">In conclusion, this document offers comprehensive guidance for deploying secure
+communication in resource-constrained IoT environments. It outlines best practices
+for configuring TLS/DTLS 1.3 to meet the unique needs of IoT devices, ensuring
+robust security without overwhelming their limited processing, memory, and power
+resources. The document plays a vital role in facilitating secure, efficient IoT
+deployments, supporting the broad adoption of secure communication standards.<a href="#section-1-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-terminology">
@@ -2395,6 +2420,10 @@ determinism, for example, as described in
         <dd>
 <span class="refAuthor">Gorbaty, E.</span> and <span class="refAuthor">M. Bishop</span>, <span class="refTitle">"Secondary Certificate Authentication of HTTP Servers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-httpbis-secondary-server-certs-01</span>, <time datetime="2024-10-12" class="refDate">12 October 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-secondary-server-certs-01">https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-secondary-server-certs-01</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="I-D.ietf-iotops-7228bis">[I-D.ietf-iotops-7228bis]</dt>
+        <dd>
+<span class="refAuthor">Bormann, C.</span>, <span class="refAuthor">Ersue, M.</span>, <span class="refAuthor">Keränen, A.</span>, and <span class="refAuthor">C. Gomez</span>, <span class="refTitle">"Terminology for Constrained-Node Networks"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-iotops-7228bis-01</span>, <time datetime="2025-01-08" class="refDate">8 January 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-iotops-7228bis-01">https://datatracker.ietf.org/doc/html/draft-ietf-iotops-7228bis-01</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="I-D.ietf-pquip-pqc-engineers">[I-D.ietf-pquip-pqc-engineers]</dt>
         <dd>
 <span class="refAuthor">Banerjee, A.</span>, <span class="refAuthor">Reddy.K, T.</span>, <span class="refAuthor">Schoinianakis, D.</span>, <span class="refAuthor">Hollebeek, T.</span>, and <span class="refAuthor">M. Ounsworth</span>, <span class="refTitle">"Post-Quantum Cryptography for Engineers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-pquip-pqc-engineers-09</span>, <time datetime="2025-02-13" class="refDate">13 February 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-pquip-pqc-engineers-09">https://datatracker.ietf.org/doc/html/draft-ietf-pquip-pqc-engineers-09</a>&gt;</span>. </dd>
@@ -2462,6 +2491,10 @@ determinism, for example, as described in
 <dt id="RFC7030">[RFC7030]</dt>
         <dd>
 <span class="refAuthor">Pritikin, M., Ed.</span>, <span class="refAuthor">Yee, P., Ed.</span>, and <span class="refAuthor">D. Harkins, Ed.</span>, <span class="refTitle">"Enrollment over Secure Transport"</span>, <span class="seriesInfo">RFC 7030</span>, <span class="seriesInfo">DOI 10.17487/RFC7030</span>, <time datetime="2013-10" class="refDate">October 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7030">https://www.rfc-editor.org/rfc/rfc7030</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC7228">[RFC7228]</dt>
+        <dd>
+<span class="refAuthor">Bormann, C.</span>, <span class="refAuthor">Ersue, M.</span>, and <span class="refAuthor">A. Keranen</span>, <span class="refTitle">"Terminology for Constrained-Node Networks"</span>, <span class="seriesInfo">RFC 7228</span>, <span class="seriesInfo">DOI 10.17487/RFC7228</span>, <time datetime="2014-05" class="refDate">May 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7228">https://www.rfc-editor.org/rfc/rfc7228</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC7250">[RFC7250]</dt>
         <dd>
