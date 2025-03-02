@@ -336,10 +336,10 @@ the root certificate).
 Note that the trust anchor does not need to be transmitted in the TLS Certificate
 message sent by the server. The client MUST NOT use any trust anchor provided in the
 Certificate message, because the trust anchor is provisioned via out-of-band means.
-Consequently, transmitting the trust anchor is a waste of bandwidth, as it is not
-used for path validation. If the trust anchor is not the root CA certificate,
-the server may be unaware of which trust anchor the client has. In such cases, the
-client can use the Trusted CA Indication, defined in {{RFC6066}}, to indicate
+Therefore, transmitting the trust anchor in the Certificate message is a waste of
+bandwidth. If the trust anchor is not the root CA certificate, the server may be
+unaware of which trust anchor the client has. In such cases, the client can use
+the Trusted CA Indication, defined in {{RFC6066}}, to indicate
 which trust anchors it possesses.
 
 The IDevID is typically provisioned by a manufacturer and signed by the
