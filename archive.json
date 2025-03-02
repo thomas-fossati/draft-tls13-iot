@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-27T01:00:57.790946+00:00",
+  "timestamp": "2025-03-02T01:04:44.565231+00:00",
   "repo": "thomas-fossati/draft-tls13-iot",
   "labels": [
     {
@@ -4871,7 +4871,7 @@
       "labels": [],
       "body": "Following an off-list discussion about transmitting trust anchors in Certificate messages.",
       "createdAt": "2025-02-08T13:31:46Z",
-      "updatedAt": "2025-02-08T13:31:55Z",
+      "updatedAt": "2025-02-27T10:25:04Z",
       "baseRepository": "thomas-fossati/draft-tls13-iot",
       "baseRefName": "master",
       "baseRefOid": "7be3b99d6459f40e3739f5ecc3b8f31bc0d8d239",
@@ -4883,31 +4883,54 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOEBGZx86dyrZa",
+          "commit": {
+            "abbreviatedOid": "6b8eae8"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-27T10:24:14Z",
+          "updatedAt": "2025-02-27T10:25:04Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "A likely instance of `ENOCOFFEE`, but what do you mean by _\"as it is not used for path validation\"_?",
+              "createdAt": "2025-02-27T10:24:14Z",
+              "updatedAt": "2025-02-27T10:34:42Z"
+            }
+          ]
+        }
+      ]
     },
     {
       "number": 75,
       "id": "PR_kwDOEBGZx86KhQd5",
       "title": "Abstract Update",
       "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/75",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "hannestschofenig",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-02-08T14:19:02Z",
-      "updatedAt": "2025-02-09T16:10:35Z",
+      "updatedAt": "2025-02-27T10:12:53Z",
       "baseRepository": "thomas-fossati/draft-tls13-iot",
       "baseRefName": "master",
       "baseRefOid": "7be3b99d6459f40e3739f5ecc3b8f31bc0d8d239",
       "headRepository": "thomas-fossati/draft-tls13-iot",
       "headRefName": "hannestschofenig-patch-9",
       "headRefOid": "ad65d0e255a5d9088d59ba9e3d13f4c2f9e8c36d",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-02-27T10:12:50Z",
+      "mergedAt": "2025-02-27T10:12:50Z",
+      "mergedBy": "hannestschofenig",
+      "mergeCommit": {
+        "oid": "fe584879881a2a2169c6af5fad9f464184ca581f"
+      },
       "comments": [],
       "reviews": [
         {
@@ -4963,24 +4986,26 @@
       "id": "PR_kwDOEBGZx86KhSzo",
       "title": "Reworked Introduction",
       "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/76",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "hannestschofenig",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "I know that I have just recently re-written the introduction but when I read again today I did not like it.\r\n\r\nI do not give any guarantee that I will not change it again.",
       "createdAt": "2025-02-08T14:38:35Z",
-      "updatedAt": "2025-02-09T16:15:20Z",
+      "updatedAt": "2025-02-27T10:13:38Z",
       "baseRepository": "thomas-fossati/draft-tls13-iot",
       "baseRefName": "master",
       "baseRefOid": "7be3b99d6459f40e3739f5ecc3b8f31bc0d8d239",
       "headRepository": "thomas-fossati/draft-tls13-iot",
       "headRefName": "hannestschofenig-patch-10",
-      "headRefOid": "f92c5fddb520c407f4586b11a52be3618e31d902",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "704c44a17c23a9e20618a1dd9a9bbb2e780d1dd0",
+      "closedAt": "2025-02-27T10:13:34Z",
+      "mergedAt": "2025-02-27T10:13:34Z",
+      "mergedBy": "hannestschofenig",
+      "mergeCommit": {
+        "oid": "b1c9d32108104c5e9fb4342accbb39525e62b285"
+      },
       "comments": [],
       "reviews": [
         {
