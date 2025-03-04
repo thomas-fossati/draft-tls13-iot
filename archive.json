@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-02T01:04:44.565231+00:00",
+  "timestamp": "2025-03-04T01:02:02.688085+00:00",
   "repo": "thomas-fossati/draft-tls13-iot",
   "labels": [
     {
@@ -4864,24 +4864,26 @@
       "id": "PR_kwDOEBGZx86KhIx0",
       "title": "Text about Trust Anchor in Certificate Message",
       "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/74",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "hannestschofenig",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Following an off-list discussion about transmitting trust anchors in Certificate messages.",
       "createdAt": "2025-02-08T13:31:46Z",
-      "updatedAt": "2025-02-27T10:25:04Z",
+      "updatedAt": "2025-03-02T09:45:45Z",
       "baseRepository": "thomas-fossati/draft-tls13-iot",
       "baseRefName": "master",
       "baseRefOid": "7be3b99d6459f40e3739f5ecc3b8f31bc0d8d239",
       "headRepository": "thomas-fossati/draft-tls13-iot",
       "headRefName": "hannestschofenig-patch-8",
-      "headRefOid": "6b8eae88b57e0a1311240568bce09c1ba6634769",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "24af5eaef1c4a06b595846cfa21109d23e18974d",
+      "closedAt": "2025-03-02T09:45:42Z",
+      "mergedAt": "2025-03-02T09:45:42Z",
+      "mergedBy": "hannestschofenig",
+      "mergeCommit": {
+        "oid": "aa5dd40a4c7785f9b5260694f0a5a6374204bf2f"
+      },
       "comments": [],
       "reviews": [
         {
