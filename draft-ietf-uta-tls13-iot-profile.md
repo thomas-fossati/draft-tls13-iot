@@ -40,7 +40,7 @@ author:
     ins: T. Fossati
     name: Thomas Fossati
     organization: "Linaro"
-    email: Thomas.Fossati@linaro.com
+    email: Thomas.Fossati@linaro.org
 
  -
     ins: M. Richardson
