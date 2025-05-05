@@ -15,18 +15,18 @@ companion to RFC 7925, defining TLS/DTLS 1.3 profiles for IoT devices.
 Additionally, it updates RFC 7925 with respect to the X.509 certificate
 profile and ciphersuite requirements. 
     " name="description">
-<meta content="xml2rfc 3.28.0" name="generator">
+<meta content="xml2rfc 3.28.1" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-uta-tls13-iot-profile-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.28.0
-    Python 3.12.9
+  xml2rfc 3.28.1
+    Python 3.12.10
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
-    Jinja2 3.1.5
+    Jinja2 3.1.6
     lxml 5.3.0
-    platformdirs 4.3.6
+    platformdirs 4.3.7
     pycountry 24.6.1
     PyYAML 6.0.2
     requests 2.32.3
@@ -1050,11 +1050,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">TLS/DTLS 1.3 IoT Profiles</td>
-<td class="right">March 2025</td>
+<td class="right">May 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Tschofenig, et al.</td>
-<td class="center">Expires 7 September 2025</td>
+<td class="center">Expires 6 November 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1070,12 +1070,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc7925" class="eref">7925</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-03-06" class="published">6 March 2025</time>
+<time datetime="2025-05-05" class="published">5 May 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-09-07">7 September 2025</time></dd>
+<dd class="expires"><time datetime="2025-11-06">6 November 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1129,7 +1129,7 @@ profile and ciphersuite requirements.<a href="#section-abstract-1" class="pilcro
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 7 September 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 6 November 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1560,7 +1560,7 @@ Therefore, it is RECOMMENDED that DTLS 1.3 implementations allow developers to e
 Developers SHOULD set the initial timeout to be twice the expected round-trip time (RTT), but no less than 1000ms.
 For specific application/network combinations, a sub-second initial timeout MAY be set.
 In cases where no RTT estimates are available, a 1000ms initial timeout is suitable for the general Internet.<a href="#section-10-3" class="pilcrow">¶</a></p>
-<p id="section-10-4">For RRC, the recommendations in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-dtls-rrc-12#section-7.5" class="relref">Section 7.5</a> of [<a href="#I-D.ietf-tls-dtls-rrc" class="cite xref">I-D.ietf-tls-dtls-rrc</a>]</span> apply.
+<p id="section-10-4">For RRC, the recommendations in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-dtls-rrc-13#section-7.5" class="relref">Section 7.5</a> of [<a href="#I-D.ietf-tls-dtls-rrc" class="cite xref">I-D.ietf-tls-dtls-rrc</a>]</span> apply.
 Just like the handshake initial timers, it is RECOMMENDED that DTLS 1.2 and 1.3 implementations offer an option for their developers to explicitly set the RRC timer.<a href="#section-10-4" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1584,7 +1584,7 @@ extension. Where privacy requirements require it, the ECH (Encrypted Client Hell
 extension <span>[<a href="#I-D.ietf-tls-esni" class="cite xref">I-D.ietf-tls-esni</a>]</span> prevents an on-path attacker to determine the domain
 name the client is trying to connect to.<a href="#section-12-1" class="pilcrow">¶</a></p>
 <p id="section-12-2">Since the Encrypted Client Hello extension requires use of Hybrid Public Key
-Encryption (HPKE) <span>[<a href="#I-D.irtf-cfrg-hpke" class="cite xref">I-D.irtf-cfrg-hpke</a>]</span> and additional protocols require
+Encryption (HPKE) <span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span> and additional protocols require
 further protocol exchanges and cryptographic operations, there is a certain
 overhead associated with this privacy feature.<a href="#section-12-2" class="pilcrow">¶</a></p>
 <p id="section-12-3">Note that in industrial IoT deployments the use of ECH may not be an option because
@@ -1663,7 +1663,7 @@ IDevIDs and LDevIDs are Device Identifiers (DevIDs). A DevID consists of<a href=
 the certificate's issuer), and<a href="#section-17-3.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="compact" id="section-17-3.3">
-          <p id="section-17-3.3.1">a certificate chain up to a trust anchor. The trust anchor is is usually
+          <p id="section-17-3.3.1">a certificate chain up to a trust anchor. The trust anchor is usually
 the root certificate).<a href="#section-17-3.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
@@ -1741,7 +1741,7 @@ and the serial number uniquely identify a certificate).<a href="#section-17.1.2-
 <p id="section-17.1.3-2">Note: In contrast to IEEE 802.1AR this specification does not require
 end entity certificates, subordinate CA certificates, and CA
 certificates to use the same signature algorithm. Furthermore,
-this specification does not utlize RSA for use with constrained IoT
+this specification does not utilize RSA for use with constrained IoT
 devices and networks.<a href="#section-17.1.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1752,7 +1752,7 @@ devices and networks.<a href="#section-17.1.3-2" class="pilcrow">¶</a></p>
           </h4>
 <p id="section-17.1.4-1">The issuer field MUST contain a non-empty distinguished name (DN)
 of the entity that has signed and issued the certificate in accordance
-to <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>.<a href="#section-17.1.4-1" class="pilcrow">¶</a></p>
+with <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>.<a href="#section-17.1.4-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="validity">
@@ -1837,7 +1837,7 @@ shorter lifetime making certificate revocation protocols, like OCSP
 and CRLs, less relevant. Whenever certificates are updated the TLS stack
 needs to be informed since the communication endpoints need to be aware
 of the new certificates. This is particularly important when long-lived
-TLS connections are used. In such a case, the a post-handshake
+TLS connections are used. In such a case, the post-handshake
 authentication exchange is triggered when the application requires it. TLS 1.3 provides
 client-to-server post-handshake authentication only. Mutual
 authentication via post-handshake messages is available by the use of the "Exported
@@ -2047,9 +2047,9 @@ However, certain IoT applications (for example, <span>[<a href="#I-D.ietf-anima-
 <span>[<a href="#_8021AR" class="cite xref">_8021AR</a>]</span>) use the subject field to encode the device serial number.<a href="#section-17.4.1-2" class="pilcrow">¶</a></p>
 <p id="section-17.4.1-3">The requirement in <span><a href="https://rfc-editor.org/rfc/rfc7925#section-4.4.2" class="relref">Section 4.4.2</a> of [<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> to only use EUI-64 for end
 entity certificates as a subject field is lifted.<a href="#section-17.4.1-3" class="pilcrow">¶</a></p>
-<p id="section-17.4.1-4">Two fields are typically used to encode a device identifer, namely the
+<p id="section-17.4.1-4">Two fields are typically used to encode a device identifier, namely the
 Subject and the subjectAltName fields. Protocol specifications tend to offer
-recommendations what identifiers to use and the deployment situation is
+recommendations about what identifiers to use and the deployment situation is
 fragmented.<a href="#section-17.4.1-4" class="pilcrow">¶</a></p>
 <p id="section-17.4.1-5">The subject field MAY include a unique device serial number. If the serial
 number is included, it MUST be encoded in the X520SerialNumber attribute.
@@ -2067,7 +2067,7 @@ where 'H' is one of the symbols '0'-'9' or 'A'-'F'.<a href="#section-17.4.1-8" c
 MUST be encoded in a subjectAltName of type DNS-ID. Domain names MUST NOT
 contain wildcard (<code>*</code>) characters. The subjectAltName MUST NOT contain multiple
 names.<a href="#section-17.4.1-9" class="pilcrow">¶</a></p>
-<p id="section-17.4.1-10">Note: The IEEE 802.1AR recomments to encode information about a Trusted
+<p id="section-17.4.1-10">Note: The IEEE 802.1AR recommends to encode information about a Trusted
 Platform Module (TPM), if present, in the HardwareModuleName. This
 specification does not follow this recommendation.<a href="#section-17.4.1-10" class="pilcrow">¶</a></p>
 <p id="section-17.4.1-11">Where IoT devices are accepting (D)TLS connections, i.e., they are acting as a server,
@@ -2130,7 +2130,7 @@ contributor to the size of the overall handshake. For example, in a regular TLS
 the secp256r1 curve with mutual authentication, around 40% of the entire
 handshake payload is consumed by the two exchanged certificates.<a href="#section-18-1" class="pilcrow">¶</a></p>
 <p id="section-18-2">Hence, it is not surprising that there is a strong desire to reduce the size of
-certificates and certificate chains. This has lead to various standardization
+certificates and certificate chains. This has led to various standardization
 efforts. Below is a brief summary of what options an implementer has to reduce
 the bandwidth requirements of a public key-based key exchange. Note that many
 of the standardized extensions are not readily available in TLS/DTLS stacks since
@@ -2195,7 +2195,7 @@ infrastructure, tool support).<a href="#section-18-5" class="pilcrow">¶</a></p>
 authentication tags (CCM_8) is considered unsuitable for general use with DTLS.
 This is because it has low integrity limits (i.e., high sensitivity to
 forgeries) which makes endpoints that negotiate ciphersuites based on such AEAD
-vulnerable to a trivial DoS attack. See also Sections <a href="https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-09#section-5.3" class="relref">5.3</a> and <a href="https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-09#section-5.4" class="relref">5.4</a> of <span>[<a href="#I-D.irtf-cfrg-aead-limits" class="cite xref">I-D.irtf-cfrg-aead-limits</a>]</span> for further discussion on this topic, as well as
+vulnerable to a trivial DoS attack. See also Sections <a href="https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-10#section-5.3" class="relref">5.3</a> and <a href="https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-10#section-5.4" class="relref">5.4</a> of <span>[<a href="#I-D.irtf-cfrg-aead-limits" class="cite xref">I-D.irtf-cfrg-aead-limits</a>]</span> for further discussion on this topic, as well as
 references to the analysis supporting these conclusions.<a href="#section-19-1" class="pilcrow">¶</a></p>
 <p id="section-19-2">Specifically, <span>[<a href="#DTLS13" class="cite xref">DTLS13</a>]</span> warns that:<a href="#section-19-2" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-19-3">
@@ -2210,7 +2210,7 @@ references to the analysis supporting these conclusions.<a href="#section-19-1" 
 there is no alternate ciphersuite available for applications that aim to
 eliminate the security and availability threats related to CCM_8 while retaining
 interoperability with the larger ecosystem.<a href="#section-19-4" class="pilcrow">¶</a></p>
-<p id="section-19-5">In order to ameliorate the situation, this document RECOMMENDS that
+<p id="section-19-5">In order to ameliorate the situation, it is RECOMMENDED that
 implementations support the following two ciphersuites for TLS 1.3:<a href="#section-19-5" class="pilcrow">¶</a></p>
 <ul class="compact">
 <li class="compact" id="section-19-6.1">
@@ -2274,7 +2274,7 @@ apply.  In addition, the integrity limits on key usage detailed in <span><a href
 <p id="section-20-1">A number of passive side-channel attacks as well as active fault-injection
 attacks (e.g., <span>[<a href="#Ambrose2017" class="cite xref">Ambrose2017</a>]</span>) have been demonstrated to be successful in allowing a malicious
 third party to gain information about the signing key if a fully deterministic
-signature scheme (e.g., <span>[<a href="#RFC6979" class="cite xref">RFC6979</a>]</span> ECDSA or EdDSA <span>[<a href="#RFC8032" class="cite xref">RFC8032</a>]</span>) is used.<a href="#section-20-1" class="pilcrow">¶</a></p>
+signature scheme (e.g., ECDSA <span>[<a href="#RFC6979" class="cite xref">RFC6979</a>]</span> or EdDSA <span>[<a href="#RFC8032" class="cite xref">RFC8032</a>]</span>) is used.<a href="#section-20-1" class="pilcrow">¶</a></p>
 <p id="section-20-2">Most of these attacks assume physical access to the device and are therefore
 especially relevant to smart cards as well as IoT deployments with poor or
 non-existent physical security.<a href="#section-20-2" class="pilcrow">¶</a></p>
@@ -2333,7 +2333,7 @@ determinism, for example, as described in
 <dd class="break"></dd>
 <dt id="I-D.ietf-tls-dtls-rrc">[I-D.ietf-tls-dtls-rrc]</dt>
         <dd>
-<span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Kraus, A.</span>, and <span class="refAuthor">T. Fossati</span>, <span class="refTitle">"Return Routability Check for DTLS 1.2 and DTLS 1.3"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tls-dtls-rrc-12</span>, <time datetime="2024-09-24" class="refDate">24 September 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-dtls-rrc-12">https://datatracker.ietf.org/doc/html/draft-ietf-tls-dtls-rrc-12</a>&gt;</span>. </dd>
+<span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Kraus, A.</span>, and <span class="refAuthor">T. Fossati</span>, <span class="refTitle">"Return Routability Check for DTLS 1.2 and DTLS 1.3"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tls-dtls-rrc-13</span>, <time datetime="2025-03-25" class="refDate">25 March 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-dtls-rrc-13">https://datatracker.ietf.org/doc/html/draft-ietf-tls-dtls-rrc-13</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
@@ -2422,7 +2422,7 @@ determinism, for example, as described in
 <dd class="break"></dd>
 <dt id="I-D.ietf-dance-tls-clientid">[I-D.ietf-dance-tls-clientid]</dt>
         <dd>
-<span class="refAuthor">Huque, S.</span> and <span class="refAuthor">V. Dukhovni</span>, <span class="refTitle">"TLS Extension for DANE Client Identity"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-dance-tls-clientid-04</span>, <time datetime="2024-11-07" class="refDate">7 November 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-dance-tls-clientid-04">https://datatracker.ietf.org/doc/html/draft-ietf-dance-tls-clientid-04</a>&gt;</span>. </dd>
+<span class="refAuthor">Huque, S.</span> and <span class="refAuthor">V. Dukhovni</span>, <span class="refTitle">"TLS Extension for DANE Client Identity"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-dance-tls-clientid-05</span>, <time datetime="2025-05-04" class="refDate">4 May 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-dance-tls-clientid-05">https://datatracker.ietf.org/doc/html/draft-ietf-dance-tls-clientid-05</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-httpbis-secondary-server-certs">[I-D.ietf-httpbis-secondary-server-certs]</dt>
         <dd>
@@ -2434,7 +2434,7 @@ determinism, for example, as described in
 <dd class="break"></dd>
 <dt id="I-D.ietf-pquip-pqc-engineers">[I-D.ietf-pquip-pqc-engineers]</dt>
         <dd>
-<span class="refAuthor">Banerjee, A.</span>, <span class="refAuthor">Reddy.K, T.</span>, <span class="refAuthor">Schoinianakis, D.</span>, <span class="refAuthor">Hollebeek, T.</span>, and <span class="refAuthor">M. Ounsworth</span>, <span class="refTitle">"Post-Quantum Cryptography for Engineers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-pquip-pqc-engineers-09</span>, <time datetime="2025-02-13" class="refDate">13 February 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-pquip-pqc-engineers-09">https://datatracker.ietf.org/doc/html/draft-ietf-pquip-pqc-engineers-09</a>&gt;</span>. </dd>
+<span class="refAuthor">Banerjee, A.</span>, <span class="refAuthor">Reddy.K, T.</span>, <span class="refAuthor">Schoinianakis, D.</span>, <span class="refAuthor">Hollebeek, T.</span>, and <span class="refAuthor">M. Ounsworth</span>, <span class="refTitle">"Post-Quantum Cryptography for Engineers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-pquip-pqc-engineers-10</span>, <time datetime="2025-05-01" class="refDate">1 May 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-pquip-pqc-engineers-10">https://datatracker.ietf.org/doc/html/draft-ietf-pquip-pqc-engineers-10</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-tls-ctls">[I-D.ietf-tls-ctls]</dt>
         <dd>
@@ -2442,23 +2442,19 @@ determinism, for example, as described in
 <dd class="break"></dd>
 <dt id="I-D.ietf-tls-esni">[I-D.ietf-tls-esni]</dt>
         <dd>
-<span class="refAuthor">Rescorla, E.</span>, <span class="refAuthor">Oku, K.</span>, <span class="refAuthor">Sullivan, N.</span>, and <span class="refAuthor">C. A. Wood</span>, <span class="refTitle">"TLS Encrypted Client Hello"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tls-esni-23</span>, <time datetime="2025-02-19" class="refDate">19 February 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-esni-23">https://datatracker.ietf.org/doc/html/draft-ietf-tls-esni-23</a>&gt;</span>. </dd>
+<span class="refAuthor">Rescorla, E.</span>, <span class="refAuthor">Oku, K.</span>, <span class="refAuthor">Sullivan, N.</span>, and <span class="refAuthor">C. A. Wood</span>, <span class="refTitle">"TLS Encrypted Client Hello"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tls-esni-24</span>, <time datetime="2025-03-20" class="refDate">20 March 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-esni-24">https://datatracker.ietf.org/doc/html/draft-ietf-tls-esni-24</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.irtf-cfrg-aead-limits">[I-D.irtf-cfrg-aead-limits]</dt>
         <dd>
-<span class="refAuthor">Günther, F.</span>, <span class="refAuthor">Thomson, M.</span>, and <span class="refAuthor">C. A. Wood</span>, <span class="refTitle">"Usage Limits on AEAD Algorithms"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-cfrg-aead-limits-09</span>, <time datetime="2024-10-09" class="refDate">9 October 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-09">https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-09</a>&gt;</span>. </dd>
+<span class="refAuthor">Günther, F.</span>, <span class="refAuthor">Thomson, M.</span>, and <span class="refAuthor">C. A. Wood</span>, <span class="refTitle">"Usage Limits on AEAD Algorithms"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-cfrg-aead-limits-10</span>, <time datetime="2025-04-08" class="refDate">8 April 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-10">https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-10</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.irtf-cfrg-det-sigs-with-noise">[I-D.irtf-cfrg-det-sigs-with-noise]</dt>
         <dd>
 <span class="refAuthor">Mattsson, J. P.</span>, <span class="refAuthor">Thormarker, E.</span>, and <span class="refAuthor">S. Ruohomaa</span>, <span class="refTitle">"Hedged ECDSA and EdDSA Signatures"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-cfrg-det-sigs-with-noise-05</span>, <time datetime="2025-03-03" class="refDate">3 March 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-det-sigs-with-noise-05">https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-det-sigs-with-noise-05</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="I-D.irtf-cfrg-hpke">[I-D.irtf-cfrg-hpke]</dt>
-        <dd>
-<span class="refAuthor">Barnes, R.</span>, <span class="refAuthor">Bhargavan, K.</span>, <span class="refAuthor">Lipp, B.</span>, and <span class="refAuthor">C. A. Wood</span>, <span class="refTitle">"Hybrid Public Key Encryption"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-cfrg-hpke-12</span>, <time datetime="2021-09-02" class="refDate">2 September 2021</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-hpke-12">https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-hpke-12</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="I-D.irtf-t2trg-taxonomy-manufacturer-anchors">[I-D.irtf-t2trg-taxonomy-manufacturer-anchors]</dt>
         <dd>
-<span class="refAuthor">Richardson, M.</span>, <span class="refTitle">"A Taxonomy of operational security considerations for manufacturer installed keys and Trust Anchors"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-t2trg-taxonomy-manufacturer-anchors-05</span>, <time datetime="2025-01-02" class="refDate">2 January 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-t2trg-taxonomy-manufacturer-anchors-05">https://datatracker.ietf.org/doc/html/draft-irtf-t2trg-taxonomy-manufacturer-anchors-05</a>&gt;</span>. </dd>
+<span class="refAuthor">Richardson, M.</span>, <span class="refTitle">"A Taxonomy of operational security considerations for manufacturer installed keys and Trust Anchors"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-t2trg-taxonomy-manufacturer-anchors-07</span>, <time datetime="2025-03-29" class="refDate">29 March 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-t2trg-taxonomy-manufacturer-anchors-07">https://datatracker.ietf.org/doc/html/draft-irtf-t2trg-taxonomy-manufacturer-anchors-07</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="LwM2M">[LwM2M]</dt>
         <dd>
@@ -2548,6 +2544,10 @@ determinism, for example, as described in
         <dd>
 <span class="refAuthor">Cam-Winget, N.</span> and <span class="refAuthor">J. Visoky</span>, <span class="refTitle">"TLS 1.3 Authentication and Integrity-Only Cipher Suites"</span>, <span class="seriesInfo">RFC 9150</span>, <span class="seriesInfo">DOI 10.17487/RFC9150</span>, <time datetime="2022-04" class="refDate">April 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9150">https://www.rfc-editor.org/rfc/rfc9150</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC9180">[RFC9180]</dt>
+        <dd>
+<span class="refAuthor">Barnes, R.</span>, <span class="refAuthor">Bhargavan, K.</span>, <span class="refAuthor">Lipp, B.</span>, and <span class="refAuthor">C. Wood</span>, <span class="refTitle">"Hybrid Public Key Encryption"</span>, <span class="seriesInfo">RFC 9180</span>, <span class="seriesInfo">DOI 10.17487/RFC9180</span>, <time datetime="2022-02" class="refDate">February 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9180">https://www.rfc-editor.org/rfc/rfc9180</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC9190">[RFC9190]</dt>
         <dd>
 <span class="refAuthor">Preuß Mattsson, J.</span> and <span class="refAuthor">M. Sethi</span>, <span class="refTitle">"EAP-TLS 1.3: Using the Extensible Authentication Protocol with TLS 1.3"</span>, <span class="seriesInfo">RFC 9190</span>, <span class="seriesInfo">DOI 10.17487/RFC9190</span>, <time datetime="2022-02" class="refDate">February 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9190">https://www.rfc-editor.org/rfc/rfc9190</a>&gt;</span>. </dd>
@@ -2577,8 +2577,9 @@ determinism, for example, as described in
 <p id="appendix-A-1">We would like to thank
 Ben Kaduk,
 Hendrik Brockhaus,
+John Mattsson,
 and
-John Mattsson.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+Marco Tiloca.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="contributors">
