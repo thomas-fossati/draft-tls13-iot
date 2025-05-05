@@ -1314,8 +1314,8 @@ Table of Contents
 
 Acknowledgments
 
-   We would like to thank Ben Kaduk, Hendrik Brockhaus, and John
-   Mattsson.
+   We would like to thank Ben Kaduk, Hendrik Brockhaus, John Mattsson,
+   and Marco Tiloca.
 
 Contributors
 
