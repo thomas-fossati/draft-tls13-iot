@@ -6,9 +6,9 @@ UTA                                                        H. Tschofenig
 Internet-Draft                                                     H-BRS
 Updates: 7925 (if approved)                                   T. Fossati
 Intended status: Standards Track                                  Linaro
-Expires: 12 August 2025                                    M. Richardson
+Expires: 6 November 2025                                   M. Richardson
                                                 Sandelman Software Works
-                                                         8 February 2025
+                                                              5 May 2025
 
 
             TLS/DTLS 1.3 Profiles for the Internet of Things
@@ -16,10 +16,11 @@ Expires: 12 August 2025                                    M. Richardson
 
 Abstract
 
-   This document is a companion to RFC 7925 and defines TLS/DTLS 1.3
-   profiles for Internet of Things devices.  It also updates RFC 7925
-   with regards to the X.509 certificate profile and ciphersuite
-   requirements.
+   RFC 7925 offers guidance to developers on using TLS/DTLS 1.2 for
+   Internet of Things (IoT) devices with resource constraints.  This
+   document is a companion to RFC 7925, defining TLS/DTLS 1.3 profiles
+   for IoT devices.  Additionally, it updates RFC 7925 with respect to
+   the X.509 certificate profile and ciphersuite requirements.
 
 Discussion Venues
 
@@ -43,7 +44,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 12 August 2025.
+   This Internet-Draft will expire on 6 November 2025.
 
 Copyright Notice
 
@@ -121,42 +122,26 @@ Table of Contents
 
 1.  Introduction
 
-   In the rapidly evolving Internet of Things (IoT) ecosystem, securing
-   device-to-device communication is a critical requirement.  The
-   Transport Layer Security (TLS) and Datagram Transport Layer Security
-   (DTLS) protocols have been foundational for ensuring encryption,
-   integrity, and authenticity in network communications.  However, the
-   inherent constraints of IoT devices, such as limited processing
-   capacity, memory, and energy, render conventional, off-the-shelf TLS/
+   In the rapidly evolving Internet of Things (IoT) ecosystem,
+   communication security is a critical requirement.  The Transport
+   Layer Security (TLS) and Datagram Transport Layer Security (DTLS)
+   protocols have been foundational for ensuring encryption, integrity,
+   and authenticity in communications.  However, the constraints of a
+   certain class of IoT devices render conventional, off-the-shelf TLS/
    DTLS implementations suboptimal for many IoT use cases.  This
-   document, TLS/DTLS 1.3 Profiles for the Internet of Things (IoT),
-   addresses these limitations by specifying profiles of TLS 1.3 and
-   DTLS 1.3, optimized for the operational constraints of resource-
-   constrained IoT systems.
+   document addresses these limitations by specifying profiles of TLS
+   1.3 and DTLS 1.3, optimized for resource-constrained IoT devices.
 
-   These profiles aim to balance strong security with the hardware and
-   software limitations of IoT devices.  TLS/DTLS 1.3 introduces
-   numerous enhancements over previous versions, including reduced
-   handshake overhead, more efficient encryption schemes, and mechanisms
-   to thwart replay and downgrade attacks.  However, the default
-   configurations may still present excessive computational and memory
-   demands for constrained devices with limited CPU, RAM, and power
-   resources.  The document mitigates these challenges by defining
-   lightweight protocol configurations while maintaining the essential
-   security guarantees of TLS/DTLS.  This specification also updates
-   [RFC7925] with regards to the X.509 certificate profile (Section 17)
-   and ciphersuites requirements (Section 19).
-
-   Key adaptations in the IoT-specific profiles include streamlining the
-   handshake protocol, minimizing cryptographic operation complexity,
-   and reducing the reliance on resource-heavy certificate chains.  For
-   example, where mutual authentication is needed, the profiles advocate
-   the use of pre-shared keys (PSKs) over a full public key
-   infrastructure (PKI) to mitigate the overhead associated with
-   certificate management.  Moreover, the profiles address session
-   resumption techniques and the handling of stateful versus stateless
-   session management, which are pivotal for maintaining resource-
-   efficient, persistent connections in IoT deployments.
+   Note that IoT devices vary widely in terms of capabilities.  While
+   some are highly resource-constrained, others offer performance
+   comparable to regular desktop computers but operate without end-user
+   interfaces.  For a detailed description of the different classes of
+   IoT devices, please refer to [RFC7228] and [I-D.ietf-iotops-7228bis].
+   It is crucial for developers to thoroughly assess the limitations of
+   their IoT devices and communication technologies to implement the
+   most suitable optimizations.  The profiles in this document aim to
+   balance strong security with the hardware and software limitations of
+   IoT devices.
 
    TLS 1.3 has been re-designed and several previously defined
    extensions are not applicable to the new version of TLS/DTLS anymore.
@@ -188,7 +173,8 @@ Table of Contents
       selecting which PSK identity to use, is, however, not available
       anymore in TLS 1.3.
    *  Finally, ciphersuites were depreciated and the RSA-based key
-      transport is not yet supported in TLS 1.3.
+      transport is not yet supported in TLS 1.3.  As a consequence, only
+      a Diffie-Hellman-based key exchange is available.
 
    The profiles in this specification are designed to be adaptable to
    the broad spectrum of IoT applications, from low-power consumer
@@ -365,10 +351,9 @@ Table of Contents
    is trying to connect to.
 
    Since the Encrypted Client Hello extension requires use of Hybrid
-   Public Key Encryption (HPKE) [I-D.irtf-cfrg-hpke] and additional
-   protocols require further protocol exchanges and cryptographic
-   operations, there is a certain overhead associated with this privacy
-   feature.
+   Public Key Encryption (HPKE) [RFC9180] and additional protocols
+   require further protocol exchanges and cryptographic operations,
+   there is a certain overhead associated with this privacy feature.
 
    Note that in industrial IoT deployments the use of ECH may not be an
    option because network administrators inspect DNS traffic generated
@@ -420,14 +405,24 @@ Table of Contents
    The content is also better aligned with the IEEE 802.1AR [_8021AR]
    specification, which introduces the terms Initial Device Identifier
    (IDevID) and Locally Significant Device Identifiers (LDevIDs).
-   IDevIDs and LDevIDs are Device Identifier (DevID) and a DevID
+   IDevIDs and LDevIDs are Device Identifiers (DevIDs).  A DevID
    consists of
 
    *  a private key,
    *  a certificate (containing the public key and the identifier
       certified by the certificate's issuer), and
-   *  a certificate chain up to a trust anchor.  The trust anchor is is
+   *  a certificate chain up to a trust anchor.  The trust anchor is
       usually the root certificate).
+
+   Note that the trust anchor does not need to be transmitted in the TLS
+   Certificate message sent by the server.  The client MUST NOT use any
+   trust anchor provided in the Certificate message, because the trust
+   anchor is provisioned via out-of-band means.  Therefore, transmitting
+   the trust anchor in the Certificate message is a waste of bandwidth.
+   If the trust anchor is not the root CA certificate, the server may be
+   unaware of which trust anchor the client has.  In such cases, the
+   client can use the Trusted CA Indication, defined in [RFC6066], to
+   indicate which trust anchors it possesses.
 
    The IDevID is typically provisioned by a manufacturer and signed by
    the manufacturer CA.  It is then used to obtain operational
@@ -489,14 +484,14 @@ Table of Contents
    Note: In contrast to IEEE 802.1AR this specification does not require
    end entity certificates, subordinate CA certificates, and CA
    certificates to use the same signature algorithm.  Furthermore, this
-   specification does not utlize RSA for use with constrained IoT
+   specification does not utilize RSA for use with constrained IoT
    devices and networks.
 
 17.1.4.  Issuer
 
    The issuer field MUST contain a non-empty distinguished name (DN) of
    the entity that has signed and issued the certificate in accordance
-   to [RFC5280].
+   with [RFC5280].
 
 17.1.5.   Validity
 
@@ -576,7 +571,7 @@ Table of Contents
    Whenever certificates are updated the TLS stack needs to be informed
    since the communication endpoints need to be aware of the new
    certificates.  This is particularly important when long-lived TLS
-   connections are used.  In such a case, the a post-handshake
+   connections are used.  In such a case, the post-handshake
    authentication exchange is triggered when the application requires
    it.  TLS 1.3 provides client-to-server post-handshake authentication
    only.  Mutual authentication via post-handshake messages is available
@@ -752,9 +747,9 @@ Table of Contents
    The requirement in Section 4.4.2 of [RFC7925] to only use EUI-64 for
    end entity certificates as a subject field is lifted.
 
-   Two fields are typically used to encode a device identifer, namely
+   Two fields are typically used to encode a device identifier, namely
    the Subject and the subjectAltName fields.  Protocol specifications
-   tend to offer recommendations what identifiers to use and the
+   tend to offer recommendations about what identifiers to use and the
    deployment situation is fragmented.
 
    The subject field MAY include a unique device serial number.  If the
@@ -782,7 +777,7 @@ Table of Contents
    DNS-ID.  Domain names MUST NOT contain wildcard (*) characters.  The
    subjectAltName MUST NOT contain multiple names.
 
-   Note: The IEEE 802.1AR recomments to encode information about a
+   Note: The IEEE 802.1AR recommends to encode information about a
    Trusted Platform Module (TPM), if present, in the HardwareModuleName.
    This specification does not follow this recommendation.
 
@@ -841,7 +836,7 @@ Table of Contents
    consumed by the two exchanged certificates.
 
    Hence, it is not surprising that there is a strong desire to reduce
-   the size of certificates and certificate chains.  This has lead to
+   the size of certificates and certificate chains.  This has led to
    various standardization efforts.  Below is a brief summary of what
    options an implementer has to reduce the bandwidth requirements of a
    public key-based key exchange.  Note that many of the standardized
@@ -908,7 +903,7 @@ Table of Contents
    that aim to eliminate the security and availability threats related
    to CCM_8 while retaining interoperability with the larger ecosystem.
 
-   In order to ameliorate the situation, this document RECOMMENDS that
+   In order to ameliorate the situation, it is RECOMMENDED that
    implementations support the following two ciphersuites for TLS 1.3:
 
    *  TLS_AES_128_GCM_SHA256
@@ -947,7 +942,7 @@ Table of Contents
    injection attacks (e.g., [Ambrose2017]) have been demonstrated to be
    successful in allowing a malicious third party to gain information
    about the signing key if a fully deterministic signature scheme
-   (e.g., [RFC6979] ECDSA or EdDSA [RFC8032]) is used.
+   (e.g., ECDSA [RFC6979] or EdDSA [RFC8032]) is used.
 
    Most of these attacks assume physical access to the device and are
    therefore especially relevant to smart cards as well as IoT
@@ -1006,9 +1001,9 @@ Table of Contents
    [I-D.ietf-tls-dtls-rrc]
               Tschofenig, H., Kraus, A., and T. Fossati, "Return
               Routability Check for DTLS 1.2 and DTLS 1.3", Work in
-              Progress, Internet-Draft, draft-ietf-tls-dtls-rrc-12, 24
-              September 2024, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-tls-dtls-rrc-12>.
+              Progress, Internet-Draft, draft-ietf-tls-dtls-rrc-13, 25
+              March 2025, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-tls-dtls-rrc-13>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -1100,24 +1095,24 @@ Table of Contents
               Richardson, M., Van der Stok, P., Kampanakis, P., and E.
               Dijk, "Constrained Bootstrapping Remote Secure Key
               Infrastructure (cBRSKI)", Work in Progress, Internet-
-              Draft, draft-ietf-anima-constrained-voucher-26, 8 January
+              Draft, draft-ietf-anima-constrained-voucher-27, 3 March
               2025, <https://datatracker.ietf.org/doc/html/draft-ietf-
-              anima-constrained-voucher-26>.
+              anima-constrained-voucher-27>.
 
    [I-D.ietf-cose-cbor-encoded-cert]
               Mattsson, J. P., Selander, G., Raza, S., Höglund, J., and
               M. Furuhed, "CBOR Encoded X.509 Certificates (C509
               Certificates)", Work in Progress, Internet-Draft, draft-
-              ietf-cose-cbor-encoded-cert-12, 8 January 2025,
+              ietf-cose-cbor-encoded-cert-13, 3 March 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
-              cbor-encoded-cert-12>.
+              cbor-encoded-cert-13>.
 
    [I-D.ietf-dance-tls-clientid]
               Huque, S. and V. Dukhovni, "TLS Extension for DANE Client
               Identity", Work in Progress, Internet-Draft, draft-ietf-
-              dance-tls-clientid-04, 7 November 2024,
+              dance-tls-clientid-05, 4 May 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-dance-
-              tls-clientid-04>.
+              tls-clientid-05>.
 
    [I-D.ietf-httpbis-secondary-server-certs]
               Gorbaty, E. and M. Bishop, "Secondary Certificate
@@ -1127,13 +1122,20 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-
               secondary-server-certs-01>.
 
+   [I-D.ietf-iotops-7228bis]
+              Bormann, C., Ersue, M., Keränen, A., and C. Gomez,
+              "Terminology for Constrained-Node Networks", Work in
+              Progress, Internet-Draft, draft-ietf-iotops-7228bis-01, 8
+              January 2025, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-iotops-7228bis-01>.
+
    [I-D.ietf-pquip-pqc-engineers]
               Banerjee, A., Reddy.K, T., Schoinianakis, D., Hollebeek,
               T., and M. Ounsworth, "Post-Quantum Cryptography for
               Engineers", Work in Progress, Internet-Draft, draft-ietf-
-              pquip-pqc-engineers-07, 24 January 2025,
+              pquip-pqc-engineers-10, 1 May 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-pquip-
-              pqc-engineers-07>.
+              pqc-engineers-10>.
 
    [I-D.ietf-tls-ctls]
               Rescorla, E., Barnes, R., Tschofenig, H., and B. M.
@@ -1145,38 +1147,31 @@ Table of Contents
    [I-D.ietf-tls-esni]
               Rescorla, E., Oku, K., Sullivan, N., and C. A. Wood, "TLS
               Encrypted Client Hello", Work in Progress, Internet-Draft,
-              draft-ietf-tls-esni-22, 15 September 2024,
+              draft-ietf-tls-esni-24, 20 March 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-tls-
-              esni-22>.
+              esni-24>.
 
    [I-D.irtf-cfrg-aead-limits]
               Günther, F., Thomson, M., and C. A. Wood, "Usage Limits on
               AEAD Algorithms", Work in Progress, Internet-Draft, draft-
-              irtf-cfrg-aead-limits-09, 9 October 2024,
+              irtf-cfrg-aead-limits-10, 8 April 2025,
               <https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-
-              aead-limits-09>.
+              aead-limits-10>.
 
    [I-D.irtf-cfrg-det-sigs-with-noise]
               Mattsson, J. P., Thormarker, E., and S. Ruohomaa, "Hedged
               ECDSA and EdDSA Signatures", Work in Progress, Internet-
-              Draft, draft-irtf-cfrg-det-sigs-with-noise-04, 6 November
-              2024, <https://datatracker.ietf.org/doc/html/draft-irtf-
-              cfrg-det-sigs-with-noise-04>.
-
-   [I-D.irtf-cfrg-hpke]
-              Barnes, R., Bhargavan, K., Lipp, B., and C. A. Wood,
-              "Hybrid Public Key Encryption", Work in Progress,
-              Internet-Draft, draft-irtf-cfrg-hpke-12, 2 September 2021,
-              <https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-
-              hpke-12>.
+              Draft, draft-irtf-cfrg-det-sigs-with-noise-05, 3 March
+              2025, <https://datatracker.ietf.org/doc/html/draft-irtf-
+              cfrg-det-sigs-with-noise-05>.
 
    [I-D.irtf-t2trg-taxonomy-manufacturer-anchors]
               Richardson, M., "A Taxonomy of operational security
               considerations for manufacturer installed keys and Trust
               Anchors", Work in Progress, Internet-Draft, draft-irtf-
-              t2trg-taxonomy-manufacturer-anchors-05, 2 January 2025,
+              t2trg-taxonomy-manufacturer-anchors-07, 29 March 2025,
               <https://datatracker.ietf.org/doc/html/draft-irtf-t2trg-
-              taxonomy-manufacturer-anchors-05>.
+              taxonomy-manufacturer-anchors-07>.
 
    [LwM2M]    OMA SpecWorks, "Lightweight Machine to Machine (LwM2M)
               V.1.2.1 Technical Specification: Transport Bindings",
@@ -1236,6 +1231,11 @@ Table of Contents
               DOI 10.17487/RFC7030, October 2013,
               <https://www.rfc-editor.org/rfc/rfc7030>.
 
+   [RFC7228]  Bormann, C., Ersue, M., and A. Keranen, "Terminology for
+              Constrained-Node Networks", RFC 7228,
+              DOI 10.17487/RFC7228, May 2014,
+              <https://www.rfc-editor.org/rfc/rfc7228>.
+
    [RFC7250]  Wouters, P., Ed., Tschofenig, H., Ed., Gilmore, J.,
               Weiler, S., and T. Kivinen, "Using Raw Public Keys in
               Transport Layer Security (TLS) and Datagram Transport
@@ -1290,6 +1290,10 @@ Table of Contents
               DOI 10.17487/RFC9150, April 2022,
               <https://www.rfc-editor.org/rfc/rfc9150>.
 
+   [RFC9180]  Barnes, R., Bhargavan, K., Lipp, B., and C. Wood, "Hybrid
+              Public Key Encryption", RFC 9180, DOI 10.17487/RFC9180,
+              February 2022, <https://www.rfc-editor.org/rfc/rfc9180>.
+
    [RFC9190]  Preuß Mattsson, J. and M. Sethi, "EAP-TLS 1.3: Using the
               Extensible Authentication Protocol with TLS 1.3",
               RFC 9190, DOI 10.17487/RFC9190, February 2022,
@@ -1331,7 +1335,7 @@ Authors' Addresses
 
    Thomas Fossati
    Linaro
-   Email: Thomas.Fossati@linaro.com
+   Email: Thomas.Fossati@linaro.org
 
 
    Michael Richardson
