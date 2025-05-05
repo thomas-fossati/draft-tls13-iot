@@ -303,7 +303,7 @@ extension {{?I-D.ietf-tls-esni}} prevents an on-path attacker to determine the d
 name the client is trying to connect to.
 
 Since the Encrypted Client Hello extension requires use of Hybrid Public Key
-Encryption (HPKE) {{?I-D.irtf-cfrg-hpke}} and additional protocols require
+Encryption (HPKE) {{?RFC9180}} and additional protocols require
 further protocol exchanges and cryptographic operations, there is a certain
 overhead associated with this privacy feature.
 
@@ -358,7 +358,7 @@ IDevIDs and LDevIDs are Device Identifiers (DevIDs). A DevID consists of
 - a private key,
 - a certificate (containing the public key and the identifier certified by
 the certificate's issuer), and
-- a certificate chain up to a trust anchor. The trust anchor is is usually
+- a certificate chain up to a trust anchor. The trust anchor is usually
 the root certificate).
 
 Note that the trust anchor does not need to be transmitted in the TLS Certificate
@@ -428,14 +428,14 @@ The signature MUST be ecdsa-with-SHA256 or stronger {{!RFC5758}}.
 Note: In contrast to IEEE 802.1AR this specification does not require
 end entity certificates, subordinate CA certificates, and CA
 certificates to use the same signature algorithm. Furthermore,
-this specification does not utlize RSA for use with constrained IoT
+this specification does not utilize RSA for use with constrained IoT
 devices and networks.
 
 ### Issuer
 
 The issuer field MUST contain a non-empty distinguished name (DN)
 of the entity that has signed and issued the certificate in accordance
-to {{!RFC5280}}.
+with {{!RFC5280}}.
 
 ### Validity
 
@@ -507,7 +507,7 @@ shorter lifetime making certificate revocation protocols, like OCSP
 and CRLs, less relevant. Whenever certificates are updated the TLS stack
 needs to be informed since the communication endpoints need to be aware
 of the new certificates. This is particularly important when long-lived
-TLS connections are used. In such a case, the a post-handshake
+TLS connections are used. In such a case, the post-handshake
 authentication exchange is triggered when the application requires it. TLS 1.3 provides
 client-to-server post-handshake authentication only. Mutual
 authentication via post-handshake messages is available by the use of the "Exported
@@ -663,9 +663,9 @@ However, certain IoT applications (for example, {{?I-D.ietf-anima-constrained-vo
 The requirement in {{Section 4.4.2 of !RFC7925}} to only use EUI-64 for end
 entity certificates as a subject field is lifted.
 
-Two fields are typically used to encode a device identifer, namely the
+Two fields are typically used to encode a device identifier, namely the
 Subject and the subjectAltName fields. Protocol specifications tend to offer
-recommendations what identifiers to use and the deployment situation is
+recommendations about what identifiers to use and the deployment situation is
 fragmented.
 
 The subject field MAY include a unique device serial number. If the serial
@@ -689,7 +689,7 @@ MUST be encoded in a subjectAltName of type DNS-ID. Domain names MUST NOT
 contain wildcard (`*`) characters. The subjectAltName MUST NOT contain multiple
 names.
 
-Note: The IEEE 802.1AR recomments to encode information about a Trusted
+Note: The IEEE 802.1AR recommends to encode information about a Trusted
 Platform Module (TPM), if present, in the HardwareModuleName. This
 specification does not follow this recommendation.
 
@@ -738,7 +738,7 @@ the secp256r1 curve with mutual authentication, around 40% of the entire
 handshake payload is consumed by the two exchanged certificates.
 
 Hence, it is not surprising that there is a strong desire to reduce the size of
-certificates and certificate chains. This has lead to various standardization
+certificates and certificate chains. This has led to various standardization
 efforts. Below is a brief summary of what options an implementer has to reduce
 the bandwidth requirements of a public key-based key exchange. Note that many
 of the standardized extensions are not readily available in TLS/DTLS stacks since
@@ -802,7 +802,7 @@ there is no alternate ciphersuite available for applications that aim to
 eliminate the security and availability threats related to CCM_8 while retaining
 interoperability with the larger ecosystem.
 
-In order to ameliorate the situation, this document RECOMMENDS that
+In order to ameliorate the situation, it is RECOMMENDED that
 implementations support the following two ciphersuites for TLS 1.3:
 
 * `TLS_AES_128_GCM_SHA256`
@@ -834,7 +834,7 @@ of !RFC9325}} also apply.
 A number of passive side-channel attacks as well as active fault-injection
 attacks (e.g., {{Ambrose2017}}) have been demonstrated to be successful in allowing a malicious
 third party to gain information about the signing key if a fully deterministic
-signature scheme (e.g., {{?RFC6979}} ECDSA or EdDSA {{?RFC8032}}) is used.
+signature scheme (e.g., ECDSA {{?RFC6979}} or EdDSA {{?RFC8032}}) is used.
 
 Most of these attacks assume physical access to the device and are therefore
 especially relevant to smart cards as well as IoT deployments with poor or
@@ -870,5 +870,6 @@ This document makes no requests to IANA.
 We would like to thank
 Ben Kaduk,
 Hendrik Brockhaus,
+John Mattsson,
 and
-John Mattsson.
+Marco Tiloca.
