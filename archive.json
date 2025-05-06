@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-01T01:11:57.322847+00:00",
+  "timestamp": "2025-05-06T01:07:34.422861+00:00",
   "repo": "thomas-fossati/draft-tls13-iot",
   "labels": [
     {
@@ -72,6 +72,11 @@
       "name": "feature mismatch",
       "description": "1.2 vs 1.3 feature mismatch",
       "color": "c5def5"
+    },
+    {
+      "name": "WGLC",
+      "description": "",
+      "color": "d93f0b"
     }
   ],
   "issues": [
@@ -1163,6 +1168,26 @@
       "createdAt": "2024-12-16T15:30:31Z",
       "updatedAt": "2024-12-16T20:15:36Z",
       "closedAt": "2024-12-16T20:15:36Z",
+      "comments": []
+    },
+    {
+      "number": 77,
+      "id": "I_kwDOEBGZx861HS8i",
+      "title": "Marco\u2019s WGLC comments",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/issues/77",
+      "state": "CLOSED",
+      "author": "thomas-fossati",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "thomas-fossati"
+      ],
+      "labels": [
+        "WGLC"
+      ],
+      "body": "[Marco Tiloca\u2019s review](https://mailarchive.ietf.org/arch/msg/uta/G3x3_kxDCFLe6AnJ6TJ5OUMKzGM/)\n\n```\n- Section 12\n--- HPKE should actually be referred to as RFC 9180\n\n- Section 17\n--- s/is is/is\n\n- Section 17.1.3\n--- s/utlize/utilize\n\n- Section 17.1.4\n--- s/in accordance to/in accordance with\n\n- Section 17.1.7\n--- s/the a post-handshake/a post-handshake\n\n- Section 17.4.1\n--- s/recommendations what/recommendations about what\n--- s/identifer/identifier\n--- s/recomments/recommends\n\n- Section 18\n--- s/has lead/has led\n\n- Section 19\n--- s/this document RECOMMENDS that/it is RECOMMENDED that\n\n     (RECOMMENDS is not a term from BCP 14)\n\n- Section 20\n--- s/[RFC6979] ECDSA/ECDSA [RFC6979]\n```",
+      "createdAt": "2025-05-05T04:43:37Z",
+      "updatedAt": "2025-05-05T07:50:18Z",
+      "closedAt": "2025-05-05T07:50:18Z",
       "comments": []
     }
   ],
@@ -5064,6 +5089,34 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 78,
+      "id": "PR_kwDOEBGZx86U4XYU",
+      "title": "Marco's WGLC comments",
+      "url": "https://github.com/thomas-fossati/draft-tls13-iot/pull/78",
+      "state": "MERGED",
+      "author": "thomas-fossati",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Fix #77",
+      "createdAt": "2025-05-05T04:49:51Z",
+      "updatedAt": "2025-05-05T07:50:20Z",
+      "baseRepository": "thomas-fossati/draft-tls13-iot",
+      "baseRefName": "master",
+      "baseRefOid": "b78e5c43abeeb74ef0d937c447162a9d2b8be856",
+      "headRepository": "thomas-fossati/draft-tls13-iot",
+      "headRefName": "marco",
+      "headRefOid": "04f3d21be27c7bf1d0fc9efc3f804a104d5661b6",
+      "closedAt": "2025-05-05T07:50:17Z",
+      "mergedAt": "2025-05-05T07:50:17Z",
+      "mergedBy": "thomas-fossati",
+      "mergeCommit": {
+        "oid": "397c146060bfa4c1d6d48f157a0a0f352debcfc1"
+      },
+      "comments": [],
+      "reviews": []
     }
   ]
 }
