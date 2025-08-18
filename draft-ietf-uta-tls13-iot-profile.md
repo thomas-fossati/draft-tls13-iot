@@ -190,7 +190,7 @@ deployments, supporting the broad adoption of secure communication standards.
 
 This document reuses the terms "SHOULD+", "SHOULD-" and "MUST-" from {{!RFC8221}}.
 
-# Credential Types
+# Cryptographic Algorithms and Credential Types
 
 In accordance with the recommendations in {{!RFC7925}}, a compliant
 implementation MUST implement TLS_AES_128_CCM_8_SHA256. It SHOULD implement
