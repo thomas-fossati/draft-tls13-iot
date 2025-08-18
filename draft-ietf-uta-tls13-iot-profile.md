@@ -166,7 +166,8 @@ available anymore in TLS 1.3.
 
 - Finally, ciphersuites were depreciated and the RSA-based key transport is not yet
 supported in TLS 1.3. As a consequence, only a Diffie-Hellman-based key exchange
-is available.
+is available for non-PSK-based authentication. (For PSK-based authentication the
+use of Diffie-Hellman is optional.)
 
 The profiles in this specification are designed to be adaptable to the broad spectrum
 of IoT applications, from low-power consumer devices to large-scale industrial
