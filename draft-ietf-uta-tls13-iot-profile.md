@@ -341,7 +341,8 @@ The recommendations in Section 20 of {{!RFC7925}} are applicable.
 > situation when the server rejects 0-RTT and falls back to 1-RTT.
 
 At the time of writing, no such profile has been defined for CoAP {{CoAP}}.
-Therefore, 0-RTT MUST NOT be used by CoAP applications.
+Therefore, 0-RTT MUST NOT be used by CoAP or CoAP applications without a
+corresponding profile.
 
 # Certificate Profile {#certificate_profile}
 
