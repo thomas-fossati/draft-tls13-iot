@@ -868,8 +868,10 @@ This document makes no requests to IANA.
 {:unnumbered}
 
 We would like to thank
-Ben Kaduk,
+Henk Birkholz,
 Hendrik Brockhaus,
+Ben Kaduk,
 John Mattsson,
-and
+Daniel Migault,
+Rich Salz, and
 Marco Tiloca.
