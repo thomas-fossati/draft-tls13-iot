@@ -350,20 +350,27 @@ defined in {{!RFC7925}}. The content of Table 1 of {{!RFC7925}} has been
 split by certificate "type" in order to clarify exactly what requirements and
 recommendations apply to which entity in the PKI hierarchy.
 
-The content is also better aligned with the IEEE 802.1AR {{8021AR}}
-specification, which introduces the terms Initial Device Identifier
-(IDevID) and Locally Significant Device Identifiers (LDevIDs).
-IDevIDs and LDevIDs are Device Identifiers (DevIDs). A DevID consists of
+A Device Identifier (DevID) consists of:
 
 - a private key,
-- a certificate (containing the public key and the identifier certified by
-the certificate's issuer), and
-- a certificate chain up to a trust anchor. The trust anchor is usually
-the root certificate).
+- a certificate containing the public key and the identifier certified by the
+certificate’s issuer, and
+-  a certificate chain up to a trust anchor (typically the root certificate).
+
+The IEEE 802.1AR specification {{8021AR}} introduces the concept of DevIDs and
+defines two specialized versions:
+
+- Initial Device Identifiers (IDevIDs): Provisioned during manufacturing to
+provide a unique, stable identity for the lifetime of the device.
+- Locally Significant Device Identifiers (LDevIDs): Provisioned after deployment
+and typically used for operational purposes within a specific domain.
+
+Thus, IDevIDs and LDevIDs are specialized forms of DevIDs as defined in IEEE 802.1AR.
 
 Note that the trust anchor does not need to be transmitted in the TLS Certificate
 message sent by the server. The client MUST NOT use any trust anchor provided in the
-Certificate message, because the trust anchor is provisioned via out-of-band means.
+Certificate message as input to the certificate path validation algorithm, because
+the trust anchor is provisioned via out-of-band means.
 Therefore, transmitting the trust anchor in the Certificate message is a waste of
 bandwidth. If the trust anchor is not the root CA certificate, the server may be
 unaware of which trust anchor the client has. In such cases, the client can use
