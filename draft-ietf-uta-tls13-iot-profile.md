@@ -492,12 +492,6 @@ The guidance in {{Section 4.4.3 of !RFC7925}} still holds: for certificate
 revocation, neither the Online Certificate Status Protocol (OCSP) nor
 Certificate Revocation Lists (CRLs) are used by constrained IoT devices.
 
-Since the publication of RFC 7925 the need for firmware update mechanisms
-has been reinforced and the work on standardizing a secure and
-interoperable firmware update mechanism has made substantial progress,
-see {{?RFC9019}}. RFC 7925 recommends to use a software / firmware update
-mechanism to provision devices with new trust anchors. This approach only addresses the distribution of trust anchors and not end entity certificates or certificates of subordinate CAs.
-
 The use of device management protocols for IoT devices, which often include
 an onboarding or bootstrapping mechanism, has also seen considerable uptake
 in deployed devices. These protocols, some of which are standardized,
@@ -728,6 +722,20 @@ key. On-device key generation is, however, the preferred approach.
 In IDevID certificates, the extendedKeyUsage SHOULD NOT be present, as it reduces the utility of the IDevID.
 In locally assigned LDevID certificates, the extendedKeyUsage, if present, MUST contain at least one of id-kp-serverAuth or id-kp-clientAuth in order to be useable with TLS.
 
+# Update of Trust Anchors
+
+Since the publication of RFC 7925 the need for firmware update mechanisms
+has been reinforced and the work on standardizing a secure and
+interoperable firmware update mechanism has made substantial progress,
+see {{?RFC9019}}. RFC 7925 recommends to use a software / firmware update
+mechanism to provision devices with new trust anchors. This approach only
+addresses the distribution of trust anchors and not end entity certificates
+or certificates of subordinate CAs.
+
+As an alternative, certificate management protocols like CMP and EST
+have also offered ways to update trust anchors. See, for example,
+{{Section 2.1 of ?RFC7030}} for an approach to obtaining CA certificates
+via EST.
 
 # Certificate Overhead
 
