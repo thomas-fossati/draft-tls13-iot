@@ -151,6 +151,7 @@ The "Exported Authenticator" specification, see {{?RFC9261}}, added support
 for mutual, post-handshake authentication but requires the Certificate,
 CertificateVerify and the Finished messages to be conveyed by the application
 layer protocol, as it is exercised for HTTP/2 and HTTP/3 in {{?I-D.ietf-httpbis-secondary-server-certs}}.
+Therefore, the application layer protocol must be enhanced whenever this feature is required.
 
 - Rekeying of the application traffic secret does not lead to an update of the
 exporter secret (see {{Section 7.5 of TLS13}}) since the derived export secret is
