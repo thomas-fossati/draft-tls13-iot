@@ -725,8 +725,11 @@ keyEncipherment or keyAgreement MUST be set because the encrypted delivery
 of the newly generated key involves encryption or agreement of a symmetric
 key. On-device key generation is, however, the preferred approach.
 
-In IDevID certificates, the extendedKeyUsage SHOULD NOT be present, as it reduces the utility of the IDevID.
-In locally assigned LDevID certificates, the extendedKeyUsage, if present, MUST contain at least one of id-kp-serverAuth or id-kp-clientAuth in order to be useable with TLS.
+As specified in {{8021AR}}, the extendedKeyUsage SHOULD NOT be present in
+IDevID certificates, as it reduces the utility of the IDevID.
+In locally assigned LDevID certificates, the extendedKeyUsage, if present,
+MUST contain at least one of id-kp-serverAuth or id-kp-clientAuth in order
+to be useable with TLS.
 
 
 # Certificate Overhead
