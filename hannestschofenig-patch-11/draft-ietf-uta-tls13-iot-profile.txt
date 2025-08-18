@@ -64,7 +64,7 @@ Table of Contents
 
    1.  Introduction
    2.  Conventions and Terminology
-   3.  Cryptographic Algorithms and Credential Types
+   3.  Credential Types
    4.  Error Handling
    5.  Session Resumption
    6.   Compression
@@ -207,7 +207,7 @@ Table of Contents
    This document reuses the terms "SHOULD+", "SHOULD-" and "MUST-" from
    [RFC8221].
 
-3.  Cryptographic Algorithms and Credential Types
+3.  Credential Types
 
    In accordance with the recommendations in [RFC7925], a compliant
    implementation MUST implement TLS_AES_128_CCM_8_SHA256.  It SHOULD
@@ -392,7 +392,8 @@ Table of Contents
       to 1-RTT.
 
    At the time of writing, no such profile has been defined for CoAP
-   [CoAP].  Therefore, 0-RTT MUST NOT be used by CoAP applications.
+   [CoAP].  Therefore, 0-RTT MUST NOT be used by CoAP or CoAP
+   applications without a corresponding profile.
 
 17.  Certificate Profile
 
@@ -1103,9 +1104,9 @@ Table of Contents
               Mattsson, J. P., Selander, G., Raza, S., Höglund, J., and
               M. Furuhed, "CBOR Encoded X.509 Certificates (C509
               Certificates)", Work in Progress, Internet-Draft, draft-
-              ietf-cose-cbor-encoded-cert-14, 23 June 2025,
+              ietf-cose-cbor-encoded-cert-15, 18 August 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
-              cbor-encoded-cert-14>.
+              cbor-encoded-cert-15>.
 
    [I-D.ietf-dance-tls-clientid]
               Huque, S. and V. Dukhovni, "TLS Extension for DANE Client
