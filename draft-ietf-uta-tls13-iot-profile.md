@@ -597,9 +597,6 @@ critical in such certificates."
 The Basic Constraints extension MUST be set, MUST be marked critical, the cA flag MUST
 be set to true and the pathLenConstraint MUST be omitted.
 
-[Editor's Note: Should we soften the requirement to: "The pathLenConstraint field SHOULD NOT be present."]
-
-
 ## Subordinate CA Certificate
 
 This section outlines the requirements for subordinate CA certificates.
