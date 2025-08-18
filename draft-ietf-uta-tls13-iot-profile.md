@@ -361,15 +361,6 @@ the certificate's issuer), and
 - a certificate chain up to a trust anchor. The trust anchor is usually
 the root certificate).
 
-Note that the trust anchor does not need to be transmitted in the TLS Certificate
-message sent by the server. The client MUST NOT use any trust anchor provided in the
-Certificate message, because the trust anchor is provisioned via out-of-band means.
-Therefore, transmitting the trust anchor in the Certificate message is a waste of
-bandwidth. If the trust anchor is not the root CA certificate, the server may be
-unaware of which trust anchor the client has. In such cases, the client can use
-the Trusted CA Indication, defined in {{RFC6066}}, to indicate
-which trust anchors it possesses.
-
 The IDevID is typically provisioned by a manufacturer and signed by the
 manufacturer CA. It is then used to obtain operational certificates,
 the LDevIDs, from the operator or owner of the device. Some protocols
@@ -772,6 +763,16 @@ optimizations typically get implemented last.
 
 The use of certificate handles, as introduced in cTLS {{?I-D.ietf-tls-ctls}},
 is a form of caching or compressing certificates as well.
+
+Note that the trust anchor SHOULD NOT be transmitted in the TLS Certificate
+message sent by the server. Note that the TLS specification does not prohibit
+the transmission of trust anchors in the Certificate message and some implementations
+indeed include the tust anchor. Trust anchors are provisioned via out-of-band means,
+and any trust anchor included in the Certificate message cannot be used by the client.
+Hence, transmitting it would unnecessarily consume bandwidth. If the trust anchor is
+not the root CA certificate, the server may not know which trust anchor the client
+possesses. In such cases, the client can use the Trusted CA Indication extension
+defined in {{RFC6066}} to signal its supported trust anchors.
 
 Whether to utilize any of the above extensions or a combination of them depends
 on the anticipated deployment environment, the availability of code, and the
