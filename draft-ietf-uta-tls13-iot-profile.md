@@ -442,7 +442,8 @@ with {{!RFC5280}}.
 In IoT deployment scenarios it is often expected that the IDevIDs have
 no maximum validity period. For this purpose the use of a special value
 for the notAfter date field, the GeneralizedTime value of 99991231235959Z,
-is utilized. If this is done, then the CA certificates and the certificates
+is utilized. This special value was introduced in {{Section 4.1.2.5 of !RFC5280}}.
+If this is done, then the CA certificates and the certificates
 of subordinate CAs cannot have a maximum validity period either. Hence,
 it requires careful consideration whether it is appropriate to issue
 IDevID certificates with no maximum validity period.
