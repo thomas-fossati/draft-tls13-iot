@@ -6,9 +6,9 @@ UTA                                                        H. Tschofenig
 Internet-Draft                                                     H-BRS
 Updates: 7925 (if approved)                                   T. Fossati
 Intended status: Standards Track                                  Linaro
-Expires: 6 November 2025                                   M. Richardson
+Expires: 20 February 2026                                  M. Richardson
                                                 Sandelman Software Works
-                                                              5 May 2025
+                                                          19 August 2025
 
 
             TLS/DTLS 1.3 Profiles for the Internet of Things
@@ -44,7 +44,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 November 2025.
+   This Internet-Draft will expire on 20 February 2026.
 
 Copyright Notice
 
@@ -1001,9 +1001,9 @@ Table of Contents
    [I-D.ietf-tls-dtls-rrc]
               Tschofenig, H., Kraus, A., and T. Fossati, "Return
               Routability Check for DTLS 1.2 and DTLS 1.3", Work in
-              Progress, Internet-Draft, draft-ietf-tls-dtls-rrc-13, 25
-              March 2025, <https://datatracker.ietf.org/doc/html/draft-
-              ietf-tls-dtls-rrc-13>.
+              Progress, Internet-Draft, draft-ietf-tls-dtls-rrc-20, 14
+              July 2025, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-tls-dtls-rrc-20>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -1095,24 +1095,24 @@ Table of Contents
               Richardson, M., Van der Stok, P., Kampanakis, P., and E.
               Dijk, "Constrained Bootstrapping Remote Secure Key
               Infrastructure (cBRSKI)", Work in Progress, Internet-
-              Draft, draft-ietf-anima-constrained-voucher-27, 3 March
+              Draft, draft-ietf-anima-constrained-voucher-28, 6 July
               2025, <https://datatracker.ietf.org/doc/html/draft-ietf-
-              anima-constrained-voucher-27>.
+              anima-constrained-voucher-28>.
 
    [I-D.ietf-cose-cbor-encoded-cert]
               Mattsson, J. P., Selander, G., Raza, S., Höglund, J., and
               M. Furuhed, "CBOR Encoded X.509 Certificates (C509
               Certificates)", Work in Progress, Internet-Draft, draft-
-              ietf-cose-cbor-encoded-cert-13, 3 March 2025,
+              ietf-cose-cbor-encoded-cert-15, 18 August 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
-              cbor-encoded-cert-13>.
+              cbor-encoded-cert-15>.
 
    [I-D.ietf-dance-tls-clientid]
               Huque, S. and V. Dukhovni, "TLS Extension for DANE Client
               Identity", Work in Progress, Internet-Draft, draft-ietf-
-              dance-tls-clientid-05, 4 May 2025,
+              dance-tls-clientid-06, 13 June 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-dance-
-              tls-clientid-05>.
+              tls-clientid-06>.
 
    [I-D.ietf-httpbis-secondary-server-certs]
               Gorbaty, E. and M. Bishop, "Secondary Certificate
@@ -1125,17 +1125,17 @@ Table of Contents
    [I-D.ietf-iotops-7228bis]
               Bormann, C., Ersue, M., Keränen, A., and C. Gomez,
               "Terminology for Constrained-Node Networks", Work in
-              Progress, Internet-Draft, draft-ietf-iotops-7228bis-01, 8
-              January 2025, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-iotops-7228bis-01>.
+              Progress, Internet-Draft, draft-ietf-iotops-7228bis-02, 7
+              July 2025, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-iotops-7228bis-02>.
 
    [I-D.ietf-pquip-pqc-engineers]
               Banerjee, A., Reddy.K, T., Schoinianakis, D., Hollebeek,
               T., and M. Ounsworth, "Post-Quantum Cryptography for
               Engineers", Work in Progress, Internet-Draft, draft-ietf-
-              pquip-pqc-engineers-10, 1 May 2025,
+              pquip-pqc-engineers-13, 1 July 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-pquip-
-              pqc-engineers-10>.
+              pqc-engineers-13>.
 
    [I-D.ietf-tls-ctls]
               Rescorla, E., Barnes, R., Tschofenig, H., and B. M.
@@ -1147,9 +1147,9 @@ Table of Contents
    [I-D.ietf-tls-esni]
               Rescorla, E., Oku, K., Sullivan, N., and C. A. Wood, "TLS
               Encrypted Client Hello", Work in Progress, Internet-Draft,
-              draft-ietf-tls-esni-24, 20 March 2025,
+              draft-ietf-tls-esni-25, 14 June 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-tls-
-              esni-24>.
+              esni-25>.
 
    [I-D.irtf-cfrg-aead-limits]
               Günther, F., Thomson, M., and C. A. Wood, "Usage Limits on
@@ -1169,9 +1169,9 @@ Table of Contents
               Richardson, M., "A Taxonomy of operational security
               considerations for manufacturer installed keys and Trust
               Anchors", Work in Progress, Internet-Draft, draft-irtf-
-              t2trg-taxonomy-manufacturer-anchors-07, 29 March 2025,
+              t2trg-taxonomy-manufacturer-anchors-11, 22 July 2025,
               <https://datatracker.ietf.org/doc/html/draft-irtf-t2trg-
-              taxonomy-manufacturer-anchors-07>.
+              taxonomy-manufacturer-anchors-11>.
 
    [LwM2M]    OMA SpecWorks, "Lightweight Machine to Machine (LwM2M)
               V.1.2.1 Technical Specification: Transport Bindings",
@@ -1314,8 +1314,8 @@ Table of Contents
 
 Acknowledgments
 
-   We would like to thank Ben Kaduk, Hendrik Brockhaus, John Mattsson,
-   and Marco Tiloca.
+   We would like to thank Henk Birkholz, Hendrik Brockhaus, Ben Kaduk,
+   John Mattsson, Daniel Migault, Rich Salz, and Marco Tiloca.
 
 Contributors
 
