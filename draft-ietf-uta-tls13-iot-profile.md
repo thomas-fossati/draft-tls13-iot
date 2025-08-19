@@ -764,10 +764,7 @@ optimizations typically get implemented last.
 The use of certificate handles, as introduced in cTLS {{?I-D.ietf-tls-ctls}},
 is a form of caching or compressing certificates as well.
 
-Note that the trust anchor SHOULD NOT be transmitted in the TLS Certificate
-message sent by the server. Note that the TLS specification does not prohibit
-the transmission of trust anchors in the Certificate message and some implementations
-indeed include the tust anchor. Trust anchors are provisioned via out-of-band means,
+Although the TLS specification does not prohibit the transmission of trust anchors in the Certificate message, and some implementations do include them, trust anchors SHOULD NOT be transmitted in the TLS Certificate message sent by the server. Trust anchors are provisioned via out-of-band means,
 and any trust anchor included in the Certificate message cannot be used by the client.
 Hence, transmitting it would unnecessarily consume bandwidth. If the trust anchor is
 not the root CA certificate, the server may not know which trust anchor the client
