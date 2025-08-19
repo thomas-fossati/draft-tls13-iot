@@ -145,11 +145,9 @@ with the transition from TLS 1.2 to 1.3:
 - TLS 1.3 introduced the concept of post-handshake authentication messages, which
 partially replaced the need for the re-negotiation feature {{?RFC5746}} available
 in earlier TLS versions. However, rekeying defined in {{Section 4.6.3 of TLS13}}
-does not provide post compromise security (see {{Appendix E.1.5 of TLS13}} and
-post-handshake authentication defined in {{Section 4.6.2 of TLS13}} only offers
+does not provide post-compromise security (see {{Appendix E.1.5 of TLS13}}). Furthermore, post-handshake authentication defined in {{Section 4.6.2 of TLS13}} only offers
 client-to-server authentication. The "Exported Authenticator" specification,
-see {{?RFC9261}}, recently added support for mutual, post-handshake authentication
-but requires the Certificate, CertificateVerify and the Finished messages to be
+see {{?RFC9261}}, recently added support for mutual post-handshake authentication, but this requires the Certificate, CertificateVerify and the Finished messages to be
 exchanged by the application layer protocol, as it is exercised for HTTP/2 and
 HTTP/3 in {{?I-D.ietf-httpbis-secondary-server-certs}}.
 
