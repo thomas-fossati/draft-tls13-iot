@@ -209,10 +209,6 @@ Table of Contents
 
 3.  Credential Types
 
-   In accordance with the recommendations in [RFC7925], a compliant
-   implementation MUST implement TLS_AES_128_CCM_8_SHA256.  It SHOULD
-   implement TLS_CHACHA20_POLY1305_SHA256.
-
    Pre-shared key based authentication is integrated into the main TLS/
    DTLS 1.3 specification and has been harmonized with session
    resumption.
