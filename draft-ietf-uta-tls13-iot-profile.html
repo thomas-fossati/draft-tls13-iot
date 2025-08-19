@@ -2115,8 +2115,11 @@ delivery of the private key is required. In such cases the key usage
 keyEncipherment or keyAgreement MUST be set because the encrypted delivery
 of the newly generated key involves encryption or agreement of a symmetric
 key. On-device key generation is, however, the preferred approach.<a href="#section-17.4.4-2" class="pilcrow">¶</a></p>
-<p id="section-17.4.4-3">In IDevID certificates, the extendedKeyUsage SHOULD NOT be present, as it reduces the utility of the IDevID.
-In locally assigned LDevID certificates, the extendedKeyUsage, if present, MUST contain at least one of id-kp-serverAuth or id-kp-clientAuth in order to be useable with TLS.<a href="#section-17.4.4-3" class="pilcrow">¶</a></p>
+<p id="section-17.4.4-3">As specified in <span>[<a href="#_8021AR" class="cite xref">_8021AR</a>]</span>, the extendedKeyUsage SHOULD NOT be present in
+IDevID certificates, as it reduces the utility of the IDevID.
+For locally assigned LDevID certificates to be usable with TLS,
+the extendedKeyUsage MUST contain at least one of the following:
+id-kp-serverAuth or id-kp-clientAuth.<a href="#section-17.4.4-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
