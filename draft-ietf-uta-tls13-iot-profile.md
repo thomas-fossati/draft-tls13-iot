@@ -543,8 +543,6 @@ extension is used where an issuer has multiple signing keys."
 The Authority Key Identifier extension MAY be omitted. If it is set, it MUST NOT be
 marked critical, and MUST contain the subjectKeyIdentifier of this certificate.
 
-[Editor's Note: Do we need to set the Authority Key Identifier in the CA certificate?]
-
 ### Subject Key Identifier
 
 {{Section 4.2.1.2 of !RFC5280}} defines the SubjectKeyIdentifier as follows:
