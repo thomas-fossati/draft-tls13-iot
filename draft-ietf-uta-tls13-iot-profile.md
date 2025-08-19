@@ -180,12 +180,12 @@ particular, DTLS is emphasized for scenarios where low-latency communication is
 paramount, such as multi-hop mesh networks and low-power wide-area networks,
 where the amount of data exchanged needs to be minimized.
 
-In conclusion, this document offers comprehensive guidance for deploying secure
+This document offers comprehensive guidance for deploying secure
 communication in resource-constrained IoT environments. It outlines best practices
 for configuring TLS/DTLS 1.3 to meet the unique needs of IoT devices, ensuring
 robust security without overwhelming their limited processing, memory, and power
-resources. The document plays a vital role in facilitating secure, efficient IoT
-deployments, supporting the broad adoption of secure communication standards.
+resources. The document aims to facilitate the development of secure and efficient IoT
+deployments and promote the broad adoption of secure communication standards.
 
 # Conventions and Terminology
 
