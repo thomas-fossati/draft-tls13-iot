@@ -203,8 +203,8 @@ raw public keys MUST support digital signatures with ecdsa_secp256r1_sha256. A
 compliant implementation MUST support the key exchange with secp256r1 (NIST
 P-256) and SHOULD support key exchange with X25519.
 
-A plain PSK-based TLS/DTLS client or server MUST implement the following
-extensions:
+A plain PSK-based TLS/DTLS client or server, which only uses PSK as their long-term
+credential, MUST implement the following extensions:
 
 * Supported Versions,
 * Cookie,
