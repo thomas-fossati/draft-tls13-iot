@@ -226,7 +226,7 @@ Table of Contents
    exchange with X25519.
 
    A plain PSK-based TLS/DTLS client or server, which only uses PSK as
-   their long-term credential, MUST implement the following extensions:
+   its long-term credential, MUST implement the following extensions:
 
    *  Supported Versions,
    *  Cookie,
