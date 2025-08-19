@@ -362,7 +362,7 @@ certificates, which are obtained for use with specific applications.
 IDevIDs are primarily used with device onboarding or bootstrapping protocols,
 such as the Bootstrapping Remote Secure Key Infrastructure (BRSKI) protocol
 {{?RFC8995}} or by LwM2M Bootstrap {{LwM2M}}. Hence, the use of IDevIDs
-is limited in purpose even though they have a long lifetime, or do not expire
+is limited on purpose even though they have a long lifetime, or do not expire
 at all. While some bootstrapping protocols use TLS (and therefore make use of
 the IDevID as part of client authentication) there are other bootstrapping
 protocols that do not use TLS/DTLS for client authentication, such as FIDO
@@ -427,12 +427,14 @@ decision directly affects how long firmware and software updates are
 provided for, as well as the level of maintenance that customers can expect.
 It also affects the maximum validity period of certificates.
 
-In some IoT deployments, IDevIDs are provisioned with an unlimited lifetime.
+In most IoT deployments, IDevIDs are provisioned with an unlimited lifetime as per {{IEEE-802.1AR}}.
 For this purpose, a special value
 for the notAfter date field, the GeneralizedTime value of 99991231235959Z,
-is utilized. This special value was introduced in {{Section 4.1.2.5 of !RFC5280}}.
-If this is done, then the CA certificates and the certificates
-of subordinate CAs cannot have a maximum validity period either. Hence,
+is utilized.
+This special value was introduced in {{Section 4.1.2.5 of !RFC5280}}.
+When this is done, then the CA certificates and the certificates
+of subordinate CAs have a maximum validity period.
+Hence,
 it requires careful consideration whether it is appropriate to issue
 IDevID certificates with no maximum validity period.
 
