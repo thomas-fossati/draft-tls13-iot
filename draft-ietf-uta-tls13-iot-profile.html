@@ -1673,21 +1673,12 @@ and typically used for operational purposes within a specific domain.<a href="#s
 </li>
       </ul>
 <p id="section-17-6">Thus, IDevIDs and LDevIDs are specialized forms of DevIDs as defined in IEEE 802.1AR.<a href="#section-17-6" class="pilcrow">¶</a></p>
-<p id="section-17-7">Note that the trust anchor does not need to be transmitted in the TLS Certificate
-message sent by the server. The client MUST NOT use any trust anchor provided in the
-Certificate message as input to the certificate path validation algorithm, because
-the trust anchor is provisioned via out-of-band means.
-Therefore, transmitting the trust anchor in the Certificate message is a waste of
-bandwidth. If the trust anchor is not the root CA certificate, the server may be
-unaware of which trust anchor the client has. In such cases, the client can use
-the Trusted CA Indication, defined in <span>[<a href="#RFC6066" class="cite xref">RFC6066</a>]</span>, to indicate
-which trust anchors it possesses.<a href="#section-17-7" class="pilcrow">¶</a></p>
-<p id="section-17-8">The IDevID is typically provisioned by a manufacturer and signed by the
+<p id="section-17-7">The IDevID is typically provisioned by a manufacturer and signed by the
 manufacturer CA. It is then used to obtain operational certificates,
 the LDevIDs, from the operator or owner of the device. Some protocols
 also introduce an additional hierarchy with application instance
-certificates, which are obtained for use with specific applications.<a href="#section-17-8" class="pilcrow">¶</a></p>
-<p id="section-17-9">IDevIDs are primarily used with device onboarding or bootstrapping protocols,
+certificates, which are obtained for use with specific applications.<a href="#section-17-7" class="pilcrow">¶</a></p>
+<p id="section-17-8">IDevIDs are primarily used with device onboarding or bootstrapping protocols,
 such as the Bootstrapping Remote Secure Key Infrastructure (BRSKI) protocol
 <span>[<a href="#RFC8995" class="cite xref">RFC8995</a>]</span> or by LwM2M Bootstrap <span>[<a href="#LwM2M" class="cite xref">LwM2M</a>]</span>. Hence, the use of IDevIDs
 is limited in purpose even though they have a long lifetime, or do not expire
@@ -1696,8 +1687,8 @@ the IDevID as part of client authentication) there are other bootstrapping
 protocols that do not use TLS/DTLS for client authentication, such as FIDO
 Device Onboarding (FDO) <span>[<a href="#FDO" class="cite xref">FDO</a>]</span>.  In many cases, a profile for the certificate
 content is provided by those specifications. For these reasons, this
-specification focuses on the description of LDevIDs.<a href="#section-17-9" class="pilcrow">¶</a></p>
-<p id="section-17-10">While the IEEE 802.1AR terminology is utilized in this document,
+specification focuses on the description of LDevIDs.<a href="#section-17-8" class="pilcrow">¶</a></p>
+<p id="section-17-9">While the IEEE 802.1AR terminology is utilized in this document,
 this specification does not claim conformance to IEEE 802.1AR
 since such a compliance statement goes beyond the use of the terminology
 and the certificate content and would include the use of management
@@ -1705,7 +1696,7 @@ protocols, fulfillment of certain hardware security requirements, and
 interfaces to access these hardware security modules. Placing these
 requirements on network equipment like routers may be appropriate but
 designers of constrained IoT devices have opted for different protocols
-and hardware security choices.<a href="#section-17-10" class="pilcrow">¶</a></p>
+and hardware security choices.<a href="#section-17-9" class="pilcrow">¶</a></p>
 <div id="all-certificates">
 <section id="section-17.1">
         <h3 id="name-all-certificates">
@@ -2190,10 +2181,16 @@ it is just the name of the RRtype, as explained in <span>[<a href="#RFC6698" cla
       </ul>
 <p id="section-18-4">The use of certificate handles, as introduced in cTLS <span>[<a href="#I-D.ietf-tls-ctls" class="cite xref">I-D.ietf-tls-ctls</a>]</span>,
 is a form of caching or compressing certificates as well.<a href="#section-18-4" class="pilcrow">¶</a></p>
-<p id="section-18-5">Whether to utilize any of the above extensions or a combination of them depends
+<p id="section-18-5">Although the TLS specification does not prohibit the transmission of trust anchors in the Certificate message, and some implementations do include them, trust anchors SHOULD NOT be transmitted in the TLS Certificate message sent by the server. Trust anchors are provisioned via out-of-band means,
+and any trust anchor included in the Certificate message cannot be used by the client.
+Hence, transmitting it would unnecessarily consume bandwidth. If the trust anchor is
+not the root CA certificate, the server may not know which trust anchor the client
+possesses. In such cases, the client can use the Trusted CA Indication extension
+defined in <span>[<a href="#RFC6066" class="cite xref">RFC6066</a>]</span> to signal its supported trust anchors.<a href="#section-18-5" class="pilcrow">¶</a></p>
+<p id="section-18-6">Whether to utilize any of the above extensions or a combination of them depends
 on the anticipated deployment environment, the availability of code, and the
 constraints imposed by already deployed infrastructure (e.g., CA
-infrastructure, tool support).<a href="#section-18-5" class="pilcrow">¶</a></p>
+infrastructure, tool support).<a href="#section-18-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="ciphersuites">
