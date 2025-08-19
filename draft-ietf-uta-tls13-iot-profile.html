@@ -1372,12 +1372,11 @@ with the transition from TLS 1.2 to 1.3:<a href="#section-1-3" class="pilcrow">�
           <p id="section-1-4.1.1">TLS 1.3 introduced the concept of post-handshake authentication messages, which
 partially replaced the need for the re-negotiation feature <span>[<a href="#RFC5746" class="cite xref">RFC5746</a>]</span> available
 in earlier TLS versions. However, rekeying defined in <span><a href="https://rfc-editor.org/rfc/rfc8446#section-4.6.3" class="relref">Section 4.6.3</a> of [<a href="#TLS13" class="cite xref">TLS13</a>]</span>
-does not provide forward secrecy and post-handshake authentication defined in
-<span><a href="https://rfc-editor.org/rfc/rfc8446#section-4.6.2" class="relref">Section 4.6.2</a> of [<a href="#TLS13" class="cite xref">TLS13</a>]</span> only offers client-to-server authentication.
-The "Exported Authenticator" specification, see <span>[<a href="#RFC9261" class="cite xref">RFC9261</a>]</span>, recently added support
-for mutual, post-handshake authentication but requires the Certificate,
-CertificateVerify and the Finished messages to be exchanged by the application
-layer protocol, as it is exercised for HTTP/2 and HTTP/3 in <span>[<a href="#I-D.ietf-httpbis-secondary-server-certs" class="cite xref">I-D.ietf-httpbis-secondary-server-certs</a>]</span>.<a href="#section-1-4.1.1" class="pilcrow">¶</a></p>
+does not provide post-compromise security (see <span><a href="https://rfc-editor.org/rfc/rfc8446#appendix-E.1.5" class="relref">Appendix E.1.5</a> of [<a href="#TLS13" class="cite xref">TLS13</a>]</span>). Furthermore, post-handshake authentication defined in <span><a href="https://rfc-editor.org/rfc/rfc8446#section-4.6.2" class="relref">Section 4.6.2</a> of [<a href="#TLS13" class="cite xref">TLS13</a>]</span> only offers
+client-to-server authentication. The "Exported Authenticator" specification,
+see <span>[<a href="#RFC9261" class="cite xref">RFC9261</a>]</span>, recently added support for mutual post-handshake authentication, but this requires the Certificate, CertificateVerify and the Finished messages to be
+exchanged by the application layer protocol, as it is exercised for HTTP/2 and
+HTTP/3 in <span>[<a href="#I-D.ietf-httpbis-secondary-server-certs" class="cite xref">I-D.ietf-httpbis-secondary-server-certs</a>]</span>.<a href="#section-1-4.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="compact" id="section-1-4.2">
           <p id="section-1-4.2.1">Rekeying of the application traffic secret does not lead to an update of the
