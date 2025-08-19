@@ -6,9 +6,9 @@ UTA                                                        H. Tschofenig
 Internet-Draft                                                     H-BRS
 Updates: 7925 (if approved)                                   T. Fossati
 Intended status: Standards Track                                  Linaro
-Expires: 19 February 2026                                  M. Richardson
+Expires: 20 February 2026                                  M. Richardson
                                                 Sandelman Software Works
-                                                          18 August 2025
+                                                          19 August 2025
 
 
             TLS/DTLS 1.3 Profiles for the Internet of Things
@@ -44,7 +44,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 19 February 2026.
+   This Internet-Draft will expire on 20 February 2026.
 
 Copyright Notice
 
@@ -406,9 +406,9 @@ Table of Contents
 
    *  a private key,
    *  a certificate containing the public key and the identifier
-      certified by the certificate’s issuer, and
-   *  a certificate chain up to a trust anchor (typically the root
-      certificate).
+      certified by the certificate issuer, and
+   *  a certificate chain leading up to a trust anchor (typically the
+      root certificate).
 
    The IEEE 802.1AR specification [_8021AR] introduces the concept of
    DevIDs and defines two specialized versions:
@@ -1113,9 +1113,9 @@ Table of Contents
               Mattsson, J. P., Selander, G., Raza, S., Höglund, J., and
               M. Furuhed, "CBOR Encoded X.509 Certificates (C509
               Certificates)", Work in Progress, Internet-Draft, draft-
-              ietf-cose-cbor-encoded-cert-14, 23 June 2025,
+              ietf-cose-cbor-encoded-cert-15, 18 August 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
-              cbor-encoded-cert-14>.
+              cbor-encoded-cert-15>.
 
    [I-D.ietf-dance-tls-clientid]
               Huque, S. and V. Dukhovni, "TLS Extension for DANE Client
