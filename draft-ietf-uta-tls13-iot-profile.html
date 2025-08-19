@@ -1556,7 +1556,7 @@ Please review the security and privacy considerations about their use detailed i
       </h2>
 <p id="section-10-1">Compared to DTLS 1.2 timeout-based whole flight retransmission, DTLS 1.3 ACKs sensibly decrease the risk of congestion collapse which was the basis for the very conservative recommendations given in <span><a href="https://rfc-editor.org/rfc/rfc7925#section-11" class="relref">Section 11</a> of [<a href="#RFC7925" class="cite xref">RFC7925</a>]</span>.<a href="#section-10-1" class="pilcrow">¶</a></p>
 <p id="section-10-2">In general, the recommendations in <span><a href="https://rfc-editor.org/rfc/rfc9147#section-7.3" class="relref">Section 7.3</a> of [<a href="#DTLS13" class="cite xref">DTLS13</a>]</span> regarding ACKs apply.
-In particular, "[w]hen DTLS 1.3 is used in deployments with lossy networks, such as low-power, long-range radio networks as well as low-power mesh networks, the use of ACKs is recommended" to signal any sign of disruption or lack of progress.
+In particular, "(w)hen DTLS 1.3 is used in deployments with lossy networks, such as low-power, long-range radio networks as well as low-power mesh networks, the use of ACKs is recommended" to signal any sign of disruption or lack of progress.
 This allows for selective or early retransmission, which leads to more efficient use of bandwidth and memory resources.<a href="#section-10-2" class="pilcrow">¶</a></p>
 <p id="section-10-3">Due to the vast range of network technologies used in IoT deployments, from wired LAN to GSM-SMS, it's not possible to provide a universal recommendation for an initial timeout.
 Therefore, it is RECOMMENDED that DTLS 1.3 implementations allow developers to explicitly set the initial timer value.
@@ -1664,7 +1664,7 @@ certificate issuer, and<a href="#section-17-3.2.1" class="pilcrow">¶</a></p>
           <p id="section-17-3.3.1">a certificate chain leading up to a trust anchor (typically the root certificate).<a href="#section-17-3.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-17-4">The IEEE 802.1AR specification <span>[<a href="#_8021AR" class="cite xref">_8021AR</a>]</span> introduces the concept of DevIDs and
+<p id="section-17-4">The IEEE 802.1AR specification <span>[<a href="#IEEE-802.1AR" class="cite xref">IEEE-802.1AR</a>]</span> introduces the concept of DevIDs and
 defines two specialized versions:<a href="#section-17-4" class="pilcrow">¶</a></p>
 <ul class="compact">
 <li class="compact" id="section-17-5.1">
@@ -2044,7 +2044,7 @@ clients running on IoT devices. Operating (D)TLS servers on IoT devices is
 possible but less common.<a href="#section-17.4.1-1" class="pilcrow">¶</a></p>
 <p id="section-17.4.1-2"><span>[<a href="#RFC9525" class="cite xref">RFC9525</a>], <a href="https://rfc-editor.org/rfc/rfc9525#section-2" class="relref">Section 2</a></span> mandates that the subject field not be used to identify a service.
 However, certain IoT applications (for example, <span>[<a href="#I-D.ietf-anima-constrained-voucher" class="cite xref">I-D.ietf-anima-constrained-voucher</a>]</span>,
-<span>[<a href="#_8021AR" class="cite xref">_8021AR</a>]</span>) use the subject field to encode the device serial number.<a href="#section-17.4.1-2" class="pilcrow">¶</a></p>
+<span>[<a href="#IEEE-802.1AR" class="cite xref">IEEE-802.1AR</a>]</span>) use the subject field to encode the device serial number.<a href="#section-17.4.1-2" class="pilcrow">¶</a></p>
 <p id="section-17.4.1-3">The requirement in <span><a href="https://rfc-editor.org/rfc/rfc7925#section-4.4.2" class="relref">Section 4.4.2</a> of [<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> to only use EUI-64 for end
 entity certificates as a subject field is lifted.<a href="#section-17.4.1-3" class="pilcrow">¶</a></p>
 <p id="section-17.4.1-4">Two fields are typically used to encode a device identifier, namely the
@@ -2111,7 +2111,7 @@ delivery of the private key is required. In such cases the key usage
 keyEncipherment or keyAgreement MUST be set because the encrypted delivery
 of the newly generated key involves encryption or agreement of a symmetric
 key. On-device key generation is, however, the preferred approach.<a href="#section-17.4.4-2" class="pilcrow">¶</a></p>
-<p id="section-17.4.4-3">As specified in <span>[<a href="#_8021AR" class="cite xref">_8021AR</a>]</span>, the extendedKeyUsage SHOULD NOT be present in
+<p id="section-17.4.4-3">As specified in <span>[<a href="#IEEE-802.1AR" class="cite xref">IEEE-802.1AR</a>]</span>, the extendedKeyUsage SHOULD NOT be present in
 IDevID certificates, as it reduces the utility of the IDevID.
 For locally assigned LDevID certificates to be usable with TLS,
 the extendedKeyUsage MUST contain at least one of the following:
@@ -2423,10 +2423,6 @@ determinism, for example, as described in
 <a href="#section-26.2" class="section-number selfRef">26.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
-<dt id="ADD">[ADD]</dt>
-        <dd>
-<span class="refAuthor">IETF</span>, <span class="refTitle">"Adaptive DNS Discovery (add) Working Group"</span>, <time datetime="2023-09" class="refDate">September 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/wg/add/about/">https://datatracker.ietf.org/wg/add/about/</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="Ambrose2017">[Ambrose2017]</dt>
         <dd>
 <span class="refAuthor">Ambrose, C.</span>, <span class="refAuthor">Bos, J. W.</span>, <span class="refAuthor">Fay, B.</span>, <span class="refAuthor">Joye, M.</span>, <span class="refAuthor">Lochter, M.</span>, and <span class="refAuthor">B. Murray</span>, <span class="refTitle">"Differential Attacks on Deterministic Signatures"</span>, <time datetime="2017" class="refDate">2017</time>, <span>&lt;<a href="https://eprint.iacr.org/2017/975.pdf">https://eprint.iacr.org/2017/975.pdf</a>&gt;</span>. </dd>
@@ -2482,6 +2478,10 @@ determinism, for example, as described in
 <dt id="I-D.irtf-t2trg-taxonomy-manufacturer-anchors">[I-D.irtf-t2trg-taxonomy-manufacturer-anchors]</dt>
         <dd>
 <span class="refAuthor">Richardson, M.</span>, <span class="refTitle">"A Taxonomy of operational security considerations for manufacturer installed keys and Trust Anchors"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-t2trg-taxonomy-manufacturer-anchors-11</span>, <time datetime="2025-07-22" class="refDate">22 July 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-t2trg-taxonomy-manufacturer-anchors-11">https://datatracker.ietf.org/doc/html/draft-irtf-t2trg-taxonomy-manufacturer-anchors-11</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="IEEE-802.1AR">[IEEE-802.1AR]</dt>
+        <dd>
+<span class="refTitle">"ISO/IEC/IEEE International Standard for Telecommunications and exchange between information technology systems--Requirements for local and metropolitan area networks--Part 1AR:Secure device identity"</span>, <span class="refContent">IEEE</span>, <span class="seriesInfo">DOI 10.1109/ieeestd.2020.9052099</span>, <span class="seriesInfo">ISBN ["9781504465885"]</span>, <time datetime="2020-03" class="refDate">March 2020</time>, <span>&lt;<a href="https://doi.org/10.1109/ieeestd.2020.9052099">https://doi.org/10.1109/ieeestd.2020.9052099</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="LwM2M">[LwM2M]</dt>
         <dd>
@@ -2588,12 +2588,8 @@ determinism, for example, as described in
 <span class="refAuthor">Sullivan, N.</span>, <span class="refTitle">"Exported Authenticators in TLS"</span>, <span class="seriesInfo">RFC 9261</span>, <span class="seriesInfo">DOI 10.17487/RFC9261</span>, <time datetime="2022-07" class="refDate">July 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9261">https://www.rfc-editor.org/rfc/rfc9261</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9483">[RFC9483]</dt>
-        <dd>
-<span class="refAuthor">Brockhaus, H.</span>, <span class="refAuthor">von Oheimb, D.</span>, and <span class="refAuthor">S. Fries</span>, <span class="refTitle">"Lightweight Certificate Management Protocol (CMP) Profile"</span>, <span class="seriesInfo">RFC 9483</span>, <span class="seriesInfo">DOI 10.17487/RFC9483</span>, <time datetime="2023-11" class="refDate">November 2023</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9483">https://www.rfc-editor.org/rfc/rfc9483</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="_8021AR">[_8021AR]</dt>
       <dd>
-<span class="refAuthor">IEEE</span>, <span class="refTitle">"IEEE Standard for Local and metropolitan area networks – Secure Device Identity, IEEE 802.1AR-2018"</span>, <time datetime="2018-08" class="refDate">August 2018</time>, <span>&lt;<a href="https://1.ieee802.org/security/802-1ar">https://1.ieee802.org/security/802-1ar</a>&gt;</span>. </dd>
+<span class="refAuthor">Brockhaus, H.</span>, <span class="refAuthor">von Oheimb, D.</span>, and <span class="refAuthor">S. Fries</span>, <span class="refTitle">"Lightweight Certificate Management Protocol (CMP) Profile"</span>, <span class="seriesInfo">RFC 9483</span>, <span class="seriesInfo">DOI 10.17487/RFC9483</span>, <time datetime="2023-11" class="refDate">November 2023</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9483">https://www.rfc-editor.org/rfc/rfc9483</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
