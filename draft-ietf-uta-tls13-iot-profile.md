@@ -192,10 +192,6 @@ This document reuses the terms "SHOULD+", "SHOULD-" and "MUST-" from {{!RFC8221}
 
 # Credential Types
 
-In accordance with the recommendations in {{!RFC7925}}, a compliant
-implementation MUST implement TLS_AES_128_CCM_8_SHA256. It SHOULD implement
-TLS_CHACHA20_POLY1305_SHA256.
-
 Pre-shared key based authentication is integrated into the main TLS/DTLS 1.3
 specification and has been harmonized with session resumption.
 
@@ -350,16 +346,22 @@ defined in {{!RFC7925}}. The content of Table 1 of {{!RFC7925}} has been
 split by certificate "type" in order to clarify exactly what requirements and
 recommendations apply to which entity in the PKI hierarchy.
 
-The content is also better aligned with the IEEE 802.1AR {{8021AR}}
-specification, which introduces the terms Initial Device Identifier
-(IDevID) and Locally Significant Device Identifiers (LDevIDs).
-IDevIDs and LDevIDs are Device Identifiers (DevIDs). A DevID consists of
+A Device Identifier (DevID) consists of:
 
 - a private key,
-- a certificate (containing the public key and the identifier certified by
-the certificate's issuer), and
-- a certificate chain up to a trust anchor. The trust anchor is usually
-the root certificate).
+- a certificate containing the public key and the identifier certified by the
+certificate issuer, and
+- a certificate chain leading up to a trust anchor (typically the root certificate).
+
+The IEEE 802.1AR specification {{8021AR}} introduces the concept of DevIDs and
+defines two specialized versions:
+
+- Initial Device Identifiers (IDevIDs): Provisioned during manufacturing to
+provide a unique, stable identity for the lifetime of the device.
+- Locally Significant Device Identifiers (LDevIDs): Provisioned after deployment
+and typically used for operational purposes within a specific domain.
+
+Thus, IDevIDs and LDevIDs are specialized forms of DevIDs as defined in IEEE 802.1AR.
 
 The IDevID is typically provisioned by a manufacturer and signed by the
 manufacturer CA. It is then used to obtain operational certificates,
@@ -430,10 +432,16 @@ with {{!RFC5280}}.
 
 ### Validity
 
-In IoT deployment scenarios it is often expected that the IDevIDs have
-no maximum validity period. For this purpose the use of a special value
+Vendors must determine the expected lifespan of their IoT devices. This
+decision directly affects how long firmware and software updates are
+provided for, as well as the level of maintenance that customers can expect.
+It also affects the maximum validity period of certificates.
+
+In some IoT deployments, IDevIDs are provisioned with an unlimited lifetime.
+For this purpose, a special value
 for the notAfter date field, the GeneralizedTime value of 99991231235959Z,
-is utilized. If this is done, then the CA certificates and the certificates
+is utilized. This special value was introduced in {{Section 4.1.2.5 of !RFC5280}}.
+If this is done, then the CA certificates and the certificates
 of subordinate CAs cannot have a maximum validity period either. Hence,
 it requires careful consideration whether it is appropriate to issue
 IDevID certificates with no maximum validity period.
@@ -534,8 +542,6 @@ extension is used where an issuer has multiple signing keys."
 The Authority Key Identifier extension MAY be omitted. If it is set, it MUST NOT be
 marked critical, and MUST contain the subjectKeyIdentifier of this certificate.
 
-[Editor's Note: Do we need to set the Authority Key Identifier in the CA certificate?]
-
 ### Subject Key Identifier
 
 {{Section 4.2.1.2 of !RFC5280}} defines the SubjectKeyIdentifier as follows:
@@ -587,9 +593,6 @@ critical in such certificates."
 
 The Basic Constraints extension MUST be set, MUST be marked critical, the cA flag MUST
 be set to true and the pathLenConstraint MUST be omitted.
-
-[Editor's Note: Should we soften the requirement to: "The pathLenConstraint field SHOULD NOT be present."]
-
 
 ## Subordinate CA Certificate
 
@@ -681,7 +684,7 @@ contain wildcard (`*`) characters. The subjectAltName MUST NOT contain multiple
 names.
 
 Note: The IEEE 802.1AR recommends to encode information about a Trusted
-Platform Module (TPM), if present, in the HardwareModuleName. This
+Platform Module (TPM), if present, in the HardwareModuleName ({{Section 5 of ?RFC4108}}). This
 specification does not follow this recommendation.
 
 Where IoT devices are accepting (D)TLS connections, i.e., they are acting as a server,
@@ -866,8 +869,10 @@ This document makes no requests to IANA.
 {:unnumbered}
 
 We would like to thank
-Ben Kaduk,
+Henk Birkholz,
 Hendrik Brockhaus,
+Ben Kaduk,
 John Mattsson,
-and
+Daniel Migault,
+Rich Salz, and
 Marco Tiloca.
