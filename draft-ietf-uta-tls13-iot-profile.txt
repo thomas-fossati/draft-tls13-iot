@@ -778,8 +778,9 @@ Table of Contents
    subjectAltName MUST NOT contain multiple names.
 
    Note: The IEEE 802.1AR recommends to encode information about a
-   Trusted Platform Module (TPM), if present, in the HardwareModuleName.
-   This specification does not follow this recommendation.
+   Trusted Platform Module (TPM), if present, in the HardwareModuleName
+   (Section 5 of [RFC4108]).  This specification does not follow this
+   recommendation.
 
    Where IoT devices are accepting (D)TLS connections, i.e., they are
    acting as a server, it is unlikely that there will be a useful name
@@ -1196,6 +1197,11 @@ Table of Contents
               DOI 10.1007/978-3-031-21280-2_24, ISBN ["9783031212796",
               "9783031212802"], 2022,
               <https://doi.org/10.1007/978-3-031-21280-2_24>.
+
+   [RFC4108]  Housley, R., "Using Cryptographic Message Syntax (CMS) to
+              Protect Firmware Packages", RFC 4108,
+              DOI 10.17487/RFC4108, August 2005,
+              <https://www.rfc-editor.org/rfc/rfc4108>.
 
    [RFC4279]  Eronen, P., Ed. and H. Tschofenig, Ed., "Pre-Shared Key
               Ciphersuites for Transport Layer Security (TLS)",
