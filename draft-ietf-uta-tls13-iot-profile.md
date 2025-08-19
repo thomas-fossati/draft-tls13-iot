@@ -354,8 +354,8 @@ A Device Identifier (DevID) consists of:
 
 - a private key,
 - a certificate containing the public key and the identifier certified by the
-certificate’s issuer, and
--  a certificate chain up to a trust anchor (typically the root certificate).
+certificate issuer, and
+- a certificate chain leading up to a trust anchor (typically the root certificate).
 
 The IEEE 802.1AR specification {{8021AR}} introduces the concept of DevIDs and
 defines two specialized versions:
