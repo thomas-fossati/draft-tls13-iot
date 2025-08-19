@@ -6,9 +6,9 @@ UTA                                                        H. Tschofenig
 Internet-Draft                                                     H-BRS
 Updates: 7925 (if approved)                                   T. Fossati
 Intended status: Standards Track                                  Linaro
-Expires: 19 February 2026                                  M. Richardson
+Expires: 20 February 2026                                  M. Richardson
                                                 Sandelman Software Works
-                                                          18 August 2025
+                                                          19 August 2025
 
 
             TLS/DTLS 1.3 Profiles for the Internet of Things
@@ -44,7 +44,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 19 February 2026.
+   This Internet-Draft will expire on 20 February 2026.
 
 Copyright Notice
 
@@ -106,16 +106,17 @@ Table of Contents
        17.4.2.  Authority Key Identifier
        17.4.3.  Subject Key Identifier
        17.4.4.  Key Usage
-   18. Certificate Overhead
-   19. Ciphersuites
-   20. Fault Attacks on Deterministic Signature Schemes
-   21. Post-Quantum Cryptography (PQC) Considerations
-   22. Open Issues
-   23. Security Considerations
-   24. IANA Considerations
-   25. References
-     25.1.  Normative References
-     25.2.  Informative References
+   18. Update of Trust Anchors
+   19. Certificate Overhead
+   20. Ciphersuites
+   21. Fault Attacks on Deterministic Signature Schemes
+   22. Post-Quantum Cryptography (PQC) Considerations
+   23. Open Issues
+   24. Security Considerations
+   25. IANA Considerations
+   26. References
+     26.1.  Normative References
+     26.2.  Informative References
    Acknowledgments
    Contributors
    Authors' Addresses
@@ -150,16 +151,19 @@ Table of Contents
 
    *  TLS 1.3 introduced the concept of post-handshake authentication
       messages, which partially replaced the need for the re-negotiation
-      feature [RFC5746] available in earlier TLS versions.  However,
-      rekeying defined in Section 4.6.3 of [TLS13] does not provide
-      forward secrecy and post-handshake authentication defined in
+      feature [RFC5746] available in earlier TLS versions.  However, the
+      rekeying mechanism defined in Section 4.6.3 of [TLS13] does not
+      provide post-compromise security (see Appendix E.1.5 of [TLS13]).
+      Furthermore, post-handshake authentication defined in
       Section 4.6.2 of [TLS13] only offers client-to-server
       authentication.  The "Exported Authenticator" specification, see
-      [RFC9261], recently added support for mutual, post-handshake
-      authentication but requires the Certificate, CertificateVerify and
-      the Finished messages to be exchanged by the application layer
-      protocol, as it is exercised for HTTP/2 and HTTP/3 in
-      [I-D.ietf-httpbis-secondary-server-certs].
+      [RFC9261], recently added support for mutual post-handshake
+      authentication, but this requires the Certificate,
+      CertificateVerify and the Finished messages to be conveyed by the
+      application layer protocol, as it is exercised for HTTP/2 and
+      HTTP/3 in [I-D.ietf-httpbis-secondary-server-certs].  Therefore,
+      the application layer protocol must be enhanced whenever this
+      feature is required.
    *  Rekeying of the application traffic secret does not lead to an
       update of the exporter secret (see Section 7.5 of [TLS13]) since
       the derived export secret is based on the exporter_master_secret
@@ -211,10 +215,6 @@ Table of Contents
 
 3.  Credential Types
 
-   In accordance with the recommendations in [RFC7925], a compliant
-   implementation MUST implement TLS_AES_128_CCM_8_SHA256.  It SHOULD
-   implement TLS_CHACHA20_POLY1305_SHA256.
-
    Pre-shared key based authentication is integrated into the main TLS/
    DTLS 1.3 specification and has been harmonized with session
    resumption.
@@ -225,8 +225,8 @@ Table of Contents
    key exchange with secp256r1 (NIST P-256) and SHOULD support key
    exchange with X25519.
 
-   A plain PSK-based TLS/DTLS client or server MUST implement the
-   following extensions:
+   A plain PSK-based TLS/DTLS client or server, which only uses PSK as
+   their long-term credential, MUST implement the following extensions:
 
    *  Supported Versions,
    *  Cookie,
@@ -357,15 +357,14 @@ Table of Contents
    require further protocol exchanges and cryptographic operations,
    there is a certain overhead associated with this privacy feature.
 
-   Note that in industrial IoT deployments the use of ECH may not be an
-   option because network administrators inspect DNS traffic generated
-   by IoT devices in order to detect malicious behaviour.
+   Note that in industrial IoT deployments the use of ECH may be
+   disabled because network administrators inspect the SNI to detect
+   malicious behaviour.
 
    Besides, to avoid leaking DNS lookups from network inspection
-   altogether further protocols are needed, including DoH [RFC8484] and
-   DPRIVE [RFC7858] [RFC8094].  For use of such techniques in managed
-   networks, the reader is advised to keep up to date with the protocols
-   defined by the Adaptive DNS Discovery (add) working group [ADD].
+   altogether further protocols are needed, including DNS-over-HTTPS
+   (DoH) [RFC8484], DNS-over-TLS (DoT) [RFC7858] and DNS-over-QUIC (DoQ)
+   [RFC9250].
 
 13.   Maximum Fragment Length Negotiation
 
@@ -404,27 +403,26 @@ Table of Contents
    requirements and recommendations apply to which entity in the PKI
    hierarchy.
 
-   The content is also better aligned with the IEEE 802.1AR [_8021AR]
-   specification, which introduces the terms Initial Device Identifier
-   (IDevID) and Locally Significant Device Identifiers (LDevIDs).
-   IDevIDs and LDevIDs are Device Identifiers (DevIDs).  A DevID
-   consists of
+   A Device Identifier (DevID) consists of:
 
    *  a private key,
-   *  a certificate (containing the public key and the identifier
-      certified by the certificate's issuer), and
-   *  a certificate chain up to a trust anchor.  The trust anchor is
-      usually the root certificate).
+   *  a certificate containing the public key and the identifier
+      certified by the certificate issuer, and
+   *  a certificate chain leading up to a trust anchor (typically the
+      root certificate).
 
-   Note that the trust anchor does not need to be transmitted in the TLS
-   Certificate message sent by the server.  The client MUST NOT use any
-   trust anchor provided in the Certificate message, because the trust
-   anchor is provisioned via out-of-band means.  Therefore, transmitting
-   the trust anchor in the Certificate message is a waste of bandwidth.
-   If the trust anchor is not the root CA certificate, the server may be
-   unaware of which trust anchor the client has.  In such cases, the
-   client can use the Trusted CA Indication, defined in [RFC6066], to
-   indicate which trust anchors it possesses.
+   The IEEE 802.1AR specification [_8021AR] introduces the concept of
+   DevIDs and defines two specialized versions:
+
+   *  Initial Device Identifiers (IDevIDs): Provisioned during
+      manufacturing to provide a unique, stable identity for the
+      lifetime of the device.
+   *  Locally Significant Device Identifiers (LDevIDs): Provisioned
+      after deployment and typically used for operational purposes
+      within a specific domain.
+
+   Thus, IDevIDs and LDevIDs are specialized forms of DevIDs as defined
+   in IEEE 802.1AR.
 
    The IDevID is typically provisioned by a manufacturer and signed by
    the manufacturer CA.  It is then used to obtain operational
@@ -497,14 +495,20 @@ Table of Contents
 
 17.1.5.   Validity
 
-   In IoT deployment scenarios it is often expected that the IDevIDs
-   have no maximum validity period.  For this purpose the use of a
-   special value for the notAfter date field, the GeneralizedTime value
-   of 99991231235959Z, is utilized.  If this is done, then the CA
-   certificates and the certificates of subordinate CAs cannot have a
-   maximum validity period either.  Hence, it requires careful
-   consideration whether it is appropriate to issue IDevID certificates
-   with no maximum validity period.
+   Vendors must determine the expected lifespan of their IoT devices.
+   This decision directly affects how long firmware and software updates
+   are provided for, as well as the level of maintenance that customers
+   can expect.  It also affects the maximum validity period of
+   certificates.
+
+   In some IoT deployments, IDevIDs are provisioned with an unlimited
+   lifetime.  For this purpose, a special value for the notAfter date
+   field, the GeneralizedTime value of 99991231235959Z, is utilized.
+   This special value was introduced in Section 4.1.2.5 of [RFC5280].
+   If this is done, then the CA certificates and the certificates of
+   subordinate CAs cannot have a maximum validity period either.  Hence,
+   it requires careful consideration whether it is appropriate to issue
+   IDevID certificates with no maximum validity period.
 
    LDevID certificates are, however, issued by the operator or owner,
    and may be renewed at a regular interval using protocols, such as
@@ -553,15 +557,6 @@ Table of Contents
    certificate revocation, neither the Online Certificate Status
    Protocol (OCSP) nor Certificate Revocation Lists (CRLs) are used by
    constrained IoT devices.
-
-   Since the publication of RFC 7925 the need for firmware update
-   mechanisms has been reinforced and the work on standardizing a secure
-   and interoperable firmware update mechanism has made substantial
-   progress, see [RFC9019].  RFC 7925 recommends to use a software /
-   firmware update mechanism to provision devices with new trust
-   anchors.  This approach only addresses the distribution of trust
-   anchors and not end entity certificates or certificates of
-   subordinate CAs.
 
    The use of device management protocols for IoT devices, which often
    include an onboarding or bootstrapping mechanism, has also seen
@@ -613,9 +608,6 @@ Table of Contents
    The Authority Key Identifier extension MAY be omitted.  If it is set,
    it MUST NOT be marked critical, and MUST contain the
    subjectKeyIdentifier of this certificate.
-
-   [Editor's Note: Do we need to set the Authority Key Identifier in the
-   CA certificate?]
 
 17.2.3.  Subject Key Identifier
 
@@ -675,9 +667,6 @@ Table of Contents
    The Basic Constraints extension MUST be set, MUST be marked critical,
    the cA flag MUST be set to true and the pathLenConstraint MUST be
    omitted.
-
-   [Editor's Note: Should we soften the requirement to: "The
-   pathLenConstraint field SHOULD NOT be present."]
 
 17.3.  Subordinate CA Certificate
 
@@ -780,8 +769,9 @@ Table of Contents
    subjectAltName MUST NOT contain multiple names.
 
    Note: The IEEE 802.1AR recommends to encode information about a
-   Trusted Platform Module (TPM), if present, in the HardwareModuleName.
-   This specification does not follow this recommendation.
+   Trusted Platform Module (TPM), if present, in the HardwareModuleName
+   (Section 5 of [RFC4108]).  This specification does not follow this
+   recommendation.
 
    Where IoT devices are accepting (D)TLS connections, i.e., they are
    acting as a server, it is unlikely that there will be a useful name
@@ -822,13 +812,29 @@ Table of Contents
    agreement of a symmetric key.  On-device key generation is, however,
    the preferred approach.
 
-   In IDevID certificates, the extendedKeyUsage SHOULD NOT be present,
-   as it reduces the utility of the IDevID.  In locally assigned LDevID
-   certificates, the extendedKeyUsage, if present, MUST contain at least
-   one of id-kp-serverAuth or id-kp-clientAuth in order to be useable
-   with TLS.
+   As specified in [_8021AR], the extendedKeyUsage SHOULD NOT be present
+   in IDevID certificates, as it reduces the utility of the IDevID.  For
+   locally assigned LDevID certificates to be usable with TLS, the
+   extendedKeyUsage MUST contain at least one of the following: id-kp-
+   serverAuth or id-kp-clientAuth.
 
-18.  Certificate Overhead
+18.  Update of Trust Anchors
+
+   Since the publication of RFC 7925 the need for firmware update
+   mechanisms has been reinforced and the work on standardizing a secure
+   and interoperable firmware update mechanism has made substantial
+   progress, see [RFC9019].  RFC 7925 recommends to use a software /
+   firmware update mechanism to provision devices with new trust
+   anchors.  This approach only addresses the distribution of trust
+   anchors and not end entity certificates or certificates of
+   subordinate CAs.
+
+   As an alternative, certificate management protocols like CMP and EST
+   have also offered ways to update trust anchors.  See, for example,
+   Section 2.1 of [RFC7030] for an approach to obtaining CA certificates
+   via EST.
+
+19.  Certificate Overhead
 
    In a public key-based key exchange, certificates and public keys are
    a major contributor to the size of the overall handshake.  For
@@ -877,12 +883,24 @@ Table of Contents
    [I-D.ietf-tls-ctls], is a form of caching or compressing certificates
    as well.
 
+   Although the TLS specification does not prohibit the transmission of
+   trust anchors in the Certificate message, and some implementations do
+   include them, trust anchors SHOULD NOT be transmitted in the TLS
+   Certificate message sent by the server.  Trust anchors are
+   provisioned via out-of-band means, and any trust anchor included in
+   the Certificate message cannot be used by the client.  Hence,
+   transmitting it would unnecessarily consume bandwidth.  If the trust
+   anchor is not the root CA certificate, the server may not know which
+   trust anchor the client possesses.  In such cases, the client can use
+   the Trusted CA Indication extension defined in [RFC6066] to signal
+   its supported trust anchors.
+
    Whether to utilize any of the above extensions or a combination of
    them depends on the anticipated deployment environment, the
    availability of code, and the constraints imposed by already deployed
    infrastructure (e.g., CA infrastructure, tool support).
 
-19.  Ciphersuites
+20.  Ciphersuites
 
    According to Section 4.5.3 of [DTLS13], the use of AES-CCM with
    8-octet authentication tags (CCM_8) is considered unsuitable for
@@ -938,7 +956,7 @@ Table of Contents
 
      Table 1: TLS 1.3 Ciphersuite Requirements
 
-20.  Fault Attacks on Deterministic Signature Schemes
+21.  Fault Attacks on Deterministic Signature Schemes
 
    A number of passive side-channel attacks as well as active fault-
    injection attacks (e.g., [Ambrose2017]) have been demonstrated to be
@@ -954,7 +972,7 @@ Table of Contents
    and determinism, for example, as described in
    [I-D.irtf-cfrg-det-sigs-with-noise].
 
-21.  Post-Quantum Cryptography (PQC) Considerations
+22.  Post-Quantum Cryptography (PQC) Considerations
 
    As detailed in [I-D.ietf-pquip-pqc-engineers], the IETF is actively
    working to address the challenges of adopting PQC in various
@@ -978,22 +996,22 @@ Table of Contents
    planning to select hardware suitable for the task considering the
    lifetime of an IoT product.
 
-22.  Open Issues
+23.  Open Issues
 
    A list of open issues can be found at https://github.com/thomas-
    fossati/draft-tls13-iot/issues
 
-23.  Security Considerations
+24.  Security Considerations
 
    This entire document is about security.
 
-24.  IANA Considerations
+25.  IANA Considerations
 
    This document makes no requests to IANA.
 
-25.  References
+26.  References
 
-25.1.  Normative References
+26.1.  Normative References
 
    [DTLS13]   Rescorla, E., Tschofenig, H., and N. Modadugu, "The
               Datagram Transport Layer Security (DTLS) Protocol Version
@@ -1073,7 +1091,7 @@ Table of Contents
               Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
               <https://www.rfc-editor.org/rfc/rfc8446>.
 
-25.2.  Informative References
+26.2.  Informative References
 
    [ADD]      IETF, "Adaptive DNS Discovery (add) Working Group",
               September 2023,
@@ -1105,9 +1123,9 @@ Table of Contents
               Mattsson, J. P., Selander, G., Raza, S., Höglund, J., and
               M. Furuhed, "CBOR Encoded X.509 Certificates (C509
               Certificates)", Work in Progress, Internet-Draft, draft-
-              ietf-cose-cbor-encoded-cert-14, 23 June 2025,
+              ietf-cose-cbor-encoded-cert-15, 18 August 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
-              cbor-encoded-cert-14>.
+              cbor-encoded-cert-15>.
 
    [I-D.ietf-dance-tls-clientid]
               Huque, S. and V. Dukhovni, "TLS Extension for DANE Client
@@ -1199,6 +1217,11 @@ Table of Contents
               "9783031212802"], 2022,
               <https://doi.org/10.1007/978-3-031-21280-2_24>.
 
+   [RFC4108]  Housley, R., "Using Cryptographic Message Syntax (CMS) to
+              Protect Firmware Packages", RFC 4108,
+              DOI 10.17487/RFC4108, August 2005,
+              <https://www.rfc-editor.org/rfc/rfc4108>.
+
    [RFC4279]  Eronen, P., Ed. and H. Tschofenig, Ed., "Pre-Shared Key
               Ciphersuites for Transport Layer Security (TLS)",
               RFC 4279, DOI 10.17487/RFC4279, December 2005,
@@ -1259,11 +1282,6 @@ Table of Contents
               DOI 10.17487/RFC8032, January 2017,
               <https://www.rfc-editor.org/rfc/rfc8032>.
 
-   [RFC8094]  Reddy, T., Wing, D., and P. Patil, "DNS over Datagram
-              Transport Layer Security (DTLS)", RFC 8094,
-              DOI 10.17487/RFC8094, February 2017,
-              <https://www.rfc-editor.org/rfc/rfc8094>.
-
    [RFC8484]  Hoffman, P. and P. McManus, "DNS Queries over HTTPS
               (DoH)", RFC 8484, DOI 10.17487/RFC8484, October 2018,
               <https://www.rfc-editor.org/rfc/rfc8484>.
@@ -1301,6 +1319,11 @@ Table of Contents
               RFC 9190, DOI 10.17487/RFC9190, February 2022,
               <https://www.rfc-editor.org/rfc/rfc9190>.
 
+   [RFC9250]  Huitema, C., Dickinson, S., and A. Mankin, "DNS over
+              Dedicated QUIC Connections", RFC 9250,
+              DOI 10.17487/RFC9250, May 2022,
+              <https://www.rfc-editor.org/rfc/rfc9250>.
+
    [RFC9261]  Sullivan, N., "Exported Authenticators in TLS", RFC 9261,
               DOI 10.17487/RFC9261, July 2022,
               <https://www.rfc-editor.org/rfc/rfc9261>.
@@ -1316,8 +1339,8 @@ Table of Contents
 
 Acknowledgments
 
-   We would like to thank Ben Kaduk, Hendrik Brockhaus, John Mattsson,
-   and Marco Tiloca.
+   We would like to thank Henk Birkholz, Hendrik Brockhaus, Ben Kaduk,
+   John Mattsson, Daniel Migault, Rich Salz, and Marco Tiloca.
 
 Contributors
 
