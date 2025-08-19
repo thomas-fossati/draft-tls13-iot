@@ -727,9 +727,9 @@ key. On-device key generation is, however, the preferred approach.
 
 As specified in {{8021AR}}, the extendedKeyUsage SHOULD NOT be present in
 IDevID certificates, as it reduces the utility of the IDevID.
-In locally assigned LDevID certificates, the extendedKeyUsage, if present,
-MUST contain at least one of id-kp-serverAuth or id-kp-clientAuth in order
-to be useable with TLS.
+For locally assigned LDevID certificates to be usable with TLS,
+the extendedKeyUsage MUST contain at least one of the following:
+id-kp-serverAuth or id-kp-clientAuth.
 
 
 # Certificate Overhead
