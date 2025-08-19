@@ -575,9 +575,9 @@ Table of Contents
    application layer protocol to carry the payloads.
 
    Hence, instead of performing certificate revocation checks on the IoT
-   device itself this specification recommends to delegate this task to
-   the IoT device operator and to take the necessary action to allow IoT
-   devices to remain operational.
+   device itself this it is RECOMMENDED to delegate this task to the IoT
+   device operator and to take the necessary action to allow IoT devices
+   to remain operational.
 
    The CRL distribution points extension has been defined in RFC 5280 to
    identify how CRL information is obtained.  The authority information
