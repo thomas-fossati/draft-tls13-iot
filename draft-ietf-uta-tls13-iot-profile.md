@@ -68,18 +68,7 @@ informative:
   PQC-ENERGY: DOI.10.1145/3587135.3592821
   PQC-PERF: DOI.10.1007/978-3-031-21280-2_24
   CoAP: RFC7252
-  ADD:
-     author:
-        org: IETF
-     title: Adaptive DNS Discovery (add) Working Group
-     target: https://datatracker.ietf.org/wg/add/about/
-     date: September 2023
-  8021AR:
-     author:
-        org: IEEE
-     title: IEEE Standard for Local and metropolitan area networks – Secure Device Identity, IEEE 802.1AR-2018
-     target: https://1.ieee802.org/security/802-1ar
-     date: August 2018
+  IEEE-802.1AR: DOI.10.1109/IEEESTD.2020.9052099
   FDO:
      author:
         org: FIDO Alliance
@@ -276,7 +265,7 @@ The discussion in Section 10 of {{!RFC7925}} is applicable.
 Compared to DTLS 1.2 timeout-based whole flight retransmission, DTLS 1.3 ACKs sensibly decrease the risk of congestion collapse which was the basis for the very conservative recommendations given in {{Section 11 of !RFC7925}}.
 
 In general, the recommendations in {{Section 7.3 of DTLS13}} regarding ACKs apply.
-In particular, "[w]hen DTLS 1.3 is used in deployments with lossy networks, such as low-power, long-range radio networks as well as low-power mesh networks, the use of ACKs is recommended" to signal any sign of disruption or lack of progress.
+In particular, "(w)hen DTLS 1.3 is used in deployments with lossy networks, such as low-power, long-range radio networks as well as low-power mesh networks, the use of ACKs is recommended" to signal any sign of disruption or lack of progress.
 This allows for selective or early retransmission, which leads to more efficient use of bandwidth and memory resources.
 
 Due to the vast range of network technologies used in IoT deployments, from wired LAN to GSM-SMS, it's not possible to provide a universal recommendation for an initial timeout.
@@ -354,7 +343,7 @@ A Device Identifier (DevID) consists of:
 certificate issuer, and
 - a certificate chain leading up to a trust anchor (typically the root certificate).
 
-The IEEE 802.1AR specification {{8021AR}} introduces the concept of DevIDs and
+The IEEE 802.1AR specification {{IEEE-802.1AR}} introduces the concept of DevIDs and
 defines two specialized versions:
 
 - Initial Device Identifiers (IDevIDs): Provisioned during manufacturing to
@@ -647,7 +636,7 @@ possible but less common.
 
 {{!RFC9525, Section 2}} mandates that the subject field not be used to identify a service.
 However, certain IoT applications (for example, {{?I-D.ietf-anima-constrained-voucher}},
-{{8021AR}}) use the subject field to encode the device serial number.
+{{IEEE-802.1AR}}) use the subject field to encode the device serial number.
 
 The requirement in {{Section 4.4.2 of !RFC7925}} to only use EUI-64 for end
 entity certificates as a subject field is lifted.
@@ -714,7 +703,7 @@ keyEncipherment or keyAgreement MUST be set because the encrypted delivery
 of the newly generated key involves encryption or agreement of a symmetric
 key. On-device key generation is, however, the preferred approach.
 
-As specified in {{8021AR}}, the extendedKeyUsage SHOULD NOT be present in
+As specified in {{IEEE-802.1AR}}, the extendedKeyUsage SHOULD NOT be present in
 IDevID certificates, as it reduces the utility of the IDevID.
 For locally assigned LDevID certificates to be usable with TLS,
 the extendedKeyUsage MUST contain at least one of the following:
