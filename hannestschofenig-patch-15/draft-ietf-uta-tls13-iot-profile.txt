@@ -502,13 +502,12 @@ Table of Contents
    certificates.
 
    In some IoT deployments, IDevIDs are provisioned with an unlimited
-   lifetime.  For this purpose the use of a special value for the
-   notAfter date field, the GeneralizedTime value of 99991231235959Z, is
-   utilized.  If this is done, then the CA certificates and the
-   certificates of subordinate CAs cannot have a maximum validity period
-   either.  Hence, it requires careful consideration whether it is
-   appropriate to issue IDevID certificates with no maximum validity
-   period.
+   lifetime.  For this purpose, a special value for the notAfter date
+   field, the GeneralizedTime value of 99991231235959Z, is utilized.  If
+   this is done, then the CA certificates and the certificates of
+   subordinate CAs cannot have a maximum validity period either.  Hence,
+   it requires careful consideration whether it is appropriate to issue
+   IDevID certificates with no maximum validity period.
 
    LDevID certificates are, however, issued by the operator or owner,
    and may be renewed at a regular interval using protocols, such as
