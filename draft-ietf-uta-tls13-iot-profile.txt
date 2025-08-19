@@ -674,9 +674,6 @@ Table of Contents
    the cA flag MUST be set to true and the pathLenConstraint MUST be
    omitted.
 
-   [Editor's Note: Should we soften the requirement to: "The
-   pathLenConstraint field SHOULD NOT be present."]
-
 17.3.  Subordinate CA Certificate
 
    This section outlines the requirements for subordinate CA
