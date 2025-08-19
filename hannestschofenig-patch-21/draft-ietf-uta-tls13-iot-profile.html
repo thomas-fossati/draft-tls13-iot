@@ -1054,7 +1054,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Tschofenig, et al.</td>
-<td class="center">Expires 19 February 2026</td>
+<td class="center">Expires 20 February 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1070,12 +1070,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc7925" class="eref">7925</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-08-18" class="published">18 August 2025</time>
+<time datetime="2025-08-19" class="published">19 August 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-02-19">19 February 2026</time></dd>
+<dd class="expires"><time datetime="2026-02-20">20 February 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1129,7 +1129,7 @@ profile and ciphersuite requirements.<a href="#section-abstract-1" class="pilcro
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 19 February 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 20 February 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -2113,9 +2113,9 @@ of the newly generated key involves encryption or agreement of a symmetric
 key. On-device key generation is, however, the preferred approach.<a href="#section-17.4.4-2" class="pilcrow">¶</a></p>
 <p id="section-17.4.4-3">As specified in <span>[<a href="#_8021AR" class="cite xref">_8021AR</a>]</span>, the extendedKeyUsage SHOULD NOT be present in
 IDevID certificates, as it reduces the utility of the IDevID.
-In locally assigned LDevID certificates, the extendedKeyUsage, if present,
-MUST contain at least one of id-kp-serverAuth or id-kp-clientAuth in order
-to be useable with TLS.<a href="#section-17.4.4-3" class="pilcrow">¶</a></p>
+For locally assigned LDevID certificates to be usable with TLS,
+the extendedKeyUsage MUST contain at least one of the following:
+id-kp-serverAuth or id-kp-clientAuth.<a href="#section-17.4.4-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
