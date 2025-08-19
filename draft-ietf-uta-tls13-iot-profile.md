@@ -690,7 +690,7 @@ contain wildcard (`*`) characters. The subjectAltName MUST NOT contain multiple
 names.
 
 Note: The IEEE 802.1AR recommends to encode information about a Trusted
-Platform Module (TPM), if present, in the HardwareModuleName {{Section 5 of ?RFC4108}}. This
+Platform Module (TPM), if present, in the HardwareModuleName ({{Section 5 of ?RFC4108}}). This
 specification does not follow this recommendation.
 
 Where IoT devices are accepting (D)TLS connections, i.e., they are acting as a server,
