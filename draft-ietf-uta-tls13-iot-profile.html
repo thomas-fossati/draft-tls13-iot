@@ -1647,37 +1647,47 @@ Therefore, 0-RTT MUST NOT be used by CoAP applications.<a href="#section-16-3" c
 defined in <span>[<a href="#RFC7925" class="cite xref">RFC7925</a>]</span>. The content of Table 1 of <span>[<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> has been
 split by certificate "type" in order to clarify exactly what requirements and
 recommendations apply to which entity in the PKI hierarchy.<a href="#section-17-1" class="pilcrow">¶</a></p>
-<p id="section-17-2">The content is also better aligned with the IEEE 802.1AR <span>[<a href="#_8021AR" class="cite xref">_8021AR</a>]</span>
-specification, which introduces the terms Initial Device Identifier
-(IDevID) and Locally Significant Device Identifiers (LDevIDs).
-IDevIDs and LDevIDs are Device Identifiers (DevIDs). A DevID consists of<a href="#section-17-2" class="pilcrow">¶</a></p>
+<p id="section-17-2">A Device Identifier (DevID) consists of:<a href="#section-17-2" class="pilcrow">¶</a></p>
 <ul class="compact">
 <li class="compact" id="section-17-3.1">
           <p id="section-17-3.1.1">a private key,<a href="#section-17-3.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="compact" id="section-17-3.2">
-          <p id="section-17-3.2.1">a certificate (containing the public key and the identifier certified by
-the certificate's issuer), and<a href="#section-17-3.2.1" class="pilcrow">¶</a></p>
+          <p id="section-17-3.2.1">a certificate containing the public key and the identifier certified by the
+certificate issuer, and<a href="#section-17-3.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="compact" id="section-17-3.3">
-          <p id="section-17-3.3.1">a certificate chain up to a trust anchor. The trust anchor is usually
-the root certificate).<a href="#section-17-3.3.1" class="pilcrow">¶</a></p>
+          <p id="section-17-3.3.1">a certificate chain leading up to a trust anchor (typically the root certificate).<a href="#section-17-3.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-17-4">Note that the trust anchor does not need to be transmitted in the TLS Certificate
+<p id="section-17-4">The IEEE 802.1AR specification <span>[<a href="#_8021AR" class="cite xref">_8021AR</a>]</span> introduces the concept of DevIDs and
+defines two specialized versions:<a href="#section-17-4" class="pilcrow">¶</a></p>
+<ul class="compact">
+<li class="compact" id="section-17-5.1">
+          <p id="section-17-5.1.1">Initial Device Identifiers (IDevIDs): Provisioned during manufacturing to
+provide a unique, stable identity for the lifetime of the device.<a href="#section-17-5.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="compact" id="section-17-5.2">
+          <p id="section-17-5.2.1">Locally Significant Device Identifiers (LDevIDs): Provisioned after deployment
+and typically used for operational purposes within a specific domain.<a href="#section-17-5.2.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="section-17-6">Thus, IDevIDs and LDevIDs are specialized forms of DevIDs as defined in IEEE 802.1AR.<a href="#section-17-6" class="pilcrow">¶</a></p>
+<p id="section-17-7">Note that the trust anchor does not need to be transmitted in the TLS Certificate
 message sent by the server. The client MUST NOT use any trust anchor provided in the
-Certificate message, because the trust anchor is provisioned via out-of-band means.
+Certificate message as input to the certificate path validation algorithm, because
+the trust anchor is provisioned via out-of-band means.
 Therefore, transmitting the trust anchor in the Certificate message is a waste of
 bandwidth. If the trust anchor is not the root CA certificate, the server may be
 unaware of which trust anchor the client has. In such cases, the client can use
 the Trusted CA Indication, defined in <span>[<a href="#RFC6066" class="cite xref">RFC6066</a>]</span>, to indicate
-which trust anchors it possesses.<a href="#section-17-4" class="pilcrow">¶</a></p>
-<p id="section-17-5">The IDevID is typically provisioned by a manufacturer and signed by the
+which trust anchors it possesses.<a href="#section-17-7" class="pilcrow">¶</a></p>
+<p id="section-17-8">The IDevID is typically provisioned by a manufacturer and signed by the
 manufacturer CA. It is then used to obtain operational certificates,
 the LDevIDs, from the operator or owner of the device. Some protocols
 also introduce an additional hierarchy with application instance
-certificates, which are obtained for use with specific applications.<a href="#section-17-5" class="pilcrow">¶</a></p>
-<p id="section-17-6">IDevIDs are primarily used with device onboarding or bootstrapping protocols,
+certificates, which are obtained for use with specific applications.<a href="#section-17-8" class="pilcrow">¶</a></p>
+<p id="section-17-9">IDevIDs are primarily used with device onboarding or bootstrapping protocols,
 such as the Bootstrapping Remote Secure Key Infrastructure (BRSKI) protocol
 <span>[<a href="#RFC8995" class="cite xref">RFC8995</a>]</span> or by LwM2M Bootstrap <span>[<a href="#LwM2M" class="cite xref">LwM2M</a>]</span>. Hence, the use of IDevIDs
 is limited in purpose even though they have a long lifetime, or do not expire
@@ -1686,8 +1696,8 @@ the IDevID as part of client authentication) there are other bootstrapping
 protocols that do not use TLS/DTLS for client authentication, such as FIDO
 Device Onboarding (FDO) <span>[<a href="#FDO" class="cite xref">FDO</a>]</span>.  In many cases, a profile for the certificate
 content is provided by those specifications. For these reasons, this
-specification focuses on the description of LDevIDs.<a href="#section-17-6" class="pilcrow">¶</a></p>
-<p id="section-17-7">While the IEEE 802.1AR terminology is utilized in this document,
+specification focuses on the description of LDevIDs.<a href="#section-17-9" class="pilcrow">¶</a></p>
+<p id="section-17-10">While the IEEE 802.1AR terminology is utilized in this document,
 this specification does not claim conformance to IEEE 802.1AR
 since such a compliance statement goes beyond the use of the terminology
 and the certificate content and would include the use of management
@@ -1695,7 +1705,7 @@ protocols, fulfillment of certain hardware security requirements, and
 interfaces to access these hardware security modules. Placing these
 requirements on network equipment like routers may be appropriate but
 designers of constrained IoT devices have opted for different protocols
-and hardware security choices.<a href="#section-17-7" class="pilcrow">¶</a></p>
+and hardware security choices.<a href="#section-17-10" class="pilcrow">¶</a></p>
 <div id="all-certificates">
 <section id="section-17.1">
         <h3 id="name-all-certificates">
