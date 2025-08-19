@@ -1757,32 +1757,36 @@ with <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>.<a href="#s
           <h4 id="name-validity">
 <a href="#section-17.1.5" class="section-number selfRef">17.1.5. </a><a href="#name-validity" class="section-name selfRef">Validity</a>
           </h4>
-<p id="section-17.1.5-1">In IoT deployment scenarios it is often expected that the IDevIDs have
-no maximum validity period. For this purpose the use of a special value
+<p id="section-17.1.5-1">Vendors must determine the expected lifespan of their IoT devices. This
+decision directly affects how long firmware and software updates are
+provided for, as well as the level of maintenance that customers can expect.
+It also affects the maximum validity period of certificates.<a href="#section-17.1.5-1" class="pilcrow">¶</a></p>
+<p id="section-17.1.5-2">In some IoT deployments, IDevIDs are provisioned with an unlimited lifetime.
+For this purpose, a special value
 for the notAfter date field, the GeneralizedTime value of 99991231235959Z,
 is utilized. If this is done, then the CA certificates and the certificates
 of subordinate CAs cannot have a maximum validity period either. Hence,
 it requires careful consideration whether it is appropriate to issue
-IDevID certificates with no maximum validity period.<a href="#section-17.1.5-1" class="pilcrow">¶</a></p>
-<p id="section-17.1.5-2">LDevID certificates are, however, issued by the operator or owner,
+IDevID certificates with no maximum validity period.<a href="#section-17.1.5-2" class="pilcrow">¶</a></p>
+<p id="section-17.1.5-3">LDevID certificates are, however, issued by the operator or owner,
 and may be renewed at a regular interval using protocols, such
 as Enrollment over Secure Transport (EST) <span>[<a href="#RFC7030" class="cite xref">RFC7030</a>]</span> or the
 Certificate Management Protocol (CMP) <span>[<a href="#RFC9483" class="cite xref">RFC9483</a>]</span>.
 It is therefore RECOMMENDED to limit the lifetime of these LDevID certificates
 using the notBefore and notAfter fields, as described in Section 4.1.2.5 of
 <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>. Values MUST be expressed in Greenwich Mean Time (Zulu) and
-MUST include seconds even where the number of seconds is zero.<a href="#section-17.1.5-2" class="pilcrow">¶</a></p>
-<p id="section-17.1.5-3">Note that the validity period is defined as the period of time from notBefore
+MUST include seconds even where the number of seconds is zero.<a href="#section-17.1.5-3" class="pilcrow">¶</a></p>
+<p id="section-17.1.5-4">Note that the validity period is defined as the period of time from notBefore
 through notAfter, inclusive. This means that a hypothetical certificate with a
 notBefore date of 9 June 2021 at 03:42:01 and a notAfter date of 7 September
 2021 at 03:42:01 becomes valid at the beginning of the :01 second, and only
 becomes invalid at the :02 second, a period that is 90 days plus 1 second.  So
-for a 90-day, notAfter must actually be 03:42:00.<a href="#section-17.1.5-3" class="pilcrow">¶</a></p>
-<p id="section-17.1.5-4">For devices without a reliable source of time we advise the use of a device
+for a 90-day, notAfter must actually be 03:42:00.<a href="#section-17.1.5-4" class="pilcrow">¶</a></p>
+<p id="section-17.1.5-5">For devices without a reliable source of time we advise the use of a device
 management solution, which typically includes a certificate management protocol,
 to manage the lifetime of all the certificates used by the device. While this
 approach does not utilize certificates to its widest extent, it is a solution
-that extends the capabilities offered by a raw public key approach.<a href="#section-17.1.5-4" class="pilcrow">¶</a></p>
+that extends the capabilities offered by a raw public key approach.<a href="#section-17.1.5-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="subject-public-key-info">
