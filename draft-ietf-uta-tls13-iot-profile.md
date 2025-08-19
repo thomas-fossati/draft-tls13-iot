@@ -509,7 +509,7 @@ Authenticator" {{?RFC9261}} but requires the application layer protocol
 to carry the payloads.
 
 Hence, instead of performing certificate revocation checks on the IoT device
-itself this specification recommends to delegate this task to the IoT device
+itself this specification RECOMMENDS to delegate this task to the IoT device
 operator and to take the necessary action to allow IoT devices to remain
 operational.
 
