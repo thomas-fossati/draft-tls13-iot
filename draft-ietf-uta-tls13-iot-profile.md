@@ -439,9 +439,9 @@ with {{!RFC5280}}.
 
 ### Validity
 
-Vendors must determine the expected lifetime of their IoT devices. This
-decision directly influences how long firmware and software updates are
-provided, as well as the level of maintenance that customers can expect.
+Vendors must determine the expected lifespan of their IoT devices. This
+decision directly affects how long firmware and software updates are
+provided for, as well as the level of maintenance that customers can expect.
 It also affects the maximum validity period of certificates.
 
 In some IoT deployments, IDevIDs are provisioned with an unlimited lifetime.
