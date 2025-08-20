@@ -1054,7 +1054,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Tschofenig, et al.</td>
-<td class="center">Expires 20 February 2026</td>
+<td class="center">Expires 21 February 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1070,12 +1070,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc7925" class="eref">7925</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-08-19" class="published">19 August 2025</time>
+<time datetime="2025-08-20" class="published">20 August 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-02-20">20 February 2026</time></dd>
+<dd class="expires"><time datetime="2026-02-21">21 February 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1129,7 +1129,7 @@ profile and ciphersuite requirements.<a href="#section-abstract-1" class="pilcro
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 20 February 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 21 February 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1685,7 +1685,7 @@ certificates, which are obtained for use with specific applications.<a href="#se
 <p id="section-17-8">IDevIDs are primarily used with device onboarding or bootstrapping protocols,
 such as the Bootstrapping Remote Secure Key Infrastructure (BRSKI) protocol
 <span>[<a href="#RFC8995" class="cite xref">RFC8995</a>]</span> or by LwM2M Bootstrap <span>[<a href="#LwM2M" class="cite xref">LwM2M</a>]</span>. Hence, the use of IDevIDs
-is limited in purpose even though they have a long lifetime, or do not expire
+is limited on purpose even though they have a long lifetime, or do not expire
 at all. While some bootstrapping protocols use TLS (and therefore make use of
 the IDevID as part of client authentication) there are other bootstrapping
 protocols that do not use TLS/DTLS for client authentication, such as FIDO
@@ -1766,12 +1766,14 @@ with <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>.<a href="#s
 decision directly affects how long firmware and software updates are
 provided for, as well as the level of maintenance that customers can expect.
 It also affects the maximum validity period of certificates.<a href="#section-17.1.5-1" class="pilcrow">¶</a></p>
-<p id="section-17.1.5-2">In some IoT deployments, IDevIDs are provisioned with an unlimited lifetime.
+<p id="section-17.1.5-2">In most IoT deployments, IDevIDs are provisioned with an unlimited lifetime as per <span>[<a href="#IEEE-802.1AR" class="cite xref">IEEE-802.1AR</a>]</span>.
 For this purpose, a special value
 for the notAfter date field, the GeneralizedTime value of 99991231235959Z,
-is utilized. This special value was introduced in <span><a href="https://rfc-editor.org/rfc/rfc5280#section-4.1.2.5" class="relref">Section 4.1.2.5</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>.
-If this is done, then the CA certificates and the certificates
-of subordinate CAs cannot have a maximum validity period either. Hence,
+is utilized.
+This special value was introduced in <span><a href="https://rfc-editor.org/rfc/rfc5280#section-4.1.2.5" class="relref">Section 4.1.2.5</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>.
+When this is done, then the CA certificates and the certificates
+of subordinate CAs have a maximum validity period.
+Hence,
 it requires careful consideration whether it is appropriate to issue
 IDevID certificates with no maximum validity period.<a href="#section-17.1.5-2" class="pilcrow">¶</a></p>
 <p id="section-17.1.5-3">LDevID certificates are, however, issued by the operator or owner,

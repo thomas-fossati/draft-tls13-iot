@@ -6,9 +6,9 @@ UTA                                                        H. Tschofenig
 Internet-Draft                                                     H-BRS
 Updates: 7925 (if approved)                                   T. Fossati
 Intended status: Standards Track                                  Linaro
-Expires: 20 February 2026                                  M. Richardson
+Expires: 21 February 2026                                  M. Richardson
                                                 Sandelman Software Works
-                                                          19 August 2025
+                                                          20 August 2025
 
 
             TLS/DTLS 1.3 Profiles for the Internet of Things
@@ -44,7 +44,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 February 2026.
+   This Internet-Draft will expire on 21 February 2026.
 
 Copyright Notice
 
@@ -433,7 +433,7 @@ Table of Contents
    IDevIDs are primarily used with device onboarding or bootstrapping
    protocols, such as the Bootstrapping Remote Secure Key Infrastructure
    (BRSKI) protocol [RFC8995] or by LwM2M Bootstrap [LwM2M].  Hence, the
-   use of IDevIDs is limited in purpose even though they have a long
+   use of IDevIDs is limited on purpose even though they have a long
    lifetime, or do not expire at all.  While some bootstrapping
    protocols use TLS (and therefore make use of the IDevID as part of
    client authentication) there are other bootstrapping protocols that
@@ -500,14 +500,15 @@ Table of Contents
    can expect.  It also affects the maximum validity period of
    certificates.
 
-   In some IoT deployments, IDevIDs are provisioned with an unlimited
-   lifetime.  For this purpose, a special value for the notAfter date
-   field, the GeneralizedTime value of 99991231235959Z, is utilized.
-   This special value was introduced in Section 4.1.2.5 of [RFC5280].
-   If this is done, then the CA certificates and the certificates of
-   subordinate CAs cannot have a maximum validity period either.  Hence,
-   it requires careful consideration whether it is appropriate to issue
-   IDevID certificates with no maximum validity period.
+   In most IoT deployments, IDevIDs are provisioned with an unlimited
+   lifetime as per [IEEE-802.1AR].  For this purpose, a special value
+   for the notAfter date field, the GeneralizedTime value of
+   99991231235959Z, is utilized.  This special value was introduced in
+   Section 4.1.2.5 of [RFC5280].  When this is done, then the CA
+   certificates and the certificates of subordinate CAs have a maximum
+   validity period.  Hence, it requires careful consideration whether it
+   is appropriate to issue IDevID certificates with no maximum validity
+   period.
 
    LDevID certificates are, however, issued by the operator or owner,
    and may be renewed at a regular interval using protocols, such as
