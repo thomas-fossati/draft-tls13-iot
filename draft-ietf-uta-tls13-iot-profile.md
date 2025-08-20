@@ -434,8 +434,8 @@ is utilized.
 This special value was introduced in {{Section 4.1.2.5 of !RFC5280}}.
 When this is done, then the CA certificates and the certificates
 of subordinate CAs have a maximum validity period.
-Hence,
-it requires careful consideration whether it is appropriate to issue
+Therefore,
+careful consideration is required as to whether it is appropriate to issue
 IDevID certificates with no maximum validity period.
 
 LDevID certificates are, however, issued by the operator or owner,
