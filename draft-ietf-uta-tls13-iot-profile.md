@@ -770,12 +770,17 @@ optimizations typically get implemented last.
 The use of certificate handles, as introduced in cTLS {{?I-D.ietf-tls-ctls}},
 is a form of caching or compressing certificates as well.
 
-Although the TLS specification does not prohibit the transmission of trust anchors in the Certificate message, and some implementations do include them, trust anchors SHOULD NOT be transmitted in the TLS Certificate message sent by the server. Trust anchors are provisioned via out-of-band means,
-and any trust anchor included in the Certificate message cannot be used by the client.
-Hence, transmitting it would unnecessarily consume bandwidth. If the trust anchor is
-not the root CA certificate, the server may not know which trust anchor the client
-possesses. In such cases, the client can use the Trusted CA Indication extension
-defined in {{RFC6066}} to signal its supported trust anchors.
+Although the TLS specification does not forbid a server from including trust
+anchors in the Certificate message, and some implementations do so, trust anchors
+SHOULD NOT be transmitted this way. Trust anchors are meant to be provisioned out
+of band, and any trust anchor sent in the Certificate message cannot be relied upon
+by the client. Sending it therefore only wastes bandwidth.
+
+A complication arises when the client’s trust anchor is not a widely trusted root
+CA. In that case, the server cannot determine in advance which trust anchors the
+client has. To address this, the client MAY include the Trusted CA Indication
+extension {{RFC6066}} in its ClientHello to signal the set of trust anchors it
+supports, allowing the server to select an appropriate certificate chain.
 
 Whether to utilize any of the above extensions or a combination of them depends
 on the anticipated deployment environment, the availability of code, and the
