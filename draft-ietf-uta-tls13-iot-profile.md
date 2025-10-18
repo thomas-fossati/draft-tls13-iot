@@ -119,7 +119,7 @@ is a critical requirement. The Transport Layer Security (TLS) and Datagram Trans
 Layer Security (DTLS) protocols have been foundational for ensuring encryption,
 integrity, and authenticity in communications. However, the constraints of a certain
 class of IoT devices render conventional, off-the-shelf TLS/DTLS implementations
-suboptimal for many IoT use cases. This document addresses these limitations by specifying profiles of TLS 1.3 and DTLS 1.3, optimized for resource-constrained IoT devices.
+suboptimal for many IoT use cases. This document addresses these limitations by specifying TLS 1.3 and DTLS 1.3 profiles that are optimized for resource-constrained IoT devices.
 
 Note that IoT devices vary widely in terms of capabilities. While some are highly
 resource-constrained, others offer performance comparable to regular desktop computers
@@ -187,16 +187,21 @@ This document reuses the terms "SHOULD+", "SHOULD-" and "MUST-" from {{!RFC8221}
 
 # Credential Types
 
-Pre-shared key based authentication is integrated into the main TLS/DTLS 1.3
-specification and has been harmonized with session resumption.
+TLS/DTLS allow different credential types to be used. These include X.509
+certificates and raw public keys, pre-shared keys (PSKs), and passwords.
+The extensions used in TLS/DTLS differ dependencing on the credential types
+supported.
 
-A compliant implementation supporting authentication based on certificates and
-raw public keys MUST support digital signatures with ecdsa_secp256r1_sha256. A
-compliant implementation MUST support the key exchange with secp256r1 (NIST
-P-256) and SHOULD support key exchange with X25519.
+TLS/DTLS 1.3 supports PSK-based authentication,
+wherein PSKs can be established via session tickets from prior
+connections or via some external, out-of-band mechanism. To distinguish
+the two modes, the former is called resumption PSK and the latter
+external PSK. For performance reasons the support for resumption PSKs
+is often found in implementations that use X.509 certificates for
+authentication.
 
-A plain PSK-based TLS/DTLS client or server, which only uses PSK as its long-term
-credential, MUST implement the following extensions:
+A "plain" PSK-based TLS/DTLS client or server, which only implements support
+for external PSKs as its long-term credential, MUST implement the following extensions:
 
 * Supported Versions,
 * Cookie,
@@ -211,15 +216,26 @@ recommendation:
 > Applications SHOULD provision separate PSKs for (D)TLS 1.3 and prior versions.
 
 Where possible, the importer interface defined in {{!RFC9258}} MUST be used
-for external PSKs. This ensures that external PSKs used in (D)TLS 1.3
+for external PSKs. This ensures
+that external PSKs used in (D)TLS 1.3
 are bound to a specific key derivation function (KDF) and hash function.
 
 The SNI extension is discussed in this document and the justification
 for implementing and using the ALPN extension can be found in {{?RFC9325}}.
 
+An implementation supporting authentication based on certificates and
+raw public keys MUST support digital signatures with ecdsa_secp256r1_sha256. A
+compliant implementation MUST support the key exchange with secp256r1 (NIST
+P-256) and SHOULD support key exchange with X25519.
+
 For TLS/DTLS clients and servers implementing raw public keys and/or
 certificates the guidance for mandatory-to-implement extensions described in
 Section 9.2 of {{!RFC8446}} MUST be followed.
+
+Entities deploying IoT devices may select credential types based on security
+characteristics, operational requirements, cost, and other factors.
+Consequently, this specification does not prescribe a single credential type
+but provides guidance on considerations relevant to the use of particular types.
 
 # Error Handling
 
