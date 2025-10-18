@@ -1841,10 +1841,15 @@ algorithm.<a href="#section-17.1.6-3" class="pilcrow">¶</a></p>
           <h4 id="name-certificate-revocation-chec">
 <a href="#section-17.1.7" class="section-number selfRef">17.1.7. </a><a href="#name-certificate-revocation-chec" class="section-name selfRef">Certificate Revocation Checks</a>
           </h4>
-<p id="section-17.1.7-1">The guidance in <span><a href="https://rfc-editor.org/rfc/rfc7925#section-4.4.3" class="relref">Section 4.4.3</a> of [<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> still holds: for certificate
-revocation, neither the Online Certificate Status Protocol (OCSP) nor
-Certificate Revocation Lists (CRLs) are used by constrained IoT devices.<a href="#section-17.1.7-1" class="pilcrow">¶</a></p>
-<p id="section-17.1.7-2">The use of device management protocols for IoT devices, which often include
+<p id="section-17.1.7-1">The Certificate Revocation Lists (CRLs) distribution points extension has
+been defined in RFC 5280 to identify how CRL information is obtained. The
+authority information access extension indicates how to access information
+like the online certificate status service (OCSP). Both extensions SHOULD
+NOT be set. If set, they MUST NOT be marked critical.<a href="#section-17.1.7-1" class="pilcrow">¶</a></p>
+<p id="section-17.1.7-2">Instead of using CRLs or OCSP this document follows the guidance in
+<span><a href="https://rfc-editor.org/rfc/rfc7925#section-4.4.3" class="relref">Section 4.4.3</a> of [<a href="#RFC7925" class="cite xref">RFC7925</a>]</span>: for certificate revocation, neither
+OCSP nor CRL are used by constrained IoT devices.<a href="#section-17.1.7-2" class="pilcrow">¶</a></p>
+<p id="section-17.1.7-3">The use of device management protocols for IoT devices, which often include
 an onboarding or bootstrapping mechanism, has also seen considerable uptake
 in deployed devices. These protocols, some of which are standardized,
 allow for the distribution and updating of certificates on demand. An example
@@ -1860,16 +1865,11 @@ authentication exchange is triggered when the application requires it. TLS 1.3 p
 client-to-server post-handshake authentication only. Mutual
 authentication via post-handshake messages is available by the use of the "Exported
 Authenticator" <span>[<a href="#RFC9261" class="cite xref">RFC9261</a>]</span> but requires the application layer protocol
-to carry the payloads.<a href="#section-17.1.7-2" class="pilcrow">¶</a></p>
-<p id="section-17.1.7-3">Hence, instead of performing certificate revocation checks on the IoT device
+to carry the payloads.<a href="#section-17.1.7-3" class="pilcrow">¶</a></p>
+<p id="section-17.1.7-4">Hence, instead of performing certificate revocation checks on the IoT device
 itself this it is RECOMMENDED to delegate this task to the IoT device
 operator and to take the necessary action to allow IoT devices to remain
-operational.<a href="#section-17.1.7-3" class="pilcrow">¶</a></p>
-<p id="section-17.1.7-4">The CRL distribution points extension has been defined in RFC 5280 to
-identify how CRL information is obtained. The authority information access
-extension indicates how to access information like the online certificate
-status service (OCSP). Both extensions SHOULD NOT be set. If set, they
-MUST NOT be marked critical.<a href="#section-17.1.7-4" class="pilcrow">¶</a></p>
+operational.<a href="#section-17.1.7-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
