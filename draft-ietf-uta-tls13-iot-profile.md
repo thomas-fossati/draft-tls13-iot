@@ -186,17 +186,20 @@ This document reuses the terms "SHOULD+", "SHOULD-" and "MUST-" from {{!RFC8221}
 # Credential Types
 
 TLS/DTLS allow different credential types to be used. These include X.509
-certificates and raw public keys, pre-shared secrets (PSKs), and passwords.
+certificates and raw public keys, pre-shared keys (PSKs), and passwords.
 The extensions used in TLS/DTLS differ dependencing on the credential types
 supported.
 
-PSK-based authentication is integrated into the main TLS/DTLS 1.3
-specification and has been harmonized with session resumption. As such,
-support for PSKs is typically also found in implementations that primarily
-use X.509 certificates. Resumption PSKs are used for this purpose.
+TLS/DTLS 1.3 supports PSK-based authentication,
+wherein PSKs can be established via session tickets from prior
+connections or via some external, out-of-band mechanism. To distinguish
+the two modes, the former is called resumption PSK and the latter
+external PSK. For performance reasons the support for resumption PSKs
+is often found in implementations that use X.509 certificates for
+authentication.
 
-A plain PSK-based TLS/DTLS client or server, which only uses external PSKs as
-its long-term credential, MUST implement the following extensions:
+A "plain" PSK-based TLS/DTLS client or server, which only implements support
+for external PSKs as its long-term credential, MUST implement the following extensions:
 
 * Supported Versions,
 * Cookie,
@@ -211,7 +214,7 @@ recommendation:
 > Applications SHOULD provision separate PSKs for (D)TLS 1.3 and prior versions.
 
 Where possible, the importer interface defined in {{!RFC9258}} MUST be used
-for external PSKs. This ensures 
+for external PSKs. This ensures
 that external PSKs used in (D)TLS 1.3
 are bound to a specific key derivation function (KDF) and hash function.
 
