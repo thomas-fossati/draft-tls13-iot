@@ -370,8 +370,9 @@ Device Onboarding (FDO) {{FDO}}.  In many cases, a profile for the certificate
 content is provided by those specifications. For these reasons, this
 specification focuses on the description of LDevIDs.
 
-While the IEEE 802.1AR terminology is utilized in this document,
-this specification does not claim conformance to IEEE 802.1AR
+This document re-uses the IEEE 802.1AR terminology and a number of rules
+for how to populate certificate content. Still, this specification does
+not claim conformance to IEEE 802.1AR
 since such a compliance statement goes beyond the use of the terminology
 and the certificate content and would include the use of management
 protocols, fulfillment of certain hardware security requirements, and
