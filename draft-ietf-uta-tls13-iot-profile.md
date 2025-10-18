@@ -229,10 +229,10 @@ For TLS/DTLS clients and servers implementing raw public keys and/or
 certificates the guidance for mandatory-to-implement extensions described in
 Section 9.2 of {{!RFC8446}} MUST be followed.
 
-Operators deploying IoT devices may have preferences regarding credential types
-impacted by security properties, operational considerations, cost and other factors.
-For this reason this specification does not mandate a single credential type but
-instead describes relevant considerations for the use of specific types.
+Entities deploying IoT devices may select credential types based on security
+characteristics, operational requirements, cost, and other factors.
+Consequently, this specification does not prescribe a single credential type
+but provides guidance on considerations relevant to the use of particular types.
 
 # Error Handling
 
