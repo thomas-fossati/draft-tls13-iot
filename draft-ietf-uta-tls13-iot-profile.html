@@ -15,23 +15,22 @@ companion to RFC 7925, defining TLS/DTLS 1.3 profiles for IoT devices.
 Additionally, it updates RFC 7925 with respect to the X.509 certificate
 profile and ciphersuite requirements. 
     " name="description">
-<meta content="xml2rfc 3.30.0" name="generator">
+<meta content="xml2rfc 3.31.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-uta-tls13-iot-profile-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.30.0
-    Python 3.12.11
+  xml2rfc 3.31.0
+    Python 3.12.12
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.6
     lxml 5.3.1
-    platformdirs 4.3.8
+    platformdirs 4.5.0
     pycountry 24.6.1
     PyYAML 6.0.2
-    requests 2.32.4
-    setuptools 80.9.0
-    wcwidth 0.2.13
+    requests 2.32.5
+    wcwidth 0.2.14
 -->
 <link href="draft-ietf-uta-tls13-iot-profile.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1050,11 +1049,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">TLS/DTLS 1.3 IoT Profiles</td>
-<td class="right">August 2025</td>
+<td class="right">October 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Tschofenig, et al.</td>
-<td class="center">Expires 21 February 2026</td>
+<td class="center">Expires 21 April 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1070,12 +1069,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc7925" class="eref">7925</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-08-20" class="published">20 August 2025</time>
+<time datetime="2025-10-18" class="published">18 October 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-02-21">21 February 2026</time></dd>
+<dd class="expires"><time datetime="2026-04-21">21 April 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1129,7 +1128,7 @@ profile and ciphersuite requirements.<a href="#section-abstract-1" class="pilcro
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 21 February 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 21 April 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -2184,7 +2183,7 @@ long-lasting connections.<a href="#section-19-3.4.1" class="pilcrow">¶</a></p>
 with every full handshake.<a href="#section-19-3.5.1" class="pilcrow">¶</a></p>
 </li>
         <li class="compact" id="section-19-3.6">
-          <p id="section-19-3.6.1">Use client certificate URLs <span>[<a href="#RFC6066" class="cite xref">RFC6066</a>]</span> instead of full certificates for
+          <p id="section-19-3.6.1">Use client certificate URLs <span><a href="https://rfc-editor.org/rfc/rfc6066#section-5" class="relref">Section 5</a> of [<a href="#RFC6066" class="cite xref">RFC6066</a>]</span> instead of full certificates for
 clients. When applications perform TLS client authentication via
 DNS-Based Authentication of Named Entities (DANE) TLSA records then the
 <span>[<a href="#I-D.ietf-dance-tls-clientid" class="cite xref">I-D.ietf-dance-tls-clientid</a>]</span> specification may be used to reduce the
@@ -2203,16 +2202,69 @@ it is just the name of the RRtype, as explained in <span>[<a href="#RFC6698" cla
       </ul>
 <p id="section-19-4">The use of certificate handles, as introduced in cTLS <span>[<a href="#I-D.ietf-tls-ctls" class="cite xref">I-D.ietf-tls-ctls</a>]</span>,
 is a form of caching or compressing certificates as well.<a href="#section-19-4" class="pilcrow">¶</a></p>
-<p id="section-19-5">Although the TLS specification does not prohibit the transmission of trust anchors in the Certificate message, and some implementations do include them, trust anchors SHOULD NOT be transmitted in the TLS Certificate message sent by the server. Trust anchors are provisioned via out-of-band means,
-and any trust anchor included in the Certificate message cannot be used by the client.
-Hence, transmitting it would unnecessarily consume bandwidth. If the trust anchor is
-not the root CA certificate, the server may not know which trust anchor the client
-possesses. In such cases, the client can use the Trusted CA Indication extension
-defined in <span>[<a href="#RFC6066" class="cite xref">RFC6066</a>]</span> to signal its supported trust anchors.<a href="#section-19-5" class="pilcrow">¶</a></p>
-<p id="section-19-6">Whether to utilize any of the above extensions or a combination of them depends
+<p id="section-19-5">Although the TLS specification does not explicitly prohibit a server from
+including trust anchors in the Certificate message - and some implementations
+do - trust anchors SHOULD NOT be transmitted in this way. Trust anchors are
+intended to be provisioned through out-of-band mechanisms, and any trust anchor
+included in the TLS Certificate message cannot be assumed trustworthy by the client.
+Including them therefore serves no functional purpose and unnecessarily consumes
+bandwidth.<a href="#section-19-5" class="pilcrow">¶</a></p>
+<p id="section-19-6">However, due to limited or asymmetric knowledge between client and server, omitting
+trust anchors entirely is not always straightforward. Several scenarios highlight
+this challenge:<a href="#section-19-6" class="pilcrow">¶</a></p>
+<ul class="compact">
+<li class="compact" id="section-19-7.1">
+          <p id="section-19-7.1.1">Pinned Server Certificates: In many device-to-cloud deployments (see <span><a href="https://rfc-editor.org/rfc/rfc7452#section-2.2" class="relref">Section 2.2</a> of [<a href="#RFC7452" class="cite xref">RFC7452</a>]</span>),
+clients pin a specific server certificate. If the client has pinned the server
+certificate, retransmitting it is unnecessary - but the server cannot reliably
+determine this.<a href="#section-19-7.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="compact" id="section-19-7.2">
+          <p id="section-19-7.2.1">Root Key Transitions: During root key rollover events (see <span><a href="https://rfc-editor.org/rfc/rfc4210#section-4.4" class="relref">Section 4.4</a> of [<a href="#RFC4210" class="cite xref">RFC4210</a>]</span>),
+new trust anchors may not yet be fully distributed across all devices. This is especially
+relevant in device-to-device communication <span><a href="https://rfc-editor.org/rfc/rfc7452#section-2.1" class="relref">Section 2.1</a> of [<a href="#RFC7452" class="cite xref">RFC7452</a>]</span>), where server roles
+are determined dynamically and trust anchor distribution may be inconsistent.<a href="#section-19-7.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="compact" id="section-19-7.3">
+          <p id="section-19-7.3.1">Non-Root Trust Anchors: In some deployments, the client’s trust anchor may be an
+intermediate CA rather than a root certificate. The server, lacking knowledge of the
+client’s trust store, cannot always select a certificate chain that aligns with the
+client’s trust anchor. To mitigate this, the client MAY include the Trusted CA Indication
+extension (see <span><a href="https://rfc-editor.org/rfc/rfc6066#section-6" class="relref">Section 6</a> of [<a href="#RFC6066" class="cite xref">RFC6066</a>]</span>) in its ClientHello to signal the set of trust
+anchors it supports.<a href="#section-19-7.3.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="section-19-8"><span>[<a href="#RFC4210" class="cite xref">RFC4210</a>]</span> assumes the presence of a shared directory service for certificate retrieval.
+In constrained or isolated IoT environments, this assumption does not hold. Trust anchors
+are often distributed via firmware updates or fetched periodically using certificate
+management protocols, such as EST (e.g., the /cacerts endpoint).<a href="#section-19-8" class="pilcrow">¶</a></p>
+<p id="section-19-9">To support transitional trust states during trust anchor updates, devices MUST handle both:<a href="#section-19-9" class="pilcrow">¶</a></p>
+<ul class="compact">
+<li class="compact" id="section-19-10.1">
+          <p id="section-19-10.1.1">newWithOld: a certificate where the new trust anchor is signed by the old one, enabling
+communication with peers that have not yet received the update.<a href="#section-19-10.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="compact" id="section-19-10.2">
+          <p id="section-19-10.2.1">oldWithNew: a certificate where the old trust anchor is signed by the new one, enabling
+verification of peers that still rely on the older anchor.<a href="#section-19-10.2.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="section-19-11">These certificates may be presented as an unordered set, and devices may not be able to
+distinguish their roles without additional metadata.<a href="#section-19-11" class="pilcrow">¶</a></p>
+<p id="section-19-12">Although the TLS specification does not forbid a server from including trust
+anchors in the Certificate message, and some implementations do so, trust anchors
+SHOULD NOT be transmitted this way. Trust anchors are meant to be provisioned out
+of band, and any trust anchor sent in the Certificate message cannot be relied upon
+by the client. Sending it therefore only wastes bandwidth.<a href="#section-19-12" class="pilcrow">¶</a></p>
+<p id="section-19-13">A complication arises when the client’s trust anchor is not a widely trusted root
+CA. In that case, the server cannot determine in advance which trust anchors the
+client has. To address this, the client MAY include the Trusted CA Indication
+extension <span>[<a href="#RFC6066" class="cite xref">RFC6066</a>]</span> in its ClientHello to signal the set of trust anchors it
+supports, allowing the server to select an appropriate certificate chain.<a href="#section-19-13" class="pilcrow">¶</a></p>
+<p id="section-19-14">Whether to utilize any of the above extensions or a combination of them depends
 on the anticipated deployment environment, the availability of code, and the
 constraints imposed by already deployed infrastructure (e.g., CA
-infrastructure, tool support).<a href="#section-19-6" class="pilcrow">¶</a></p>
+infrastructure, tool support).<a href="#section-19-14" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="ciphersuites">
@@ -2447,7 +2499,7 @@ determinism, for example, as described in
 <dd class="break"></dd>
 <dt id="I-D.ietf-dance-tls-clientid">[I-D.ietf-dance-tls-clientid]</dt>
         <dd>
-<span class="refAuthor">Huque, S.</span> and <span class="refAuthor">V. Dukhovni</span>, <span class="refTitle">"TLS Extension for DANE Client Identity"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-dance-tls-clientid-06</span>, <time datetime="2025-06-13" class="refDate">13 June 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-dance-tls-clientid-06">https://datatracker.ietf.org/doc/html/draft-ietf-dance-tls-clientid-06</a>&gt;</span>. </dd>
+<span class="refAuthor">Huque, S.</span> and <span class="refAuthor">V. Dukhovni</span>, <span class="refTitle">"TLS Extension for DANE Client Identity"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-dance-tls-clientid-07</span>, <time datetime="2025-09-17" class="refDate">17 September 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-dance-tls-clientid-07">https://datatracker.ietf.org/doc/html/draft-ietf-dance-tls-clientid-07</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-httpbis-secondary-server-certs">[I-D.ietf-httpbis-secondary-server-certs]</dt>
         <dd>
@@ -2459,7 +2511,7 @@ determinism, for example, as described in
 <dd class="break"></dd>
 <dt id="I-D.ietf-pquip-pqc-engineers">[I-D.ietf-pquip-pqc-engineers]</dt>
         <dd>
-<span class="refAuthor">Banerjee, A.</span>, <span class="refAuthor">Reddy.K, T.</span>, <span class="refAuthor">Schoinianakis, D.</span>, <span class="refAuthor">Hollebeek, T.</span>, and <span class="refAuthor">M. Ounsworth</span>, <span class="refTitle">"Post-Quantum Cryptography for Engineers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-pquip-pqc-engineers-13</span>, <time datetime="2025-07-01" class="refDate">1 July 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-pquip-pqc-engineers-13">https://datatracker.ietf.org/doc/html/draft-ietf-pquip-pqc-engineers-13</a>&gt;</span>. </dd>
+<span class="refAuthor">Banerjee, A.</span>, <span class="refAuthor">Reddy.K, T.</span>, <span class="refAuthor">Schoinianakis, D.</span>, <span class="refAuthor">Hollebeek, T.</span>, and <span class="refAuthor">M. Ounsworth</span>, <span class="refTitle">"Post-Quantum Cryptography for Engineers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-pquip-pqc-engineers-14</span>, <time datetime="2025-08-25" class="refDate">25 August 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-pquip-pqc-engineers-14">https://datatracker.ietf.org/doc/html/draft-ietf-pquip-pqc-engineers-14</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-tls-ctls">[I-D.ietf-tls-ctls]</dt>
         <dd>
@@ -2501,6 +2553,10 @@ determinism, for example, as described in
         <dd>
 <span class="refAuthor">Housley, R.</span>, <span class="refTitle">"Using Cryptographic Message Syntax (CMS) to Protect Firmware Packages"</span>, <span class="seriesInfo">RFC 4108</span>, <span class="seriesInfo">DOI 10.17487/RFC4108</span>, <time datetime="2005-08" class="refDate">August 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4108">https://www.rfc-editor.org/rfc/rfc4108</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC4210">[RFC4210]</dt>
+        <dd>
+<span class="refAuthor">Adams, C.</span>, <span class="refAuthor">Farrell, S.</span>, <span class="refAuthor">Kause, T.</span>, and <span class="refAuthor">T. Mononen</span>, <span class="refTitle">"Internet X.509 Public Key Infrastructure Certificate Management Protocol (CMP)"</span>, <span class="seriesInfo">RFC 4210</span>, <span class="seriesInfo">DOI 10.17487/RFC4210</span>, <time datetime="2005-09" class="refDate">September 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4210">https://www.rfc-editor.org/rfc/rfc4210</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC4279">[RFC4279]</dt>
         <dd>
 <span class="refAuthor">Eronen, P., Ed.</span> and <span class="refAuthor">H. Tschofenig, Ed.</span>, <span class="refTitle">"Pre-Shared Key Ciphersuites for Transport Layer Security (TLS)"</span>, <span class="seriesInfo">RFC 4279</span>, <span class="seriesInfo">DOI 10.17487/RFC4279</span>, <time datetime="2005-12" class="refDate">December 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4279">https://www.rfc-editor.org/rfc/rfc4279</a>&gt;</span>. </dd>
@@ -2536,6 +2592,10 @@ determinism, for example, as described in
 <dt id="RFC7250">[RFC7250]</dt>
         <dd>
 <span class="refAuthor">Wouters, P., Ed.</span>, <span class="refAuthor">Tschofenig, H., Ed.</span>, <span class="refAuthor">Gilmore, J.</span>, <span class="refAuthor">Weiler, S.</span>, and <span class="refAuthor">T. Kivinen</span>, <span class="refTitle">"Using Raw Public Keys in Transport Layer Security (TLS) and Datagram Transport Layer Security (DTLS)"</span>, <span class="seriesInfo">RFC 7250</span>, <span class="seriesInfo">DOI 10.17487/RFC7250</span>, <time datetime="2014-06" class="refDate">June 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7250">https://www.rfc-editor.org/rfc/rfc7250</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC7452">[RFC7452]</dt>
+        <dd>
+<span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Arkko, J.</span>, <span class="refAuthor">Thaler, D.</span>, and <span class="refAuthor">D. McPherson</span>, <span class="refTitle">"Architectural Considerations in Smart Object Networking"</span>, <span class="seriesInfo">RFC 7452</span>, <span class="seriesInfo">DOI 10.17487/RFC7452</span>, <time datetime="2015-03" class="refDate">March 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7452">https://www.rfc-editor.org/rfc/rfc7452</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC7858">[RFC7858]</dt>
         <dd>
