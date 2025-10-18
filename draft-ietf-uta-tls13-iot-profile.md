@@ -63,6 +63,9 @@ normative:
 informative:
   RFC9146:
   RFC7228:
+  RFC4210:
+  RFC7452:
+  RFC6066:
   I-D.ietf-iotops-7228bis:
   I-D.ietf-pquip-pqc-engineers:
   PQC-ENERGY: DOI.10.1145/3587135.3592821
@@ -755,7 +758,7 @@ optimizations typically get implemented last.
   long-lasting connections.
 * Use the TLS cached info {{?RFC7924}} extension to avoid sending certificates
   with every full handshake.
-* Use client certificate URLs {{?RFC6066}} instead of full certificates for
+* Use client certificate URLs {{Section 5 of RFC6066}} instead of full certificates for
   clients. When applications perform TLS client authentication via
   DNS-Based Authentication of Named Entities (DANE) TLSA records then the
   {{?I-D.ietf-dance-tls-clientid}} specification may be used to reduce the
@@ -770,12 +773,63 @@ optimizations typically get implemented last.
 The use of certificate handles, as introduced in cTLS {{?I-D.ietf-tls-ctls}},
 is a form of caching or compressing certificates as well.
 
-Although the TLS specification does not prohibit the transmission of trust anchors in the Certificate message, and some implementations do include them, trust anchors SHOULD NOT be transmitted in the TLS Certificate message sent by the server. Trust anchors are provisioned via out-of-band means,
-and any trust anchor included in the Certificate message cannot be used by the client.
-Hence, transmitting it would unnecessarily consume bandwidth. If the trust anchor is
-not the root CA certificate, the server may not know which trust anchor the client
-possesses. In such cases, the client can use the Trusted CA Indication extension
-defined in {{RFC6066}} to signal its supported trust anchors.
+
+Although the TLS specification does not explicitly prohibit a server from
+including trust anchors in the Certificate message - and some implementations
+do - trust anchors SHOULD NOT be transmitted in this way. Trust anchors are
+intended to be provisioned through out-of-band mechanisms, and any trust anchor
+included in the TLS Certificate message cannot be assumed trustworthy by the client.
+Including them therefore serves no functional purpose and unnecessarily consumes
+bandwidth.
+
+However, due to limited or asymmetric knowledge between client and server, omitting
+trust anchors entirely is not always straightforward. Several scenarios highlight
+this challenge:
+
+- Pinned Server Certificates: In many device-to-cloud deployments (see {{Section 2.2 of RFC7452}}),
+clients pin a specific server certificate. If the client has pinned the server
+certificate, retransmitting it is unnecessary - but the server cannot reliably
+determine this.
+
+- Root Key Transitions: During root key rollover events (see {{Section 4.4 of RFC4210}}),
+new trust anchors may not yet be fully distributed across all devices. This is especially
+relevant in device-to-device communication {{Section 2.1 of RFC7452}}), where server roles
+are determined dynamically and trust anchor distribution may be inconsistent.
+
+- Non-Root Trust Anchors: In some deployments, the client’s trust anchor may be an
+intermediate CA rather than a root certificate. The server, lacking knowledge of the
+client’s trust store, cannot always select a certificate chain that aligns with the
+client’s trust anchor. To mitigate this, the client MAY include the Trusted CA Indication
+extension (see {{Section 6 of RFC6066}}) in its ClientHello to signal the set of trust
+anchors it supports.
+
+{{RFC4210}} assumes the presence of a shared directory service for certificate retrieval.
+In constrained or isolated IoT environments, this assumption does not hold. Trust anchors
+are often distributed via firmware updates or fetched periodically using certificate
+management protocols, such as EST (e.g., the /cacerts endpoint).
+
+To support transitional trust states during trust anchor updates, devices MUST handle both:
+
+- newWithOld: a certificate where the new trust anchor is signed by the old one, enabling
+communication with peers that have not yet received the update.
+
+- oldWithNew: a certificate where the old trust anchor is signed by the new one, enabling
+verification of peers that still rely on the older anchor.
+
+These certificates may be presented as an unordered set, and devices may not be able to
+distinguish their roles without additional metadata.
+
+Although the TLS specification does not forbid a server from including trust
+anchors in the Certificate message, and some implementations do so, trust anchors
+SHOULD NOT be transmitted this way. Trust anchors are meant to be provisioned out
+of band, and any trust anchor sent in the Certificate message cannot be relied upon
+by the client. Sending it therefore only wastes bandwidth.
+
+A complication arises when the client’s trust anchor is not a widely trusted root
+CA. In that case, the server cannot determine in advance which trust anchors the
+client has. To address this, the client MAY include the Trusted CA Indication
+extension {{RFC6066}} in its ClientHello to signal the set of trust anchors it
+supports, allowing the server to select an appropriate certificate chain.
 
 Whether to utilize any of the above extensions or a combination of them depends
 on the anticipated deployment environment, the availability of code, and the
