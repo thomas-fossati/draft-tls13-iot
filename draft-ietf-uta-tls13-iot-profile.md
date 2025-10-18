@@ -63,6 +63,8 @@ normative:
 informative:
   RFC9146:
   RFC7228:
+  RFC7452:
+  RFC4210:
   I-D.ietf-iotops-7228bis:
   I-D.ietf-pquip-pqc-engineers:
   PQC-ENERGY: DOI.10.1145/3587135.3592821
