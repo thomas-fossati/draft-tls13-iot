@@ -69,18 +69,26 @@ informative:
   PQC-PERF: DOI.10.1007/978-3-031-21280-2_24
   CoAP: RFC7252
   IEEE-802.1AR: DOI.10.1109/IEEESTD.2020.9052099
+  LwM2M:
   FDO:
      author:
         org: FIDO Alliance
      title: FIDO Device Onboard Specification 1.1
      target: https://fidoalliance.org/specifications/download-iot-specifications/
      date: April 2022
-  LwM2M:
+  LwM2M-T:
      author:
         org: OMA SpecWorks
-     title: "Lightweight Machine to Machine (LwM2M) V.1.2.1 Technical Specification: Transport Bindings"
-     target: https://openmobilealliance.org/release/LightweightM2M/V1_2_1-20221209-A/
-     date: December 2022
+     title: "Lightweight Machine to Machine (LwM2M) V.1.2.2 Technical Specification: Transport Bindings"
+     target: https://www.openmobilealliance.org/release/LightweightM2M/V1_2_2-20240613-A/
+     date: June 2024
+  LwM2M-C:
+     author:
+        org: OMA SpecWorks
+     title: "Lightweight Machine to Machine (LwM2M) V.1.2.2 Technical Specification: Core"
+     target: https://www.openmobilealliance.org/release/LightweightM2M/V1_2_2-20240613-A/
+     date: June 2024
+
   Ambrose2017:
      author:
      - ins: C. Ambrose
@@ -361,7 +369,7 @@ certificates, which are obtained for use with specific applications.
 
 IDevIDs are primarily used with device onboarding or bootstrapping protocols,
 such as the Bootstrapping Remote Secure Key Infrastructure (BRSKI) protocol
-{{?RFC8995}} or by LwM2M Bootstrap {{LwM2M}}. Hence, the use of IDevIDs
+{{?RFC8995}} or by LwM2M Bootstrap {{LwM2M-T}} {{LwM2M-C}}. Hence, the use of IDevIDs
 is limited on purpose even though they have a long lifetime, or do not expire
 at all. While some bootstrapping protocols use TLS (and therefore make use of
 the IDevID as part of client authentication) there are other bootstrapping
@@ -460,6 +468,8 @@ to manage the lifetime of all the certificates used by the device. While this
 approach does not utilize certificates to its widest extent, it is a solution
 that extends the capabilities offered by a raw public key approach.
 
+
+
 ### Subject Public Key Info
 
 The subjectPublicKeyInfo field indicates the algorithm and any associated
@@ -486,8 +496,10 @@ Certificate Revocation Lists (CRLs) are used by constrained IoT devices.
 The use of device management protocols for IoT devices, which often include
 an onboarding or bootstrapping mechanism, has also seen considerable uptake
 in deployed devices. These protocols, some of which are standardized,
-allow for the distribution and updating of certificates on demand. This enables a
-deployment model where IoT device utilize end entity certificates with
+allow for the distribution and updating of certificates on demand. An example
+of a standardized IoT device management protocol is the Lightweight Machine-to-Machine
+(LwM2M) {{LwM2M-T}} {{LwM2M-C}} protocol. Device management protocols enable a
+deployment model where IoT devices utilize end entity certificates with
 shorter lifetime making certificate revocation protocols, like OCSP
 and CRLs, less relevant. Whenever certificates are updated the TLS stack
 needs to be informed since the communication endpoints need to be aware
