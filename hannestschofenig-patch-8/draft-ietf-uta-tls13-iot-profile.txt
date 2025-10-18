@@ -262,7 +262,7 @@ Table of Contents
    certificates the guidance for mandatory-to-implement extensions
    described in Section 9.2 of [RFC8446] MUST be followed.
 
-   Companies deploying IoT devices may have preferences regarding
+   Operators deploying IoT devices may have preferences regarding
    credential types impacted by security properties, operational
    considerations, cost and other factors.  For this reason this
    specification does not mandate a single credential type but instead
