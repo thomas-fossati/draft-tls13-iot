@@ -1060,14 +1060,15 @@ Table of Contents
    operations [PQC-PERF].  Besides, any choice need to careful evaluate
    the associated energy requirements [PQC-ENERGY].
 
-   Incorporating PQC into TLS is still ongoing, with key exchange
-   message sizes increasing due to larger public keys.  These larger
-   keys demand more flash storage and higher RAM usage, presenting
-   significant obstacles for resource-constrained IoT devices.  The
-   transition from classical cryptographic algorithms to PQC will be a
-   significant challenge for constrained IoT devices, requiring careful
-   planning to select hardware suitable for the task considering the
-   lifetime of an IoT product.
+   The work of incorporating PQC into TLS [I-D.ietf-uta-pqc-app]
+   [I-D.ietf-pquip-pqc-hsm-constrained] is still ongoing, with key
+   exchange message sizes increasing due to larger public keys.  These
+   larger keys demand more flash storage and higher RAM usage,
+   presenting significant obstacles for resource-constrained IoT
+   devices.  The transition from classical cryptographic algorithms to
+   PQC will be a significant challenge for constrained IoT devices,
+   requiring careful planning to select hardware suitable for the task
+   considering the lifetime of an IoT product.
 
 23.  Open Issues
 
@@ -1226,6 +1227,14 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-ietf-pquip-
               pqc-engineers-14>.
 
+   [I-D.ietf-pquip-pqc-hsm-constrained]
+              Reddy.K, T., Wing, D., S, B., and K. Kwiatkowski,
+              "Adapting Constrained Devices for Post-Quantum
+              Cryptography", Work in Progress, Internet-Draft, draft-
+              ietf-pquip-pqc-hsm-constrained-01, 4 July 2025,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-pquip-
+              pqc-hsm-constrained-01>.
+
    [I-D.ietf-tls-ctls]
               Rescorla, E., Barnes, R., Tschofenig, H., and B. M.
               Schwartz, "Compact TLS 1.3", Work in Progress, Internet-
@@ -1239,6 +1248,13 @@ Table of Contents
               draft-ietf-tls-esni-25, 14 June 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-tls-
               esni-25>.
+
+   [I-D.ietf-uta-pqc-app]
+              Reddy.K, T. and H. Tschofenig, "Post-Quantum Cryptography
+              Recommendations for TLS-based Applications", Work in
+              Progress, Internet-Draft, draft-ietf-uta-pqc-app-00, 18
+              September 2025, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-uta-pqc-app-00>.
 
    [I-D.irtf-cfrg-aead-limits]
               Günther, F., Thomson, M., and C. A. Wood, "Usage Limits on
