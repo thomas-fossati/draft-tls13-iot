@@ -799,7 +799,7 @@ IoT environments, this is often not the case. Instead, trust anchors are typical
 with firmware updates or retrieved periodically via certificate management protocols, such as
 EST (e.g., /cacerts).
 
-To support transitional trust states (e.g., during root key rollovers), devices must handle
+To support transitional trust states (e.g., during root key rollovers), devices MUST handle
 both newWithOld (new key signed by old, for transmission to peers lacking the new key) and
 oldWithNew (old key signed by new, to verify peers still using the old key).
 
