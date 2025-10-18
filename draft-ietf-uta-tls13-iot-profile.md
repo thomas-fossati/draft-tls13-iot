@@ -147,7 +147,7 @@ in earlier TLS versions. However, the rekeying mechanism defined in {{Section 4.
 does not provide post-compromise security (see {{Appendix E.1.5 of TLS13}}).
 Furthermore, post-handshake authentication defined in
 {{Section 4.6.2 of TLS13}} only offers client-to-server authentication.
-The "Exported Authenticator" specification, see {{?RFC9261}}, recently added support
+The "Exported Authenticator" specification, see {{?RFC9261}}, added support
 for mutual post-handshake authentication, but this requires the Certificate,
 CertificateVerify and the Finished messages to be conveyed by the application
 layer protocol, as it is exercised for HTTP/2 and HTTP/3 in {{?I-D.ietf-httpbis-secondary-server-certs}}.
