@@ -230,6 +230,11 @@ For TLS/DTLS clients and servers implementing raw public keys and/or
 certificates the guidance for mandatory-to-implement extensions described in
 Section 9.2 of {{!RFC8446}} MUST be followed.
 
+Companies deploying IoT devices may have preferences regarding credential types
+impacted by security properties, operational considerations, cost and other factors.
+For this reason this specification does not mandate a single credential type but
+instead describes relevant considerations for the use of specific types.
+
 # Error Handling
 
 TLS 1.3 simplified the Alert protocol but the underlying challenge in an
