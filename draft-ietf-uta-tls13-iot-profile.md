@@ -69,7 +69,6 @@ informative:
   PQC-PERF: DOI.10.1007/978-3-031-21280-2_24
   CoAP: RFC7252
   IEEE-802.1AR: DOI.10.1109/IEEESTD.2020.9052099
-  LwM2M:
   FDO:
      author:
         org: FIDO Alliance
