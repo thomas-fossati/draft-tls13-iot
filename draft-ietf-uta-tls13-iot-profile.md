@@ -770,12 +770,36 @@ optimizations typically get implemented last.
 The use of certificate handles, as introduced in cTLS {{?I-D.ietf-tls-ctls}},
 is a form of caching or compressing certificates as well.
 
-Although the TLS specification does not prohibit the transmission of trust anchors in the Certificate message, and some implementations do include them, trust anchors SHOULD NOT be transmitted in the TLS Certificate message sent by the server. Trust anchors are provisioned via out-of-band means,
-and any trust anchor included in the Certificate message cannot be used by the client.
-Hence, transmitting it would unnecessarily consume bandwidth. If the trust anchor is
-not the root CA certificate, the server may not know which trust anchor the client
-possesses. In such cases, the client can use the Trusted CA Indication extension
-defined in {{RFC6066}} to signal its supported trust anchors.
+Although the TLS specification does not prohibit the transmission of trust anchors
+in the Certificate message, and some implementations do include them, trust anchors
+SHOULD NOT be transmitted in the TLS Certificate message sent by the server. Trust
+anchors are provisioned via out-of-band means, and any trust anchor included in the
+Certificate message cannot be used by the client as a foundation for certificate path
+validation. Hence, transmitting it would unnecessarily consume bandwidth.
+
+However, due to incomplete knowledge, it is not always possible to omit the transmission
+of trust anchors in the TLS protocol:
+
+- In many device-to-cloud deployments (see {{RFC7452}}, server certificates are pinned. If
+the client has pinned the server certificate, retransmission is unnecessary but the server
+may not reliably detect it.
+
+- Root key updates (see {{Section 4.4 of RFC 4210}} may be in progress. New anchors may
+not be fully distributed, particularly in device-to-device communication where server
+roles are assigned dynamically.
+
+- If the trust anchor is not the root CA certificate, the server may not know which trust
+anchor the client possesses. In such cases, the client can use the Trusted CA Indication
+extension defined in {{RFC6066}} to signal its supported trust anchors.
+
+RFC 4210 assumes that clients can access a shared certificate directory. However, in
+IoT environments, this is often not the case. Instead, trust anchors are typically distributed
+with firmware updates or retrieved periodically via certificate management protocols, such as
+EST (e.g., /cacerts).
+
+To support transitional trust states (e.g., during root key rollovers), devices must handle
+both newWithOld (new key signed by old, for transmission to peers lacking the new key) and
+oldWithNew (old key signed by new, to verify peers still using the old key).
 
 Whether to utilize any of the above extensions or a combination of them depends
 on the anticipated deployment environment, the availability of code, and the
