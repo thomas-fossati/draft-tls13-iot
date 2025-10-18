@@ -6,9 +6,9 @@ UTA                                                        H. Tschofenig
 Internet-Draft                                                     H-BRS
 Updates: 7925 (if approved)                                   T. Fossati
 Intended status: Standards Track                                  Linaro
-Expires: 20 February 2026                                  M. Richardson
+Expires: 21 April 2026                                     M. Richardson
                                                 Sandelman Software Works
-                                                          19 August 2025
+                                                         18 October 2025
 
 
             TLS/DTLS 1.3 Profiles for the Internet of Things
@@ -44,7 +44,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 February 2026.
+   This Internet-Draft will expire on 21 April 2026.
 
 Copyright Notice
 
@@ -193,14 +193,13 @@ Table of Contents
    and low-power wide-area networks, where the amount of data exchanged
    needs to be minimized.
 
-   In conclusion, this document offers comprehensive guidance for
-   deploying secure communication in resource-constrained IoT
-   environments.  It outlines best practices for configuring TLS/DTLS
-   1.3 to meet the unique needs of IoT devices, ensuring robust security
-   without overwhelming their limited processing, memory, and power
-   resources.  The document plays a vital role in facilitating secure,
-   efficient IoT deployments, supporting the broad adoption of secure
-   communication standards.
+   This document offers comprehensive guidance for deploying secure
+   communication in resource-constrained IoT environments.  It outlines
+   best practices for configuring TLS/DTLS 1.3 to meet the unique needs
+   of IoT devices, ensuring robust security without overwhelming their
+   limited processing, memory, and power resources.  The document aims
+   to facilitate the development of secure and efficient IoT deployments
+   and promote the broad adoption of secure communication standards.
 
 2.  Conventions and Terminology
 
@@ -215,18 +214,21 @@ Table of Contents
 
 3.  Credential Types
 
-   Pre-shared key based authentication is integrated into the main TLS/
-   DTLS 1.3 specification and has been harmonized with session
-   resumption.
+   TLS/DTLS allow different credential types to be used.  These include
+   X.509 certificates and raw public keys, pre-shared keys (PSKs), and
+   passwords.  The extensions used in TLS/DTLS differ dependencing on
+   the credential types supported.
 
-   A compliant implementation supporting authentication based on
-   certificates and raw public keys MUST support digital signatures with
-   ecdsa_secp256r1_sha256.  A compliant implementation MUST support the
-   key exchange with secp256r1 (NIST P-256) and SHOULD support key
-   exchange with X25519.
+   TLS/DTLS 1.3 supports PSK-based authentication, wherein PSKs can be
+   established via session tickets from prior connections or via some
+   external, out-of-band mechanism.  To distinguish the two modes, the
+   former is called resumption PSK and the latter external PSK.  For
+   performance reasons the support for resumption PSKs is often found in
+   implementations that use X.509 certificates for authentication.
 
-   A plain PSK-based TLS/DTLS client or server, which only uses PSK as
-   its long-term credential, MUST implement the following extensions:
+   A "plain" PSK-based TLS/DTLS client or server, which only implements
+   support for external PSKs as its long-term credential, MUST implement
+   the following extensions:
 
    *  Supported Versions,
    *  Cookie,
@@ -249,6 +251,12 @@ Table of Contents
    The SNI extension is discussed in this document and the justification
    for implementing and using the ALPN extension can be found in
    [RFC9325].
+
+   An implementation supporting authentication based on certificates and
+   raw public keys MUST support digital signatures with
+   ecdsa_secp256r1_sha256.  A compliant implementation MUST support the
+   key exchange with secp256r1 (NIST P-256) and SHOULD support key
+   exchange with X25519.
 
    For TLS/DTLS clients and servers implementing raw public keys and/or
    certificates the guidance for mandatory-to-implement extensions
@@ -315,7 +323,7 @@ Table of Contents
    Section 11 of [RFC7925].
 
    In general, the recommendations in Section 7.3 of [DTLS13] regarding
-   ACKs apply.  In particular, "[w]hen DTLS 1.3 is used in deployments
+   ACKs apply.  In particular, "(w)hen DTLS 1.3 is used in deployments
    with lossy networks, such as low-power, long-range radio networks as
    well as low-power mesh networks, the use of ACKs is recommended" to
    signal any sign of disruption or lack of progress.  This allows for
@@ -411,8 +419,8 @@ Table of Contents
    *  a certificate chain leading up to a trust anchor (typically the
       root certificate).
 
-   The IEEE 802.1AR specification [_8021AR] introduces the concept of
-   DevIDs and defines two specialized versions:
+   The IEEE 802.1AR specification [IEEE-802.1AR] introduces the concept
+   of DevIDs and defines two specialized versions:
 
    *  Initial Device Identifiers (IDevIDs): Provisioned during
       manufacturing to provide a unique, stable identity for the
@@ -434,7 +442,7 @@ Table of Contents
    IDevIDs are primarily used with device onboarding or bootstrapping
    protocols, such as the Bootstrapping Remote Secure Key Infrastructure
    (BRSKI) protocol [RFC8995] or by LwM2M Bootstrap [LwM2M].  Hence, the
-   use of IDevIDs is limited in purpose even though they have a long
+   use of IDevIDs is limited on purpose even though they have a long
    lifetime, or do not expire at all.  While some bootstrapping
    protocols use TLS (and therefore make use of the IDevID as part of
    client authentication) there are other bootstrapping protocols that
@@ -501,14 +509,15 @@ Table of Contents
    can expect.  It also affects the maximum validity period of
    certificates.
 
-   In some IoT deployments, IDevIDs are provisioned with an unlimited
-   lifetime.  For this purpose, a special value for the notAfter date
-   field, the GeneralizedTime value of 99991231235959Z, is utilized.
-   This special value was introduced in Section 4.1.2.5 of [RFC5280].
-   If this is done, then the CA certificates and the certificates of
-   subordinate CAs cannot have a maximum validity period either.  Hence,
-   it requires careful consideration whether it is appropriate to issue
-   IDevID certificates with no maximum validity period.
+   In most IoT deployments, IDevIDs are provisioned with an unlimited
+   lifetime as per [IEEE-802.1AR].  For this purpose, a special value
+   for the notAfter date field, the GeneralizedTime value of
+   99991231235959Z, is utilized.  This special value was introduced in
+   Section 4.1.2.5 of [RFC5280].  When this is done, then the CA
+   certificates and the certificates of subordinate CAs have a maximum
+   validity period.  Therefore, careful consideration is required as to
+   whether it is appropriate to issue IDevID certificates with no
+   maximum validity period.
 
    LDevID certificates are, however, issued by the operator or owner,
    and may be renewed at a regular interval using protocols, such as
@@ -576,9 +585,9 @@ Table of Contents
    application layer protocol to carry the payloads.
 
    Hence, instead of performing certificate revocation checks on the IoT
-   device itself this specification recommends to delegate this task to
-   the IoT device operator and to take the necessary action to allow IoT
-   devices to remain operational.
+   device itself this it is RECOMMENDED to delegate this task to the IoT
+   device operator and to take the necessary action to allow IoT devices
+   to remain operational.
 
    The CRL distribution points extension has been defined in RFC 5280 to
    identify how CRL information is obtained.  The authority information
@@ -732,7 +741,7 @@ Table of Contents
 
    [RFC9525], Section 2 mandates that the subject field not be used to
    identify a service.  However, certain IoT applications (for example,
-   [I-D.ietf-anima-constrained-voucher], [_8021AR]) use the subject
+   [I-D.ietf-anima-constrained-voucher], [IEEE-802.1AR]) use the subject
    field to encode the device serial number.
 
    The requirement in Section 4.4.2 of [RFC7925] to only use EUI-64 for
@@ -812,11 +821,11 @@ Table of Contents
    agreement of a symmetric key.  On-device key generation is, however,
    the preferred approach.
 
-   As specified in [_8021AR], the extendedKeyUsage SHOULD NOT be present
-   in IDevID certificates, as it reduces the utility of the IDevID.  For
-   locally assigned LDevID certificates to be usable with TLS, the
-   extendedKeyUsage MUST contain at least one of the following: id-kp-
-   serverAuth or id-kp-clientAuth.
+   As specified in [IEEE-802.1AR], the extendedKeyUsage SHOULD NOT be
+   present in IDevID certificates, as it reduces the utility of the
+   IDevID.  For locally assigned LDevID certificates to be usable with
+   TLS, the extendedKeyUsage MUST contain at least one of the following:
+   id-kp-serverAuth or id-kp-clientAuth.
 
 18.  Update of Trust Anchors
 
@@ -1093,10 +1102,6 @@ Table of Contents
 
 26.2.  Informative References
 
-   [ADD]      IETF, "Adaptive DNS Discovery (add) Working Group",
-              September 2023,
-              <https://datatracker.ietf.org/wg/add/about/>.
-
    [Ambrose2017]
               Ambrose, C., Bos, J. W., Fay, B., Joye, M., Lochter, M.,
               and B. Murray, "Differential Attacks on Deterministic
@@ -1130,9 +1135,9 @@ Table of Contents
    [I-D.ietf-dance-tls-clientid]
               Huque, S. and V. Dukhovni, "TLS Extension for DANE Client
               Identity", Work in Progress, Internet-Draft, draft-ietf-
-              dance-tls-clientid-06, 13 June 2025,
+              dance-tls-clientid-07, 17 September 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-dance-
-              tls-clientid-06>.
+              tls-clientid-07>.
 
    [I-D.ietf-httpbis-secondary-server-certs]
               Gorbaty, E. and M. Bishop, "Secondary Certificate
@@ -1153,9 +1158,9 @@ Table of Contents
               Banerjee, A., Reddy.K, T., Schoinianakis, D., Hollebeek,
               T., and M. Ounsworth, "Post-Quantum Cryptography for
               Engineers", Work in Progress, Internet-Draft, draft-ietf-
-              pquip-pqc-engineers-13, 1 July 2025,
+              pquip-pqc-engineers-14, 25 August 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-pquip-
-              pqc-engineers-13>.
+              pqc-engineers-14>.
 
    [I-D.ietf-tls-ctls]
               Rescorla, E., Barnes, R., Tschofenig, H., and B. M.
@@ -1192,6 +1197,15 @@ Table of Contents
               t2trg-taxonomy-manufacturer-anchors-11, 22 July 2025,
               <https://datatracker.ietf.org/doc/html/draft-irtf-t2trg-
               taxonomy-manufacturer-anchors-11>.
+
+   [IEEE-802.1AR]
+              "ISO/IEC/IEEE International Standard for
+              Telecommunications and exchange between information
+              technology systems--Requirements for local and
+              metropolitan area networks--Part 1AR:Secure device
+              identity", IEEE, DOI 10.1109/ieeestd.2020.9052099,
+              ISBN ["9781504465885"], March 2020,
+              <https://doi.org/10.1109/ieeestd.2020.9052099>.
 
    [LwM2M]    OMA SpecWorks, "Lightweight Machine to Machine (LwM2M)
               V.1.2.1 Technical Specification: Transport Bindings",
@@ -1332,10 +1346,6 @@ Table of Contents
               Certificate Management Protocol (CMP) Profile", RFC 9483,
               DOI 10.17487/RFC9483, November 2023,
               <https://www.rfc-editor.org/rfc/rfc9483>.
-
-   [_8021AR]  IEEE, "IEEE Standard for Local and metropolitan area
-              networks – Secure Device Identity, IEEE 802.1AR-2018",
-              August 2018, <https://1.ieee802.org/security/802-1ar>.
 
 Acknowledgments
 
