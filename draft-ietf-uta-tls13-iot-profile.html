@@ -1357,7 +1357,7 @@ is a critical requirement. The Transport Layer Security (TLS) and Datagram Trans
 Layer Security (DTLS) protocols have been foundational for ensuring encryption,
 integrity, and authenticity in communications. However, the constraints of a certain
 class of IoT devices render conventional, off-the-shelf TLS/DTLS implementations
-suboptimal for many IoT use cases. This document addresses these limitations by specifying profiles of TLS 1.3 and DTLS 1.3, optimized for resource-constrained IoT devices.<a href="#section-1-1" class="pilcrow">¶</a></p>
+suboptimal for many IoT use cases. This document addresses these limitations by specifying TLS 1.3 and DTLS 1.3 profiles that are optimized for resource-constrained IoT devices.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">Note that IoT devices vary widely in terms of capabilities. While some are highly
 resource-constrained, others offer performance comparable to regular desktop computers
 but operate without end-user interfaces. For a detailed description of the different
@@ -1439,14 +1439,19 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
       <h2 id="name-credential-types">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-credential-types" class="section-name selfRef">Credential Types</a>
       </h2>
-<p id="section-3-1">Pre-shared key based authentication is integrated into the main TLS/DTLS 1.3
-specification and has been harmonized with session resumption.<a href="#section-3-1" class="pilcrow">¶</a></p>
-<p id="section-3-2">A compliant implementation supporting authentication based on certificates and
-raw public keys MUST support digital signatures with ecdsa_secp256r1_sha256. A
-compliant implementation MUST support the key exchange with secp256r1 (NIST
-P-256) and SHOULD support key exchange with X25519.<a href="#section-3-2" class="pilcrow">¶</a></p>
-<p id="section-3-3">A plain PSK-based TLS/DTLS client or server, which only uses PSK as its long-term
-credential, MUST implement the following extensions:<a href="#section-3-3" class="pilcrow">¶</a></p>
+<p id="section-3-1">TLS/DTLS allow different credential types to be used. These include X.509
+certificates and raw public keys, pre-shared keys (PSKs), and passwords.
+The extensions used in TLS/DTLS differ dependencing on the credential types
+supported.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-2">TLS/DTLS 1.3 supports PSK-based authentication,
+wherein PSKs can be established via session tickets from prior
+connections or via some external, out-of-band mechanism. To distinguish
+the two modes, the former is called resumption PSK and the latter
+external PSK. For performance reasons the support for resumption PSKs
+is often found in implementations that use X.509 certificates for
+authentication.<a href="#section-3-2" class="pilcrow">¶</a></p>
+<p id="section-3-3">A "plain" PSK-based TLS/DTLS client or server, which only implements support
+for external PSKs as its long-term credential, MUST implement the following extensions:<a href="#section-3-3" class="pilcrow">¶</a></p>
 <ul class="compact">
 <li class="compact" id="section-3-4.1">
           <p id="section-3-4.1.1">Supported Versions,<a href="#section-3-4.1.1" class="pilcrow">¶</a></p>
@@ -1475,13 +1480,22 @@ recommendation:<a href="#section-3-5" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="section-3-7">Where possible, the importer interface defined in <span>[<a href="#RFC9258" class="cite xref">RFC9258</a>]</span> MUST be used
-for external PSKs. This ensures that external PSKs used in (D)TLS 1.3
+for external PSKs. This ensures
+that external PSKs used in (D)TLS 1.3
 are bound to a specific key derivation function (KDF) and hash function.<a href="#section-3-7" class="pilcrow">¶</a></p>
 <p id="section-3-8">The SNI extension is discussed in this document and the justification
 for implementing and using the ALPN extension can be found in <span>[<a href="#RFC9325" class="cite xref">RFC9325</a>]</span>.<a href="#section-3-8" class="pilcrow">¶</a></p>
-<p id="section-3-9">For TLS/DTLS clients and servers implementing raw public keys and/or
+<p id="section-3-9">An implementation supporting authentication based on certificates and
+raw public keys MUST support digital signatures with ecdsa_secp256r1_sha256. A
+compliant implementation MUST support the key exchange with secp256r1 (NIST
+P-256) and SHOULD support key exchange with X25519.<a href="#section-3-9" class="pilcrow">¶</a></p>
+<p id="section-3-10">For TLS/DTLS clients and servers implementing raw public keys and/or
 certificates the guidance for mandatory-to-implement extensions described in
-Section 9.2 of <span>[<a href="#RFC8446" class="cite xref">RFC8446</a>]</span> MUST be followed.<a href="#section-3-9" class="pilcrow">¶</a></p>
+Section 9.2 of <span>[<a href="#RFC8446" class="cite xref">RFC8446</a>]</span> MUST be followed.<a href="#section-3-10" class="pilcrow">¶</a></p>
+<p id="section-3-11">Entities deploying IoT devices may select credential types based on security
+characteristics, operational requirements, cost, and other factors.
+Consequently, this specification does not prescribe a single credential type
+but provides guidance on considerations relevant to the use of particular types.<a href="#section-3-11" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="error-handling">
