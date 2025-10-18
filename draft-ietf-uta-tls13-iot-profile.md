@@ -116,8 +116,7 @@ is a critical requirement. The Transport Layer Security (TLS) and Datagram Trans
 Layer Security (DTLS) protocols have been foundational for ensuring encryption,
 integrity, and authenticity in communications. However, the constraints of a certain
 class of IoT devices render conventional, off-the-shelf TLS/DTLS implementations
-suboptimal for many IoT use cases. This document addresses these limitations by
-specifying profiles of TLS 1.3 and DTLS 1.3, optimized for resource-constrained IoT devices.
+suboptimal for many IoT use cases. This document addresses these limitations by specifying TLS 1.3 and DTLS 1.3 profiles that are optimized for resource-constrained IoT devices.
 
 Note that IoT devices vary widely in terms of capabilities. While some are highly
 resource-constrained, others offer performance comparable to regular desktop computers
