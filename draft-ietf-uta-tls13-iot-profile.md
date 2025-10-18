@@ -786,7 +786,7 @@ of trust anchors in the TLS protocol:
 the client has pinned the server certificate, retransmission is unnecessary but the server
 may not reliably detect it.
 
-- Root key updates (see {{Section 4.4 of RFC 4210}} may be in progress. New anchors may
+- Root key updates (see {{Section 4.4 of RFC4210}} may be in progress. New anchors may
 not be fully distributed, particularly in device-to-device communication where server
 roles are assigned dynamically.
 
