@@ -447,9 +447,9 @@ Table of Contents
 
    IDevIDs are primarily used with device onboarding or bootstrapping
    protocols, such as the Bootstrapping Remote Secure Key Infrastructure
-   (BRSKI) protocol [RFC8995] or by LwM2M Bootstrap [LwM2M].  Hence, the
-   use of IDevIDs is limited on purpose even though they have a long
-   lifetime, or do not expire at all.  While some bootstrapping
+   (BRSKI) protocol [RFC8995] or by LwM2M Bootstrap [LwM2M-T] [LwM2M-C].
+   Hence, the use of IDevIDs is limited on purpose even though they have
+   a long lifetime, or do not expire at all.  While some bootstrapping
    protocols use TLS (and therefore make use of the IDevID as part of
    client authentication) there are other bootstrapping protocols that
    do not use TLS/DTLS for client authentication, such as FIDO Device
@@ -578,18 +578,21 @@ Table of Contents
    include an onboarding or bootstrapping mechanism, has also seen
    considerable uptake in deployed devices.  These protocols, some of
    which are standardized, allow for the distribution and updating of
-   certificates on demand.  This enables a deployment model where IoT
-   device utilize end entity certificates with shorter lifetime making
-   certificate revocation protocols, like OCSP and CRLs, less relevant.
-   Whenever certificates are updated the TLS stack needs to be informed
-   since the communication endpoints need to be aware of the new
-   certificates.  This is particularly important when long-lived TLS
-   connections are used.  In such a case, the post-handshake
-   authentication exchange is triggered when the application requires
-   it.  TLS 1.3 provides client-to-server post-handshake authentication
-   only.  Mutual authentication via post-handshake messages is available
-   by the use of the "Exported Authenticator" [RFC9261] but requires the
-   application layer protocol to carry the payloads.
+   certificates on demand.  An example of a standardized IoT device
+   management protocol is the Lightweight Machine-to-Machine (LwM2M)
+   [LwM2M-T] [LwM2M-C] protocol.  Device management protocols enable a
+   deployment model where IoT devices utilize end entity certificates
+   with shorter lifetime making certificate revocation protocols, like
+   OCSP and CRLs, less relevant.  Whenever certificates are updated the
+   TLS stack needs to be informed since the communication endpoints need
+   to be aware of the new certificates.  This is particularly important
+   when long-lived TLS connections are used.  In such a case, the post-
+   handshake authentication exchange is triggered when the application
+   requires it.  TLS 1.3 provides client-to-server post-handshake
+   authentication only.  Mutual authentication via post-handshake
+   messages is available by the use of the "Exported Authenticator"
+   [RFC9261] but requires the application layer protocol to carry the
+   payloads.
 
    Hence, instead of performing certificate revocation checks on the IoT
    device itself this it is RECOMMENDED to delegate this task to the IoT
@@ -1268,11 +1271,15 @@ Table of Contents
               ISBN ["9781504465885"], March 2020,
               <https://doi.org/10.1109/ieeestd.2020.9052099>.
 
-   [LwM2M]    OMA SpecWorks, "Lightweight Machine to Machine (LwM2M)
-              V.1.2.1 Technical Specification: Transport Bindings",
-              December 2022,
-              <https://openmobilealliance.org/release/LightweightM2M/
-              V1_2_1-20221209-A/>.
+   [LwM2M-C]  OMA SpecWorks, "Lightweight Machine to Machine (LwM2M)
+              V.1.2.2 Technical Specification: Core", June 2024,
+              <https://www.openmobilealliance.org/release/
+              LightweightM2M/V1_2_2-20240613-A/>.
+
+   [LwM2M-T]  OMA SpecWorks, "Lightweight Machine to Machine (LwM2M)
+              V.1.2.2 Technical Specification: Transport Bindings", June
+              2024, <https://www.openmobilealliance.org/release/
+              LightweightM2M/V1_2_2-20240613-A/>.
 
    [PQC-ENERGY]
               Tasopoulos, G., Dimopoulos, C., Fournaris, A., Zhao, R.,
