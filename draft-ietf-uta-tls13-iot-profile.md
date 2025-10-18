@@ -165,7 +165,7 @@ in TLS 1.3. The "PSK identity hint" defined in {{?RFC4279}}, which is used by th
 server to help the client in selecting which PSK identity to use, is, however, not
 available anymore in TLS 1.3.
 
-- Finally, ciphersuites were depreciated and the RSA-based key transport is not yet
+- Finally, ciphersuites were depreciated and the RSA-based key transport is not
 supported in TLS 1.3. As a consequence, only a Diffie-Hellman-based key exchange
 is available for non-PSK-based authentication. (For PSK-based authentication the
 use of Diffie-Hellman is optional.)
