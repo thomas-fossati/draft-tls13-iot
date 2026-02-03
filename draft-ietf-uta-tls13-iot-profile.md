@@ -57,8 +57,8 @@ contributor:
     name: Achim Kraus
 
 normative:
-  DTLS13: RFC9147
-  TLS13: RFC8446
+  RFC9147: DTLS13
+  RFC8446: TLS13
 
 informative:
   RFC9146:
@@ -143,10 +143,10 @@ with the transition from TLS 1.2 to 1.3:
 
 - TLS 1.3 introduced the concept of post-handshake authentication messages, which
 partially replaced the need for the re-negotiation feature {{?RFC5746}} available
-in earlier TLS versions. However, the rekeying mechanism defined in {{Section 4.6.3 of TLS13}}
-does not provide post-compromise security (see {{Appendix E.1.5 of TLS13}}).
+in earlier TLS versions. However, the rekeying mechanism defined in {{Section 4.6.3 of -TLS13}}
+does not provide post-compromise security (see {{Appendix E.1.5 of -TLS13}}).
 Furthermore, post-handshake authentication defined in
-{{Section 4.6.2 of TLS13}} only offers client-to-server authentication.
+{{Section 4.6.2 of -TLS13}} only offers client-to-server authentication.
 The "Exported Authenticator" specification, see {{?RFC9261}}, added support
 for mutual post-handshake authentication, but this requires the Certificate,
 CertificateVerify and the Finished messages to be conveyed by the application
@@ -154,7 +154,7 @@ layer protocol, as it is exercised for HTTP/2 and HTTP/3 in {{?I-D.ietf-httpbis-
 Therefore, the application layer protocol must be enhanced whenever this feature is required.
 
 - Rekeying of the application traffic secret does not lead to an update of the
-exporter secret (see {{Section 7.5 of TLS13}}) since the derived export secret is
+exporter secret (see {{Section 7.5 of -TLS13}}) since the derived export secret is
 based on the exporter_master_secret and not on the application traffic secret.
 
 - Flight #4, which was used by EAP-TLS 1.2 {{?RFC5216}}, does not exist in TLS 1.3.
@@ -237,7 +237,7 @@ P-256) and SHOULD support key exchange with X25519.
 
 For TLS/DTLS clients and servers implementing raw public keys and/or
 certificates the guidance for mandatory-to-implement extensions described in
-Section 9.2 of {{!RFC8446}} MUST be followed.
+{{Section 9.2 of -TLS13}} MUST be followed.
 
 Entities deploying IoT devices may select credential types based on security
 characteristics, operational requirements, cost, and other factors.
@@ -284,13 +284,13 @@ Please review the security and privacy considerations about their use detailed i
 
 # Keep-Alive
 
-The discussion in Section 10 of {{!RFC7925}} is applicable.
+The discussion in {{Section 10 of !RFC7925}} is applicable.
 
 # Timers and ACKs
 
 Compared to DTLS 1.2 timeout-based whole flight retransmission, DTLS 1.3 ACKs sensibly decrease the risk of congestion collapse which was the basis for the very conservative recommendations given in {{Section 11 of !RFC7925}}.
 
-In general, the recommendations in {{Section 7.3 of DTLS13}} regarding ACKs apply.
+In general, the recommendations in {{Section 7.3 of -DTLS13}} regarding ACKs apply.
 In particular, "(w)hen DTLS 1.3 is used in deployments with lossy networks, such as low-power, long-range radio networks as well as low-power mesh networks, the use of ACKs is recommended" to signal any sign of disruption or lack of progress.
 This allows for selective or early retransmission, which leads to more efficient use of bandwidth and memory resources.
 
@@ -300,12 +300,12 @@ Developers SHOULD set the initial timeout to be twice the expected round-trip ti
 For specific application/network combinations, a sub-second initial timeout MAY be set.
 In cases where no RTT estimates are available, a 1000ms initial timeout is suitable for the general Internet.
 
-For RRC, the recommendations in {{Section 7.5 of !I-D.ietf-tls-dtls-rrc}} apply.
+For RRC, the recommendations in {{Section 5.5 of !I-D.ietf-tls-dtls-rrc}} apply.
 Just like the handshake initial timers, it is RECOMMENDED that DTLS 1.2 and 1.3 implementations offer an option for their developers to explicitly set the RRC timer.
 
 # Random Number Generation
 
-The discussion in Section 12 of {{!RFC7925}} is applicable with one exception:
+The discussion in {{Section 12 of !RFC7925}} is applicable with one exception:
 the ClientHello and the ServerHello messages in TLS 1.3 do not contain
 gmt_unix_time component anymore.
 
@@ -337,15 +337,15 @@ use it to indicate their RAM limitations.
 
 # Crypto Agility
 
-The recommendations in Section 19 of {{!RFC7925}} are applicable.
+The recommendations in {{Section 19 of !RFC7925}} are applicable.
 
 # Key Length Recommendations
 
-The recommendations in Section 20 of {{!RFC7925}} are applicable.
+The recommendations in {{Section 20 of !RFC7925}} are applicable.
 
 # 0-RTT Data
 
-{{Appendix E.5 of TLS13}} establishes that:
+{{Appendix E.5 of -TLS13}} establishes that:
 
 > Application protocols MUST NOT use 0-RTT data without a profile that
 > defines its use.  That profile needs to identify which messages or
@@ -468,8 +468,8 @@ and may be renewed at a regular interval using protocols, such
 as Enrollment over Secure Transport (EST) {{?RFC7030}} or the
 Certificate Management Protocol (CMP) {{?RFC9483}}.
 It is therefore RECOMMENDED to limit the lifetime of these LDevID certificates
-using the notBefore and notAfter fields, as described in Section 4.1.2.5 of
-{{!RFC5280}}. Values MUST be expressed in Greenwich Mean Time (Zulu) and
+using the notBefore and notAfter fields, as described in {{Section 4.1.2.5 of
+!RFC5280}}. Values MUST be expressed in Greenwich Mean Time (Zulu) and
 MUST include seconds even where the number of seconds is zero.
 
 Note that the validity period is defined as the period of time from notBefore
@@ -549,7 +549,7 @@ This section outlines the requirements for root CA certificates.
 
 ### Authority Key Identifier
 
-Section 4.2.1.1 of {{!RFC5280}} defines the Authority Key Identifier as follows:
+{{Section 4.2.1.1 of !RFC5280}} defines the Authority Key Identifier as follows:
 "The authority key identifier extension provides a means of identifying the
 public key corresponding to the private key used to sign a certificate. This
 extension is used where an issuer has multiple signing keys."
@@ -864,7 +864,7 @@ infrastructure, tool support).
 
 # Ciphersuites {#ciphersuites}
 
-According to {{Section 4.5.3 of DTLS13}}, the use of AES-CCM with 8-octet
+According to {{Section 4.5.3 of -DTLS13}}, the use of AES-CCM with 8-octet
 authentication tags (CCM_8) is considered unsuitable for general use with DTLS.
 This is because it has low integrity limits (i.e., high sensitivity to
 forgeries) which makes endpoints that negotiate ciphersuites based on such AEAD
@@ -872,7 +872,7 @@ vulnerable to a trivial DoS attack. See also {{Sections 5.3 and 5.4 of
 ?I-D.irtf-cfrg-aead-limits}} for further discussion on this topic, as well as
 references to the analysis supporting these conclusions.
 
-Specifically, {{DTLS13}} warns that:
+Specifically, {{-DTLS13}} warns that:
 
 ~~~
 > TLS_AES_128_CCM_8_SHA256 MUST NOT be used in DTLS without additional
@@ -895,7 +895,7 @@ implementations support the following two ciphersuites for TLS 1.3:
 and offer them as their first choice.  These ciphersuites provide
 confidentiality and integrity limits that are considered acceptable in the most
 general settings.  For the details on the exact bounds of both ciphersuites see
-{{Section 4.5.3 of DTLS13}}.  Note that the GCM-based ciphersuite offers
+{{Section 4.5.3 of -DTLS13}}.  Note that the GCM-based ciphersuite offers
 superior interoperability with cloud services at the cost of a slight increase
 in the wire and peak RAM footprints.
 
