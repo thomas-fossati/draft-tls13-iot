@@ -146,7 +146,7 @@ partially replaced the need for the re-negotiation feature {{?RFC5746}} availabl
 in earlier TLS versions. However, the rekeying mechanism defined in {{Section 4.6.3 of -TLS13}}
 does not provide post-compromise security (see {{Appendix E.1.5 of -TLS13}}).
 Furthermore, post-handshake authentication defined in
-{{Section 4.6.2 of -TLS13}} only offers client-to-server authentication.
+{{Section 4.6.2 of -TLS13}} only offers client authentication (client-to-server).
 The "Exported Authenticator" specification, see {{?RFC9261}}, added support
 for mutual post-handshake authentication, but this requires the Certificate,
 CertificateVerify and the Finished messages to be conveyed by the application
@@ -158,16 +158,16 @@ exporter secret (see {{Section 7.5 of -TLS13}}) since the derived export secret 
 based on the exporter_master_secret and not on the application traffic secret.
 
 - Flight #4, which was used by EAP-TLS 1.2 {{?RFC5216}}, does not exist in TLS 1.3.
-As a consequence, EAP-TLS 1.3 {{?RFC9190}} introduced a dummy message.
+As a consequence, EAP-TLS 1.3 {{?RFC9190}} introduced a placeholder message.
 
 - {{?RFC4279}} introduced PSK-based authentication to TLS, a feature re-designed
 in TLS 1.3. The "PSK identity hint" defined in {{?RFC4279}}, which is used by the
 server to help the client in selecting which PSK identity to use, is, however, not
 available anymore in TLS 1.3.
 
-- Finally, ciphersuites were depreciated and the RSA-based key transport is not
+- Finally, ciphersuites were deprecated and the RSA-based key transport is not
 supported in TLS 1.3. As a consequence, only a Diffie-Hellman-based key exchange
-is available for non-PSK-based authentication. (For PSK-based authentication the
+is available for non-PSK-based (i.e., certificate-based) authentication. (For PSK-based authentication the
 use of Diffie-Hellman is optional.)
 
 The profiles in this specification are designed to be adaptable to the broad spectrum
@@ -196,8 +196,14 @@ This document reuses the terms "SHOULD+", "SHOULD-" and "MUST-" from {{!RFC8221}
 
 TLS/DTLS allow different credential types to be used. These include X.509
 certificates and raw public keys, pre-shared keys (PSKs), and passwords.
-The extensions used in TLS/DTLS differ dependencing on the credential types
+The extensions used in TLS/DTLS differ depending on the credential types
 supported.
+Self-signed X.509 certificates are still X.509, not raw public keys; raw
+public keys are conveyed via the raw_public_key extension.
+
+This profile considers three authentication modes for IoT devices:
+(1) certificate-based, (2) raw public key-based and (3) external PSK-based.
+PSK with (EC)DHE is optional and not assumed by default.
 
 TLS/DTLS 1.3 supports PSK-based authentication,
 wherein PSKs can be established via session tickets from prior
@@ -206,6 +212,9 @@ the two modes, the former is called resumption PSK and the latter
 external PSK. For performance reasons the support for resumption PSKs
 is often found in implementations that use X.509 certificates for
 authentication.
+Implementations that only support external PSKs are common in constrained
+devices; implementations using certificates often also support resumption
+PSKs for performance.
 
 A "plain" PSK-based TLS/DTLS client or server, which only implements support
 for external PSKs as its long-term credential, MUST implement the following extensions:
@@ -217,18 +226,19 @@ for external PSKs as its long-term credential, MUST implement the following exte
 * PSK Key Exchange Modes, and
 * Application-Layer Protocol Negotiation (ALPN).
 
-For use of external pre-shared keys {{!RFC9258}} makes the following
-recommendation:
+Note that these extensions may also appear in ECDHE or resumption handshakes;
+the requirement here is that external PSK-only endpoints MUST support them.
 
-> Applications SHOULD provision separate PSKs for (D)TLS 1.3 and prior versions.
+For external pre-shared keys, {{!RFC9258}} recommends that applications
+SHOULD provision separate PSKs for (D)TLS 1.3 and prior versions.
 
 Where possible, the importer interface defined in {{!RFC9258}} MUST be used
 for external PSKs. This ensures
 that external PSKs used in (D)TLS 1.3
 are bound to a specific key derivation function (KDF) and hash function.
 
-The SNI extension is discussed in this document and the justification
-for implementing and using the ALPN extension can be found in {{?RFC9325}}.
+SNI is discussed in {{sni}}; the justification for implementing and using
+the ALPN extension can be found in {{?RFC9325}}.
 
 An implementation supporting authentication based on certificates and
 raw public keys MUST support digital signatures with ecdsa_secp256r1_sha256. A
@@ -260,8 +270,8 @@ credentials established in an earlier exchange.
 
 # Compression
 
-TLS 1.3 does not have support for compression of application data traffic, as offered
-by previous versions of TLS. Applications are therefore responsible for transmitting
+TLS 1.3 does not define compression of application data traffic, as offered by
+previous versions of TLS. Applications are therefore responsible for transmitting
 payloads that are either compressed or use a more efficient encoding otherwise.
 
 With regards to the handshake itself, various strategies have
@@ -276,11 +286,16 @@ the amount of data to be transmitted at each individual handshake, among applyin
 RFC 8446 has removed Static RSA and Static Diffie-Hellman cipher suites, therefore all public-key-based key exchange mechanisms available in TLS 1.3 provide forward secrecy.
 
 Pre-shared keys (PSKs) can be used with (EC)DHE key exchange to provide forward secrecy or can be used alone, at the cost of losing forward secrecy for the application data.
+For PSK use, endpoints SHOULD use (EC)DHE to achieve forward secrecy; PSK-only
+SHOULD be avoided unless the application can tolerate the loss of forward secrecy.
 
 # Authentication and Integrity-only Cipher Suites
 
-For a few, very specific Industrial IoT use cases {{?RFC9150}} defines two cipher suites that provide data authenticity, but not data confidentiality.
-Please review the security and privacy considerations about their use detailed in {{Section 9 of RFC9150}}.
+For a few, very specific Industrial IoT use cases {{?RFC9150}} defines two cipher
+suites that provide data authenticity, but not data confidentiality. For details
+and use constraints, defer to {{?RFC9150}} (especially {{Section 9 of RFC9150}}).
+Implementations may not support these suites; deployments should not assume
+availability. This document does not add new guidance beyond {{?RFC9150}}.
 
 # Keep-Alive
 
@@ -290,13 +305,16 @@ The discussion in {{Section 10 of !RFC7925}} is applicable.
 
 Compared to DTLS 1.2 timeout-based whole flight retransmission, DTLS 1.3 ACKs sensibly decrease the risk of congestion collapse which was the basis for the very conservative recommendations given in {{Section 11 of !RFC7925}}.
 
-In general, the recommendations in {{Section 7.3 of -DTLS13}} regarding ACKs apply.
+In general, the recommendations in {{Section 7.3 of -DTLS13}} regarding ACKs
+apply to DTLS 1.3 only.
 In particular, "(w)hen DTLS 1.3 is used in deployments with lossy networks, such as low-power, long-range radio networks as well as low-power mesh networks, the use of ACKs is recommended" to signal any sign of disruption or lack of progress.
 This allows for selective or early retransmission, which leads to more efficient use of bandwidth and memory resources.
 
 Due to the vast range of network technologies used in IoT deployments, from wired LAN to GSM-SMS, it's not possible to provide a universal recommendation for an initial timeout.
 Therefore, it is RECOMMENDED that DTLS 1.3 implementations allow developers to explicitly set the initial timer value.
-Developers SHOULD set the initial timeout to be twice the expected round-trip time (RTT), but no less than 1000ms.
+Developers SHOULD set the initial timeout to be twice the expected round-trip time (RTT),
+but no less than 1000ms, which is a conservative default aligned with the guidance in
+{{Section 11 of !RFC7925}}.
 For specific application/network combinations, a sub-second initial timeout MAY be set.
 In cases where no RTT estimates are available, a 1000ms initial timeout is suitable for the general Internet.
 
@@ -309,7 +327,7 @@ The discussion in {{Section 12 of !RFC7925}} is applicable with one exception:
 the ClientHello and the ServerHello messages in TLS 1.3 do not contain
 gmt_unix_time component anymore.
 
-# Server Name Indication
+# Server Name Indication {#sni}
 
 This specification mandates the implementation of the Server Name Indication (SNI)
 extension. Where privacy requirements require it, the ECH (Encrypted Client Hello)
@@ -352,8 +370,9 @@ The recommendations in {{Section 20 of !RFC7925}} are applicable.
 > interactions are safe to use with 0-RTT and how to handle the
 > situation when the server rejects 0-RTT and falls back to 1-RTT.
 
-At the time of writing, no such profile has been defined for CoAP {{CoAP}}.
-Therefore, 0-RTT MUST NOT be used by CoAP applications.
+For any application protocol, 0-RTT MUST NOT be used unless a protocol-specific
+profile exists. At the time of writing, no such profile has been defined for
+CoAP {{CoAP}}. Therefore, 0-RTT MUST NOT be used by CoAP applications.
 
 # Certificate Profile {#certificate_profile}
 
@@ -361,6 +380,9 @@ This section contains updates and clarifications to the certificate profile
 defined in {{!RFC7925}}. The content of Table 1 of {{!RFC7925}} has been
 split by certificate "type" in order to clarify exactly what requirements and
 recommendations apply to which entity in the PKI hierarchy.
+
+This profile does not define a specific certificate policy OID; deployments
+MAY define one if needed for local policy enforcement.
 
 A Device Identifier (DevID) consists of:
 
@@ -385,18 +407,23 @@ the LDevIDs, from the operator or owner of the device. Some protocols
 also introduce an additional hierarchy with application instance
 certificates, which are obtained for use with specific applications.
 
-IDevIDs are primarily used with device onboarding or bootstrapping protocols,
+IDevIDs are intended for device identity and initial onboarding or bootstrapping
+protocols,
 such as the Bootstrapping Remote Secure Key Infrastructure (BRSKI) protocol
 {{?RFC8995}} or by LwM2M Bootstrap {{LwM2M-T}} {{LwM2M-C}}. Hence, the use of IDevIDs
 is limited on purpose even though they have a long lifetime, or do not expire
 at all. While some bootstrapping protocols use TLS (and therefore make use of
 the IDevID as part of client authentication) there are other bootstrapping
 protocols that do not use TLS/DTLS for client authentication, such as FIDO
-Device Onboarding (FDO) {{FDO}}.  In many cases, a profile for the certificate
-content is provided by those specifications. For these reasons, this
+Device Onboarding (FDO) {{FDO}}.  In many cases, the IDevID profile/content is
+provided by those specifications. For these reasons, this
 specification focuses on the description of LDevIDs.
 
-This document uses the terminology and some of the rules for populating certificate content defined in IEEE 802.1AR. However, this specification does not claim conformance to IEEE 802.1AR.
+This document uses the terminology and some of the rules for populating certificate
+content defined in IEEE 802.1AR. However, this specification does not claim
+conformance to IEEE 802.1AR; 802.1AR is broader and mandates hardware, security,
+and process requirements outside IoT constraints, while this profile borrows
+terminology and fields but intentionally omits those operational requirements.
 since such a compliance statement goes beyond the use of the terminology
 and the certificate content and would include the use of management
 protocols, fulfillment of certain hardware security requirements, and
@@ -408,15 +435,16 @@ and hardware security choices.
 ## All Certificates
 
 To avoid repetition, this section outlines requirements on X.509
-certificates applicable to all PKI entities.
+certificates applicable to all PKI entities. These requirements apply to
+certificates issued within the IoT device PKI (root, subordinate, and end
+entity certificates used to authenticate IoT devices), not to public WebPKI
+server certificates. Note that TLS 1.3 allows conveying payloads other than
+X.509 certificates in the Certificate message; this section focuses on X.509 v3
+certificates and leaves other formats to other sections or specifications.
 
 ### Version
 
-Certificates MUST be of type X.509 v3. Note that TLS 1.3 allows to
-convey payloads other than X.509 certificates in the Certificate
-message. The description in this section only focuses on X.509 v3
-certificates and leaves the description of other formats to other
-sections or even other specifications.
+Certificates MUST be of type X.509 v3.
 
 ### Serial Number
 
@@ -428,6 +456,8 @@ for each certificate issued by a given CA (i.e., the issuer name
 and the serial number uniquely identify a certificate).
 
 This requirement is aligned with {{!RFC5280}}.
+CA/Browser Forum requirements for public WebPKI certificates are out of scope for this
+profile.
 
 ### Signature
 
@@ -438,6 +468,8 @@ end entity certificates, subordinate CA certificates, and CA
 certificates to use the same signature algorithm. Furthermore,
 this specification does not utilize RSA for use with constrained IoT
 devices and networks.
+For certificates expected to be validated by IoT devices, CAs SHOULD use a
+single signature algorithm supported by those devices (e.g., ECDSA P-256).
 
 ### Issuer
 
@@ -451,6 +483,9 @@ Vendors must determine the expected lifespan of their IoT devices. This
 decision directly affects how long firmware and software updates are
 provided for, as well as the level of maintenance that customers can expect.
 It also affects the maximum validity period of certificates.
+Constrained devices often lack precise UTC time; implementations SHOULD treat
+time checks with coarse granularity (e.g., day- or hour-level) and ignore leap seconds
+when validating notAfter.
 
 In most IoT deployments, IDevIDs are provisioned with an unlimited lifetime as per {{IEEE-802.1AR}}.
 For this purpose, a special value
@@ -485,14 +520,12 @@ to manage the lifetime of all the certificates used by the device. While this
 approach does not utilize certificates to its widest extent, it is a solution
 that extends the capabilities offered by a raw public key approach.
 
-
-
 ### Subject Public Key Info
 
 The subjectPublicKeyInfo field indicates the algorithm and any associated
 parameters for the ECC public key. This profile uses the id-ecPublicKey
 algorithm identifier for ECDSA signature keys, as defined and specified in
-{{!RFC5480}}. This specification assumes that devices supported one of the
+{{!RFC5480}}. This specification assumes that devices support one of the
 following algorithms:
 
 - id-ecPublicKey with secp256r1,
@@ -501,20 +534,29 @@ following algorithms:
 
 There is no requirement to use CA certificates and certificates of
 subordinate CAs to use the same algorithm as the end entity certificate.
-Certificates with longer lifetime may well use a cryptographic stronger
-algorithm.
+Certificates with longer lifetime may well use a cryptographically stronger
+algorithm. However, CAs (or their administrators) that issue certificates
+intended to be validated by constrained IoT devices SHOULD select algorithms
+supported by those devices to ensure successful validation (e.g., P-256).
 
 ### Certificate Revocation Checks
 
 The Certificate Revocation Lists (CRLs) distribution points extension has
 been defined in RFC 5280 to identify how CRL information is obtained. The
-authority information access extension indicates how to access information
-like the online certificate status service (OCSP). Both extensions SHOULD
-NOT be set. If set, they MUST NOT be marked critical.
+Authority Information Access (AIA) extension indicates where to find additional
+information about the CA, such as how to access information
+like the online certificate status service (OCSP) or a CA issuer
+certificate. Constrained IoT devices often do not perform OCSP or CRL
+checks. Therefore, CRL distribution points and AIA
+for OCSP SHOULD NOT be set in IoT device certificates; if set, they MUST NOT
+be marked critical. AIA MAY be used solely for caIssuer to enable chain
+fetching by peers that have sufficient resources.
 
 Instead of using CRLs or OCSP this document follows the guidance in
 {{Section 4.4.3 of !RFC7925}}: for certificate revocation, neither
 OCSP nor CRL are used by constrained IoT devices.
+This text refers to OCSP/CRL checks during the handshake; continuous
+certificate validity checks are out of scope and left to application policy.
 
 The use of device management protocols for IoT devices, which often include
 an onboarding or bootstrapping mechanism, has also seen considerable uptake
@@ -524,15 +566,18 @@ of a standardized IoT device management protocol is the Lightweight Machine-to-M
 (LwM2M) {{LwM2M-T}} {{LwM2M-C}} protocol. Device management protocols enable a
 deployment model where IoT devices utilize end entity certificates with
 shorter lifetime making certificate revocation protocols, like OCSP
-and CRLs, less relevant. Whenever certificates are updated the TLS stack
-needs to be informed since the communication endpoints need to be aware
-of the new certificates. This is particularly important when long-lived
-TLS connections are used. In such a case, the post-handshake
+and CRLs, less relevant. Certificate updates do not affect existing TLS
+sessions; re-authentication or session re-establishment is an application
+policy decision. This is particularly important when long-lived TLS
+connections are used. In such a case, the post-handshake
 authentication exchange is triggered when the application requires it. TLS 1.3 provides
 client-to-server post-handshake authentication only. Mutual
 authentication via post-handshake messages is available by the use of the "Exported
 Authenticator" {{?RFC9261}} but requires the application layer protocol
 to carry the payloads.
+If continuous validation is required, the application must trigger
+re-authentication or re-establish a new TLS session; TLS alone does not
+mandate continuous checks.
 
 Hence, instead of performing certificate revocation checks on the IoT device
 itself this it is RECOMMENDED to delegate this task to the IoT device
@@ -546,6 +591,8 @@ This section outlines the requirements for root CA certificates.
 ### Subject
 
 {{!RFC5280}} mandates that Root CA certificates MUST have a non-empty subject field. The subject field MUST contain the commonName, the organizationName, and the countryName attribute and MAY contain an organizationalUnitName attribute.
+If a subjectAltName extension is present, it SHOULD be set to a value
+consistent with the subject and SHOULD NOT be marked critical.
 
 ### Authority Key Identifier
 
@@ -554,8 +601,9 @@ This section outlines the requirements for root CA certificates.
 public key corresponding to the private key used to sign a certificate. This
 extension is used where an issuer has multiple signing keys."
 
-The Authority Key Identifier extension MAY be omitted. If it is set, it MUST NOT be
-marked critical, and MUST contain the subjectKeyIdentifier of this certificate.
+The Authority Key Identifier extension SHOULD be set to aid path construction.
+If it is set, it MUST NOT be marked critical, and MUST contain the
+subjectKeyIdentifier of this certificate.
 
 ### Subject Key Identifier
 
@@ -563,9 +611,9 @@ marked critical, and MUST contain the subjectKeyIdentifier of this certificate.
 "The subject key identifier extension provides a means of identifying
 certificates that contain a particular public key."
 
-The Subject Key Identifier extension MUST be set, MUST NOT be marked critical, and MUST
-contain the key identifier of the public key contained in the subject public key
-info field.
+The Subject Key Identifier extension MUST be set, MUST NOT be marked critical,
+and MUST contain the key identifier of the public key contained in the subject
+public key info field. This profile aligns with CA/Browser Forum for CA certificates.
 
 The subjectKeyIdentifier is used by path construction algorithms to identify which CA has signed a subordinate certificate.
 
@@ -575,9 +623,9 @@ The subjectKeyIdentifier is used by path construction algorithms to identify whi
 the purpose (e.g., encipherment, signature, certificate signing) of the key contained
 in the certificate."
 
-The Key Usage extension MAY be set. If it is set, it MUST be marked critical and
-the keyCertSign or cRLSign purposes MUST be set. Additional key usages MAY be set
-depending on the intended usage of the public key.
+The Key Usage extension SHOULD be set; if it is set, it MUST be marked
+critical, and the keyCertSign or cRLSign purposes MUST be set. Additional key
+usages MAY be set depending on the intended usage of the public key.
 
 {{!RFC5280}} defines the extended key usage as follows: "This extension indicates
 one or more purposes for which the certified public key may be used, in addition to
@@ -650,7 +698,7 @@ be marked critical and MUST identify the CRL relevant for this certificate.
 
 ### Authority Information Access
 
-The Authority Information Access extension SHOULD NOT be set. If it is set, it MUST
+The Authority Information Access (AIA) extension SHOULD NOT be set. If it is set, it MUST
 NOT be marked critical and MUST identify the location of the certificate of the CA
 that issued this certificate and the location it provides an online certificate
 status service (OCSP).
@@ -677,8 +725,10 @@ Subject and the subjectAltName fields. Protocol specifications tend to offer
 recommendations about what identifiers to use and the deployment situation is
 fragmented.
 
-The subject field MAY include a unique device serial number. If the serial
-number is included, it MUST be encoded in the X520SerialNumber attribute.
+The subject field MAY include a unique device serial number. If a serial
+number is included in the Subject DN, it MUST be encoded in the
+X520SerialNumber attribute. If the serial number is used as an identifier,
+it SHOULD also be placed in the subjectAltName (e.g., as a URI).
 e.g., {{?RFC8995}} use requires a serial number in IDevID certificates.
 
 {{!RFC5280}} defines: "The subject alternative name extension allows identities
@@ -705,7 +755,8 @@ specification does not follow this recommendation.
 Where IoT devices are accepting (D)TLS connections, i.e., they are acting as a server,
 it is unlikely that there will be a useful name that can go into the SNI. In general,
 the use of SNI for the purpose of virtual hosting on constrained IoT devices is rare.
-The IoT device cannot depend on a client providing a correct SNI, and so it MUST ignore the extension.
+The IoT device cannot depend on a client providing a correct SNI, and so it MAY
+ignore the extension when SNI is not used for virtual hosting.
 This implies that IoT devices cannot do name-based virtual hosting of TLS connections.
 In the unlikely event that an IoT device has multiple servers responding with different
 server certificate, then the server SHOULD use different IP addresses or port numbers.
@@ -799,7 +850,6 @@ optimizations typically get implemented last.
 The use of certificate handles, as introduced in cTLS {{?I-D.ietf-tls-ctls}},
 is a form of caching or compressing certificates as well.
 
-
 Although the TLS specification does not explicitly prohibit a server from
 including trust anchors in the Certificate message - and some implementations
 do - trust anchors SHOULD NOT be transmitted in this way. Trust anchors are
@@ -822,10 +872,10 @@ new trust anchors may not yet be fully distributed across all devices. This is e
 relevant in device-to-device communication {{Section 2.1 of RFC7452}}), where server roles
 are determined dynamically and trust anchor distribution may be inconsistent.
 
-- Non-Root Trust Anchors: In some deployments, the client’s trust anchor may be an
+- Non-Root Trust Anchors: In some deployments, the client's trust anchor may be an
 intermediate CA rather than a root certificate. The server, lacking knowledge of the
-client’s trust store, cannot always select a certificate chain that aligns with the
-client’s trust anchor. To mitigate this, the client MAY include the Trusted CA Indication
+client's trust store, cannot always select a certificate chain that aligns with the
+client's trust anchor. To mitigate this, the client MAY include the Trusted CA Indication
 extension (see {{Section 6 of RFC6066}}) in its ClientHello to signal the set of trust
 anchors it supports.
 
@@ -851,7 +901,7 @@ SHOULD NOT be transmitted this way. Trust anchors are meant to be provisioned ou
 of band, and any trust anchor sent in the Certificate message cannot be relied upon
 by the client. Sending it therefore only wastes bandwidth.
 
-A complication arises when the client’s trust anchor is not a widely trusted root
+A complication arises when the client's trust anchor is not a widely trusted root
 CA. In that case, the server cannot determine in advance which trust anchors the
 client has. To address this, the client MAY include the Trusted CA Indication
 extension {{RFC6066}} in its ClientHello to signal the set of trust anchors it
@@ -933,10 +983,6 @@ determinism, for example, as described in
 As detailed in {{I-D.ietf-pquip-pqc-engineers}}, the IETF is actively working to address the challenges of adopting PQC in various protocols, including TLS. The document highlights key aspects engineers must consider, such as algorithm selection, performance impacts, and deployment strategies. It emphasizes the importance of gradual integration of PQC to ensure secure communication while accounting for the increased computational, memory, and bandwidth requirements of PQC algorithms. These challenges are especially relevant in the context of IoT, where device constraints limit the adoption of larger key sizes and more complex cryptographic operations {{PQC-PERF}}. Besides, any choice need to careful evaluate the associated energy requirements {{PQC-ENERGY}}.
 
 The work of incorporating PQC into TLS {{?I-D.ietf-uta-pqc-app}} {{?I-D.ietf-pquip-pqc-hsm-constrained}} is still ongoing, with key exchange message sizes increasing due to larger public keys. These larger keys demand more flash storage and higher RAM usage, presenting significant obstacles for resource-constrained IoT devices. The transition from classical cryptographic algorithms to PQC will be a significant challenge for constrained IoT devices, requiring careful planning to select hardware suitable for the task considering the lifetime of an IoT product.
-
-# Open Issues
-
-A list of open issues can be found at https://github.com/thomas-fossati/draft-tls13-iot/issues
 
 # Security Considerations
 
