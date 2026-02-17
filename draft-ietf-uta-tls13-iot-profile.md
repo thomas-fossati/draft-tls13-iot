@@ -426,7 +426,7 @@ content defined in IEEE 802.1AR. However, this specification does not claim
 conformance to IEEE 802.1AR; 802.1AR is broader and mandates hardware, security,
 and process requirements outside IoT constraints, while this profile borrows
 terminology and fields but intentionally omits those operational requirements.
-since such a compliance statement goes beyond the use of the terminology
+Since such a compliance statement goes beyond the use of the terminology
 and the certificate content and would include the use of management
 protocols, fulfillment of certain hardware security requirements, and
 interfaces to access these hardware security modules. Placing these
