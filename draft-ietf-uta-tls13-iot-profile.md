@@ -186,6 +186,8 @@ robust security without overwhelming their limited processing, memory, and power
 resources. The document aims to facilitate the development of secure and efficient IoT
 deployments and promote the broad adoption of secure communication standards.
 
+This document updates {{RFC7925}} with respect to the X.509 certificate profile ({{certificate_profile}}) and ciphersuite requirements ({{ciphersuites}}).
+
 # Conventions and Terminology
 
 {::boilerplate bcp14}
