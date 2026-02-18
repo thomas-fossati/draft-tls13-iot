@@ -996,7 +996,7 @@ observers is, however, substantially improved since certificates are not
 transmitted in the clear in TLS 1.3 and DTLS 1.3.
 
 Where privacy is a deployment requirement, implementations and PKI profiles
-SHOULD include only the minimum identity information needed for authorization
+should include only the minimum identity information needed for authorization
 and interoperability.
 
 When Connection IDs are used with DTLS 1.3, CID negotiation in post-handshake
