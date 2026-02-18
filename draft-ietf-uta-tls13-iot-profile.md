@@ -186,6 +186,8 @@ robust security without overwhelming their limited processing, memory, and power
 resources. The document aims to facilitate the development of secure and efficient IoT
 deployments and promote the broad adoption of secure communication standards.
 
+This document updates {{RFC7925}} with respect to the X.509 certificate profile ({{certificate_profile}}) and ciphersuite requirements ({{ciphersuites}}).
+
 # Conventions and Terminology
 
 {::boilerplate bcp14}
@@ -277,9 +279,7 @@ payloads that are either compressed or use a more efficient encoding otherwise.
 With regards to the handshake itself, various strategies have
 been applied to reduce the size of the exchanged payloads. TLS and DTLS 1.3 use less
 overhead, depending on the type of key confirmations, when compared to previous versions of the
-protocol. Additionally, the work on Compact TLS (cTLS) {{?I-D.ietf-tls-ctls}} has taken compression of the handshake
-a step further by utilizing out-of-band knowledge between the communication parties to reduce
-the amount of data to be transmitted at each individual handshake, among applying other techniques.
+protocol.
 
 # Forward Secrecy
 
@@ -318,7 +318,7 @@ but no less than 1000ms, which is a conservative default aligned with the guidan
 For specific application/network combinations, a sub-second initial timeout MAY be set.
 In cases where no RTT estimates are available, a 1000ms initial timeout is suitable for the general Internet.
 
-For RRC, the recommendations in {{Section 5.5 of !I-D.ietf-tls-dtls-rrc}} apply.
+Regarding the timers used by the Return Routability Check (RRC) functionality, the recommendations in {{Section 5.5 of !I-D.ietf-tls-dtls-rrc}} apply.
 Just like the handshake initial timers, it is RECOMMENDED that DTLS 1.2 and 1.3 implementations offer an option for their developers to explicitly set the RRC timer.
 
 # Random Number Generation
@@ -424,7 +424,7 @@ content defined in IEEE 802.1AR. However, this specification does not claim
 conformance to IEEE 802.1AR; 802.1AR is broader and mandates hardware, security,
 and process requirements outside IoT constraints, while this profile borrows
 terminology and fields but intentionally omits those operational requirements.
-since such a compliance statement goes beyond the use of the terminology
+Since such a compliance statement goes beyond the use of the terminology
 and the certificate content and would include the use of management
 protocols, fulfillment of certain hardware security requirements, and
 interfaces to access these hardware security modules. Placing these
@@ -847,8 +847,8 @@ optimizations typically get implemented last.
   {{?RFC7250}} or CBOR-encoded certificates
   {{?I-D.ietf-cose-cbor-encoded-cert}}.
 
-The use of certificate handles, as introduced in cTLS {{?I-D.ietf-tls-ctls}},
-is a form of caching or compressing certificates as well.
+The use of certificate handles is a form of caching or compressing
+certificates as well.
 
 Although the TLS specification does not explicitly prohibit a server from
 including trust anchors in the Certificate message - and some implementations
@@ -894,12 +894,6 @@ verification of peers that still rely on the older anchor.
 
 These certificates may be presented as an unordered set, and devices may not be able to
 distinguish their roles without additional metadata.
-
-Although the TLS specification does not forbid a server from including trust
-anchors in the Certificate message, and some implementations do so, trust anchors
-SHOULD NOT be transmitted this way. Trust anchors are meant to be provisioned out
-of band, and any trust anchor sent in the Certificate message cannot be relied upon
-by the client. Sending it therefore only wastes bandwidth.
 
 A complication arises when the client's trust anchor is not a widely trusted root
 CA. In that case, the server cannot determine in advance which trust anchors the
@@ -980,9 +974,36 @@ determinism, for example, as described in
 
 # Post-Quantum Cryptography (PQC) Considerations
 
+The recommendations and ciphersuites in this profile are based on classical
+cryptography and are not quantum-resistant.
+
 As detailed in {{I-D.ietf-pquip-pqc-engineers}}, the IETF is actively working to address the challenges of adopting PQC in various protocols, including TLS. The document highlights key aspects engineers must consider, such as algorithm selection, performance impacts, and deployment strategies. It emphasizes the importance of gradual integration of PQC to ensure secure communication while accounting for the increased computational, memory, and bandwidth requirements of PQC algorithms. These challenges are especially relevant in the context of IoT, where device constraints limit the adoption of larger key sizes and more complex cryptographic operations {{PQC-PERF}}. Besides, any choice need to careful evaluate the associated energy requirements {{PQC-ENERGY}}.
 
 The work of incorporating PQC into TLS {{?I-D.ietf-uta-pqc-app}} {{?I-D.ietf-pquip-pqc-hsm-constrained}} is still ongoing, with key exchange message sizes increasing due to larger public keys. These larger keys demand more flash storage and higher RAM usage, presenting significant obstacles for resource-constrained IoT devices. The transition from classical cryptographic algorithms to PQC will be a significant challenge for constrained IoT devices, requiring careful planning to select hardware suitable for the task considering the lifetime of an IoT product.
+
+# Privacy Considerations
+
+The privacy considerations in {{Section 22 of !RFC7925}} largely continue to
+apply. However, compared to TLS 1.2 and DTLS 1.2, TLS 1.3 and DTLS 1.3 encrypt
+a larger portion of the handshake, which reduces the amount of identity and
+credential metadata observable on the wire by passive attackers. Extensions,
+such as the encrypted ClientHello, further increase privacy protection.
+
+Certificate fields can expose stable device identifiers and other metadata.
+In particular, IDevIDs and LDevIDs may reveal manufacturer identity, device
+serial numbers, or other information to peers. Protection against passive
+observers is, however, substantially improved since certificates are not
+transmitted in the clear in TLS 1.3 and DTLS 1.3.
+
+Where privacy is a deployment requirement, implementations and PKI profiles
+should include only the minimum identity information needed for authorization
+and interoperability.
+
+When Connection IDs are used with DTLS 1.3, CID negotiation in post-handshake
+messages is encrypted and integrity protected. In addition, record sequence
+numbers are encrypted. Compared to DTLS 1.2 CID, this makes tracking by on-path
+adversaries more difficult and improves privacy in multi-home and mobile
+deployments ({{Section 11 of -DTLS13}}).
 
 # Security Considerations
 
