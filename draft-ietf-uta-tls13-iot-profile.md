@@ -48,6 +48,13 @@ author:
     organization: "Sandelman Software Works"
     email: mcr+ietf@sandelman.ca
 
+ -
+    ins: D. Migault
+    name: Daniel Migault
+    organization: Ericsson
+    country: Canada
+    email: daniel.migault@ericsson.com
+
 contributor:
  -
     ins: J. Sosinowicz
