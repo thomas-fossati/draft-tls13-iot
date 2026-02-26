@@ -70,7 +70,8 @@ normative:
 informative:
   RFC9146:
   RFC7228:
-  RFC4210:
+  RFC9810: cmp
+  RFC9483: lw-cmp
   RFC7452:
   RFC6066:
   I-D.ietf-iotops-7228bis:
@@ -507,8 +508,8 @@ IDevID certificates with no maximum validity period.
 
 LDevID certificates are, however, issued by the operator or owner,
 and may be renewed at a regular interval using protocols, such
-as Enrollment over Secure Transport (EST) {{?RFC7030}} or the
-Certificate Management Protocol (CMP) {{?RFC9483}}.
+as Enrollment over Secure Transport (EST) {{?RFC7030}} or
+Certificate Management Protocol (CMP) {{-cmp}} {{-lw-cmp}}.
 It is therefore RECOMMENDED to limit the lifetime of these LDevID certificates
 using the notBefore and notAfter fields, as described in {{Section 4.1.2.5 of
 !RFC5280}}. Values MUST be expressed in Greenwich Mean Time (Zulu) and
@@ -874,7 +875,7 @@ clients pin a specific server certificate. If the client has pinned the server
 certificate, retransmitting it is unnecessary - but the server cannot reliably
 determine this.
 
-- Root Key Transitions: During root key rollover events (see {{Section 4.4 of RFC4210}}),
+- Root Key Transitions: During root key rollover events (see {{Section 4.4 of -cmp}}),
 new trust anchors may not yet be fully distributed across all devices. This is especially
 relevant in device-to-device communication {{Section 2.1 of RFC7452}}), where server roles
 are determined dynamically and trust anchor distribution may be inconsistent.
@@ -886,7 +887,7 @@ client's trust anchor. To mitigate this, the client MAY include the Trusted CA I
 extension (see {{Section 6 of RFC6066}}) in its ClientHello to signal the set of trust
 anchors it supports.
 
-{{RFC4210}} assumes the presence of a shared directory service for certificate retrieval.
+{{-cmp}} assumes the presence of a shared directory service for certificate retrieval.
 In constrained or isolated IoT environments, this assumption does not hold. Trust anchors
 are often distributed via firmware updates or fetched periodically using certificate
 management protocols, such as EST (e.g., the /cacerts endpoint).
