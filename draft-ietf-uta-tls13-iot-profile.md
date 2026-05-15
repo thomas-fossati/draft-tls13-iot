@@ -318,8 +318,13 @@ Compared to DTLS 1.2 timeout-based whole flight retransmission, DTLS 1.3 ACKs se
 
 In general, the recommendations in {{Section 7.3 of -DTLS13}} regarding ACKs
 apply to DTLS 1.3 only.
-In particular, "(w)hen DTLS 1.3 is used in deployments with lossy networks, such as low-power, long-range radio networks as well as low-power mesh networks, the use of ACKs is recommended" to signal any sign of disruption or lack of progress.
-This allows for selective or early retransmission, which leads to more efficient use of bandwidth and memory resources.
+In particular, "(w)hen DTLS 1.3 is used in deployments with lossy networks,
+such as low-power, long-range radio networks as well as low-power mesh
+networks, the use of ACKs is recommended".
+ACKs provide explicit feedback about which handshake messages have been
+received, allowing an endpoint to detect lack of progress earlier and to
+trigger selective or early retransmission. This leads to more efficient use of
+bandwidth and memory resources.
 
 Due to the vast range of network technologies used in IoT deployments, from wired LAN to GSM-SMS, it's not possible to provide a universal recommendation for an initial timeout.
 Therefore, it is RECOMMENDED that DTLS 1.3 implementations allow developers to explicitly set the initial timer value.
