@@ -395,6 +395,11 @@ recommendations apply to which entity in the PKI hierarchy.
 This profile does not define a specific certificate policy OID; deployments
 MAY define one if needed for local policy enforcement.
 
+The terminology in this section is not intended to limit this profile to IEEE
+802.1AR deployments. It is used because it provides a convenient distinction
+between manufacturer-provisioned credentials and operational credentials, which
+is important in many IoT deployments.
+
 A Device Identifier (DevID) consists of:
 
 - a private key,
