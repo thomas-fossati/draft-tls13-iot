@@ -419,16 +419,17 @@ also introduce an additional hierarchy with application instance
 certificates, which are obtained for use with specific applications.
 
 IDevIDs are intended for device identity and initial onboarding or bootstrapping
-protocols,
-such as the Bootstrapping Remote Secure Key Infrastructure (BRSKI) protocol
-{{?RFC8995}} or by LwM2M Bootstrap {{LwM2M-T}} {{LwM2M-C}}. Hence, the use of IDevIDs
-is limited on purpose even though they have a long lifetime, or do not expire
-at all. While some bootstrapping protocols use TLS (and therefore make use of
-the IDevID as part of client authentication) there are other bootstrapping
-protocols that do not use TLS/DTLS for client authentication, such as FIDO
-Device Onboarding (FDO) {{FDO}}.  In many cases, the IDevID profile/content is
-provided by those specifications. For these reasons, this
-specification focuses on the description of LDevIDs.
+protocols, such as the Bootstrapping Remote Secure Key Infrastructure (BRSKI)
+protocol {{?RFC8995}} or LwM2M Bootstrap {{LwM2M-T}} {{LwM2M-C}}. The use of
+IDevIDs is intentionally limited to such onboarding scenarios even though they
+often have a long lifetime, or do not expire at all.
+
+There are, however, multiple onboarding and bootstrapping approaches in use.
+Some of them use TLS and therefore use the IDevID for client authentication,
+while others, such as FIDO Device Onboarding (FDO) {{FDO}}, do not use TLS/DTLS
+for client authentication. In many cases, the IDevID profile and content are
+defined by those specifications. For these reasons, this specification focuses
+on the description of LDevIDs and other operational certificates.
 
 This document uses the terminology and some of the rules for populating certificate
 content defined in IEEE 802.1AR. However, this specification does not claim
