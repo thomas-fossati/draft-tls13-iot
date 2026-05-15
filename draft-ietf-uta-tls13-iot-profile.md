@@ -479,8 +479,11 @@ end entity certificates, subordinate CA certificates, and CA
 certificates to use the same signature algorithm. Furthermore,
 this specification does not utilize RSA for use with constrained IoT
 devices and networks.
-For certificates expected to be validated by IoT devices, CAs SHOULD use a
-single signature algorithm supported by those devices (e.g., ECDSA P-256).
+For certificates expected to be validated by constrained IoT devices, CAs
+SHOULD select signature algorithms supported by those devices to ensure
+successful validation (e.g., ECDSA P-256). Different certificates in the same
+chain MAY use different signature algorithms when the relying devices support
+validation of the resulting chain.
 
 ### Issuer
 
@@ -548,7 +551,9 @@ subordinate CAs to use the same algorithm as the end entity certificate.
 Certificates with longer lifetime may well use a cryptographically stronger
 algorithm. However, CAs (or their administrators) that issue certificates
 intended to be validated by constrained IoT devices SHOULD select algorithms
-supported by those devices to ensure successful validation (e.g., P-256).
+supported by those devices to ensure successful validation. Longer-lived CA
+certificates MAY intentionally use stronger or different algorithms if the
+target devices are expected to validate such chains successfully.
 
 ### Certificate Revocation Checks
 
