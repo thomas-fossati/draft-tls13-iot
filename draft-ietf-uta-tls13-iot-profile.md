@@ -790,12 +790,6 @@ signature verification keys the digitialSignature key usage purpose MUST
 be specified. Other key usages are set according to the intended usage
 of the key.
 
-If enrollment of new certificates uses server-side key generation, encrypted
-delivery of the private key is required. In such cases the key usage
-keyEncipherment or keyAgreement MUST be set because the encrypted delivery
-of the newly generated key involves encryption or agreement of a symmetric
-key. On-device key generation is, however, the preferred approach.
-
 As specified in {{IEEE-802.1AR}}, the extendedKeyUsage SHOULD NOT be present in
 IDevID certificates, as it reduces the utility of the IDevID.
 For locally assigned LDevID certificates to be usable with TLS,
