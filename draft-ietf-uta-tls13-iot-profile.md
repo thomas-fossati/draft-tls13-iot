@@ -302,6 +302,8 @@ SHOULD be avoided unless the application can tolerate the loss of forward secrec
 
 # Authentication and Integrity-only Cipher Suites
 
+Profiling the use of authentication- and integrity-only cipher suites is out of
+scope for this specification.
 For a few, very specific Industrial IoT use cases {{?RFC9150}} defines two cipher
 suites that provide data authenticity, but not data confidentiality. For details
 and use constraints, defer to {{?RFC9150}} (especially {{Section 9 of RFC9150}}).
