@@ -954,6 +954,11 @@ general settings.  For the details on the exact bounds of both ciphersuites see
 superior interoperability with cloud services at the cost of a slight increase
 in the wire and peak RAM footprints.
 
+When the GCM-based ciphersuite is used with TLS 1.3, the recommendations in
+{{Section 7.2.1 of !RFC9325}} related to deterministic nonce generation
+apply. In addition, the integrity limits on key usage detailed in {{Section 4.4
+of !RFC9325}} also apply.
+
 {{tab-cipher-reqs}} summarizes the recommendations regarding ciphersuites:
 
 | Ciphersuite | MTI Requirement |
