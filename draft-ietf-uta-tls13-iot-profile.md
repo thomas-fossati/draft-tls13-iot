@@ -505,9 +505,12 @@ is utilized.
 This special value was introduced in {{Section 4.1.2.5 of !RFC5280}}.
 When this is done, then the CA certificates and the certificates
 of subordinate CAs have a maximum validity period.
-Therefore,
-careful consideration is required as to whether it is appropriate to issue
+Therefore, careful consideration is required as to whether it is appropriate to issue
 IDevID certificates with no maximum validity period.
+An effectively unlimited certificate lifetime is only useful if the relevant
+certification path also remains usable for the intended lifetime of the device.
+If the root or subordinate CA certificates have shorter validity periods,
+operators still need a mechanism to renew or replace those certificates.
 
 LDevID certificates are, however, issued by the operator or owner,
 and may be renewed at a regular interval using protocols, such
