@@ -361,6 +361,16 @@ Besides, to avoid leaking DNS lookups from network inspection altogether further
 protocols are needed, including DNS-over-HTTPS (DoH) {{?RFC8484}},
 DNS-over-TLS (DoT) {{?RFC7858}} and DNS-over-QUIC (DoQ) {{?RFC9250}}.
 
+Where IoT devices are accepting (D)TLS connections, i.e., they are acting as a
+server, it is unlikely that there will be a useful name that can go into the
+SNI. In general, the use of SNI for the purpose of virtual hosting on
+constrained IoT devices is rare. The IoT device cannot depend on a client
+providing a correct SNI, and so it MAY ignore the extension when SNI is not
+used for virtual hosting. This implies that IoT devices cannot do name-based
+virtual hosting of TLS connections. In the unlikely event that an IoT device
+has multiple servers responding with different server certificates, the server
+SHOULD use different IP addresses or port numbers.
+
 # Maximum Fragment Length Negotiation {#record_size_limit}
 
 The Maximum Fragment Length Negotiation (MFL) extension has been superseded by
@@ -767,15 +777,6 @@ names.
 Note: The IEEE 802.1AR recommends to encode information about a Trusted
 Platform Module (TPM), if present, in the HardwareModuleName ({{Section 5 of ?RFC4108}}). This
 specification does not follow this recommendation.
-
-Where IoT devices are accepting (D)TLS connections, i.e., they are acting as a server,
-it is unlikely that there will be a useful name that can go into the SNI. In general,
-the use of SNI for the purpose of virtual hosting on constrained IoT devices is rare.
-The IoT device cannot depend on a client providing a correct SNI, and so it MAY
-ignore the extension when SNI is not used for virtual hosting.
-This implies that IoT devices cannot do name-based virtual hosting of TLS connections.
-In the unlikely event that an IoT device has multiple servers responding with different
-server certificate, then the server SHOULD use different IP addresses or port numbers.
 
 
 ### Authority Key Identifier
