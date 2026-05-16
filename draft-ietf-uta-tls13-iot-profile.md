@@ -1006,7 +1006,7 @@ serial numbers, or other information to peers. Protection against passive
 observers is, however, substantially improved since certificates are not
 transmitted in the clear in TLS 1.3 and DTLS 1.3.
 
-Some deployments use mechanisms discussed in the Certificate Overhead section,
+Some deployments use the mechanisms discussed in the Certificate Overhead section,
 such as certificate URLs or external certificate retrieval, instead of always
 transmitting full certificates in the handshake. In those cases, privacy
 properties differ because stable identifiers may be exposed to retrieval
