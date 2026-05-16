@@ -3,14 +3,14 @@
 
 
 UTA                                                        H. Tschofenig
-Internet-Draft                                                     H-BRS
+Internet-Draft                                                  UniBw M.
 Updates: 7925 (if approved)                                   T. Fossati
 Intended status: Standards Track                                  Linaro
-Expires: 30 August 2026                                    M. Richardson
+Expires: 17 November 2026                                  M. Richardson
                                                 Sandelman Software Works
                                                               D. Migault
                                                                 Ericsson
-                                                        26 February 2026
+                                                             16 May 2026
 
 
             TLS/DTLS 1.3 Profiles for the Internet of Things
@@ -46,7 +46,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 30 August 2026.
+   This Internet-Draft will expire on 17 November 2026.
 
 Copyright Notice
 
@@ -1250,17 +1250,17 @@ Table of Contents
               Richardson, M., Van der Stok, P., Kampanakis, P., and E.
               Dijk, "Constrained Bootstrapping Remote Secure Key
               Infrastructure (cBRSKI)", Work in Progress, Internet-
-              Draft, draft-ietf-anima-constrained-voucher-29, 18 October
-              2025, <https://datatracker.ietf.org/doc/html/draft-ietf-
-              anima-constrained-voucher-29>.
+              Draft, draft-ietf-anima-constrained-voucher-30, 27
+              February 2026, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-anima-constrained-voucher-30>.
 
    [I-D.ietf-cose-cbor-encoded-cert]
-              Mattsson, J. P., Selander, G., Raza, S., Höglund, J., and
-              M. Furuhed, "CBOR Encoded X.509 Certificates (C509
-              Certificates)", Work in Progress, Internet-Draft, draft-
-              ietf-cose-cbor-encoded-cert-16, 25 January 2026,
+              Mattsson, J. P., Selander, G., Raza, S., Höglund, J.,
+              Furuhed, M., and L. Liao, "CBOR Encoded X.509 Certificates
+              (C509 Certificates)", Work in Progress, Internet-Draft,
+              draft-ietf-cose-cbor-encoded-cert-19, 11 May 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
-              cbor-encoded-cert-16>.
+              cbor-encoded-cert-19>.
 
    [I-D.ietf-dance-tls-clientid]
               Huque, S. and V. Dukhovni, "TLS Extension for DANE Client
@@ -1280,9 +1280,9 @@ Table of Contents
    [I-D.ietf-iotops-7228bis]
               Bormann, C., Ersue, M., Keränen, A., and C. Gomez,
               "Terminology for Constrained-Node Networks", Work in
-              Progress, Internet-Draft, draft-ietf-iotops-7228bis-03, 4
-              November 2025, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-iotops-7228bis-03>.
+              Progress, Internet-Draft, draft-ietf-iotops-7228bis-08, 15
+              May 2026, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-iotops-7228bis-08>.
 
    [I-D.ietf-pquip-pqc-engineers]
               Banerjee, A., Reddy.K, T., Schoinianakis, D., Hollebeek,
@@ -1296,9 +1296,9 @@ Table of Contents
               Reddy.K, T., Wing, D., S, B., and K. Kwiatkowski,
               "Adapting Constrained Devices for Post-Quantum
               Cryptography", Work in Progress, Internet-Draft, draft-
-              ietf-pquip-pqc-hsm-constrained-03, 26 January 2026,
+              ietf-pquip-pqc-hsm-constrained-05, 1 April 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-pquip-
-              pqc-hsm-constrained-03>.
+              pqc-hsm-constrained-05>.
 
    [I-D.ietf-tls-esni]
               Rescorla, E., Oku, K., Sullivan, N., and C. A. Wood, "TLS
@@ -1332,9 +1332,9 @@ Table of Contents
               Richardson, M., "A Taxonomy of operational security
               considerations for manufacturer installed keys and Trust
               Anchors", Work in Progress, Internet-Draft, draft-irtf-
-              t2trg-taxonomy-manufacturer-anchors-14, 3 December 2025,
+              t2trg-taxonomy-manufacturer-anchors-16, 22 April 2026,
               <https://datatracker.ietf.org/doc/html/draft-irtf-t2trg-
-              taxonomy-manufacturer-anchors-14>.
+              taxonomy-manufacturer-anchors-16>.
 
    [IEEE-802.1AR]
               "ISO/IEC/IEEE International Standard for
@@ -1506,6 +1506,9 @@ Acknowledgments
    John Mattsson, Daniel Migault, Tiru Reddy, Rich Salz, and Marco
    Tiloca.
 
+   Furthermore, we would like to thank our security area director Deb
+   Cooley for her detailed review comments.
+
 Contributors
 
    Juliusz Sosinowicz
@@ -1517,9 +1520,10 @@ Contributors
 Authors' Addresses
 
    Hannes Tschofenig
-   University of Applied Sciences Bonn-Rhein-Sieg
+   University of the Bundeswehr Munich
+   85577 Neubiberg
    Germany
-   Email: Hannes.Tschofenig@gmx.net
+   Email: hannes.tschofenig@gmx.net
 
 
    Thomas Fossati
