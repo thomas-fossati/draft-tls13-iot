@@ -307,6 +307,8 @@ suites that provide data authenticity, but not data confidentiality. For details
 and use constraints, defer to {{?RFC9150}} (especially {{Section 9 of RFC9150}}).
 Implementations may not support these suites; deployments should not assume
 availability. This document does not add new guidance beyond {{?RFC9150}}.
+Profiling the use of authentication- and integrity-only cipher suites is out of
+scope for this specification.
 
 # Keep-Alive
 
