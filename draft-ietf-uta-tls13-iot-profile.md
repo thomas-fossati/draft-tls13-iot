@@ -508,10 +508,8 @@ of subordinate CAs have a maximum validity period.
 Therefore,
 careful consideration is required as to whether it is appropriate to issue
 IDevID certificates with no maximum validity period.
-The same tradeoff applies to very long-lived or non-expiring root
-certificates: they can reduce maintenance pressure, but they also increase the
-operational cost of algorithm transitions, key rollover, and compromise
-recovery.
+The same trade-off applies to root certificates with a very long lifespan, or that never expire.
+While they reduce maintenance pressure, they also increase the operational cost of algorithm transitions, key rollover and compromise recovery.
 
 LDevID certificates are, however, issued by the operator or owner,
 and may be renewed at a regular interval using protocols, such
