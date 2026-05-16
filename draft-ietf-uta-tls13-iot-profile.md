@@ -133,6 +133,10 @@ profile and ciphersuite requirements.
 
 # Introduction
 
+{:aside}
+> Note to RFC Editor: Once RFC 9846 (RFC 8446bis) is published, all references to RFC 8446 must be updated to refer to RFC 9846.
+> All section references must also be updated accordingly.
+
 In the rapidly evolving Internet of Things (IoT) ecosystem, communication security
 is a critical requirement. The Transport Layer Security (TLS) and Datagram Transport
 Layer Security (DTLS) protocols have been foundational for ensuring encryption,
