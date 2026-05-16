@@ -552,10 +552,8 @@ supported by those devices to ensure successful validation (e.g., P-256).
 
 ### Certificate Revocation Checks
 
-Constrained IoT devices often do not perform OCSP or CRL checks themselves.
-Instead, deployments commonly rely on short-lived certificates, certificate
-management protocols, and operator action to handle certificate replacement and
-revocation-related events.
+Constrained IoT devices often cannot perform OCSP or CRL checks themselves.
+Instead, deployments typically rely on short-lived certificates, certificate management protocols and operator intervention to manage certificate replacement and revocation-related events.
 
 The Certificate Revocation Lists (CRLs) distribution points extension has
 been defined in RFC 5280 to identify how CRL information is obtained. The
