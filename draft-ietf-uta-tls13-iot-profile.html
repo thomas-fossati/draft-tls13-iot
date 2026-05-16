@@ -1723,17 +1723,17 @@ the LDevIDs, from the operator or owner of the device. Some protocols
 also introduce an additional hierarchy with application instance
 certificates, which are obtained for use with specific applications.<a href="#section-17-8" class="pilcrow">¶</a></p>
 <p id="section-17-9">IDevIDs are intended for device identity and initial onboarding or bootstrapping
-protocols,
-such as the Bootstrapping Remote Secure Key Infrastructure (BRSKI) protocol
-<span>[<a href="#RFC8995" class="cite xref">RFC8995</a>]</span> or by LwM2M Bootstrap <span>[<a href="#LwM2M-T" class="cite xref">LwM2M-T</a>]</span> <span>[<a href="#LwM2M-C" class="cite xref">LwM2M-C</a>]</span>. Hence, the use of IDevIDs
-is limited on purpose even though they have a long lifetime, or do not expire
-at all. While some bootstrapping protocols use TLS (and therefore make use of
-the IDevID as part of client authentication) there are other bootstrapping
-protocols that do not use TLS/DTLS for client authentication, such as FIDO
-Device Onboarding (FDO) <span>[<a href="#FDO" class="cite xref">FDO</a>]</span>.  In many cases, the IDevID profile/content is
-provided by those specifications. For these reasons, this
-specification focuses on the description of LDevIDs.<a href="#section-17-9" class="pilcrow">¶</a></p>
-<p id="section-17-10">This document uses the terminology and some of the rules for populating certificate
+protocols, such as the Bootstrapping Remote Secure Key Infrastructure (BRSKI)
+protocol <span>[<a href="#RFC8995" class="cite xref">RFC8995</a>]</span> or LwM2M Bootstrap <span>[<a href="#LwM2M-T" class="cite xref">LwM2M-T</a>]</span> <span>[<a href="#LwM2M-C" class="cite xref">LwM2M-C</a>]</span>. The use of
+IDevIDs is intentionally limited to such onboarding scenarios even though they
+often have a long lifetime, or do not expire at all.<a href="#section-17-9" class="pilcrow">¶</a></p>
+<p id="section-17-10">There are, however, multiple onboarding and bootstrapping approaches in use.
+Some of them use TLS and therefore use the IDevID for client authentication,
+while others, such as FIDO Device Onboarding (FDO) <span>[<a href="#FDO" class="cite xref">FDO</a>]</span>, do not use TLS/DTLS
+for client authentication. In many cases, the IDevID profile and content are
+defined by those specifications. For these reasons, this specification focuses
+on the description of operational certificates such as LDevIDs.<a href="#section-17-10" class="pilcrow">¶</a></p>
+<p id="section-17-11">This document uses the terminology and some of the rules for populating certificate
 content defined in IEEE 802.1AR. However, this specification does not claim
 conformance to IEEE 802.1AR; 802.1AR is broader and mandates hardware, security,
 and process requirements outside IoT constraints, while this profile borrows
@@ -1744,7 +1744,7 @@ protocols, fulfillment of certain hardware security requirements, and
 interfaces to access these hardware security modules. Placing these
 requirements on network equipment like routers may be appropriate but
 designers of constrained IoT devices have opted for different protocols
-and hardware security choices.<a href="#section-17-10" class="pilcrow">¶</a></p>
+and hardware security choices.<a href="#section-17-11" class="pilcrow">¶</a></p>
 <div id="all-certificates">
 <section id="section-17.1">
         <h3 id="name-all-certificates">
