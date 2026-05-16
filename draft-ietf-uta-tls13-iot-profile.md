@@ -261,6 +261,8 @@ P-256) and SHOULD support key exchange with X25519.
 For TLS/DTLS clients and servers implementing raw public keys and/or
 certificates the guidance for mandatory-to-implement extensions described in
 {{Section 9.2 of -TLS13}} MUST be followed.
+In addition, compliant implementations MUST implement the Record Size Limit
+(RSL) extension; see {{record_size_limit}}.
 
 Entities deploying IoT devices may select credential types based on security
 characteristics, operational requirements, cost, and other factors.
@@ -359,7 +361,7 @@ Besides, to avoid leaking DNS lookups from network inspection altogether further
 protocols are needed, including DNS-over-HTTPS (DoH) {{?RFC8484}},
 DNS-over-TLS (DoT) {{?RFC7858}} and DNS-over-QUIC (DoQ) {{?RFC9250}}.
 
-# Maximum Fragment Length Negotiation
+# Maximum Fragment Length Negotiation {#record_size_limit}
 
 The Maximum Fragment Length Negotiation (MFL) extension has been superseded by
 the Record Size Limit (RSL) extension {{!RFC8449}}. Implementations in
