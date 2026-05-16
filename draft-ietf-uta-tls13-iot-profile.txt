@@ -490,17 +490,11 @@ Table of Contents
 
    This document uses the terminology and some of the rules for
    populating certificate content defined in IEEE 802.1AR.  However,
-   this specification does not claim conformance to IEEE 802.1AR;
-   802.1AR is broader and mandates hardware, security, and process
-   requirements outside IoT constraints, while this profile borrows
-   terminology and fields but intentionally omits those operational
-   requirements.  Since such a compliance statement goes beyond the use
-   of the terminology and the certificate content and would include the
-   use of management protocols, fulfillment of certain hardware security
-   requirements, and interfaces to access these hardware security
-   modules.  Placing these requirements on network equipment like
-   routers may be appropriate but designers of constrained IoT devices
-   have opted for different protocols and hardware security choices.
+   this specification does not claim conformance to IEEE 802.1AR, which
+   is broader and mandates hardware, security, and process requirements
+   outside the constraints of many IoT deployments.  This profile
+   borrows terminology and selected certificate fields from IEEE 802.1AR
+   but intentionally omits those broader requirements.
 
 17.1.  All Certificates
 
