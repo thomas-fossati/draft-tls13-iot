@@ -1504,7 +1504,9 @@ compliant implementation MUST support the key exchange with secp256r1 (NIST
 P-256) and SHOULD support key exchange with X25519.<a href="#section-3-10" class="pilcrow">¶</a></p>
 <p id="section-3-11">For TLS/DTLS clients and servers implementing raw public keys and/or
 certificates the guidance for mandatory-to-implement extensions described in
-<span><a href="https://rfc-editor.org/rfc/rfc8446#section-9.2" class="relref">Section 9.2</a> of [<a href="#RFC8446" class="cite xref">RFC8446</a>]</span> MUST be followed.<a href="#section-3-11" class="pilcrow">¶</a></p>
+<span><a href="https://rfc-editor.org/rfc/rfc8446#section-9.2" class="relref">Section 9.2</a> of [<a href="#RFC8446" class="cite xref">RFC8446</a>]</span> MUST be followed.
+In addition, compliant implementations MUST implement the Record Size Limit
+(RSL) extension; see <a href="#record_size_limit" class="auto internal xref">Section 13</a>.<a href="#section-3-11" class="pilcrow">¶</a></p>
 <p id="section-3-12">Entities deploying IoT devices may select credential types based on security
 characteristics, operational requirements, cost, and other factors.
 Consequently, this specification does not prescribe a single credential type
@@ -1567,7 +1569,9 @@ SHOULD be avoided unless the application can tolerate the loss of forward secrec
 suites that provide data authenticity, but not data confidentiality. For details
 and use constraints, defer to <span>[<a href="#RFC9150" class="cite xref">RFC9150</a>]</span> (especially <span><a href="https://rfc-editor.org/rfc/rfc9150#section-9" class="relref">Section 9</a> of [<a href="#RFC9150" class="cite xref">RFC9150</a>]</span>).
 Implementations may not support these suites; deployments should not assume
-availability. This document does not add new guidance beyond <span>[<a href="#RFC9150" class="cite xref">RFC9150</a>]</span>.<a href="#section-8-1" class="pilcrow">¶</a></p>
+availability. This document does not add new guidance beyond <span>[<a href="#RFC9150" class="cite xref">RFC9150</a>]</span>.
+Profiling the use of authentication- and integrity-only cipher suites is out of
+scope for this specification.<a href="#section-8-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="keep-alive">
@@ -1638,7 +1642,7 @@ has multiple servers responding with different server certificates, the server
 SHOULD use different IP addresses or port numbers.<a href="#section-12-5" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="maximum-fragment-length-negotiation">
+<div id="record_size_limit">
 <section id="section-13">
       <h2 id="name-maximum-fragment-length-neg">
 <a href="#section-13" class="section-number selfRef">13. </a><a href="#name-maximum-fragment-length-neg" class="section-name selfRef">Maximum Fragment Length Negotiation</a>
@@ -1695,60 +1699,55 @@ split by certificate "type" in order to clarify exactly what requirements and
 recommendations apply to which entity in the PKI hierarchy.<a href="#section-17-1" class="pilcrow">¶</a></p>
 <p id="section-17-2">This profile does not define a specific certificate policy OID; deployments
 MAY define one if needed for local policy enforcement.<a href="#section-17-2" class="pilcrow">¶</a></p>
-<p id="section-17-3">A Device Identifier (DevID) consists of:<a href="#section-17-3" class="pilcrow">¶</a></p>
+<p id="section-17-3">The terminology used in this section is not intended to restrict the scope of this profile to IEEE 802.1AR deployments.
+It is used because it conveniently distinguishes between manufacturer-provisioned and operational credentials, which is important in many IoT deployments.<a href="#section-17-3" class="pilcrow">¶</a></p>
+<p id="section-17-4">A Device Identifier (DevID) consists of:<a href="#section-17-4" class="pilcrow">¶</a></p>
 <ul class="compact">
-<li class="compact" id="section-17-4.1">
-          <p id="section-17-4.1.1">a private key,<a href="#section-17-4.1.1" class="pilcrow">¶</a></p>
+<li class="compact" id="section-17-5.1">
+          <p id="section-17-5.1.1">a private key,<a href="#section-17-5.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="compact" id="section-17-4.2">
-          <p id="section-17-4.2.1">a certificate containing the public key and the identifier certified by the
-certificate issuer, and<a href="#section-17-4.2.1" class="pilcrow">¶</a></p>
+        <li class="compact" id="section-17-5.2">
+          <p id="section-17-5.2.1">a certificate containing the public key and the identifier certified by the
+certificate issuer, and<a href="#section-17-5.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="compact" id="section-17-4.3">
-          <p id="section-17-4.3.1">a certificate chain leading up to a trust anchor (typically the root certificate).<a href="#section-17-4.3.1" class="pilcrow">¶</a></p>
+        <li class="compact" id="section-17-5.3">
+          <p id="section-17-5.3.1">a certificate chain leading up to a trust anchor (typically the root certificate).<a href="#section-17-5.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-17-5">The IEEE 802.1AR specification <span>[<a href="#IEEE-802.1AR" class="cite xref">IEEE-802.1AR</a>]</span> introduces the concept of DevIDs and
-defines two specialized versions:<a href="#section-17-5" class="pilcrow">¶</a></p>
+<p id="section-17-6">The IEEE 802.1AR specification <span>[<a href="#IEEE-802.1AR" class="cite xref">IEEE-802.1AR</a>]</span> introduces the concept of DevIDs and
+defines two specialized versions:<a href="#section-17-6" class="pilcrow">¶</a></p>
 <ul class="compact">
-<li class="compact" id="section-17-6.1">
-          <p id="section-17-6.1.1">Initial Device Identifiers (IDevIDs): Provisioned during manufacturing to
-provide a unique, stable identity for the lifetime of the device.<a href="#section-17-6.1.1" class="pilcrow">¶</a></p>
+<li class="compact" id="section-17-7.1">
+          <p id="section-17-7.1.1">Initial Device Identifiers (IDevIDs): Provisioned during manufacturing to
+provide a unique, stable identity for the lifetime of the device.<a href="#section-17-7.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="compact" id="section-17-6.2">
-          <p id="section-17-6.2.1">Locally Significant Device Identifiers (LDevIDs): Provisioned after deployment
-and typically used for operational purposes within a specific domain.<a href="#section-17-6.2.1" class="pilcrow">¶</a></p>
+        <li class="compact" id="section-17-7.2">
+          <p id="section-17-7.2.1">Locally Significant Device Identifiers (LDevIDs): Provisioned after deployment
+and typically used for operational purposes within a specific domain.<a href="#section-17-7.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-17-7">Thus, IDevIDs and LDevIDs are specialized forms of DevIDs as defined in IEEE 802.1AR.<a href="#section-17-7" class="pilcrow">¶</a></p>
 <p id="section-17-8">The IDevID is typically provisioned by a manufacturer and signed by the
 manufacturer CA. It is then used to obtain operational certificates,
 the LDevIDs, from the operator or owner of the device. Some protocols
 also introduce an additional hierarchy with application instance
 certificates, which are obtained for use with specific applications.<a href="#section-17-8" class="pilcrow">¶</a></p>
 <p id="section-17-9">IDevIDs are intended for device identity and initial onboarding or bootstrapping
-protocols,
-such as the Bootstrapping Remote Secure Key Infrastructure (BRSKI) protocol
-<span>[<a href="#RFC8995" class="cite xref">RFC8995</a>]</span> or by LwM2M Bootstrap <span>[<a href="#LwM2M-T" class="cite xref">LwM2M-T</a>]</span> <span>[<a href="#LwM2M-C" class="cite xref">LwM2M-C</a>]</span>. Hence, the use of IDevIDs
-is limited on purpose even though they have a long lifetime, or do not expire
-at all. While some bootstrapping protocols use TLS (and therefore make use of
-the IDevID as part of client authentication) there are other bootstrapping
-protocols that do not use TLS/DTLS for client authentication, such as FIDO
-Device Onboarding (FDO) <span>[<a href="#FDO" class="cite xref">FDO</a>]</span>.  In many cases, the IDevID profile/content is
-provided by those specifications. For these reasons, this
-specification focuses on the description of LDevIDs.<a href="#section-17-9" class="pilcrow">¶</a></p>
-<p id="section-17-10">This document uses the terminology and some of the rules for populating certificate
+protocols, such as the Bootstrapping Remote Secure Key Infrastructure (BRSKI)
+protocol <span>[<a href="#RFC8995" class="cite xref">RFC8995</a>]</span> or LwM2M Bootstrap <span>[<a href="#LwM2M-T" class="cite xref">LwM2M-T</a>]</span> <span>[<a href="#LwM2M-C" class="cite xref">LwM2M-C</a>]</span>. The use of
+IDevIDs is intentionally limited to such onboarding scenarios even though they
+often have a long lifetime, or do not expire at all.<a href="#section-17-9" class="pilcrow">¶</a></p>
+<p id="section-17-10">There are, however, multiple onboarding and bootstrapping approaches in use.
+Some of them use TLS and therefore use the IDevID for client authentication,
+while others, such as FIDO Device Onboarding (FDO) <span>[<a href="#FDO" class="cite xref">FDO</a>]</span>, do not use TLS/DTLS
+for client authentication. In many cases, the IDevID profile and content are
+defined by those specifications. For these reasons, this specification focuses
+on the description of operational certificates such as LDevIDs.<a href="#section-17-10" class="pilcrow">¶</a></p>
+<p id="section-17-11">This document uses the terminology and some of the rules for populating certificate
 content defined in IEEE 802.1AR. However, this specification does not claim
-conformance to IEEE 802.1AR; 802.1AR is broader and mandates hardware, security,
-and process requirements outside IoT constraints, while this profile borrows
-terminology and fields but intentionally omits those operational requirements.
-Since such a compliance statement goes beyond the use of the terminology
-and the certificate content and would include the use of management
-protocols, fulfillment of certain hardware security requirements, and
-interfaces to access these hardware security modules. Placing these
-requirements on network equipment like routers may be appropriate but
-designers of constrained IoT devices have opted for different protocols
-and hardware security choices.<a href="#section-17-10" class="pilcrow">¶</a></p>
+conformance to IEEE 802.1AR, which is broader and mandates hardware, security,
+and process requirements outside the constraints of many IoT deployments. This
+profile borrows terminology and selected certificate fields from IEEE 802.1AR
+but intentionally omits those broader requirements.<a href="#section-17-11" class="pilcrow">¶</a></p>
 <div id="all-certificates">
 <section id="section-17.1">
         <h3 id="name-all-certificates">
@@ -1796,8 +1795,11 @@ end entity certificates, subordinate CA certificates, and CA
 certificates to use the same signature algorithm. Furthermore,
 this specification does not utilize RSA for use with constrained IoT
 devices and networks.
-For certificates expected to be validated by IoT devices, CAs SHOULD use a
-single signature algorithm supported by those devices (e.g., ECDSA P-256).<a href="#section-17.1.3-2" class="pilcrow">¶</a></p>
+For certificates expected to be validated by constrained IoT devices, CAs
+SHOULD select signature algorithms supported by those devices to ensure
+successful validation (e.g., ECDSA P-256). Different certificates in the same
+chain MAY use different signature algorithms when the relying devices support
+validation of the resulting chain.<a href="#section-17.1.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="issuer">
@@ -1878,7 +1880,9 @@ subordinate CAs to use the same algorithm as the end entity certificate.
 Certificates with longer lifetime may well use a cryptographically stronger
 algorithm. However, CAs (or their administrators) that issue certificates
 intended to be validated by constrained IoT devices SHOULD select algorithms
-supported by those devices to ensure successful validation (e.g., P-256).<a href="#section-17.1.6-3" class="pilcrow">¶</a></p>
+supported by those devices to ensure successful validation. Longer-lived CA
+certificates MAY intentionally use stronger or different algorithms if the
+target devices are expected to validate such chains successfully.<a href="#section-17.1.6-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="certificate-revocation-checks">
@@ -2184,7 +2188,8 @@ key. On-device key generation is, however, the preferred approach.<a href="#sect
 IDevID certificates, as it reduces the utility of the IDevID.
 For locally assigned LDevID certificates to be usable with TLS,
 the extendedKeyUsage MUST contain at least one of the following:
-id-kp-serverAuth or id-kp-clientAuth.<a href="#section-17.4.4-3" class="pilcrow">¶</a></p>
+id-kp-serverAuth or id-kp-clientAuth. The selected EKUs MUST match the
+intended TLS role of the device or service using the certificate.<a href="#section-17.4.4-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2432,10 +2437,12 @@ determinism, for example, as described in
       <h2 id="name-post-quantum-cryptography-p">
 <a href="#section-22" class="section-number selfRef">22. </a><a href="#name-post-quantum-cryptography-p" class="section-name selfRef">Post-Quantum Cryptography (PQC) Considerations</a>
       </h2>
-<p id="section-22-1">The recommendations and ciphersuites in this profile are based on classical
-cryptography and are not quantum-resistant.<a href="#section-22-1" class="pilcrow">¶</a></p>
-<p id="section-22-2">As detailed in <span>[<a href="#I-D.ietf-pquip-pqc-engineers" class="cite xref">I-D.ietf-pquip-pqc-engineers</a>]</span>, the IETF is actively working to address the challenges of adopting PQC in various protocols, including TLS. The document highlights key aspects engineers must consider, such as algorithm selection, performance impacts, and deployment strategies. It emphasizes the importance of gradual integration of PQC to ensure secure communication while accounting for the increased computational, memory, and bandwidth requirements of PQC algorithms. These challenges are especially relevant in the context of IoT, where device constraints limit the adoption of larger key sizes and more complex cryptographic operations <span>[<a href="#PQC-PERF" class="cite xref">PQC-PERF</a>]</span>. Besides, any choice need to careful evaluate the associated energy requirements <span>[<a href="#PQC-ENERGY" class="cite xref">PQC-ENERGY</a>]</span>.<a href="#section-22-2" class="pilcrow">¶</a></p>
-<p id="section-22-3">The work of incorporating PQC into TLS <span>[<a href="#I-D.ietf-uta-pqc-app" class="cite xref">I-D.ietf-uta-pqc-app</a>]</span> <span>[<a href="#I-D.ietf-pquip-pqc-hsm-constrained" class="cite xref">I-D.ietf-pquip-pqc-hsm-constrained</a>]</span> is still ongoing, with key exchange message sizes increasing due to larger public keys. These larger keys demand more flash storage and higher RAM usage, presenting significant obstacles for resource-constrained IoT devices. The transition from classical cryptographic algorithms to PQC will be a significant challenge for constrained IoT devices, requiring careful planning to select hardware suitable for the task considering the lifetime of an IoT product.<a href="#section-22-3" class="pilcrow">¶</a></p>
+<p id="section-22-1">This section is informational and provides deployment guidance only; it does
+not add normative requirements to this profile.<a href="#section-22-1" class="pilcrow">¶</a></p>
+<p id="section-22-2">The recommendations and ciphersuites in this profile are based on classical
+cryptography and are not quantum-resistant.<a href="#section-22-2" class="pilcrow">¶</a></p>
+<p id="section-22-3">As detailed in <span>[<a href="#I-D.ietf-pquip-pqc-engineers" class="cite xref">I-D.ietf-pquip-pqc-engineers</a>]</span>, the IETF is actively working to address the challenges of adopting PQC in various protocols, including TLS. The document highlights key aspects engineers must consider, such as algorithm selection, performance impacts, and deployment strategies. It emphasizes the importance of gradual integration of PQC to ensure secure communication while accounting for the increased computational, memory, and bandwidth requirements of PQC algorithms. These challenges are especially relevant in the context of IoT, where device constraints limit the adoption of larger key sizes and more complex cryptographic operations <span>[<a href="#PQC-PERF" class="cite xref">PQC-PERF</a>]</span>. Besides, any choice need to careful evaluate the associated energy requirements <span>[<a href="#PQC-ENERGY" class="cite xref">PQC-ENERGY</a>]</span>.<a href="#section-22-3" class="pilcrow">¶</a></p>
+<p id="section-22-4">The work of incorporating PQC into TLS <span>[<a href="#I-D.ietf-uta-pqc-app" class="cite xref">I-D.ietf-uta-pqc-app</a>]</span> <span>[<a href="#I-D.ietf-pquip-pqc-hsm-constrained" class="cite xref">I-D.ietf-pquip-pqc-hsm-constrained</a>]</span> is still ongoing, with key exchange message sizes increasing due to larger public keys. These larger keys demand more flash storage and higher RAM usage, presenting significant obstacles for resource-constrained IoT devices. The transition from classical cryptographic algorithms to PQC will be a significant challenge for constrained IoT devices, requiring careful planning to select hardware suitable for the task considering the lifetime of an IoT product.<a href="#section-22-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="privacy-considerations">
@@ -2453,14 +2460,19 @@ In particular, IDevIDs and LDevIDs may reveal manufacturer identity, device
 serial numbers, or other information to peers. Protection against passive
 observers is, however, substantially improved since certificates are not
 transmitted in the clear in TLS 1.3 and DTLS 1.3.<a href="#section-23-2" class="pilcrow">¶</a></p>
-<p id="section-23-3">Where privacy is a deployment requirement, implementations and PKI profiles
+<p id="section-23-3">Some deployments use the mechanisms discussed in the Certificate Overhead section,
+such as certificate URLs or external certificate retrieval, instead of always
+transmitting full certificates in the handshake. In these cases, the privacy
+properties differ because stable identifiers may be exposed to retrieval
+services, directories, or to observers of those retrieval transactions.<a href="#section-23-3" class="pilcrow">¶</a></p>
+<p id="section-23-4">Where privacy is a deployment requirement, implementations and PKI profiles
 should include only the minimum identity information needed for authorization
-and interoperability.<a href="#section-23-3" class="pilcrow">¶</a></p>
-<p id="section-23-4">When Connection IDs are used with DTLS 1.3, CID negotiation in post-handshake
+and interoperability.<a href="#section-23-4" class="pilcrow">¶</a></p>
+<p id="section-23-5">When Connection IDs are used with DTLS 1.3, CID negotiation in post-handshake
 messages is encrypted and integrity protected. In addition, record sequence
 numbers are encrypted. Compared to DTLS 1.2 CID, this makes tracking by on-path
 adversaries more difficult and improves privacy in multi-home and mobile
-deployments (<span><a href="https://rfc-editor.org/rfc/rfc9147#section-11" class="relref">Section 11</a> of [<a href="#RFC9147" class="cite xref">RFC9147</a>]</span>).<a href="#section-23-4" class="pilcrow">¶</a></p>
+deployments (<span><a href="https://rfc-editor.org/rfc/rfc9147#section-11" class="relref">Section 11</a> of [<a href="#RFC9147" class="cite xref">RFC9147</a>]</span>).<a href="#section-23-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">
@@ -2468,7 +2480,10 @@ deployments (<span><a href="https://rfc-editor.org/rfc/rfc9147#section-11" class
       <h2 id="name-security-considerations">
 <a href="#section-24" class="section-number selfRef">24. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-24-1">This entire document is about security.<a href="#section-24-1" class="pilcrow">¶</a></p>
+<p id="section-24-1">This entire document is about security.
+One specific trade-off concerns root certificates that are either very long-lived or never expire.
+While they can reduce maintenance pressure in long-lived IoT deployments, they also increase the consequences of key compromise, policy errors and inadequate rollover planning.
+Furthermore, they can make cryptographic transitions more operationally expensive.<a href="#section-24-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
