@@ -274,7 +274,9 @@ Table of Contents
 
    For TLS/DTLS clients and servers implementing raw public keys and/or
    certificates the guidance for mandatory-to-implement extensions
-   described in Section 9.2 of [RFC8446] MUST be followed.
+   described in Section 9.2 of [RFC8446] MUST be followed.  In addition,
+   compliant implementations MUST implement the Record Size Limit (RSL)
+   extension; see Section 13.
 
    Entities deploying IoT devices may select credential types based on
    security characteristics, operational requirements, cost, and other
