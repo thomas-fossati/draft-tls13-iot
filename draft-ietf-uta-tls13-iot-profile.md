@@ -74,6 +74,7 @@ informative:
   RFC9146:
   RFC7228:
   RFC9810: cmp
+  RFC8937:
   RFC9483: lw-cmp
   RFC7452:
   RFC6066:
@@ -261,6 +262,8 @@ P-256) and SHOULD support key exchange with X25519.
 For TLS/DTLS clients and servers implementing raw public keys and/or
 certificates the guidance for mandatory-to-implement extensions described in
 {{Section 9.2 of -TLS13}} MUST be followed.
+In addition, compliant implementations MUST implement the Record Size Limit
+(RSL) extension; see {{record_size_limit}}.
 
 Entities deploying IoT devices may select credential types based on security
 characteristics, operational requirements, cost, and other factors.
@@ -307,6 +310,8 @@ suites that provide data authenticity, but not data confidentiality. For details
 and use constraints, defer to {{?RFC9150}} (especially {{Section 9 of RFC9150}}).
 Implementations may not support these suites; deployments should not assume
 availability. This document does not add new guidance beyond {{?RFC9150}}.
+Profiling the use of authentication- and integrity-only cipher suites is out of
+scope for this specification.
 
 # Keep-Alive
 
@@ -316,10 +321,14 @@ The discussion in {{Section 10 of !RFC7925}} is applicable.
 
 Compared to DTLS 1.2 timeout-based whole flight retransmission, DTLS 1.3 ACKs sensibly decrease the risk of congestion collapse which was the basis for the very conservative recommendations given in {{Section 11 of !RFC7925}}.
 
-In general, the recommendations in {{Section 7.3 of -DTLS13}} regarding ACKs
-apply to DTLS 1.3 only.
-In particular, "(w)hen DTLS 1.3 is used in deployments with lossy networks, such as low-power, long-range radio networks as well as low-power mesh networks, the use of ACKs is recommended" to signal any sign of disruption or lack of progress.
-This allows for selective or early retransmission, which leads to more efficient use of bandwidth and memory resources.
+The recommendations in {{Section 7.3 of -DTLS13}} regarding ACKs apply.
+In particular,
+
+{: quote}
+> When DTLS 1.3 is used in deployments with lossy networks, such as low-power, long-range radio networks as well as low-power mesh networks, the use of ACKs is recommended.
+
+ACKs provide explicit feedback on which handshake messages have been received.
+This enables endpoints to detect a lack of progress more quickly and to trigger selective or early retransmission, leading to more efficient use of bandwidth and memory.
 
 Due to the vast range of network technologies used in IoT deployments, from wired LAN to GSM-SMS, it's not possible to provide a universal recommendation for an initial timeout.
 Therefore, it is RECOMMENDED that DTLS 1.3 implementations allow developers to explicitly set the initial timer value.
@@ -337,6 +346,8 @@ Just like the handshake initial timers, it is RECOMMENDED that DTLS 1.2 and 1.3 
 The discussion in {{Section 12 of !RFC7925}} is applicable with one exception:
 the ClientHello and the ServerHello messages in TLS 1.3 do not contain
 gmt_unix_time component anymore.
+For entropy generation and randomness considerations, implementers should also
+consult {{RFC8937}}.
 
 # Server Name Indication {#sni}
 
@@ -357,7 +368,17 @@ Besides, to avoid leaking DNS lookups from network inspection altogether further
 protocols are needed, including DNS-over-HTTPS (DoH) {{?RFC8484}},
 DNS-over-TLS (DoT) {{?RFC7858}} and DNS-over-QUIC (DoQ) {{?RFC9250}}.
 
-# Maximum Fragment Length Negotiation
+Where IoT devices are accepting (D)TLS connections, i.e., they are acting as a
+server, it is unlikely that there will be a useful name that can go into the
+SNI. In general, the use of SNI for the purpose of virtual hosting on
+constrained IoT devices is rare. The IoT device cannot depend on a client
+providing a correct SNI, and so it MAY ignore the extension when SNI is not
+used for virtual hosting. This implies that IoT devices cannot do name-based
+virtual hosting of TLS connections. In the unlikely event that an IoT device
+has multiple servers responding with different server certificates, the server
+SHOULD use different IP addresses or port numbers.
+
+# Maximum Fragment Length Negotiation {#record_size_limit}
 
 The Maximum Fragment Length Negotiation (MFL) extension has been superseded by
 the Record Size Limit (RSL) extension {{!RFC8449}}. Implementations in
@@ -395,6 +416,9 @@ recommendations apply to which entity in the PKI hierarchy.
 This profile does not define a specific certificate policy OID; deployments
 MAY define one if needed for local policy enforcement.
 
+The terminology used in this section is not intended to restrict the scope of this profile to IEEE 802.1AR deployments.
+It is used because it conveniently distinguishes between manufacturer-provisioned and operational credentials, which is important in many IoT deployments.
+
 A Device Identifier (DevID) consists of:
 
 - a private key,
@@ -410,8 +434,6 @@ provide a unique, stable identity for the lifetime of the device.
 - Locally Significant Device Identifiers (LDevIDs): Provisioned after deployment
 and typically used for operational purposes within a specific domain.
 
-Thus, IDevIDs and LDevIDs are specialized forms of DevIDs as defined in IEEE 802.1AR.
-
 The IDevID is typically provisioned by a manufacturer and signed by the
 manufacturer CA. It is then used to obtain operational certificates,
 the LDevIDs, from the operator or owner of the device. Some protocols
@@ -419,39 +441,30 @@ also introduce an additional hierarchy with application instance
 certificates, which are obtained for use with specific applications.
 
 IDevIDs are intended for device identity and initial onboarding or bootstrapping
-protocols,
-such as the Bootstrapping Remote Secure Key Infrastructure (BRSKI) protocol
-{{?RFC8995}} or by LwM2M Bootstrap {{LwM2M-T}} {{LwM2M-C}}. Hence, the use of IDevIDs
-is limited on purpose even though they have a long lifetime, or do not expire
-at all. While some bootstrapping protocols use TLS (and therefore make use of
-the IDevID as part of client authentication) there are other bootstrapping
-protocols that do not use TLS/DTLS for client authentication, such as FIDO
-Device Onboarding (FDO) {{FDO}}.  In many cases, the IDevID profile/content is
-provided by those specifications. For these reasons, this
-specification focuses on the description of LDevIDs.
+protocols, such as the Bootstrapping Remote Secure Key Infrastructure (BRSKI)
+protocol {{?RFC8995}} or LwM2M Bootstrap {{LwM2M-T}} {{LwM2M-C}}. The use of
+IDevIDs is intentionally limited to such onboarding scenarios even though they
+often have a long lifetime, or do not expire at all.
+
+There are, however, multiple onboarding and bootstrapping approaches in use.
+Some of them use TLS and therefore use the IDevID for client authentication,
+while others, such as FIDO Device Onboarding (FDO) {{FDO}}, do not use TLS/DTLS
+for client authentication. In many cases, the IDevID profile and content are
+defined by those specifications. For these reasons, this specification focuses
+on the description of operational certificates such as LDevIDs.
 
 This document uses the terminology and some of the rules for populating certificate
 content defined in IEEE 802.1AR. However, this specification does not claim
-conformance to IEEE 802.1AR; 802.1AR is broader and mandates hardware, security,
-and process requirements outside IoT constraints, while this profile borrows
-terminology and fields but intentionally omits those operational requirements.
-Since such a compliance statement goes beyond the use of the terminology
-and the certificate content and would include the use of management
-protocols, fulfillment of certain hardware security requirements, and
-interfaces to access these hardware security modules. Placing these
-requirements on network equipment like routers may be appropriate but
-designers of constrained IoT devices have opted for different protocols
-and hardware security choices.
+conformance to IEEE 802.1AR, which is broader and mandates hardware, security,
+and process requirements outside the constraints of many IoT deployments. This
+profile borrows terminology and selected certificate fields from IEEE 802.1AR
+but intentionally omits those broader requirements.
 
 ## All Certificates
 
-To avoid repetition, this section outlines requirements on X.509
-certificates applicable to all PKI entities. These requirements apply to
-certificates issued within the IoT device PKI (root, subordinate, and end
-entity certificates used to authenticate IoT devices), not to public WebPKI
-server certificates. Note that TLS 1.3 allows conveying payloads other than
-X.509 certificates in the Certificate message; this section focuses on X.509 v3
-certificates and leaves other formats to other sections or specifications.
+This section outlines the requirements for X.509 certificates that apply to all PKI entities.
+These requirements apply to certificates issued within the IoT device PKI (i.e., root, subordinate and end entity certificates used to authenticate IoT devices), rather than to public WebPKI server certificates.
+The section focuses on X.509 v3 certificates.
 
 ### Version
 
@@ -466,10 +479,6 @@ The serial number MUST be unique
 for each certificate issued by a given CA (i.e., the issuer name
 and the serial number uniquely identify a certificate).
 
-This requirement is aligned with {{!RFC5280}}.
-CA/Browser Forum requirements for public WebPKI certificates are out of scope for this
-profile.
-
 ### Signature
 
 The signature MUST be ecdsa-with-SHA256 or stronger {{!RFC5758}}.
@@ -479,8 +488,11 @@ end entity certificates, subordinate CA certificates, and CA
 certificates to use the same signature algorithm. Furthermore,
 this specification does not utilize RSA for use with constrained IoT
 devices and networks.
-For certificates expected to be validated by IoT devices, CAs SHOULD use a
-single signature algorithm supported by those devices (e.g., ECDSA P-256).
+For certificates expected to be validated by constrained IoT devices, CAs
+SHOULD select signature algorithms supported by those devices to ensure
+successful validation (e.g., ECDSA P-256). Different certificates in the same
+chain MAY use different signature algorithms when the relying devices support
+validation of the resulting chain.
 
 ### Issuer
 
@@ -498,19 +510,15 @@ Constrained devices often lack precise UTC time; implementations SHOULD treat
 time checks with coarse granularity (e.g., day- or hour-level) and ignore leap seconds
 when validating notAfter.
 
-In most IoT deployments, IDevIDs are provisioned with an unlimited lifetime as per {{IEEE-802.1AR}}.
-For this purpose, a special value
-for the notAfter date field, the GeneralizedTime value of 99991231235959Z,
-is utilized.
-This special value was introduced in {{Section 4.1.2.5 of !RFC5280}}.
-When this is done, then the CA certificates and the certificates
-of subordinate CAs have a maximum validity period.
-Therefore, careful consideration is required as to whether it is appropriate to issue
-IDevID certificates with no maximum validity period.
-An effectively unlimited certificate lifetime is only useful if the relevant
-certification path also remains usable for the intended lifetime of the device.
-If the root or subordinate CA certificates have shorter validity periods,
-operators still need a mechanism to renew or replace those certificates.
+In many IoT deployments, IDevIDs are provisioned with an unlimited lifetime, as
+described in {{IEEE-802.1AR}}. For this purpose, the special GeneralizedTime
+value 99991231235959Z is used in the notAfter field, as described in
+{{Section 4.1.2.5 of !RFC5280}}. However, the CA certificate and subordinate CA
+certificates in the certification path may still have finite validity periods.
+Careful consideration is therefore required before issuing IDevID certificates
+with no maximum validity period, since an effectively unlimited certificate
+lifetime is only useful if the relevant certification path remains usable for
+the intended lifetime of the device.
 
 LDevID certificates are, however, issued by the operator or owner,
 and may be renewed at a regular interval using protocols, such
@@ -525,7 +533,7 @@ Note that the validity period is defined as the period of time from notBefore
 through notAfter, inclusive. This means that a hypothetical certificate with a
 notBefore date of 9 June 2021 at 03:42:01 and a notAfter date of 7 September
 2021 at 03:42:01 becomes valid at the beginning of the :01 second, and only
-becomes invalid at the :02 second, a period that is 90 days plus 1 second.  So
+becomes invalid at the :02 second, a period that is 90 days plus 1 second. So
 for a 90-day, notAfter must actually be 03:42:00.
 
 For devices without a reliable source of time we advise the use of a device
@@ -551,17 +559,21 @@ subordinate CAs to use the same algorithm as the end entity certificate.
 Certificates with longer lifetime may well use a cryptographically stronger
 algorithm. However, CAs (or their administrators) that issue certificates
 intended to be validated by constrained IoT devices SHOULD select algorithms
-supported by those devices to ensure successful validation (e.g., P-256).
+supported by those devices to ensure successful validation. Longer-lived CA
+certificates MAY intentionally use stronger or different algorithms if the
+target devices are expected to validate such chains successfully.
 
 ### Certificate Revocation Checks
+
+Constrained IoT devices often cannot perform OCSP or CRL checks themselves.
+Instead, deployments typically rely on short-lived certificates, certificate management protocols and operator intervention to manage certificate replacement and revocation-related events.
 
 The Certificate Revocation Lists (CRLs) distribution points extension has
 been defined in RFC 5280 to identify how CRL information is obtained. The
 Authority Information Access (AIA) extension indicates where to find additional
 information about the CA, such as how to access information
 like the online certificate status service (OCSP) or a CA issuer
-certificate. Constrained IoT devices often do not perform OCSP or CRL
-checks. Therefore, CRL distribution points and AIA
+certificate. Therefore, CRL distribution points and AIA
 for OCSP SHOULD NOT be set in IoT device certificates; if set, they MUST NOT
 be marked critical. AIA MAY be used solely for caIssuer to enable chain
 fetching by peers that have sufficient resources.
@@ -572,23 +584,19 @@ OCSP nor CRL are used by constrained IoT devices.
 This text refers to OCSP/CRL checks during the handshake; continuous
 certificate validity checks are out of scope and left to application policy.
 
-The use of device management protocols for IoT devices, which often include
-an onboarding or bootstrapping mechanism, has also seen considerable uptake
-in deployed devices. These protocols, some of which are standardized,
-allow for the distribution and updating of certificates on demand. An example
-of a standardized IoT device management protocol is the Lightweight Machine-to-Machine
-(LwM2M) {{LwM2M-T}} {{LwM2M-C}} protocol. Device management protocols enable a
-deployment model where IoT devices utilize end entity certificates with
-shorter lifetime making certificate revocation protocols, like OCSP
-and CRLs, less relevant. Certificate updates do not affect existing TLS
-sessions; re-authentication or session re-establishment is an application
-policy decision. This is particularly important when long-lived TLS
-connections are used. In such a case, the post-handshake
-authentication exchange is triggered when the application requires it. TLS 1.3 provides
-client-to-server post-handshake authentication only. Mutual
-authentication via post-handshake messages is available by the use of the "Exported
-Authenticator" {{?RFC9261}} but requires the application layer protocol
-to carry the payloads.
+Device management protocols often include onboarding or bootstrapping support
+and allow certificates to be distributed and updated on demand. An example is
+the Lightweight Machine-to-Machine (LwM2M) {{LwM2M-T}} {{LwM2M-C}} protocol.
+These protocols enable deployment models that use shorter-lived end entity
+certificates, making OCSP and CRLs less relevant.
+
+Certificate updates do not affect existing TLS sessions; re-authentication or
+session re-establishment is an application policy decision. This is
+particularly important for long-lived TLS connections. TLS 1.3 provides
+client-to-server post-handshake authentication only. Mutual authentication via
+post-handshake messages is available by use of the "Exported Authenticator"
+{{?RFC9261}} but requires the application layer protocol to carry the
+payloads.
 If continuous validation is required, the application must trigger
 re-authentication or re-establish a new TLS session; TLS alone does not
 mandate continuous checks.
@@ -627,7 +635,7 @@ certificates that contain a particular public key."
 
 The Subject Key Identifier extension MUST be set, MUST NOT be marked critical,
 and MUST contain the key identifier of the public key contained in the subject
-public key info field. This profile aligns with CA/Browser Forum for CA certificates.
+public key info field.
 
 The subjectKeyIdentifier is used by path construction algorithms to identify which CA has signed a subordinate certificate.
 
@@ -670,6 +678,10 @@ critical in such certificates."
 
 The Basic Constraints extension MUST be set, MUST be marked critical, the cA flag MUST
 be set to true and the pathLenConstraint MUST be omitted.
+
+Omitting pathLenConstraint follows common root CA practice but is not meant to
+encourage arbitrarily deep certification hierarchies in IoT deployments.
+Shallow hierarchies remain preferable for constrained devices.
 
 ## Subordinate CA Certificate
 
@@ -766,15 +778,6 @@ Note: The IEEE 802.1AR recommends to encode information about a Trusted
 Platform Module (TPM), if present, in the HardwareModuleName ({{Section 5 of ?RFC4108}}). This
 specification does not follow this recommendation.
 
-Where IoT devices are accepting (D)TLS connections, i.e., they are acting as a server,
-it is unlikely that there will be a useful name that can go into the SNI. In general,
-the use of SNI for the purpose of virtual hosting on constrained IoT devices is rare.
-The IoT device cannot depend on a client providing a correct SNI, and so it MAY
-ignore the extension when SNI is not used for virtual hosting.
-This implies that IoT devices cannot do name-based virtual hosting of TLS connections.
-In the unlikely event that an IoT device has multiple servers responding with different
-server certificate, then the server SHOULD use different IP addresses or port numbers.
-
 
 ### Authority Key Identifier
 
@@ -803,7 +806,8 @@ As specified in {{IEEE-802.1AR}}, the extendedKeyUsage SHOULD NOT be present in
 IDevID certificates, as it reduces the utility of the IDevID.
 For locally assigned LDevID certificates to be usable with TLS,
 the extendedKeyUsage MUST contain at least one of the following:
-id-kp-serverAuth or id-kp-clientAuth.
+id-kp-serverAuth or id-kp-clientAuth. The selected EKUs MUST match the
+intended TLS role of the device or service using the certificate.
 
 # Update of Trust Anchors
 
@@ -988,6 +992,9 @@ determinism, for example, as described in
 
 # Post-Quantum Cryptography (PQC) Considerations
 
+This section is informational and provides deployment guidance only; it does
+not add normative requirements to this profile.
+
 The recommendations and ciphersuites in this profile are based on classical
 cryptography and are not quantum-resistant.
 
@@ -1009,6 +1016,12 @@ serial numbers, or other information to peers. Protection against passive
 observers is, however, substantially improved since certificates are not
 transmitted in the clear in TLS 1.3 and DTLS 1.3.
 
+Some deployments use the mechanisms discussed in the Certificate Overhead section,
+such as certificate URLs or external certificate retrieval, instead of always
+transmitting full certificates in the handshake. In these cases, the privacy
+properties differ because stable identifiers may be exposed to retrieval
+services, directories, or to observers of those retrieval transactions.
+
 Where privacy is a deployment requirement, implementations and PKI profiles
 should include only the minimum identity information needed for authorization
 and interoperability.
@@ -1022,6 +1035,9 @@ deployments ({{Section 11 of -DTLS13}}).
 # Security Considerations
 
 This entire document is about security.
+One specific trade-off concerns root certificates that are either very long-lived or never expire.
+While they can reduce maintenance pressure in long-lived IoT deployments, they also increase the consequences of key compromise, policy errors and inadequate rollover planning.
+Furthermore, they can make cryptographic transitions more operationally expensive.
 
 # IANA Considerations
 
