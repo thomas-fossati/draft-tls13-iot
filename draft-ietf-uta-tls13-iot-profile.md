@@ -1029,6 +1029,9 @@ deployments ({{Section 11 of -DTLS13}}).
 # Security Considerations
 
 This entire document is about security.
+One specific trade-off concerns root certificates that are either very long-lived or never expire.
+While they can reduce maintenance pressure in long-lived IoT deployments, they also increase the consequences of key compromise, policy errors and inadequate rollover planning.
+Furthermore, they can make cryptographic transitions more operationally expensive.
 
 # IANA Considerations
 
