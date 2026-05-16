@@ -1833,7 +1833,9 @@ When this is done, then the CA certificates and the certificates
 of subordinate CAs have a maximum validity period.
 Therefore,
 careful consideration is required as to whether it is appropriate to issue
-IDevID certificates with no maximum validity period.<a href="#section-17.1.5-2" class="pilcrow">¶</a></p>
+IDevID certificates with no maximum validity period.
+The same trade-off applies to root certificates with a very long lifespan, or that never expire.
+While they reduce maintenance pressure, they also increase the operational cost of algorithm transitions, key rollover and compromise recovery.<a href="#section-17.1.5-2" class="pilcrow">¶</a></p>
 <p id="section-17.1.5-3">LDevID certificates are, however, issued by the operator or owner,
 and may be renewed at a regular interval using protocols, such
 as Enrollment over Secure Transport (EST) <span>[<a href="#RFC7030" class="cite xref">RFC7030</a>]</span> or
@@ -2026,6 +2028,9 @@ critical in such certificates."<a href="#section-17.2.5-3.4.1" class="pilcrow">�
           </ul>
 <p id="section-17.2.5-4">The Basic Constraints extension MUST be set, MUST be marked critical, the cA flag MUST
 be set to true and the pathLenConstraint MUST be omitted.<a href="#section-17.2.5-4" class="pilcrow">¶</a></p>
+<p id="section-17.2.5-5">Omitting pathLenConstraint follows common root CA practice but is not meant to
+encourage arbitrarily deep certification hierarchies in IoT deployments.
+Shallow hierarchies remain preferable for constrained devices.<a href="#section-17.2.5-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
