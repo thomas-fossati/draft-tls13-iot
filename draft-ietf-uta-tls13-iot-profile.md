@@ -339,7 +339,7 @@ The discussion in {{Section 12 of !RFC7925}} is applicable with one exception:
 the ClientHello and the ServerHello messages in TLS 1.3 do not contain
 gmt_unix_time component anymore.
 For entropy generation and randomness considerations, implementers should also
-consult {{!RFC8937}}.
+consult {{RFC8937}}.
 
 # Server Name Indication {#sni}
 
