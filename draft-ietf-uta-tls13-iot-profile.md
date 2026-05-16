@@ -1008,7 +1008,7 @@ transmitted in the clear in TLS 1.3 and DTLS 1.3.
 
 Some deployments use the mechanisms discussed in the Certificate Overhead section,
 such as certificate URLs or external certificate retrieval, instead of always
-transmitting full certificates in the handshake. In those cases, privacy
+transmitting full certificates in the handshake. In these cases, the privacy
 properties differ because stable identifiers may be exposed to retrieval
 services, directories, or to observers of those retrieval transactions.
 
