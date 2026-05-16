@@ -455,13 +455,9 @@ but intentionally omits those broader requirements.
 
 ## All Certificates
 
-To avoid repetition, this section outlines requirements on X.509
-certificates applicable to all PKI entities. These requirements apply to
-certificates issued within the IoT device PKI (root, subordinate, and end
-entity certificates used to authenticate IoT devices), not to public WebPKI
-server certificates. Note that TLS 1.3 allows conveying payloads other than
-X.509 certificates in the Certificate message; this section focuses on X.509 v3
-certificates and leaves other formats to other sections or specifications.
+This section outlines the requirements for X.509 certificates that apply to all PKI entities.
+These requirements apply to certificates issued within the IoT device PKI (i.e., root, subordinate and end entity certificates used to authenticate IoT devices), rather than to public WebPKI server certificates.
+The section focuses on X.509 v3 certificates.
 
 ### Version
 
