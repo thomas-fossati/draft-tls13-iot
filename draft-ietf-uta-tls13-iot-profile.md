@@ -565,13 +565,15 @@ target devices are expected to validate such chains successfully.
 
 ### Certificate Revocation Checks
 
+Constrained IoT devices often cannot perform OCSP or CRL checks themselves.
+Instead, deployments typically rely on short-lived certificates, certificate management protocols and operator intervention to manage certificate replacement and revocation-related events.
+
 The Certificate Revocation Lists (CRLs) distribution points extension has
 been defined in RFC 5280 to identify how CRL information is obtained. The
 Authority Information Access (AIA) extension indicates where to find additional
 information about the CA, such as how to access information
 like the online certificate status service (OCSP) or a CA issuer
-certificate. Constrained IoT devices often do not perform OCSP or CRL
-checks. Therefore, CRL distribution points and AIA
+certificate. Therefore, CRL distribution points and AIA
 for OCSP SHOULD NOT be set in IoT device certificates; if set, they MUST NOT
 be marked critical. AIA MAY be used solely for caIssuer to enable chain
 fetching by peers that have sufficient resources.
@@ -582,23 +584,19 @@ OCSP nor CRL are used by constrained IoT devices.
 This text refers to OCSP/CRL checks during the handshake; continuous
 certificate validity checks are out of scope and left to application policy.
 
-The use of device management protocols for IoT devices, which often include
-an onboarding or bootstrapping mechanism, has also seen considerable uptake
-in deployed devices. These protocols, some of which are standardized,
-allow for the distribution and updating of certificates on demand. An example
-of a standardized IoT device management protocol is the Lightweight Machine-to-Machine
-(LwM2M) {{LwM2M-T}} {{LwM2M-C}} protocol. Device management protocols enable a
-deployment model where IoT devices utilize end entity certificates with
-shorter lifetime making certificate revocation protocols, like OCSP
-and CRLs, less relevant. Certificate updates do not affect existing TLS
-sessions; re-authentication or session re-establishment is an application
-policy decision. This is particularly important when long-lived TLS
-connections are used. In such a case, the post-handshake
-authentication exchange is triggered when the application requires it. TLS 1.3 provides
-client-to-server post-handshake authentication only. Mutual
-authentication via post-handshake messages is available by the use of the "Exported
-Authenticator" {{?RFC9261}} but requires the application layer protocol
-to carry the payloads.
+Device management protocols often include onboarding or bootstrapping support
+and allow certificates to be distributed and updated on demand. An example is
+the Lightweight Machine-to-Machine (LwM2M) {{LwM2M-T}} {{LwM2M-C}} protocol.
+These protocols enable deployment models that use shorter-lived end entity
+certificates, making OCSP and CRLs less relevant.
+
+Certificate updates do not affect existing TLS sessions; re-authentication or
+session re-establishment is an application policy decision. This is
+particularly important for long-lived TLS connections. TLS 1.3 provides
+client-to-server post-handshake authentication only. Mutual authentication via
+post-handshake messages is available by use of the "Exported Authenticator"
+{{?RFC9261}} but requires the application layer protocol to carry the
+payloads.
 If continuous validation is required, the application must trigger
 re-authentication or re-establish a new TLS session; TLS alone does not
 mandate continuous checks.
