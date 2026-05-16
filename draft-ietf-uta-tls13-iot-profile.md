@@ -521,6 +521,8 @@ of subordinate CAs have a maximum validity period.
 Therefore,
 careful consideration is required as to whether it is appropriate to issue
 IDevID certificates with no maximum validity period.
+The same trade-off applies to root certificates with a very long lifespan, or that never expire.
+While they reduce maintenance pressure, they also increase the operational cost of algorithm transitions, key rollover and compromise recovery.
 
 LDevID certificates are, however, issued by the operator or owner,
 and may be renewed at a regular interval using protocols, such
@@ -682,6 +684,10 @@ critical in such certificates."
 
 The Basic Constraints extension MUST be set, MUST be marked critical, the cA flag MUST
 be set to true and the pathLenConstraint MUST be omitted.
+
+Omitting pathLenConstraint follows common root CA practice but is not meant to
+encourage arbitrarily deep certification hierarchies in IoT deployments.
+Shallow hierarchies remain preferable for constrained devices.
 
 ## Subordinate CA Certificate
 
