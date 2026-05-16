@@ -1006,6 +1006,12 @@ serial numbers, or other information to peers. Protection against passive
 observers is, however, substantially improved since certificates are not
 transmitted in the clear in TLS 1.3 and DTLS 1.3.
 
+Some deployments use the mechanisms discussed in the Certificate Overhead section,
+such as certificate URLs or external certificate retrieval, instead of always
+transmitting full certificates in the handshake. In these cases, the privacy
+properties differ because stable identifiers may be exposed to retrieval
+services, directories, or to observers of those retrieval transactions.
+
 Where privacy is a deployment requirement, implementations and PKI profiles
 should include only the minimum identity information needed for authorization
 and interoperability.
