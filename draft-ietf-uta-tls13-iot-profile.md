@@ -417,8 +417,6 @@ provide a unique, stable identity for the lifetime of the device.
 - Locally Significant Device Identifiers (LDevIDs): Provisioned after deployment
 and typically used for operational purposes within a specific domain.
 
-Thus, IDevIDs and LDevIDs are specialized forms of DevIDs as defined in IEEE 802.1AR.
-
 The IDevID is typically provisioned by a manufacturer and signed by the
 manufacturer CA. It is then used to obtain operational certificates,
 the LDevIDs, from the operator or owner of the device. Some protocols
