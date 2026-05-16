@@ -805,7 +805,8 @@ As specified in {{IEEE-802.1AR}}, the extendedKeyUsage SHOULD NOT be present in
 IDevID certificates, as it reduces the utility of the IDevID.
 For locally assigned LDevID certificates to be usable with TLS,
 the extendedKeyUsage MUST contain at least one of the following:
-id-kp-serverAuth or id-kp-clientAuth.
+id-kp-serverAuth or id-kp-clientAuth. The selected EKUs MUST match the
+intended TLS role of the device or service using the certificate.
 
 # Update of Trust Anchors
 
