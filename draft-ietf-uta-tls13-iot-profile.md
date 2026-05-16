@@ -429,7 +429,7 @@ Some of them use TLS and therefore use the IDevID for client authentication,
 while others, such as FIDO Device Onboarding (FDO) {{FDO}}, do not use TLS/DTLS
 for client authentication. In many cases, the IDevID profile and content are
 defined by those specifications. For these reasons, this specification focuses
-on the description of LDevIDs and other operational certificates.
+on the description of operational certificates such as LDevIDs.
 
 This document uses the terminology and some of the rules for populating certificate
 content defined in IEEE 802.1AR. However, this specification does not claim
