@@ -514,9 +514,8 @@ Table of Contents
    given CA (i.e., the issuer name and the serial number uniquely
    identify a certificate).  [RFC5280] limits this field to a maximum of
    20 octets.  To reduce the risk of predictable serial numbers, CAs
-   SHOULD generate non-sequential serial numbers of at least eight (8)
-   octets using a cryptographically secure pseudo-random number
-   generator.
+   SHOULD generate serial numbers of at least eight (8) octets using a
+   cryptographically secure pseudo-random number generator.
 
 17.1.3.  Signature
 
