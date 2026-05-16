@@ -28,7 +28,7 @@ pi:
   consensus: false
 
 author:
--
+ -
     ins: H. Tschofenig
     name: Hannes Tschofenig
     organization: University of the Bundeswehr Munich
