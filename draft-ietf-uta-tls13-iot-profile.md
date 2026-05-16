@@ -475,10 +475,6 @@ The serial number MUST be unique
 for each certificate issued by a given CA (i.e., the issuer name
 and the serial number uniquely identify a certificate).
 
-This requirement is aligned with {{!RFC5280}}.
-CA/Browser Forum requirements for public WebPKI certificates are out of scope for this
-profile.
-
 ### Signature
 
 The signature MUST be ecdsa-with-SHA256 or stronger {{!RFC5758}}.
@@ -638,7 +634,7 @@ certificates that contain a particular public key."
 
 The Subject Key Identifier extension MUST be set, MUST NOT be marked critical,
 and MUST contain the key identifier of the public key contained in the subject
-public key info field. This profile aligns with CA/Browser Forum for CA certificates.
+public key info field.
 
 The subjectKeyIdentifier is used by path construction algorithms to identify which CA has signed a subordinate certificate.
 
