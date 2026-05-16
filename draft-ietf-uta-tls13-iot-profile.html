@@ -1888,45 +1888,41 @@ target devices are expected to validate such chains successfully.<a href="#secti
           <h4 id="name-certificate-revocation-chec">
 <a href="#section-17.1.7" class="section-number selfRef">17.1.7. </a><a href="#name-certificate-revocation-chec" class="section-name selfRef">Certificate Revocation Checks</a>
           </h4>
-<p id="section-17.1.7-1">The Certificate Revocation Lists (CRLs) distribution points extension has
+<p id="section-17.1.7-1">Constrained IoT devices often cannot perform OCSP or CRL checks themselves.
+Instead, deployments typically rely on short-lived certificates, certificate management protocols and operator intervention to manage certificate replacement and revocation-related events.<a href="#section-17.1.7-1" class="pilcrow">¶</a></p>
+<p id="section-17.1.7-2">The Certificate Revocation Lists (CRLs) distribution points extension has
 been defined in RFC 5280 to identify how CRL information is obtained. The
 Authority Information Access (AIA) extension indicates where to find additional
 information about the CA, such as how to access information
 like the online certificate status service (OCSP) or a CA issuer
-certificate. Constrained IoT devices often do not perform OCSP or CRL
-checks. Therefore, CRL distribution points and AIA
+certificate. Therefore, CRL distribution points and AIA
 for OCSP SHOULD NOT be set in IoT device certificates; if set, they MUST NOT
 be marked critical. AIA MAY be used solely for caIssuer to enable chain
-fetching by peers that have sufficient resources.<a href="#section-17.1.7-1" class="pilcrow">¶</a></p>
-<p id="section-17.1.7-2">Instead of using CRLs or OCSP this document follows the guidance in
+fetching by peers that have sufficient resources.<a href="#section-17.1.7-2" class="pilcrow">¶</a></p>
+<p id="section-17.1.7-3">Instead of using CRLs or OCSP this document follows the guidance in
 <span><a href="https://rfc-editor.org/rfc/rfc7925#section-4.4.3" class="relref">Section 4.4.3</a> of [<a href="#RFC7925" class="cite xref">RFC7925</a>]</span>: for certificate revocation, neither
 OCSP nor CRL are used by constrained IoT devices.
 This text refers to OCSP/CRL checks during the handshake; continuous
-certificate validity checks are out of scope and left to application policy.<a href="#section-17.1.7-2" class="pilcrow">¶</a></p>
-<p id="section-17.1.7-3">The use of device management protocols for IoT devices, which often include
-an onboarding or bootstrapping mechanism, has also seen considerable uptake
-in deployed devices. These protocols, some of which are standardized,
-allow for the distribution and updating of certificates on demand. An example
-of a standardized IoT device management protocol is the Lightweight Machine-to-Machine
-(LwM2M) <span>[<a href="#LwM2M-T" class="cite xref">LwM2M-T</a>]</span> <span>[<a href="#LwM2M-C" class="cite xref">LwM2M-C</a>]</span> protocol. Device management protocols enable a
-deployment model where IoT devices utilize end entity certificates with
-shorter lifetime making certificate revocation protocols, like OCSP
-and CRLs, less relevant. Certificate updates do not affect existing TLS
-sessions; re-authentication or session re-establishment is an application
-policy decision. This is particularly important when long-lived TLS
-connections are used. In such a case, the post-handshake
-authentication exchange is triggered when the application requires it. TLS 1.3 provides
-client-to-server post-handshake authentication only. Mutual
-authentication via post-handshake messages is available by the use of the "Exported
-Authenticator" <span>[<a href="#RFC9261" class="cite xref">RFC9261</a>]</span> but requires the application layer protocol
-to carry the payloads.
+certificate validity checks are out of scope and left to application policy.<a href="#section-17.1.7-3" class="pilcrow">¶</a></p>
+<p id="section-17.1.7-4">Device management protocols often include onboarding or bootstrapping support
+and allow certificates to be distributed and updated on demand. An example is
+the Lightweight Machine-to-Machine (LwM2M) <span>[<a href="#LwM2M-T" class="cite xref">LwM2M-T</a>]</span> <span>[<a href="#LwM2M-C" class="cite xref">LwM2M-C</a>]</span> protocol.
+These protocols enable deployment models that use shorter-lived end entity
+certificates, making OCSP and CRLs less relevant.<a href="#section-17.1.7-4" class="pilcrow">¶</a></p>
+<p id="section-17.1.7-5">Certificate updates do not affect existing TLS sessions; re-authentication or
+session re-establishment is an application policy decision. This is
+particularly important for long-lived TLS connections. TLS 1.3 provides
+client-to-server post-handshake authentication only. Mutual authentication via
+post-handshake messages is available by use of the "Exported Authenticator"
+<span>[<a href="#RFC9261" class="cite xref">RFC9261</a>]</span> but requires the application layer protocol to carry the
+payloads.
 If continuous validation is required, the application must trigger
 re-authentication or re-establish a new TLS session; TLS alone does not
-mandate continuous checks.<a href="#section-17.1.7-3" class="pilcrow">¶</a></p>
-<p id="section-17.1.7-4">Hence, instead of performing certificate revocation checks on the IoT device
+mandate continuous checks.<a href="#section-17.1.7-5" class="pilcrow">¶</a></p>
+<p id="section-17.1.7-6">Hence, instead of performing certificate revocation checks on the IoT device
 itself this it is RECOMMENDED to delegate this task to the IoT device
 operator and to take the necessary action to allow IoT devices to remain
-operational.<a href="#section-17.1.7-4" class="pilcrow">¶</a></p>
+operational.<a href="#section-17.1.7-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
