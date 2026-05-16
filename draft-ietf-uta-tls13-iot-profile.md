@@ -989,6 +989,9 @@ determinism, for example, as described in
 
 # Post-Quantum Cryptography (PQC) Considerations
 
+This section is informational and provides deployment guidance only; it does
+not add normative requirements to this profile.
+
 The recommendations and ciphersuites in this profile are based on classical
 cryptography and are not quantum-resistant.
 
