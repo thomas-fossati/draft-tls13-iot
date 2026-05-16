@@ -1631,6 +1631,15 @@ network administrators inspect the SNI to detect malicious behaviour.<a href="#s
 <p id="section-12-4">Besides, to avoid leaking DNS lookups from network inspection altogether further
 protocols are needed, including DNS-over-HTTPS (DoH) <span>[<a href="#RFC8484" class="cite xref">RFC8484</a>]</span>,
 DNS-over-TLS (DoT) <span>[<a href="#RFC7858" class="cite xref">RFC7858</a>]</span> and DNS-over-QUIC (DoQ) <span>[<a href="#RFC9250" class="cite xref">RFC9250</a>]</span>.<a href="#section-12-4" class="pilcrow">¶</a></p>
+<p id="section-12-5">Where IoT devices are accepting (D)TLS connections, i.e., they are acting as a
+server, it is unlikely that there will be a useful name that can go into the
+SNI. In general, the use of SNI for the purpose of virtual hosting on
+constrained IoT devices is rare. The IoT device cannot depend on a client
+providing a correct SNI, and so it MAY ignore the extension when SNI is not
+used for virtual hosting. This implies that IoT devices cannot do name-based
+virtual hosting of TLS connections. In the unlikely event that an IoT device
+has multiple servers responding with different server certificates, the server
+SHOULD use different IP addresses or port numbers.<a href="#section-12-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="record_size_limit">
@@ -2141,14 +2150,6 @@ names.<a href="#section-17.4.1-9" class="pilcrow">¶</a></p>
 <p id="section-17.4.1-10">Note: The IEEE 802.1AR recommends to encode information about a Trusted
 Platform Module (TPM), if present, in the HardwareModuleName (<span><a href="https://rfc-editor.org/rfc/rfc4108#section-5" class="relref">Section 5</a> of [<a href="#RFC4108" class="cite xref">RFC4108</a>]</span>). This
 specification does not follow this recommendation.<a href="#section-17.4.1-10" class="pilcrow">¶</a></p>
-<p id="section-17.4.1-11">Where IoT devices are accepting (D)TLS connections, i.e., they are acting as a server,
-it is unlikely that there will be a useful name that can go into the SNI. In general,
-the use of SNI for the purpose of virtual hosting on constrained IoT devices is rare.
-The IoT device cannot depend on a client providing a correct SNI, and so it MAY
-ignore the extension when SNI is not used for virtual hosting.
-This implies that IoT devices cannot do name-based virtual hosting of TLS connections.
-In the unlikely event that an IoT device has multiple servers responding with different
-server certificate, then the server SHOULD use different IP addresses or port numbers.<a href="#section-17.4.1-11" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authority-key-identifier-2">
