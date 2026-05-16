@@ -445,11 +445,9 @@ and hardware security choices.
 
 ## All Certificates
 
-This section outlines requirements on X.509 certificates applicable to all PKI
-entities. These requirements apply to certificates issued within the IoT device
-PKI (root, subordinate, and end entity certificates used to authenticate IoT
-devices), not to public WebPKI server certificates. This section focuses on
-X.509 v3 certificates.
+This section outlines the requirements for X.509 certificates that apply to all PKI entities.
+These requirements apply to certificates issued within the IoT device PKI (i.e., root, subordinate and end entity certificates used to authenticate IoT devices), rather than to public WebPKI server certificates.
+The section focuses on X.509 v3 certificates.
 
 ### Version
 
