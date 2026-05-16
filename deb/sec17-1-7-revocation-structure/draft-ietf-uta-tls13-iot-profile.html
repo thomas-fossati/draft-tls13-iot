@@ -1877,10 +1877,8 @@ supported by those devices to ensure successful validation (e.g., P-256).<a href
           <h4 id="name-certificate-revocation-chec">
 <a href="#section-17.1.7" class="section-number selfRef">17.1.7. </a><a href="#name-certificate-revocation-chec" class="section-name selfRef">Certificate Revocation Checks</a>
           </h4>
-<p id="section-17.1.7-1">Constrained IoT devices often do not perform OCSP or CRL checks themselves.
-Instead, deployments commonly rely on short-lived certificates, certificate
-management protocols, and operator action to handle certificate replacement and
-revocation-related events.<a href="#section-17.1.7-1" class="pilcrow">¶</a></p>
+<p id="section-17.1.7-1">Constrained IoT devices often cannot perform OCSP or CRL checks themselves.
+Instead, deployments typically rely on short-lived certificates, certificate management protocols and operator intervention to manage certificate replacement and revocation-related events.<a href="#section-17.1.7-1" class="pilcrow">¶</a></p>
 <p id="section-17.1.7-2">The Certificate Revocation Lists (CRLs) distribution points extension has
 been defined in RFC 5280 to identify how CRL information is obtained. The
 Authority Information Access (AIA) extension indicates where to find additional
