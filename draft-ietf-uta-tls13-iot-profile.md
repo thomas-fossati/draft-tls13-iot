@@ -74,6 +74,7 @@ informative:
   RFC9146:
   RFC7228:
   RFC9810: cmp
+  RFC8937:
   RFC9483: lw-cmp
   RFC7452:
   RFC6066:
@@ -341,6 +342,8 @@ Just like the handshake initial timers, it is RECOMMENDED that DTLS 1.2 and 1.3 
 The discussion in {{Section 12 of !RFC7925}} is applicable with one exception:
 the ClientHello and the ServerHello messages in TLS 1.3 do not contain
 gmt_unix_time component anymore.
+For entropy generation and randomness considerations, implementers should also
+consult {{RFC8937}}.
 
 # Server Name Indication {#sni}
 
