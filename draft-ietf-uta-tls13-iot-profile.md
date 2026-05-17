@@ -376,6 +376,7 @@ The recommendations in {{Section 20 of !RFC7925}} are applicable.
 
 {{Appendix E.5 of -TLS13}} establishes that:
 
+{: quote}
 > Application protocols MUST NOT use 0-RTT data without a profile that
 > defines its use.  That profile needs to identify which messages or
 > interactions are safe to use with 0-RTT and how to handle the
@@ -929,12 +930,11 @@ references to the analysis supporting these conclusions.
 
 Specifically, {{-DTLS13}} warns that:
 
-~~~
+{: quote}
 > TLS_AES_128_CCM_8_SHA256 MUST NOT be used in DTLS without additional
 > safeguards against forgery. Implementations MUST set usage limits for
 > AEAD_AES_128_CCM_8 based on an understanding of any additional forgery
 > protections that are used.
-~~~
 
 Since all the ciphersuites required by {{RFC7925}} and {{CoAP}} rely on CCM_8,
 there is no alternate ciphersuite available for applications that aim to
