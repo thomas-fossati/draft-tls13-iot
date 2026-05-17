@@ -954,10 +954,10 @@ general settings.  For the details on the exact bounds of both ciphersuites see
 superior interoperability with cloud services at the cost of a slight increase
 in the wire and peak RAM footprints.
 
-When the GCM-based ciphersuite is used with TLS 1.3, the recommendations in
-{{Section 7.2.1 of !RFC9325}} related to deterministic nonce generation
-apply. In addition, the integrity limits on key usage detailed in {{Section 4.4
-of !RFC9325}} also apply.
+TLS 1.3 enforces deterministic nonce generation for all AEAD cipher suites.
+However, this is not the case for TLS 1.2.
+Therefore, when using the GCM-based cipher suite with TLS 1.2, the recommendations in {{Section 7.2.1 of !RFC9325}} relating to deterministic nonce generation apply.
+In addition, the integrity limits on key usage detailed in {{Section 4.4 of !RFC9325}} also apply.
 
 {{tab-cipher-reqs}} summarizes the recommendations regarding ciphersuites:
 
