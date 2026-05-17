@@ -1056,7 +1056,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Tschofenig, et al.</td>
-<td class="center">Expires 17 November 2026</td>
+<td class="center">Expires 18 November 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1072,12 +1072,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc7925" class="eref">7925</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-05-16" class="published">16 May 2026</time>
+<time datetime="2026-05-17" class="published">17 May 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-11-17">17 November 2026</time></dd>
+<dd class="expires"><time datetime="2026-11-18">18 November 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1135,7 +1135,7 @@ profile and ciphersuite requirements.<a href="#section-abstract-1" class="pilcro
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 17 November 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 18 November 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1359,26 +1359,30 @@ profile and ciphersuite requirements.<a href="#section-abstract-1" class="pilcro
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">In the rapidly evolving Internet of Things (IoT) ecosystem, communication security
+<aside id="section-1-1">
+        <p id="section-1-1.1">Note to RFC Editor: Once RFC 9846 (RFC 8446bis) is published, all references to RFC 8446 must be updated to refer to RFC 9846.
+All section references must also be updated accordingly.<a href="#section-1-1.1" class="pilcrow">¶</a></p>
+</aside>
+<p id="section-1-2">In the rapidly evolving Internet of Things (IoT) ecosystem, communication security
 is a critical requirement. The Transport Layer Security (TLS) and Datagram Transport
 Layer Security (DTLS) protocols have been foundational for ensuring encryption,
 integrity, and authenticity in communications. However, the constraints of a certain
 class of IoT devices render conventional, off-the-shelf TLS/DTLS implementations
-suboptimal for many IoT use cases. This document addresses these limitations by specifying TLS 1.3 and DTLS 1.3 profiles that are optimized for resource-constrained IoT devices.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">Note that IoT devices vary widely in terms of capabilities. While some are highly
+suboptimal for many IoT use cases. This document addresses these limitations by specifying TLS 1.3 and DTLS 1.3 profiles that are optimized for resource-constrained IoT devices.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">Note that IoT devices vary widely in terms of capabilities. While some are highly
 resource-constrained, others offer performance comparable to regular desktop computers
 but operate without end-user interfaces. For a detailed description of the different
 classes of IoT devices, please refer to <span>[<a href="#RFC7228" class="cite xref">RFC7228</a>]</span> and <span>[<a href="#I-D.ietf-iotops-7228bis" class="cite xref">I-D.ietf-iotops-7228bis</a>]</span>.
 It is crucial for developers to thoroughly assess the limitations of their IoT devices
 and communication technologies to implement the most suitable optimizations.
 The profiles in this document aim to balance strong security with the hardware and
-software limitations of IoT devices.<a href="#section-1-2" class="pilcrow">¶</a></p>
-<p id="section-1-3">TLS 1.3 has been re-designed and several previously defined extensions are not
+software limitations of IoT devices.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-4">TLS 1.3 has been re-designed and several previously defined extensions are not
 applicable to the new version of TLS/DTLS anymore. The following features changed
-with the transition from TLS 1.2 to 1.3:<a href="#section-1-3" class="pilcrow">¶</a></p>
+with the transition from TLS 1.2 to 1.3:<a href="#section-1-4" class="pilcrow">¶</a></p>
 <ul class="compact">
-<li class="compact" id="section-1-4.1">
-          <p id="section-1-4.1.1">TLS 1.3 introduced the concept of post-handshake authentication messages, which
+<li class="compact" id="section-1-5.1">
+          <p id="section-1-5.1.1">TLS 1.3 introduced the concept of post-handshake authentication messages, which
 partially replaced the need for the re-negotiation feature <span>[<a href="#RFC5746" class="cite xref">RFC5746</a>]</span> available
 in earlier TLS versions. However, the rekeying mechanism defined in <span><a href="https://rfc-editor.org/rfc/rfc8446#section-4.6.3" class="relref">Section 4.6.3</a> of [<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>
 does not provide post-compromise security (see <span><a href="https://rfc-editor.org/rfc/rfc8446#appendix-E.1.5" class="relref">Appendix E.1.5</a> of [<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>).
@@ -1388,45 +1392,45 @@ The "Exported Authenticator" specification, see <span>[<a href="#RFC9261" class=
 for mutual post-handshake authentication, but this requires the Certificate,
 CertificateVerify and the Finished messages to be conveyed by the application
 layer protocol, as it is exercised for HTTP/2 and HTTP/3 in <span>[<a href="#I-D.ietf-httpbis-secondary-server-certs" class="cite xref">I-D.ietf-httpbis-secondary-server-certs</a>]</span>.
-Therefore, the application layer protocol must be enhanced whenever this feature is required.<a href="#section-1-4.1.1" class="pilcrow">¶</a></p>
+Therefore, the application layer protocol must be enhanced whenever this feature is required.<a href="#section-1-5.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="compact" id="section-1-4.2">
-          <p id="section-1-4.2.1">Rekeying of the application traffic secret does not lead to an update of the
+        <li class="compact" id="section-1-5.2">
+          <p id="section-1-5.2.1">Rekeying of the application traffic secret does not lead to an update of the
 exporter secret (see <span><a href="https://rfc-editor.org/rfc/rfc8446#section-7.5" class="relref">Section 7.5</a> of [<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>) since the derived export secret is
-based on the exporter_master_secret and not on the application traffic secret.<a href="#section-1-4.2.1" class="pilcrow">¶</a></p>
+based on the exporter_master_secret and not on the application traffic secret.<a href="#section-1-5.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="compact" id="section-1-4.3">
-          <p id="section-1-4.3.1">Flight #4, which was used by EAP-TLS 1.2 <span>[<a href="#RFC5216" class="cite xref">RFC5216</a>]</span>, does not exist in TLS 1.3.
-As a consequence, EAP-TLS 1.3 <span>[<a href="#RFC9190" class="cite xref">RFC9190</a>]</span> introduced a placeholder message.<a href="#section-1-4.3.1" class="pilcrow">¶</a></p>
+        <li class="compact" id="section-1-5.3">
+          <p id="section-1-5.3.1">Flight #4, which was used by EAP-TLS 1.2 <span>[<a href="#RFC5216" class="cite xref">RFC5216</a>]</span>, does not exist in TLS 1.3.
+As a consequence, EAP-TLS 1.3 <span>[<a href="#RFC9190" class="cite xref">RFC9190</a>]</span> introduced a placeholder message.<a href="#section-1-5.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="compact" id="section-1-4.4">
-          <p id="section-1-4.4.1"><span>[<a href="#RFC4279" class="cite xref">RFC4279</a>]</span> introduced PSK-based authentication to TLS, a feature re-designed
+        <li class="compact" id="section-1-5.4">
+          <p id="section-1-5.4.1"><span>[<a href="#RFC4279" class="cite xref">RFC4279</a>]</span> introduced PSK-based authentication to TLS, a feature re-designed
 in TLS 1.3. The "PSK identity hint" defined in <span>[<a href="#RFC4279" class="cite xref">RFC4279</a>]</span>, which is used by the
 server to help the client in selecting which PSK identity to use, is, however, not
-available anymore in TLS 1.3.<a href="#section-1-4.4.1" class="pilcrow">¶</a></p>
+available anymore in TLS 1.3.<a href="#section-1-5.4.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="compact" id="section-1-4.5">
-          <p id="section-1-4.5.1">Finally, ciphersuites were deprecated and the RSA-based key transport is not
+        <li class="compact" id="section-1-5.5">
+          <p id="section-1-5.5.1">Finally, ciphersuites were deprecated and the RSA-based key transport is not
 supported in TLS 1.3. As a consequence, only a Diffie-Hellman-based key exchange
 is available for non-PSK-based (i.e., certificate-based) authentication. (For PSK-based authentication the
-use of Diffie-Hellman is optional.)<a href="#section-1-4.5.1" class="pilcrow">¶</a></p>
+use of Diffie-Hellman is optional.)<a href="#section-1-5.5.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-1-5">The profiles in this specification are designed to be adaptable to the broad spectrum
+<p id="section-1-6">The profiles in this specification are designed to be adaptable to the broad spectrum
 of IoT applications, from low-power consumer devices to large-scale industrial
 deployments. It provides guidelines for implementing TLS/DTLS 1.3 in diverse
 networking contexts, including reliable, connection-oriented transport via TCP
 for TLS, and lightweight, connectionless communication via UDP for DTLS. In
 particular, DTLS is emphasized for scenarios where low-latency communication is
 paramount, such as multi-hop mesh networks and low-power wide-area networks,
-where the amount of data exchanged needs to be minimized.<a href="#section-1-5" class="pilcrow">¶</a></p>
-<p id="section-1-6">This document offers comprehensive guidance for deploying secure
+where the amount of data exchanged needs to be minimized.<a href="#section-1-6" class="pilcrow">¶</a></p>
+<p id="section-1-7">This document offers comprehensive guidance for deploying secure
 communication in resource-constrained IoT environments. It outlines best practices
 for configuring TLS/DTLS 1.3 to meet the unique needs of IoT devices, ensuring
 robust security without overwhelming their limited processing, memory, and power
 resources. The document aims to facilitate the development of secure and efficient IoT
-deployments and promote the broad adoption of secure communication standards.<a href="#section-1-6" class="pilcrow">¶</a></p>
-<p id="section-1-7">This document updates <span>[<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> with respect to the X.509 certificate profile (<a href="#certificate_profile" class="auto internal xref">Section 17</a>) and ciphersuite requirements (<a href="#ciphersuites" class="auto internal xref">Section 20</a>).<a href="#section-1-7" class="pilcrow">¶</a></p>
+deployments and promote the broad adoption of secure communication standards.<a href="#section-1-7" class="pilcrow">¶</a></p>
+<p id="section-1-8">This document updates <span>[<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> with respect to the X.509 certificate profile (<a href="#certificate_profile" class="auto internal xref">Section 17</a>) and ciphersuite requirements (<a href="#ciphersuites" class="auto internal xref">Section 20</a>).<a href="#section-1-8" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-terminology">
@@ -1504,7 +1508,9 @@ compliant implementation MUST support the key exchange with secp256r1 (NIST
 P-256) and SHOULD support key exchange with X25519.<a href="#section-3-10" class="pilcrow">¶</a></p>
 <p id="section-3-11">For TLS/DTLS clients and servers implementing raw public keys and/or
 certificates the guidance for mandatory-to-implement extensions described in
-<span><a href="https://rfc-editor.org/rfc/rfc8446#section-9.2" class="relref">Section 9.2</a> of [<a href="#RFC8446" class="cite xref">RFC8446</a>]</span> MUST be followed.<a href="#section-3-11" class="pilcrow">¶</a></p>
+<span><a href="https://rfc-editor.org/rfc/rfc8446#section-9.2" class="relref">Section 9.2</a> of [<a href="#RFC8446" class="cite xref">RFC8446</a>]</span> MUST be followed.
+In addition, compliant implementations MUST implement the Record Size Limit
+(RSL) extension; see <a href="#record_size_limit" class="auto internal xref">Section 13</a>.<a href="#section-3-11" class="pilcrow">¶</a></p>
 <p id="section-3-12">Entities deploying IoT devices may select credential types based on security
 characteristics, operational requirements, cost, and other factors.
 Consequently, this specification does not prescribe a single credential type
@@ -1567,7 +1573,9 @@ SHOULD be avoided unless the application can tolerate the loss of forward secrec
 suites that provide data authenticity, but not data confidentiality. For details
 and use constraints, defer to <span>[<a href="#RFC9150" class="cite xref">RFC9150</a>]</span> (especially <span><a href="https://rfc-editor.org/rfc/rfc9150#section-9" class="relref">Section 9</a> of [<a href="#RFC9150" class="cite xref">RFC9150</a>]</span>).
 Implementations may not support these suites; deployments should not assume
-availability. This document does not add new guidance beyond <span>[<a href="#RFC9150" class="cite xref">RFC9150</a>]</span>.<a href="#section-8-1" class="pilcrow">¶</a></p>
+availability. This document does not add new guidance beyond <span>[<a href="#RFC9150" class="cite xref">RFC9150</a>]</span>.
+Profiling the use of authentication- and integrity-only cipher suites is out of
+scope for this specification.<a href="#section-8-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="keep-alive">
@@ -1584,19 +1592,22 @@ availability. This document does not add new guidance beyond <span>[<a href="#RF
 <a href="#section-10" class="section-number selfRef">10. </a><a href="#name-timers-and-acks" class="section-name selfRef">Timers and ACKs</a>
       </h2>
 <p id="section-10-1">Compared to DTLS 1.2 timeout-based whole flight retransmission, DTLS 1.3 ACKs sensibly decrease the risk of congestion collapse which was the basis for the very conservative recommendations given in <span><a href="https://rfc-editor.org/rfc/rfc7925#section-11" class="relref">Section 11</a> of [<a href="#RFC7925" class="cite xref">RFC7925</a>]</span>.<a href="#section-10-1" class="pilcrow">¶</a></p>
-<p id="section-10-2">In general, the recommendations in <span><a href="https://rfc-editor.org/rfc/rfc9147#section-7.3" class="relref">Section 7.3</a> of [<a href="#RFC9147" class="cite xref">RFC9147</a>]</span> regarding ACKs
-apply to DTLS 1.3 only.
-In particular, "(w)hen DTLS 1.3 is used in deployments with lossy networks, such as low-power, long-range radio networks as well as low-power mesh networks, the use of ACKs is recommended" to signal any sign of disruption or lack of progress.
-This allows for selective or early retransmission, which leads to more efficient use of bandwidth and memory resources.<a href="#section-10-2" class="pilcrow">¶</a></p>
-<p id="section-10-3">Due to the vast range of network technologies used in IoT deployments, from wired LAN to GSM-SMS, it's not possible to provide a universal recommendation for an initial timeout.
+<p id="section-10-2">The recommendations in <span><a href="https://rfc-editor.org/rfc/rfc9147#section-7.3" class="relref">Section 7.3</a> of [<a href="#RFC9147" class="cite xref">RFC9147</a>]</span> regarding ACKs apply.
+In particular,<a href="#section-10-2" class="pilcrow">¶</a></p>
+<blockquote id="section-10-3">
+        <p id="section-10-3.1">When DTLS 1.3 is used in deployments with lossy networks, such as low-power, long-range radio networks as well as low-power mesh networks, the use of ACKs is recommended.<a href="#section-10-3.1" class="pilcrow">¶</a></p>
+</blockquote>
+<p id="section-10-4">ACKs provide explicit feedback on which handshake messages have been received.
+This enables endpoints to detect a lack of progress more quickly and to trigger selective or early retransmission, leading to more efficient use of bandwidth and memory.<a href="#section-10-4" class="pilcrow">¶</a></p>
+<p id="section-10-5">Due to the vast range of network technologies used in IoT deployments, from wired LAN to GSM-SMS, it's not possible to provide a universal recommendation for an initial timeout.
 Therefore, it is RECOMMENDED that DTLS 1.3 implementations allow developers to explicitly set the initial timer value.
 Developers SHOULD set the initial timeout to be twice the expected round-trip time (RTT),
 but no less than 1000ms, which is a conservative default aligned with the guidance in
 <span><a href="https://rfc-editor.org/rfc/rfc7925#section-11" class="relref">Section 11</a> of [<a href="#RFC7925" class="cite xref">RFC7925</a>]</span>.
 For specific application/network combinations, a sub-second initial timeout MAY be set.
-In cases where no RTT estimates are available, a 1000ms initial timeout is suitable for the general Internet.<a href="#section-10-3" class="pilcrow">¶</a></p>
-<p id="section-10-4">Regarding the timers used by the Return Routability Check (RRC) functionality, the recommendations in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-dtls-rrc-20#section-5.5" class="relref">Section 5.5</a> of [<a href="#I-D.ietf-tls-dtls-rrc" class="cite xref">I-D.ietf-tls-dtls-rrc</a>]</span> apply.
-Just like the handshake initial timers, it is RECOMMENDED that DTLS 1.2 and 1.3 implementations offer an option for their developers to explicitly set the RRC timer.<a href="#section-10-4" class="pilcrow">¶</a></p>
+In cases where no RTT estimates are available, a 1000ms initial timeout is suitable for the general Internet.<a href="#section-10-5" class="pilcrow">¶</a></p>
+<p id="section-10-6">Regarding the timers used by the Return Routability Check (RRC) functionality, the recommendations in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-dtls-rrc-20#section-5.5" class="relref">Section 5.5</a> of [<a href="#I-D.ietf-tls-dtls-rrc" class="cite xref">I-D.ietf-tls-dtls-rrc</a>]</span> apply.
+Just like the handshake initial timers, it is RECOMMENDED that DTLS 1.2 and 1.3 implementations offer an option for their developers to explicitly set the RRC timer.<a href="#section-10-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="random-number-generation">
@@ -1606,7 +1617,9 @@ Just like the handshake initial timers, it is RECOMMENDED that DTLS 1.2 and 1.3 
       </h2>
 <p id="section-11-1">The discussion in <span><a href="https://rfc-editor.org/rfc/rfc7925#section-12" class="relref">Section 12</a> of [<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> is applicable with one exception:
 the ClientHello and the ServerHello messages in TLS 1.3 do not contain
-gmt_unix_time component anymore.<a href="#section-11-1" class="pilcrow">¶</a></p>
+gmt_unix_time component anymore.
+For entropy generation and randomness considerations, implementers should also
+consult <span>[<a href="#RFC8937" class="cite xref">RFC8937</a>]</span>.<a href="#section-11-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sni">
@@ -1627,9 +1640,18 @@ network administrators inspect the SNI to detect malicious behaviour.<a href="#s
 <p id="section-12-4">Besides, to avoid leaking DNS lookups from network inspection altogether further
 protocols are needed, including DNS-over-HTTPS (DoH) <span>[<a href="#RFC8484" class="cite xref">RFC8484</a>]</span>,
 DNS-over-TLS (DoT) <span>[<a href="#RFC7858" class="cite xref">RFC7858</a>]</span> and DNS-over-QUIC (DoQ) <span>[<a href="#RFC9250" class="cite xref">RFC9250</a>]</span>.<a href="#section-12-4" class="pilcrow">¶</a></p>
+<p id="section-12-5">Where IoT devices are accepting (D)TLS connections, i.e., they are acting as a
+server, it is unlikely that there will be a useful name that can go into the
+SNI. In general, the use of SNI for the purpose of virtual hosting on
+constrained IoT devices is rare. The IoT device cannot depend on a client
+providing a correct SNI, and so it MAY ignore the extension when SNI is not
+used for virtual hosting. This implies that IoT devices cannot do name-based
+virtual hosting of TLS connections. In the unlikely event that an IoT device
+has multiple servers responding with different server certificates, the server
+SHOULD use different IP addresses or port numbers.<a href="#section-12-5" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="maximum-fragment-length-negotiation">
+<div id="record_size_limit">
 <section id="section-13">
       <h2 id="name-maximum-fragment-length-neg">
 <a href="#section-13" class="section-number selfRef">13. </a><a href="#name-maximum-fragment-length-neg" class="section-name selfRef">Maximum Fragment Length Negotiation</a>
@@ -1686,72 +1708,63 @@ split by certificate "type" in order to clarify exactly what requirements and
 recommendations apply to which entity in the PKI hierarchy.<a href="#section-17-1" class="pilcrow">¶</a></p>
 <p id="section-17-2">This profile does not define a specific certificate policy OID; deployments
 MAY define one if needed for local policy enforcement.<a href="#section-17-2" class="pilcrow">¶</a></p>
-<p id="section-17-3">A Device Identifier (DevID) consists of:<a href="#section-17-3" class="pilcrow">¶</a></p>
+<p id="section-17-3">The terminology used in this section is not intended to restrict the scope of this profile to IEEE 802.1AR deployments.
+It is used because it conveniently distinguishes between manufacturer-provisioned and operational credentials, which is important in many IoT deployments.<a href="#section-17-3" class="pilcrow">¶</a></p>
+<p id="section-17-4">A Device Identifier (DevID) consists of:<a href="#section-17-4" class="pilcrow">¶</a></p>
 <ul class="compact">
-<li class="compact" id="section-17-4.1">
-          <p id="section-17-4.1.1">a private key,<a href="#section-17-4.1.1" class="pilcrow">¶</a></p>
+<li class="compact" id="section-17-5.1">
+          <p id="section-17-5.1.1">a private key,<a href="#section-17-5.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="compact" id="section-17-4.2">
-          <p id="section-17-4.2.1">a certificate containing the public key and the identifier certified by the
-certificate issuer, and<a href="#section-17-4.2.1" class="pilcrow">¶</a></p>
+        <li class="compact" id="section-17-5.2">
+          <p id="section-17-5.2.1">a certificate containing the public key and the identifier certified by the
+certificate issuer, and<a href="#section-17-5.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="compact" id="section-17-4.3">
-          <p id="section-17-4.3.1">a certificate chain leading up to a trust anchor (typically the root certificate).<a href="#section-17-4.3.1" class="pilcrow">¶</a></p>
+        <li class="compact" id="section-17-5.3">
+          <p id="section-17-5.3.1">a certificate chain leading up to a trust anchor (typically the root certificate).<a href="#section-17-5.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-17-5">The IEEE 802.1AR specification <span>[<a href="#IEEE-802.1AR" class="cite xref">IEEE-802.1AR</a>]</span> introduces the concept of DevIDs and
-defines two specialized versions:<a href="#section-17-5" class="pilcrow">¶</a></p>
+<p id="section-17-6">The IEEE 802.1AR specification <span>[<a href="#IEEE-802.1AR" class="cite xref">IEEE-802.1AR</a>]</span> introduces the concept of DevIDs and
+defines two specialized versions:<a href="#section-17-6" class="pilcrow">¶</a></p>
 <ul class="compact">
-<li class="compact" id="section-17-6.1">
-          <p id="section-17-6.1.1">Initial Device Identifiers (IDevIDs): Provisioned during manufacturing to
-provide a unique, stable identity for the lifetime of the device.<a href="#section-17-6.1.1" class="pilcrow">¶</a></p>
+<li class="compact" id="section-17-7.1">
+          <p id="section-17-7.1.1">Initial Device Identifiers (IDevIDs): Provisioned during manufacturing to
+provide a unique, stable identity for the lifetime of the device.<a href="#section-17-7.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="compact" id="section-17-6.2">
-          <p id="section-17-6.2.1">Locally Significant Device Identifiers (LDevIDs): Provisioned after deployment
-and typically used for operational purposes within a specific domain.<a href="#section-17-6.2.1" class="pilcrow">¶</a></p>
+        <li class="compact" id="section-17-7.2">
+          <p id="section-17-7.2.1">Locally Significant Device Identifiers (LDevIDs): Provisioned after deployment
+and typically used for operational purposes within a specific domain.<a href="#section-17-7.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-17-7">Thus, IDevIDs and LDevIDs are specialized forms of DevIDs as defined in IEEE 802.1AR.<a href="#section-17-7" class="pilcrow">¶</a></p>
 <p id="section-17-8">The IDevID is typically provisioned by a manufacturer and signed by the
 manufacturer CA. It is then used to obtain operational certificates,
 the LDevIDs, from the operator or owner of the device. Some protocols
 also introduce an additional hierarchy with application instance
 certificates, which are obtained for use with specific applications.<a href="#section-17-8" class="pilcrow">¶</a></p>
 <p id="section-17-9">IDevIDs are intended for device identity and initial onboarding or bootstrapping
-protocols,
-such as the Bootstrapping Remote Secure Key Infrastructure (BRSKI) protocol
-<span>[<a href="#RFC8995" class="cite xref">RFC8995</a>]</span> or by LwM2M Bootstrap <span>[<a href="#LwM2M-T" class="cite xref">LwM2M-T</a>]</span> <span>[<a href="#LwM2M-C" class="cite xref">LwM2M-C</a>]</span>. Hence, the use of IDevIDs
-is limited on purpose even though they have a long lifetime, or do not expire
-at all. While some bootstrapping protocols use TLS (and therefore make use of
-the IDevID as part of client authentication) there are other bootstrapping
-protocols that do not use TLS/DTLS for client authentication, such as FIDO
-Device Onboarding (FDO) <span>[<a href="#FDO" class="cite xref">FDO</a>]</span>.  In many cases, the IDevID profile/content is
-provided by those specifications. For these reasons, this
-specification focuses on the description of LDevIDs.<a href="#section-17-9" class="pilcrow">¶</a></p>
-<p id="section-17-10">This document uses the terminology and some of the rules for populating certificate
+protocols, such as the Bootstrapping Remote Secure Key Infrastructure (BRSKI)
+protocol <span>[<a href="#RFC8995" class="cite xref">RFC8995</a>]</span> or LwM2M Bootstrap <span>[<a href="#LwM2M-T" class="cite xref">LwM2M-T</a>]</span> <span>[<a href="#LwM2M-C" class="cite xref">LwM2M-C</a>]</span>. The use of
+IDevIDs is intentionally limited to such onboarding scenarios even though they
+often have a long lifetime, or do not expire at all.<a href="#section-17-9" class="pilcrow">¶</a></p>
+<p id="section-17-10">There are, however, multiple onboarding and bootstrapping approaches in use.
+Some of them use TLS and therefore use the IDevID for client authentication,
+while others, such as FIDO Device Onboarding (FDO) <span>[<a href="#FDO" class="cite xref">FDO</a>]</span>, do not use TLS/DTLS
+for client authentication. In many cases, the IDevID profile and content are
+defined by those specifications. For these reasons, this specification focuses
+on the description of operational certificates such as LDevIDs.<a href="#section-17-10" class="pilcrow">¶</a></p>
+<p id="section-17-11">This document uses the terminology and some of the rules for populating certificate
 content defined in IEEE 802.1AR. However, this specification does not claim
-conformance to IEEE 802.1AR; 802.1AR is broader and mandates hardware, security,
-and process requirements outside IoT constraints, while this profile borrows
-terminology and fields but intentionally omits those operational requirements.
-Since such a compliance statement goes beyond the use of the terminology
-and the certificate content and would include the use of management
-protocols, fulfillment of certain hardware security requirements, and
-interfaces to access these hardware security modules. Placing these
-requirements on network equipment like routers may be appropriate but
-designers of constrained IoT devices have opted for different protocols
-and hardware security choices.<a href="#section-17-10" class="pilcrow">¶</a></p>
+conformance to IEEE 802.1AR, which is broader and mandates hardware, security,
+and process requirements outside the constraints of many IoT deployments. This
+profile borrows terminology and selected certificate fields from IEEE 802.1AR
+but intentionally omits those broader requirements.<a href="#section-17-11" class="pilcrow">¶</a></p>
 <div id="all-certificates">
 <section id="section-17.1">
         <h3 id="name-all-certificates">
 <a href="#section-17.1" class="section-number selfRef">17.1. </a><a href="#name-all-certificates" class="section-name selfRef">All Certificates</a>
         </h3>
-<p id="section-17.1-1">To avoid repetition, this section outlines requirements on X.509
-certificates applicable to all PKI entities. These requirements apply to
-certificates issued within the IoT device PKI (root, subordinate, and end
-entity certificates used to authenticate IoT devices), not to public WebPKI
-server certificates. Note that TLS 1.3 allows conveying payloads other than
-X.509 certificates in the Certificate message; this section focuses on X.509 v3
-certificates and leaves other formats to other sections or specifications.<a href="#section-17.1-1" class="pilcrow">¶</a></p>
+<p id="section-17.1-1">This section outlines the requirements for X.509 certificates that apply to all PKI entities.
+These requirements apply to certificates issued within the IoT device PKI (i.e., root, subordinate and end entity certificates used to authenticate IoT devices), rather than to public WebPKI server certificates.
+The section focuses on X.509 v3 certificates.<a href="#section-17.1-1" class="pilcrow">¶</a></p>
 <div id="version">
 <section id="section-17.1.1">
           <h4 id="name-version">
@@ -1765,8 +1778,9 @@ certificates and leaves other formats to other sections or specifications.<a hre
           <h4 id="name-serial-number">
 <a href="#section-17.1.2" class="section-number selfRef">17.1.2. </a><a href="#name-serial-number" class="section-name selfRef">Serial Number</a>
           </h4>
-<p id="section-17.1.2-1">The serial number MUST be unique for each certificate issued by a given CA
-(i.e., the issuer name and the serial number uniquely identify a certificate).
+<p id="section-17.1.2-1">The serial number MUST be unique
+for each certificate issued by a given CA (i.e., the issuer name
+and the serial number uniquely identify a certificate).
 <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> limits this field to a maximum of 20 octets.
 To reduce the risk of predictable serial numbers, CAs SHOULD generate
 serial numbers of at least eight (8) octets using a
@@ -1784,8 +1798,11 @@ end entity certificates, subordinate CA certificates, and CA
 certificates to use the same signature algorithm. Furthermore,
 this specification does not utilize RSA for use with constrained IoT
 devices and networks.
-For certificates expected to be validated by IoT devices, CAs SHOULD use a
-single signature algorithm supported by those devices (e.g., ECDSA P-256).<a href="#section-17.1.3-2" class="pilcrow">¶</a></p>
+For certificates expected to be validated by constrained IoT devices, CAs
+SHOULD select signature algorithms supported by those devices to ensure
+successful validation (e.g., ECDSA P-256). Different certificates in the same
+chain MAY use different signature algorithms when the relying devices support
+validation of the resulting chain.<a href="#section-17.1.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="issuer">
@@ -1810,16 +1827,15 @@ It also affects the maximum validity period of certificates.
 Constrained devices often lack precise UTC time; implementations SHOULD treat
 time checks with coarse granularity (e.g., day- or hour-level) and ignore leap seconds
 when validating notAfter.<a href="#section-17.1.5-1" class="pilcrow">¶</a></p>
-<p id="section-17.1.5-2">In most IoT deployments, IDevIDs are provisioned with an unlimited lifetime as per <span>[<a href="#IEEE-802.1AR" class="cite xref">IEEE-802.1AR</a>]</span>.
-For this purpose, a special value
-for the notAfter date field, the GeneralizedTime value of 99991231235959Z,
-is utilized.
-This special value was introduced in <span><a href="https://rfc-editor.org/rfc/rfc5280#section-4.1.2.5" class="relref">Section 4.1.2.5</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>.
-When this is done, then the CA certificates and the certificates
-of subordinate CAs have a maximum validity period.
-Therefore,
-careful consideration is required as to whether it is appropriate to issue
-IDevID certificates with no maximum validity period.<a href="#section-17.1.5-2" class="pilcrow">¶</a></p>
+<p id="section-17.1.5-2">In many IoT deployments, IDevIDs are provisioned with an unlimited lifetime, as
+described in <span>[<a href="#IEEE-802.1AR" class="cite xref">IEEE-802.1AR</a>]</span>. For this purpose, the special GeneralizedTime
+value 99991231235959Z is used in the notAfter field, as described in
+<span><a href="https://rfc-editor.org/rfc/rfc5280#section-4.1.2.5" class="relref">Section 4.1.2.5</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>. However, the CA certificate and subordinate CA
+certificates in the certification path may still have finite validity periods.
+Careful consideration is therefore required before issuing IDevID certificates
+with no maximum validity period, since an effectively unlimited certificate
+lifetime is only useful if the relevant certification path remains usable for
+the intended lifetime of the device.<a href="#section-17.1.5-2" class="pilcrow">¶</a></p>
 <p id="section-17.1.5-3">LDevID certificates are, however, issued by the operator or owner,
 and may be renewed at a regular interval using protocols, such
 as Enrollment over Secure Transport (EST) <span>[<a href="#RFC7030" class="cite xref">RFC7030</a>]</span> or
@@ -1831,7 +1847,7 @@ MUST include seconds even where the number of seconds is zero.<a href="#section-
 through notAfter, inclusive. This means that a hypothetical certificate with a
 notBefore date of 9 June 2021 at 03:42:01 and a notAfter date of 7 September
 2021 at 03:42:01 becomes valid at the beginning of the :01 second, and only
-becomes invalid at the :02 second, a period that is 90 days plus 1 second.  So
+becomes invalid at the :02 second, a period that is 90 days plus 1 second. So
 for a 90-day, notAfter must actually be 03:42:00.<a href="#section-17.1.5-4" class="pilcrow">¶</a></p>
 <p id="section-17.1.5-5">For devices without a reliable source of time we advise the use of a device
 management solution, which typically includes a certificate management protocol,
@@ -1866,7 +1882,9 @@ subordinate CAs to use the same algorithm as the end entity certificate.
 Certificates with longer lifetime may well use a cryptographically stronger
 algorithm. However, CAs (or their administrators) that issue certificates
 intended to be validated by constrained IoT devices SHOULD select algorithms
-supported by those devices to ensure successful validation (e.g., P-256).<a href="#section-17.1.6-3" class="pilcrow">¶</a></p>
+supported by those devices to ensure successful validation. Longer-lived CA
+certificates MAY intentionally use stronger or different algorithms if the
+target devices are expected to validate such chains successfully.<a href="#section-17.1.6-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="certificate-revocation-checks">
@@ -1874,45 +1892,41 @@ supported by those devices to ensure successful validation (e.g., P-256).<a href
           <h4 id="name-certificate-revocation-chec">
 <a href="#section-17.1.7" class="section-number selfRef">17.1.7. </a><a href="#name-certificate-revocation-chec" class="section-name selfRef">Certificate Revocation Checks</a>
           </h4>
-<p id="section-17.1.7-1">The Certificate Revocation Lists (CRLs) distribution points extension has
+<p id="section-17.1.7-1">Constrained IoT devices often cannot perform OCSP or CRL checks themselves.
+Instead, deployments typically rely on short-lived certificates, certificate management protocols and operator intervention to manage certificate replacement and revocation-related events.<a href="#section-17.1.7-1" class="pilcrow">¶</a></p>
+<p id="section-17.1.7-2">The Certificate Revocation Lists (CRLs) distribution points extension has
 been defined in RFC 5280 to identify how CRL information is obtained. The
 Authority Information Access (AIA) extension indicates where to find additional
 information about the CA, such as how to access information
 like the online certificate status service (OCSP) or a CA issuer
-certificate. Constrained IoT devices often do not perform OCSP or CRL
-checks. Therefore, CRL distribution points and AIA
+certificate. Therefore, CRL distribution points and AIA
 for OCSP SHOULD NOT be set in IoT device certificates; if set, they MUST NOT
 be marked critical. AIA MAY be used solely for caIssuer to enable chain
-fetching by peers that have sufficient resources.<a href="#section-17.1.7-1" class="pilcrow">¶</a></p>
-<p id="section-17.1.7-2">Instead of using CRLs or OCSP this document follows the guidance in
+fetching by peers that have sufficient resources.<a href="#section-17.1.7-2" class="pilcrow">¶</a></p>
+<p id="section-17.1.7-3">Instead of using CRLs or OCSP this document follows the guidance in
 <span><a href="https://rfc-editor.org/rfc/rfc7925#section-4.4.3" class="relref">Section 4.4.3</a> of [<a href="#RFC7925" class="cite xref">RFC7925</a>]</span>: for certificate revocation, neither
 OCSP nor CRL are used by constrained IoT devices.
 This text refers to OCSP/CRL checks during the handshake; continuous
-certificate validity checks are out of scope and left to application policy.<a href="#section-17.1.7-2" class="pilcrow">¶</a></p>
-<p id="section-17.1.7-3">The use of device management protocols for IoT devices, which often include
-an onboarding or bootstrapping mechanism, has also seen considerable uptake
-in deployed devices. These protocols, some of which are standardized,
-allow for the distribution and updating of certificates on demand. An example
-of a standardized IoT device management protocol is the Lightweight Machine-to-Machine
-(LwM2M) <span>[<a href="#LwM2M-T" class="cite xref">LwM2M-T</a>]</span> <span>[<a href="#LwM2M-C" class="cite xref">LwM2M-C</a>]</span> protocol. Device management protocols enable a
-deployment model where IoT devices utilize end entity certificates with
-shorter lifetime making certificate revocation protocols, like OCSP
-and CRLs, less relevant. Certificate updates do not affect existing TLS
-sessions; re-authentication or session re-establishment is an application
-policy decision. This is particularly important when long-lived TLS
-connections are used. In such a case, the post-handshake
-authentication exchange is triggered when the application requires it. TLS 1.3 provides
-client-to-server post-handshake authentication only. Mutual
-authentication via post-handshake messages is available by the use of the "Exported
-Authenticator" <span>[<a href="#RFC9261" class="cite xref">RFC9261</a>]</span> but requires the application layer protocol
-to carry the payloads.
+certificate validity checks are out of scope and left to application policy.<a href="#section-17.1.7-3" class="pilcrow">¶</a></p>
+<p id="section-17.1.7-4">Device management protocols often include onboarding or bootstrapping support
+and allow certificates to be distributed and updated on demand. An example is
+the Lightweight Machine-to-Machine (LwM2M) <span>[<a href="#LwM2M-T" class="cite xref">LwM2M-T</a>]</span> <span>[<a href="#LwM2M-C" class="cite xref">LwM2M-C</a>]</span> protocol.
+These protocols enable deployment models that use shorter-lived end entity
+certificates, making OCSP and CRLs less relevant.<a href="#section-17.1.7-4" class="pilcrow">¶</a></p>
+<p id="section-17.1.7-5">Certificate updates do not affect existing TLS sessions; re-authentication or
+session re-establishment is an application policy decision. This is
+particularly important for long-lived TLS connections. TLS 1.3 provides
+client-to-server post-handshake authentication only. Mutual authentication via
+post-handshake messages is available by use of the "Exported Authenticator"
+<span>[<a href="#RFC9261" class="cite xref">RFC9261</a>]</span> but requires the application layer protocol to carry the
+payloads.
 If continuous validation is required, the application must trigger
 re-authentication or re-establish a new TLS session; TLS alone does not
-mandate continuous checks.<a href="#section-17.1.7-3" class="pilcrow">¶</a></p>
-<p id="section-17.1.7-4">Hence, instead of performing certificate revocation checks on the IoT device
+mandate continuous checks.<a href="#section-17.1.7-5" class="pilcrow">¶</a></p>
+<p id="section-17.1.7-6">Hence, instead of performing certificate revocation checks on the IoT device
 itself this it is RECOMMENDED to delegate this task to the IoT device
 operator and to take the necessary action to allow IoT devices to remain
-operational.<a href="#section-17.1.7-4" class="pilcrow">¶</a></p>
+operational.<a href="#section-17.1.7-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1957,7 +1971,7 @@ subjectKeyIdentifier of this certificate.<a href="#section-17.2.2-2" class="pilc
 certificates that contain a particular public key."<a href="#section-17.2.3-1" class="pilcrow">¶</a></p>
 <p id="section-17.2.3-2">The Subject Key Identifier extension MUST be set, MUST NOT be marked critical,
 and MUST contain the key identifier of the public key contained in the subject
-public key info field. This profile aligns with CA/Browser Forum for CA certificates.<a href="#section-17.2.3-2" class="pilcrow">¶</a></p>
+public key info field.<a href="#section-17.2.3-2" class="pilcrow">¶</a></p>
 <p id="section-17.2.3-3">The subjectKeyIdentifier is used by path construction algorithms to identify which CA has signed a subordinate certificate.<a href="#section-17.2.3-3" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1970,8 +1984,10 @@ public key info field. This profile aligns with CA/Browser Forum for CA certific
 the purpose (e.g., encipherment, signature, certificate signing) of the key contained
 in the certificate."<a href="#section-17.2.4-1" class="pilcrow">¶</a></p>
 <p id="section-17.2.4-2">The Key Usage extension SHOULD be set; if it is set, it MUST be marked
-critical, and the keyCertSign or cRLSign purposes MUST be set. Additional key
-usages MAY be set depending on the intended usage of the public key.<a href="#section-17.2.4-2" class="pilcrow">¶</a></p>
+critical, and the keyCertSign purpose MUST be set. If the Root CA issues CRLs,
+the cRLSign purpose MUST also be set. Additional key usages MAY be set
+depending on the intended usage of the public key. The digitalSignature purpose
+is not required for a Root CA certificate.<a href="#section-17.2.4-2" class="pilcrow">¶</a></p>
 <p id="section-17.2.4-3"><span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> defines the extended key usage as follows: "This extension indicates
 one or more purposes for which the certified public key may be used, in addition to
 or in place of the basic purposes indicated in the key usage extension."<a href="#section-17.2.4-3" class="pilcrow">¶</a></p>
@@ -2010,6 +2026,9 @@ critical in such certificates."<a href="#section-17.2.5-3.4.1" class="pilcrow">�
           </ul>
 <p id="section-17.2.5-4">The Basic Constraints extension MUST be set, MUST be marked critical, the cA flag MUST
 be set to true and the pathLenConstraint MUST be omitted.<a href="#section-17.2.5-4" class="pilcrow">¶</a></p>
+<p id="section-17.2.5-5">Omitting pathLenConstraint follows common root CA practice but is not meant to
+encourage arbitrarily deep certification hierarchies in IoT deployments.
+Shallow hierarchies remain preferable for constrained devices.<a href="#section-17.2.5-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2134,14 +2153,6 @@ names.<a href="#section-17.4.1-9" class="pilcrow">¶</a></p>
 <p id="section-17.4.1-10">Note: The IEEE 802.1AR recommends to encode information about a Trusted
 Platform Module (TPM), if present, in the HardwareModuleName (<span><a href="https://rfc-editor.org/rfc/rfc4108#section-5" class="relref">Section 5</a> of [<a href="#RFC4108" class="cite xref">RFC4108</a>]</span>). This
 specification does not follow this recommendation.<a href="#section-17.4.1-10" class="pilcrow">¶</a></p>
-<p id="section-17.4.1-11">Where IoT devices are accepting (D)TLS connections, i.e., they are acting as a server,
-it is unlikely that there will be a useful name that can go into the SNI. In general,
-the use of SNI for the purpose of virtual hosting on constrained IoT devices is rare.
-The IoT device cannot depend on a client providing a correct SNI, and so it MAY
-ignore the extension when SNI is not used for virtual hosting.
-This implies that IoT devices cannot do name-based virtual hosting of TLS connections.
-In the unlikely event that an IoT device has multiple servers responding with different
-server certificate, then the server SHOULD use different IP addresses or port numbers.<a href="#section-17.4.1-11" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authority-key-identifier-2">
@@ -2180,7 +2191,8 @@ key. On-device key generation is, however, the preferred approach.<a href="#sect
 IDevID certificates, as it reduces the utility of the IDevID.
 For locally assigned LDevID certificates to be usable with TLS,
 the extendedKeyUsage MUST contain at least one of the following:
-id-kp-serverAuth or id-kp-clientAuth.<a href="#section-17.4.4-3" class="pilcrow">¶</a></p>
+id-kp-serverAuth or id-kp-clientAuth. The selected EKUs MUST match the
+intended TLS role of the device or service using the certificate.<a href="#section-17.4.4-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2428,10 +2440,12 @@ determinism, for example, as described in
       <h2 id="name-post-quantum-cryptography-p">
 <a href="#section-22" class="section-number selfRef">22. </a><a href="#name-post-quantum-cryptography-p" class="section-name selfRef">Post-Quantum Cryptography (PQC) Considerations</a>
       </h2>
-<p id="section-22-1">The recommendations and ciphersuites in this profile are based on classical
-cryptography and are not quantum-resistant.<a href="#section-22-1" class="pilcrow">¶</a></p>
-<p id="section-22-2">As detailed in <span>[<a href="#I-D.ietf-pquip-pqc-engineers" class="cite xref">I-D.ietf-pquip-pqc-engineers</a>]</span>, the IETF is actively working to address the challenges of adopting PQC in various protocols, including TLS. The document highlights key aspects engineers must consider, such as algorithm selection, performance impacts, and deployment strategies. It emphasizes the importance of gradual integration of PQC to ensure secure communication while accounting for the increased computational, memory, and bandwidth requirements of PQC algorithms. These challenges are especially relevant in the context of IoT, where device constraints limit the adoption of larger key sizes and more complex cryptographic operations <span>[<a href="#PQC-PERF" class="cite xref">PQC-PERF</a>]</span>. Besides, any choice need to careful evaluate the associated energy requirements <span>[<a href="#PQC-ENERGY" class="cite xref">PQC-ENERGY</a>]</span>.<a href="#section-22-2" class="pilcrow">¶</a></p>
-<p id="section-22-3">The work of incorporating PQC into TLS <span>[<a href="#I-D.ietf-uta-pqc-app" class="cite xref">I-D.ietf-uta-pqc-app</a>]</span> <span>[<a href="#I-D.ietf-pquip-pqc-hsm-constrained" class="cite xref">I-D.ietf-pquip-pqc-hsm-constrained</a>]</span> is still ongoing, with key exchange message sizes increasing due to larger public keys. These larger keys demand more flash storage and higher RAM usage, presenting significant obstacles for resource-constrained IoT devices. The transition from classical cryptographic algorithms to PQC will be a significant challenge for constrained IoT devices, requiring careful planning to select hardware suitable for the task considering the lifetime of an IoT product.<a href="#section-22-3" class="pilcrow">¶</a></p>
+<p id="section-22-1">This section is informational and provides deployment guidance only; it does
+not add normative requirements to this profile.<a href="#section-22-1" class="pilcrow">¶</a></p>
+<p id="section-22-2">The recommendations and ciphersuites in this profile are based on classical
+cryptography and are not quantum-resistant.<a href="#section-22-2" class="pilcrow">¶</a></p>
+<p id="section-22-3">As detailed in <span>[<a href="#I-D.ietf-pquip-pqc-engineers" class="cite xref">I-D.ietf-pquip-pqc-engineers</a>]</span>, the IETF is actively working to address the challenges of adopting PQC in various protocols, including TLS. The document highlights key aspects engineers must consider, such as algorithm selection, performance impacts, and deployment strategies. It emphasizes the importance of gradual integration of PQC to ensure secure communication while accounting for the increased computational, memory, and bandwidth requirements of PQC algorithms. These challenges are especially relevant in the context of IoT, where device constraints limit the adoption of larger key sizes and more complex cryptographic operations <span>[<a href="#PQC-PERF" class="cite xref">PQC-PERF</a>]</span>. Besides, any choice need to careful evaluate the associated energy requirements <span>[<a href="#PQC-ENERGY" class="cite xref">PQC-ENERGY</a>]</span>.<a href="#section-22-3" class="pilcrow">¶</a></p>
+<p id="section-22-4">The work of incorporating PQC into TLS <span>[<a href="#I-D.ietf-uta-pqc-app" class="cite xref">I-D.ietf-uta-pqc-app</a>]</span> <span>[<a href="#I-D.ietf-pquip-pqc-hsm-constrained" class="cite xref">I-D.ietf-pquip-pqc-hsm-constrained</a>]</span> is still ongoing, with key exchange message sizes increasing due to larger public keys. These larger keys demand more flash storage and higher RAM usage, presenting significant obstacles for resource-constrained IoT devices. The transition from classical cryptographic algorithms to PQC will be a significant challenge for constrained IoT devices, requiring careful planning to select hardware suitable for the task considering the lifetime of an IoT product.<a href="#section-22-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="privacy-considerations">
@@ -2449,14 +2463,19 @@ In particular, IDevIDs and LDevIDs may reveal manufacturer identity, device
 serial numbers, or other information to peers. Protection against passive
 observers is, however, substantially improved since certificates are not
 transmitted in the clear in TLS 1.3 and DTLS 1.3.<a href="#section-23-2" class="pilcrow">¶</a></p>
-<p id="section-23-3">Where privacy is a deployment requirement, implementations and PKI profiles
+<p id="section-23-3">Some deployments use the mechanisms discussed in the Certificate Overhead section,
+such as certificate URLs or external certificate retrieval, instead of always
+transmitting full certificates in the handshake. In these cases, the privacy
+properties differ because stable identifiers may be exposed to retrieval
+services, directories, or to observers of those retrieval transactions.<a href="#section-23-3" class="pilcrow">¶</a></p>
+<p id="section-23-4">Where privacy is a deployment requirement, implementations and PKI profiles
 should include only the minimum identity information needed for authorization
-and interoperability.<a href="#section-23-3" class="pilcrow">¶</a></p>
-<p id="section-23-4">When Connection IDs are used with DTLS 1.3, CID negotiation in post-handshake
+and interoperability.<a href="#section-23-4" class="pilcrow">¶</a></p>
+<p id="section-23-5">When Connection IDs are used with DTLS 1.3, CID negotiation in post-handshake
 messages is encrypted and integrity protected. In addition, record sequence
 numbers are encrypted. Compared to DTLS 1.2 CID, this makes tracking by on-path
 adversaries more difficult and improves privacy in multi-home and mobile
-deployments (<span><a href="https://rfc-editor.org/rfc/rfc9147#section-11" class="relref">Section 11</a> of [<a href="#RFC9147" class="cite xref">RFC9147</a>]</span>).<a href="#section-23-4" class="pilcrow">¶</a></p>
+deployments (<span><a href="https://rfc-editor.org/rfc/rfc9147#section-11" class="relref">Section 11</a> of [<a href="#RFC9147" class="cite xref">RFC9147</a>]</span>).<a href="#section-23-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">
@@ -2464,7 +2483,10 @@ deployments (<span><a href="https://rfc-editor.org/rfc/rfc9147#section-11" class
       <h2 id="name-security-considerations">
 <a href="#section-24" class="section-number selfRef">24. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-24-1">This entire document is about security.<a href="#section-24-1" class="pilcrow">¶</a></p>
+<p id="section-24-1">This entire document is about security.
+One specific trade-off concerns root certificates that are either very long-lived or never expire.
+While they can reduce maintenance pressure in long-lived IoT deployments, they also increase the consequences of key compromise, policy errors and inadequate rollover planning.
+Furthermore, they can make cryptographic transitions more operationally expensive.<a href="#section-24-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
@@ -2694,6 +2716,10 @@ deployments (<span><a href="https://rfc-editor.org/rfc/rfc9147#section-11" class
 <dt id="RFC8879">[RFC8879]</dt>
         <dd>
 <span class="refAuthor">Ghedini, A.</span> and <span class="refAuthor">V. Vasiliev</span>, <span class="refTitle">"TLS Certificate Compression"</span>, <span class="seriesInfo">RFC 8879</span>, <span class="seriesInfo">DOI 10.17487/RFC8879</span>, <time datetime="2020-12" class="refDate">December 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8879">https://www.rfc-editor.org/rfc/rfc8879</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8937">[RFC8937]</dt>
+        <dd>
+<span class="refAuthor">Cremers, C.</span>, <span class="refAuthor">Garratt, L.</span>, <span class="refAuthor">Smyshlyaev, S.</span>, <span class="refAuthor">Sullivan, N.</span>, and <span class="refAuthor">C. Wood</span>, <span class="refTitle">"Randomness Improvements for Security Protocols"</span>, <span class="seriesInfo">RFC 8937</span>, <span class="seriesInfo">DOI 10.17487/RFC8937</span>, <time datetime="2020-10" class="refDate">October 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8937">https://www.rfc-editor.org/rfc/rfc8937</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8995">[RFC8995]</dt>
         <dd>
