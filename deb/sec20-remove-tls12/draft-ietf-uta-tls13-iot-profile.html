@@ -1662,14 +1662,12 @@ use it to indicate their RAM limitations.<a href="#section-13-1" class="pilcrow"
 <a href="#section-16" class="section-number selfRef">16. </a><a href="#name-0-rtt-data" class="section-name selfRef">0-RTT Data</a>
       </h2>
 <p id="section-16-1"><span><a href="https://rfc-editor.org/rfc/rfc8446#appendix-E.5" class="relref">Appendix E.5</a> of [<a href="#RFC8446" class="cite xref">RFC8446</a>]</span> establishes that:<a href="#section-16-1" class="pilcrow">¶</a></p>
-<ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-16-2.1">
-          <p id="section-16-2.1.1">Application protocols MUST NOT use 0-RTT data without a profile that
+<blockquote id="section-16-2">
+        <p id="section-16-2.1">Application protocols MUST NOT use 0-RTT data without a profile that
 defines its use.  That profile needs to identify which messages or
 interactions are safe to use with 0-RTT and how to handle the
-situation when the server rejects 0-RTT and falls back to 1-RTT.<a href="#section-16-2.1.1" class="pilcrow">¶</a></p>
-</li>
-      </ul>
+situation when the server rejects 0-RTT and falls back to 1-RTT.<a href="#section-16-2.1" class="pilcrow">¶</a></p>
+</blockquote>
 <p id="section-16-3">For any application protocol, 0-RTT MUST NOT be used unless a protocol-specific
 profile exists. At the time of writing, no such profile has been defined for
 CoAP <span>[<a href="#CoAP" class="cite xref">CoAP</a>]</span>. Therefore, 0-RTT MUST NOT be used by CoAP applications.<a href="#section-16-3" class="pilcrow">¶</a></p>
@@ -2341,14 +2339,12 @@ forgeries) which makes endpoints that negotiate ciphersuites based on such AEAD
 vulnerable to a trivial DoS attack. See also Sections <a href="https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-11#section-5.3" class="relref">5.3</a> and <a href="https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-11#section-5.4" class="relref">5.4</a> of <span>[<a href="#I-D.irtf-cfrg-aead-limits" class="cite xref">I-D.irtf-cfrg-aead-limits</a>]</span> for further discussion on this topic, as well as
 references to the analysis supporting these conclusions.<a href="#section-20-1" class="pilcrow">¶</a></p>
 <p id="section-20-2">Specifically, <span>[<a href="#RFC9147" class="cite xref">RFC9147</a>]</span> warns that:<a href="#section-20-2" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-20-3">
-<pre>
-&gt; TLS_AES_128_CCM_8_SHA256 MUST NOT be used in DTLS without additional
-&gt; safeguards against forgery. Implementations MUST set usage limits for
-&gt; AEAD_AES_128_CCM_8 based on an understanding of any additional forgery
-&gt; protections that are used.
-</pre><a href="#section-20-3" class="pilcrow">¶</a>
-</div>
+<blockquote id="section-20-3">
+        <p id="section-20-3.1">TLS_AES_128_CCM_8_SHA256 MUST NOT be used in DTLS without additional
+safeguards against forgery. Implementations MUST set usage limits for
+AEAD_AES_128_CCM_8 based on an understanding of any additional forgery
+protections that are used.<a href="#section-20-3.1" class="pilcrow">¶</a></p>
+</blockquote>
 <p id="section-20-4">Since all the ciphersuites required by <span>[<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> and <span>[<a href="#CoAP" class="cite xref">CoAP</a>]</span> rely on CCM_8,
 there is no alternate ciphersuite available for applications that aim to
 eliminate the security and availability threats related to CCM_8 while retaining
