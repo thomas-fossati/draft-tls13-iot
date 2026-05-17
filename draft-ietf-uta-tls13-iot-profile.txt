@@ -532,12 +532,12 @@ Table of Contents
 
 17.1.2.  Serial Number
 
-   CAs MUST generate non-sequential serial numbers greater than or equal
-   to eight (8) octets from a cryptographically secure pseudo-random
-   number generator.  [RFC5280] limits this field to a maximum of 20
-   octets.  The serial number MUST be unique for each certificate issued
-   by a given CA (i.e., the issuer name and the serial number uniquely
-   identify a certificate).
+   The serial number MUST be unique for each certificate issued by a
+   given CA (i.e., the issuer name and the serial number uniquely
+   identify a certificate).  [RFC5280] limits this field to a maximum of
+   20 octets.  To reduce the risk of predictable serial numbers, CAs
+   SHOULD generate serial numbers of at least eight (8) octets using a
+   cryptographically secure pseudo-random number generator.
 
 17.1.3.  Signature
 
