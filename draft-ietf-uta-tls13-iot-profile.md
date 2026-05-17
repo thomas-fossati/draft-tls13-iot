@@ -514,18 +514,15 @@ Constrained devices often lack precise UTC time; implementations SHOULD treat
 time checks with coarse granularity (e.g., day- or hour-level) and ignore leap seconds
 when validating notAfter.
 
-In most IoT deployments, IDevIDs are provisioned with an unlimited lifetime as per {{IEEE-802.1AR}}.
-For this purpose, a special value
-for the notAfter date field, the GeneralizedTime value of 99991231235959Z,
-is utilized.
-This special value was introduced in {{Section 4.1.2.5 of !RFC5280}}.
-When this is done, then the CA certificates and the certificates
-of subordinate CAs have a maximum validity period.
-Therefore,
-careful consideration is required as to whether it is appropriate to issue
-IDevID certificates with no maximum validity period.
-The same trade-off applies to root certificates with a very long lifespan, or that never expire.
-While they reduce maintenance pressure, they also increase the operational cost of algorithm transitions, key rollover and compromise recovery.
+In many IoT deployments, IDevIDs are provisioned with an unlimited lifetime, as
+described in {{IEEE-802.1AR}}. For this purpose, the special GeneralizedTime
+value 99991231235959Z is used in the notAfter field, as described in
+{{Section 4.1.2.5 of !RFC5280}}. However, the CA certificate and subordinate CA
+certificates in the certification path may still have finite validity periods.
+Careful consideration is therefore required before issuing IDevID certificates
+with no maximum validity period, since an effectively unlimited certificate
+lifetime is only useful if the relevant certification path remains usable for
+the intended lifetime of the device.
 
 LDevID certificates are, however, issued by the operator or owner,
 and may be renewed at a regular interval using protocols, such
@@ -540,7 +537,7 @@ Note that the validity period is defined as the period of time from notBefore
 through notAfter, inclusive. This means that a hypothetical certificate with a
 notBefore date of 9 June 2021 at 03:42:01 and a notAfter date of 7 September
 2021 at 03:42:01 becomes valid at the beginning of the :01 second, and only
-becomes invalid at the :02 second, a period that is 90 days plus 1 second.  So
+becomes invalid at the :02 second, a period that is 90 days plus 1 second. So
 for a 90-day, notAfter must actually be 03:42:00.
 
 For devices without a reliable source of time we advise the use of a device
