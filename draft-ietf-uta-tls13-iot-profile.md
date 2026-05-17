@@ -638,8 +638,7 @@ The Key Usage extension SHOULD be set; if it is set, it MUST be marked
 critical, and the keyCertSign purpose MUST be set. If the Root CA issues CRLs,
 the cRLSign purpose MUST also be set. Additional key usages MAY be set
 depending on the intended usage of the public key. The digitalSignature purpose
-is not required for a Root CA certificate unless it is used for some separate
-application-specific purpose.
+is not required for a Root CA certificate.
 
 {{!RFC5280}} defines the extended key usage as follows: "This extension indicates
 one or more purposes for which the certified public key may be used, in addition to
