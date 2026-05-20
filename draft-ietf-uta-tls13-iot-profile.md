@@ -355,34 +355,30 @@ consult {{RFC8937}}.
 
 # Server Name Indication {#sni}
 
-This specification mandates the implementation of the Server Name Indication (SNI)
-extension. Where privacy requirements require it, the ECH (Encrypted Client Hello)
-extension {{?I-D.ietf-tls-esni}} prevents an on-path attacker to determine the domain
-name the client is trying to connect to.
+This specification mandates the implementation of the Server Name Indication
+(SNI) extension for IoT devices acting as clients.
 
-Since the Encrypted Client Hello extension requires use of Hybrid Public Key
-Encryption (HPKE) {{?RFC9180}} and additional protocols require
-further protocol exchanges and cryptographic operations, there is a certain
-overhead associated with this privacy feature.
+Where privacy requirements necessitate it, the ECH (Encrypted Client Hello)
+extension {{?RFC9849}} prevents an on-path attacker from determining the domain
+name the client is trying to connect to.  Since the ECH extension requires the
+use of Hybrid Public Key Encryption (HPKE) {{?RFC9180}}, and additional
+protocols require further protocol exchanges and cryptographic operations,
+there is a certain overhead associated with this privacy feature.  Note that in
+industrial IoT deployments, the use of ECH may be disabled because network
+administrators routinely inspect the SNI to detect malicious behavior.
+Furthermore, to avoid leaking DNS lookups to network inspection altogether,
+additional protocols are needed, including DNS-over-HTTPS (DoH) {{?RFC8484}},
+DNS-over-TLS (DoT) {{?RFC7858}}, and DNS-over-QUIC (DoQ) {{?RFC9250}}.
 
-Note that in industrial IoT deployments the use of ECH may be disabled because
-network administrators inspect the SNI to detect malicious behaviour.
+Where IoT devices are accepting (D)TLS connections (i.e., they are acting as a
+server), it is unlikely that there will be a useful name placed into the SNI by
+the connecting client.  Since an IoT server cannot rely on a client to
+provide a correct SNI, it MAY ignore it.
+In the rare event that an IoT device has multiple server instances responding
+with different server certificates, the device SHOULD use different IP
+addresses or port numbers rather than relying on SNI.
 
-Besides, to avoid leaking DNS lookups from network inspection altogether further
-protocols are needed, including DNS-over-HTTPS (DoH) {{?RFC8484}},
-DNS-over-TLS (DoT) {{?RFC7858}} and DNS-over-QUIC (DoQ) {{?RFC9250}}.
-
-Where IoT devices are accepting (D)TLS connections, i.e., they are acting as a
-server, it is unlikely that there will be a useful name that can go into the
-SNI. In general, the use of SNI for the purpose of virtual hosting on
-constrained IoT devices is rare. The IoT device cannot depend on a client
-providing a correct SNI, and so it MAY ignore the extension when SNI is not
-used for virtual hosting. This implies that IoT devices cannot do name-based
-virtual hosting of TLS connections. In the unlikely event that an IoT device
-has multiple servers responding with different server certificates, the server
-SHOULD use different IP addresses or port numbers.
-
-# Maximum Fragment Length Negotiation {#record_size_limit}
+# Maximum Fragment Length Negotiation {#record_size_limit}
 
 The Maximum Fragment Length Negotiation (MFL) extension has been superseded by
 the Record Size Limit (RSL) extension {{!RFC8449}}. Implementations in
