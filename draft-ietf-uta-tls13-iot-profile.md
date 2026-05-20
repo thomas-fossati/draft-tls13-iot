@@ -571,46 +571,44 @@ target devices are expected to validate such chains successfully.
 
 ### Certificate Revocation Checks
 
-Constrained IoT devices often cannot perform OCSP or CRL checks themselves.
-Instead, deployments typically rely on short-lived certificates, certificate management protocols and operator intervention to manage certificate replacement and revocation-related events.
+Constrained IoT devices often lack the resources to perform traditional
+Certificate Revocation List (CRL) or Online Certificate Status Protocol (OCSP)
+checks. Consistent with the guidance in {{Section 4.4.3 of RFC7925}}, neither
+OCSP nor CRLs are used by constrained IoT devices during the TLS handshake.
 
-The Certificate Revocation Lists (CRLs) distribution points extension has
-been defined in RFC 5280 to identify how CRL information is obtained. The
-Authority Information Access (AIA) extension indicates where to find additional
-information about the CA, such as how to access information
-like the online certificate status service (OCSP) or a CA issuer
-certificate. Therefore, CRL distribution points and AIA
-for OCSP SHOULD NOT be set in IoT device certificates; if set, they MUST NOT
-be marked critical. AIA MAY be used solely for caIssuer to enable chain
-fetching by peers that have sufficient resources.
+Instead, IoT deployments generally rely on short-lived end-entity certificates
+managed via automated onboarding and management protocols (such as Lightweight
+Machine-to-Machine {{LwM2M-T}} {{LwM2M-C}}).  Because these protocols can
+distribute and update certificates on demand, they make real-time revocation
+checks largely unnecessary.
 
-Instead of using CRLs or OCSP this document follows the guidance in
-{{Section 4.4.3 of !RFC7925}}: for certificate revocation, neither
-OCSP nor CRL are used by constrained IoT devices.
-This text refers to OCSP/CRL checks during the handshake; continuous
-certificate validity checks are out of scope and left to application policy.
+Since these checks are bypassed, the CRL Distribution Points extension and
+the Authority Information Access (AIA) extension for OCSP SHOULD NOT be
+included in IoT device certificates.  If they are present, they MUST NOT be
+marked critical.  However, the AIA extension MAY be used to provide the
+caIssuer access method, enabling peers with sufficient resources to fetch
+certificate chains.
 
-Device management protocols often include onboarding or bootstrapping support
-and allow certificates to be distributed and updated on demand. An example is
-the Lightweight Machine-to-Machine (LwM2M) {{LwM2M-T}} {{LwM2M-C}} protocol.
-These protocols enable deployment models that use shorter-lived end entity
-certificates, making OCSP and CRLs less relevant.
+When designing the application layer, developers must account for the fact that
+updating a certificate does not automatically affect existing, long-lived TLS
+sessions.  TLS alone does not mandate continuous validity checks once a
+connection is established.  Furthermore, TLS 1.3 natively supports only
+client-to-server post-handshake authentication.  Achieving mutual
+post-handshake authentication requires the "Exported Authenticator" extension
+{{?RFC9261}}, which adds complexity by forcing the application-layer protocol
+to carry the payload.  Therefore, if continuous validation is strictly required
+for a long-lived connection, it is the application's responsibility to enforce
+this policy by actively triggering re-authentication or tearing down and
+re-establishing the TLS session.
 
-Certificate updates do not affect existing TLS sessions; re-authentication or
-session re-establishment is an application policy decision. This is
-particularly important for long-lived TLS connections. TLS 1.3 provides
-client-to-server post-handshake authentication only. Mutual authentication via
-post-handshake messages is available by use of the "Exported Authenticator"
-{{?RFC9261}} but requires the application layer protocol to carry the
-payloads.
-If continuous validation is required, the application must trigger
-re-authentication or re-establish a new TLS session; TLS alone does not
-mandate continuous checks.
-
-Hence, instead of performing certificate revocation checks on the IoT device
-itself this it is RECOMMENDED to delegate this task to the IoT device
-operator and to take the necessary action to allow IoT devices to remain
-operational.
+Ultimately, instead of attempting to perform revocation checks directly on the
+constrained device, it is RECOMMENDED to delegate this responsibility to the
+IoT device operator, who can take the necessary administrative actions (such as
+deploying updated certificates) to keep the network secure and operational.
+While the above recommendation is valid in most cases, it should be considered
+carefully on a case-by-case basis, taking into account the security risks
+associated with not re-authenticating peers and the cost/complexity of
+implementing an application-layer solution.
 
 ## Root CA Certificate
 
