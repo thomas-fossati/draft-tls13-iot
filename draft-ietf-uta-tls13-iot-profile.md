@@ -595,7 +595,7 @@ sessions.  TLS alone does not mandate continuous validity checks once a
 connection is established.  Furthermore, TLS 1.3 natively supports only
 client-to-server post-handshake authentication.  Achieving mutual
 post-handshake authentication requires the "Exported Authenticator" extension
-{{?RFC9261}}, which adds complexity by forcing the application-layer protocol
+{{?RFC9261}}, which requires the application-layer protocol
 to carry the payload.  Therefore, if continuous validation is strictly required
 for a long-lived connection, it is the application's responsibility to enforce
 this policy by actively triggering re-authentication or tearing down and
