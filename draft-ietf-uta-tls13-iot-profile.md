@@ -594,7 +594,7 @@ updating a certificate does not automatically affect existing, long-lived TLS
 sessions.  TLS alone does not mandate continuous validity checks once a
 connection is established.  Furthermore, TLS 1.3 natively supports only
 client-to-server post-handshake authentication.  Achieving mutual
-post-handshake authentication requires the "Exported Authenticator" extension
+post-handshake authentication requires Exported Authenticators
 {{?RFC9261}}, which requires the application-layer protocol
 to carry the payload.  Therefore, if continuous validation is strictly required
 for a long-lived connection, it is the application's responsibility to enforce
