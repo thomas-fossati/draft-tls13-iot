@@ -102,7 +102,14 @@ informative:
      title: "Lightweight Machine to Machine (LwM2M) V.1.2.2 Technical Specification: Core"
      target: https://www.openmobilealliance.org/release/LightweightM2M/V1_2_2-20240613-A/
      date: June 2024
-
+Toms-Hardware-Oculus-Rift-2018:
+   author:
+      -
+        ins: S. Colaner
+        name: Seth Colaner
+   title: "How To Patch Your Oculus Rift"
+   target: https://www.tomshardware.com/news/oculus-rift-runtime-error-fix%2C36629.html
+   date: March 2018
   Ambrose2017:
      author:
      - ins: C. Ambrose
@@ -512,12 +519,25 @@ Vendors must determine the expected lifespan of their IoT devices. This
 decision directly affects how long firmware and software updates are
 provided for, as well as the level of maintenance that customers can expect.
 It also affects the maximum validity period of certificates.
-Constrained devices often lack precise UTC time; implementations SHOULD treat
-time checks with coarse granularity (e.g., day- or hour-level) and ignore leap seconds
-when validating notAfter.
 
-In many IoT deployments, IDevIDs are provisioned with an unlimited lifetime, as
-described in {{IEEE-802.1AR}}. For this purpose, the special GeneralizedTime
+Constrained devices often lack precise UTC time; implementations SHOULD treat
+time checks with coarse granularity (e.g., day- or hour-level) and ignore leap
+seconds when validating notAfter. For devices without a reliable source of time
+we advise the use of a device management solution, which typically includes a
+certificate management protocol, to manage certificates used by the device over
+their lifecycle. While this approach does not utilize certificates to its widest
+extent, it is a solution that extends the capabilities offered by a raw public
+key approach.
+
+In many IoT deployments, IDevIDs are provisioned with an unlimited lifetime,
+as described in {{IEEE-802.1AR}}. This helps prevent devices from being
+accidentally bricked due to certificate expiration. A real-world example
+occurred in 2018, when Oculus Rift headsets became unusable after an Oculus
+certificate expired {{Toms-Hardware-Oculus-Rift-2018}}. Oculus later issued
+a manual patch, as the expired certificate also blocked the standard software
+update path.
+
+For this purpose, the special GeneralizedTime
 value 99991231235959Z is used in the notAfter field, as described in
 {{Section 4.1.2.5 of !RFC5280}}. However, the CA certificate and subordinate CA
 certificates in the certification path may still have finite validity periods.
@@ -541,12 +561,6 @@ notBefore date of 9 June 2021 at 03:42:01 and a notAfter date of 7 September
 2021 at 03:42:01 becomes valid at the beginning of the :01 second, and only
 becomes invalid at the :02 second, a period that is 90 days plus 1 second. So
 for a 90-day, notAfter must actually be 03:42:00.
-
-For devices without a reliable source of time we advise the use of a device
-management solution, which typically includes a certificate management protocol,
-to manage the lifetime of all the certificates used by the device. While this
-approach does not utilize certificates to its widest extent, it is a solution
-that extends the capabilities offered by a raw public key approach.
 
 ### Subject Public Key Info
 
