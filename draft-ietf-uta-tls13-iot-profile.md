@@ -357,6 +357,8 @@ consult {{RFC8937}}.
 
 This specification mandates the implementation of the Server Name Indication
 (SNI) extension for IoT devices acting as clients.
+This supports edge-to-cloud communication and can be turned off for
+constrained-to-constrained communication.
 
 Where privacy requirements necessitate it, the ECH (Encrypted Client Hello)
 extension {{?RFC9849}} prevents an on-path attacker from determining the domain
