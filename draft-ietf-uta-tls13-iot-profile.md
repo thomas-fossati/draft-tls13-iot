@@ -359,7 +359,7 @@ To support edge-to-cloud communication, this specification mandates the
 implementation of the Server Name Indication (SNI) extension for IoT devices
 acting as clients.
 This functionality is not strictly required for constrained-to-constrained
-communication and can be disabled in such cases.
+communication and could be disabled in such cases.
 However, figuring out how to deactivate SNI can be difficult in some libraries.
 Furthermore, in a multi-vendor IoT deployment, some devices may not be aware of
 whether they are communicating with another device or a cloud service.
