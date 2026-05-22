@@ -390,10 +390,15 @@ Table of Contents
 
 12.  Server Name Indication
 
-   This specification mandates the implementation of the Server Name
-   Indication (SNI) extension for IoT devices acting as clients.  This
-   supports edge-to-cloud communication and can be turned off for
-   constrained-to-constrained communication.
+   To support edge-to-cloud communication, this specification mandates
+   the implementation of the Server Name Indication (SNI) extension for
+   IoT devices acting as clients.  This functionality is not strictly
+   required for constrained-to-constrained communication and can be
+   disabled in such cases.  However, figuring out how to deactivate SNI
+   can be difficult in some libraries.  Furthermore, in a multi-vendor
+   IoT deployment, some devices may not be aware of whether they are
+   communicating with another device or a cloud service.  Therefore, it
+   is best to leave SNI as MTI for all clients.
 
    Where privacy requirements necessitate it, the ECH (Encrypted Client
    Hello) extension [RFC9849] prevents an on-path attacker from

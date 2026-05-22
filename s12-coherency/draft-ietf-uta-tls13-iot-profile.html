@@ -1627,10 +1627,15 @@ consult <span>[<a href="#RFC8937" class="cite xref">RFC8937</a>]</span>.<a href=
       <h2 id="name-server-name-indication">
 <a href="#section-12" class="section-number selfRef">12. </a><a href="#name-server-name-indication" class="section-name selfRef">Server Name Indication</a>
       </h2>
-<p id="section-12-1">This specification mandates the implementation of the Server Name Indication
-(SNI) extension for IoT devices acting as clients.
-This supports edge-to-cloud communication and can be turned off for
-constrained-to-constrained communication.<a href="#section-12-1" class="pilcrow">¶</a></p>
+<p id="section-12-1">To support edge-to-cloud communication, this specification mandates the
+implementation of the Server Name Indication (SNI) extension for IoT devices
+acting as clients.
+This functionality is not strictly required for constrained-to-constrained
+communication and can be disabled in such cases.
+However, figuring out how to deactivate SNI can be difficult in some libraries.
+Furthermore, in a multi-vendor IoT deployment, some devices may not be aware of
+whether they are communicating with another device or a cloud service.
+Therefore, it is best to leave SNI as MTI for all clients.<a href="#section-12-1" class="pilcrow">¶</a></p>
 <p id="section-12-2">Where privacy requirements necessitate it, the ECH (Encrypted Client Hello)
 extension <span>[<a href="#RFC9849" class="cite xref">RFC9849</a>]</span> prevents an on-path attacker from determining the domain
 name the client is trying to connect to.  Since the ECH extension requires the
