@@ -375,7 +375,7 @@ DNS-over-TLS (DoT) {{?RFC7858}}, and DNS-over-QUIC (DoQ) {{?RFC9250}}.
 Where IoT devices are accepting (D)TLS connections (i.e., they are acting as a
 server), it is unlikely that there will be a useful name placed into the SNI by
 the connecting client.  Since an IoT server cannot rely on a client to
-provide a correct SNI, it MAY ignore it.
+provide a correct SNI, IoT devices in a responding (server) mode SHOULD ignore SNI.
 In the rare event that an IoT device has multiple server instances responding
 with different server certificates, the device SHOULD use different IP
 addresses or port numbers rather than relying on SNI.
