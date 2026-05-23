@@ -6,11 +6,11 @@ UTA                                                        H. Tschofenig
 Internet-Draft                                                  UniBw M.
 Updates: 7925 (if approved)                                   T. Fossati
 Intended status: Standards Track                                  Linaro
-Expires: 19 November 2026                                  M. Richardson
+Expires: 24 November 2026                                  M. Richardson
                                                 Sandelman Software Works
                                                               D. Migault
                                                                 Ericsson
-                                                             18 May 2026
+                                                             23 May 2026
 
 
             TLS/DTLS 1.3 Profiles for the Internet of Things
@@ -46,7 +46,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 19 November 2026.
+   This Internet-Draft will expire on 24 November 2026.
 
 Copyright Notice
 
@@ -76,7 +76,7 @@ Table of Contents
    10. Timers and ACKs
    11.  Random Number Generation
    12. Server Name Indication
-   13.  Maximum Fragment Length Negotiation
+   13. Maximum Fragment Length Negotiation
    14. Crypto Agility
    15. Key Length Recommendations
    16. 0-RTT Data
@@ -390,38 +390,40 @@ Table of Contents
 
 12.  Server Name Indication
 
-   This specification mandates the implementation of the Server Name
-   Indication (SNI) extension.  Where privacy requirements require it,
-   the ECH (Encrypted Client Hello) extension [I-D.ietf-tls-esni]
-   prevents an on-path attacker to determine the domain name the client
-   is trying to connect to.
+   To support edge-to-cloud communication, this specification mandates
+   the implementation of the Server Name Indication (SNI) extension for
+   IoT devices acting as clients.  This functionality is not strictly
+   required for constrained-to-constrained communication and could be
+   disabled in such cases.  However, figuring out how to deactivate SNI
+   can be difficult in some libraries.  Furthermore, in a multi-vendor
+   IoT deployment, some devices may not be aware of whether they are
+   communicating with another device or a cloud service.  Therefore, it
+   is best to leave SNI as MTI for all clients.
 
-   Since the Encrypted Client Hello extension requires use of Hybrid
-   Public Key Encryption (HPKE) [RFC9180] and additional protocols
-   require further protocol exchanges and cryptographic operations,
-   there is a certain overhead associated with this privacy feature.
+   Where privacy requirements necessitate it, the ECH (Encrypted Client
+   Hello) extension [RFC9849] prevents an on-path attacker from
+   determining the domain name the client is trying to connect to.
+   Since the ECH extension requires the use of Hybrid Public Key
+   Encryption (HPKE) [RFC9180], and additional protocols require further
+   protocol exchanges and cryptographic operations, there is a certain
+   overhead associated with this privacy feature.  Note that in
+   industrial IoT deployments, the use of ECH may be disabled because
+   network administrators routinely inspect the SNI to detect malicious
+   behavior.  Furthermore, to avoid leaking DNS lookups to network
+   inspection altogether, additional protocols are needed, including
+   DNS-over-HTTPS (DoH) [RFC8484], DNS-over-TLS (DoT) [RFC7858], and
+   DNS-over-QUIC (DoQ) [RFC9250].
 
-   Note that in industrial IoT deployments the use of ECH may be
-   disabled because network administrators inspect the SNI to detect
-   malicious behaviour.
+   Where IoT devices are accepting (D)TLS connections (i.e., they are
+   acting as a server), it is unlikely that there will be a useful name
+   placed into the SNI by the connecting client.  Since an IoT server
+   cannot rely on a client to provide a correct SNI, IoT devices in a
+   responding (server) mode SHOULD ignore SNI.  In the rare event that
+   an IoT device has multiple server instances responding with different
+   server certificates, the device SHOULD use different IP addresses or
+   port numbers rather than relying on SNI.
 
-   Besides, to avoid leaking DNS lookups from network inspection
-   altogether further protocols are needed, including DNS-over-HTTPS
-   (DoH) [RFC8484], DNS-over-TLS (DoT) [RFC7858] and DNS-over-QUIC (DoQ)
-   [RFC9250].
-
-   Where IoT devices are accepting (D)TLS connections, i.e., they are
-   acting as a server, it is unlikely that there will be a useful name
-   that can go into the SNI.  In general, the use of SNI for the purpose
-   of virtual hosting on constrained IoT devices is rare.  The IoT
-   device cannot depend on a client providing a correct SNI, and so it
-   MAY ignore the extension when SNI is not used for virtual hosting.
-   This implies that IoT devices cannot do name-based virtual hosting of
-   TLS connections.  In the unlikely event that an IoT device has
-   multiple servers responding with different server certificates, the
-   server SHOULD use different IP addresses or port numbers.
-
-13.   Maximum Fragment Length Negotiation
+13.  Maximum Fragment Length Negotiation
 
    The Maximum Fragment Length Negotiation (MFL) extension has been
    superseded by the Record Size Limit (RSL) extension [RFC8449].
@@ -631,51 +633,48 @@ Table of Contents
 
 17.1.7.  Certificate Revocation Checks
 
-   Constrained IoT devices often cannot perform OCSP or CRL checks
-   themselves.  Instead, deployments typically rely on short-lived
-   certificates, certificate management protocols and operator
-   intervention to manage certificate replacement and revocation-related
-   events.
+   Constrained IoT devices often lack the resources to perform
+   traditional Certificate Revocation List (CRL) or Online Certificate
+   Status Protocol (OCSP) checks.  Consistent with the guidance in
+   Section 4.4.3 of [RFC7925], neither OCSP nor CRLs are used by
+   constrained IoT devices during the TLS handshake.
 
-   The Certificate Revocation Lists (CRLs) distribution points extension
-   has been defined in RFC 5280 to identify how CRL information is
-   obtained.  The Authority Information Access (AIA) extension indicates
-   where to find additional information about the CA, such as how to
-   access information like the online certificate status service (OCSP)
-   or a CA issuer certificate.  Therefore, CRL distribution points and
-   AIA for OCSP SHOULD NOT be set in IoT device certificates; if set,
-   they MUST NOT be marked critical.  AIA MAY be used solely for
-   caIssuer to enable chain fetching by peers that have sufficient
-   resources.
+   Instead, IoT deployments generally rely on short-lived end-entity
+   certificates managed via automated onboarding and management
+   protocols (such as Lightweight Machine-to-Machine [LwM2M-T]
+   [LwM2M-C]).  Because these protocols can distribute and update
+   certificates on demand, they make real-time revocation checks largely
+   unnecessary.
 
-   Instead of using CRLs or OCSP this document follows the guidance in
-   Section 4.4.3 of [RFC7925]: for certificate revocation, neither OCSP
-   nor CRL are used by constrained IoT devices.  This text refers to
-   OCSP/CRL checks during the handshake; continuous certificate validity
-   checks are out of scope and left to application policy.
+   Since these checks are bypassed, the CRL Distribution Points
+   extension and the Authority Information Access (AIA) extension for
+   OCSP SHOULD NOT be included in IoT device certificates.  If they are
+   present, they MUST NOT be marked critical.  However, the AIA
+   extension MAY be used to provide the caIssuer access method, enabling
+   peers with sufficient resources to fetch certificate chains.
 
-   Device management protocols often include onboarding or bootstrapping
-   support and allow certificates to be distributed and updated on
-   demand.  An example is the Lightweight Machine-to-Machine (LwM2M)
-   [LwM2M-T] [LwM2M-C] protocol.  These protocols enable deployment
-   models that use shorter-lived end entity certificates, making OCSP
-   and CRLs less relevant.
+   When designing the application layer, developers must account for the
+   fact that updating a certificate does not automatically affect
+   existing, long-lived TLS sessions.  TLS alone does not mandate
+   continuous validity checks once a connection is established.
+   Furthermore, TLS 1.3 natively supports only client-to-server post-
+   handshake authentication.  Achieving mutual post-handshake
+   authentication requires Exported Authenticators [RFC9261], which
+   requires the application-layer protocol to carry the authentication
+   payload.  Therefore, if continuous validation is strictly required
+   for a long-lived connection, it is the application's responsibility
+   to enforce this policy by actively triggering re-authentication or
+   tearing down and re-establishing the TLS session.
 
-   Certificate updates do not affect existing TLS sessions; re-
-   authentication or session re-establishment is an application policy
-   decision.  This is particularly important for long-lived TLS
-   connections.  TLS 1.3 provides client-to-server post-handshake
-   authentication only.  Mutual authentication via post-handshake
-   messages is available by use of the "Exported Authenticator"
-   [RFC9261] but requires the application layer protocol to carry the
-   payloads.  If continuous validation is required, the application must
-   trigger re-authentication or re-establish a new TLS session; TLS
-   alone does not mandate continuous checks.
-
-   Hence, instead of performing certificate revocation checks on the IoT
-   device itself this it is RECOMMENDED to delegate this task to the IoT
-   device operator and to take the necessary action to allow IoT devices
-   to remain operational.
+   Ultimately, instead of attempting to perform revocation checks
+   directly on the constrained device, it is RECOMMENDED to delegate
+   this responsibility to the IoT device operator, who can take the
+   necessary administrative actions (such as deploying updated
+   certificates) to keep the network secure and operational.  While the
+   above recommendation is valid in most cases, it should be considered
+   carefully on a case-by-case basis, taking into account the security
+   risks associated with not re-authenticating peers and the cost/
+   complexity of implementing an application-layer solution.
 
 17.2.  Root CA Certificate
 
@@ -1332,13 +1331,6 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-ietf-pquip-
               pqc-hsm-constrained-05>.
 
-   [I-D.ietf-tls-esni]
-              Rescorla, E., Oku, K., Sullivan, N., and C. A. Wood, "TLS
-              Encrypted Client Hello", Work in Progress, Internet-Draft,
-              draft-ietf-tls-esni-25, 14 June 2025,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-tls-
-              esni-25>.
-
    [I-D.ietf-uta-pqc-app]
               Reddy.K, T. and H. Tschofenig, "Post-Quantum Cryptography
               Recommendations for TLS-based Applications", Work in
@@ -1536,6 +1528,10 @@ Table of Contents
               Management Protocol (CMP)", RFC 9810,
               DOI 10.17487/RFC9810, July 2025,
               <https://www.rfc-editor.org/rfc/rfc9810>.
+
+   [RFC9849]  Rescorla, E., Oku, K., Sullivan, N., and C. A. Wood, "TLS
+              Encrypted Client Hello", RFC 9849, DOI 10.17487/RFC9849,
+              March 2026, <https://www.rfc-editor.org/rfc/rfc9849>.
 
 Acknowledgments
 
