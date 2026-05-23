@@ -1826,37 +1826,43 @@ with <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>.<a href="#s
 <p id="section-17.1.5-1">Vendors must determine the expected lifespan of their IoT devices. This
 decision directly affects how long firmware and software updates are
 provided for, as well as the level of maintenance that customers can expect.
-It also affects the maximum validity period of certificates.
-Constrained devices often lack precise UTC time; implementations SHOULD treat
-time checks with coarse granularity (e.g., day- or hour-level) and ignore leap seconds
-when validating notAfter.<a href="#section-17.1.5-1" class="pilcrow">¶</a></p>
-<p id="section-17.1.5-2">In many IoT deployments, IDevIDs are provisioned with an unlimited lifetime, as
-described in <span>[<a href="#IEEE-802.1AR" class="cite xref">IEEE-802.1AR</a>]</span>. For this purpose, the special GeneralizedTime
+It also affects the maximum validity period of certificates.<a href="#section-17.1.5-1" class="pilcrow">¶</a></p>
+<p id="section-17.1.5-2">Constrained devices often lack precise UTC time; implementations SHOULD treat
+time checks with coarse granularity (e.g., day- or hour-level) and ignore leap
+seconds when validating notAfter. For devices without a reliable source of time
+we advise the use of a device management solution, which typically includes a
+certificate management protocol, to manage certificates used by the device over
+their lifecycle. While this approach does not utilize certificates to its widest
+extent, it is a solution that extends the capabilities offered by a raw public
+key approach.<a href="#section-17.1.5-2" class="pilcrow">¶</a></p>
+<p id="section-17.1.5-3">In many IoT deployments, IDevIDs are provisioned with an unlimited lifetime,
+as described in <span>[<a href="#IEEE-802.1AR" class="cite xref">IEEE-802.1AR</a>]</span>. This helps prevent devices from being
+accidentally bricked due to certificate expiration. A real-world example
+occurred in 2018, when Oculus Rift headsets became unusable after an Oculus
+certificate expired <span>[<a href="#Toms-Hardware-Oculus-Rift-2018" class="cite xref">Toms-Hardware-Oculus-Rift-2018</a>]</span>. Oculus later issued
+a manual patch, as the expired certificate also blocked the standard software
+update path.<a href="#section-17.1.5-3" class="pilcrow">¶</a></p>
+<p id="section-17.1.5-4">For this purpose, the special GeneralizedTime
 value 99991231235959Z is used in the notAfter field, as described in
 <span><a href="https://rfc-editor.org/rfc/rfc5280#section-4.1.2.5" class="relref">Section 4.1.2.5</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>. However, the CA certificate and subordinate CA
 certificates in the certification path may still have finite validity periods.
 Careful consideration is therefore required before issuing IDevID certificates
 with no maximum validity period, since an effectively unlimited certificate
 lifetime is only useful if the relevant certification path remains usable for
-the intended lifetime of the device.<a href="#section-17.1.5-2" class="pilcrow">¶</a></p>
-<p id="section-17.1.5-3">LDevID certificates are, however, issued by the operator or owner,
+the intended lifetime of the device.<a href="#section-17.1.5-4" class="pilcrow">¶</a></p>
+<p id="section-17.1.5-5">LDevID certificates are, however, issued by the operator or owner,
 and may be renewed at a regular interval using protocols, such
 as Enrollment over Secure Transport (EST) <span>[<a href="#RFC7030" class="cite xref">RFC7030</a>]</span> or
 Certificate Management Protocol (CMP) <span>[<a href="#RFC9810" class="cite xref">RFC9810</a>]</span> <span>[<a href="#RFC9483" class="cite xref">RFC9483</a>]</span>.
 It is therefore RECOMMENDED to limit the lifetime of these LDevID certificates
 using the notBefore and notAfter fields, as described in <span><a href="https://rfc-editor.org/rfc/rfc5280#section-4.1.2.5" class="relref">Section 4.1.2.5</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>. Values MUST be expressed in Greenwich Mean Time (Zulu) and
-MUST include seconds even where the number of seconds is zero.<a href="#section-17.1.5-3" class="pilcrow">¶</a></p>
-<p id="section-17.1.5-4">Note that the validity period is defined as the period of time from notBefore
+MUST include seconds even where the number of seconds is zero.<a href="#section-17.1.5-5" class="pilcrow">¶</a></p>
+<p id="section-17.1.5-6">Note that the validity period is defined as the period of time from notBefore
 through notAfter, inclusive. This means that a hypothetical certificate with a
 notBefore date of 9 June 2021 at 03:42:01 and a notAfter date of 7 September
 2021 at 03:42:01 becomes valid at the beginning of the :01 second, and only
 becomes invalid at the :02 second, a period that is 90 days plus 1 second. So
-for a 90-day, notAfter must actually be 03:42:00.<a href="#section-17.1.5-4" class="pilcrow">¶</a></p>
-<p id="section-17.1.5-5">For devices without a reliable source of time we advise the use of a device
-management solution, which typically includes a certificate management protocol,
-to manage the lifetime of all the certificates used by the device. While this
-approach does not utilize certificates to its widest extent, it is a solution
-that extends the capabilities offered by a raw public key approach.<a href="#section-17.1.5-5" class="pilcrow">¶</a></p>
+for a 90-day, notAfter must actually be 03:42:00.<a href="#section-17.1.5-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="subject-public-key-info">
@@ -2754,8 +2760,12 @@ Furthermore, they can make cryptographic transitions more operationally expensiv
 <span class="refAuthor">Brockhaus, H.</span>, <span class="refAuthor">von Oheimb, D.</span>, <span class="refAuthor">Ounsworth, M.</span>, and <span class="refAuthor">J. Gray</span>, <span class="refTitle">"Internet X.509 Public Key Infrastructure -- Certificate Management Protocol (CMP)"</span>, <span class="seriesInfo">RFC 9810</span>, <span class="seriesInfo">DOI 10.17487/RFC9810</span>, <time datetime="2025-07" class="refDate">July 2025</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9810">https://www.rfc-editor.org/rfc/rfc9810</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9849">[RFC9849]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Rescorla, E.</span>, <span class="refAuthor">Oku, K.</span>, <span class="refAuthor">Sullivan, N.</span>, and <span class="refAuthor">C. A. Wood</span>, <span class="refTitle">"TLS Encrypted Client Hello"</span>, <span class="seriesInfo">RFC 9849</span>, <span class="seriesInfo">DOI 10.17487/RFC9849</span>, <time datetime="2026-03" class="refDate">March 2026</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9849">https://www.rfc-editor.org/rfc/rfc9849</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="Toms-Hardware-Oculus-Rift-2018">[Toms-Hardware-Oculus-Rift-2018]</dt>
+      <dd>
+<span class="refAuthor">Colaner, S.</span>, <span class="refTitle">"How To Patch Your Oculus Rift"</span>, <time datetime="2018-03" class="refDate">March 2018</time>, <span>&lt;<a href="https://www.tomshardware.com/news/oculus-rift-runtime-error-fix%2C36629.html">https://www.tomshardware.com/news/oculus-rift-runtime-error-fix%2C36629.html</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
