@@ -102,31 +102,30 @@ informative:
      title: "Lightweight Machine to Machine (LwM2M) V.1.2.2 Technical Specification: Core"
      target: https://www.openmobilealliance.org/release/LightweightM2M/V1_2_2-20240613-A/
      date: June 2024
-Toms-Hardware-Oculus-Rift-2018:
+  Toms-Hardware-Oculus-Rift-2018:
    author:
-      -
-        ins: S. Colaner
-        name: Seth Colaner
+    - ins: S. Colaner
+      name: Seth Colaner
    title: "How To Patch Your Oculus Rift"
    target: https://www.tomshardware.com/news/oculus-rift-runtime-error-fix%2C36629.html
    date: March 2018
   Ambrose2017:
-     author:
-     - ins: C. Ambrose
-       name: Christopher Ambrose
-     - ins: J. W. Bos
-       name: Joppe W. Bos
-     - ins: B. Fay
-       name: Björn Fay
-     - ins: M. Joye
-       name: Marc Joye
-     - ins: M. Lochter
-       name: Manfred Lochter
-     - ins: B. Murray
-       name: Bruce Murray
-     date: 2017
-     target: https://eprint.iacr.org/2017/975.pdf
-     title: 'Differential Attacks on Deterministic Signatures'
+    author:
+    - ins: C. Ambrose
+      name: Christopher Ambrose
+    - ins: J. W. Bos
+      name: Joppe W. Bos
+    - ins: B. Fay
+      name: Björn Fay
+    - ins: M. Joye
+      name: Marc Joye
+    - ins: M. Lochter
+      name: Manfred Lochter
+    - ins: B. Murray
+      name: Bruce Murray
+    date: 2017
+    target: https://eprint.iacr.org/2017/975.pdf
+    title: 'Differential Attacks on Deterministic Signatures'
 
 --- abstract
 
