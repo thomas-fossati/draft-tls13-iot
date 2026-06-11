@@ -449,7 +449,8 @@ CoAP {{CoAP}}. Therefore, 0-RTT MUST NOT be used by CoAP applications.
 This section contains updates and clarifications to the certificate profile
 defined in {{!RFC7925}}. The content of Table 1 of {{!RFC7925}} has been
 split by certificate "type" in order to clarify exactly what requirements and
-recommendations apply to which entity in the PKI hierarchy.
+recommendations apply to the certificates that make up a certification path
+from a trust anchor to an end entity certificate.
 
 This profile does not define a specific certificate policy OID; deployments
 MAY define one if needed for local policy enforcement.
