@@ -455,7 +455,7 @@ This profile does not define a specific certificate policy OID; deployments
 MAY define one if needed for local policy enforcement.
 
 The terminology used in this section is not intended to restrict the scope of this profile to IEEE 802.1AR deployments.
-It is used because it conveniently distinguishes between manufacturer-provisioned and operational credentials, which is important in many IoT deployments.
+Terms from IEEE 802.1AR are used because it conveniently distinguishes between manufacturer-provisioned and operational credentials, which is important in many IoT deployments.
 
 A Device Identifier (DevID) consists of:
 
@@ -586,7 +586,7 @@ through notAfter, inclusive. This means that a hypothetical certificate with a
 notBefore date of 9 June 2021 at 03:42:01 and a notAfter date of 7 September
 2021 at 03:42:01 becomes valid at the beginning of the :01 second, and only
 becomes invalid at the :02 second, a period that is 90 days plus 1 second. So
-for a 90-day, notAfter must actually be 03:42:00.
+for a 90-day, the time portion of notAfter is 03:42:00.
 
 ### Subject Public Key Info
 
@@ -607,8 +607,8 @@ certificate contains a key-agreement public key rather than a signature public
 key. This specification prohibits the use of such static DH/ECDH end-entity
 certificates with TLS 1.2.
 
-There is no requirement to use CA certificates and certificates of
-subordinate CAs to use the same algorithm as the end entity certificate.
+There is no requirement for CA certificates to use the same algorithm as the
+end entity certificate.
 Certificates with longer lifetime may well use a cryptographically stronger
 algorithm. However, CAs (or their administrators) that issue certificates
 intended to be validated by constrained IoT devices SHOULD select algorithms
@@ -702,12 +702,13 @@ the cRLSign purpose MUST also be set. Additional key usages MAY be set
 depending on the intended usage of the public key. The digitalSignature purpose
 is not required for a Root CA certificate.
 
+### Extended Key Usage
+
 {{!RFC5280}} defines the extended key usage as follows: "This extension indicates
 one or more purposes for which the certified public key may be used, in addition to
 or in place of the basic purposes indicated in the key usage extension."
 
 This extendedKeyUsage extension MUST NOT be set in CA certificates.
-
 
 ### Basic Constraints
 
