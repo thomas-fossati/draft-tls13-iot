@@ -70,6 +70,7 @@ normative:
   RFC9147: DTLS13
   RFC8446: TLS13
   RFC6520:
+  I-D.ietf-lamps-macaddress-on:
 
 informative:
   RFC9146:
@@ -844,11 +845,12 @@ Subject and the subjectAltName fields. Protocol specifications tend to offer
 recommendations about what identifiers to use and the deployment situation is
 fragmented.
 
-The subject field MAY include a unique device serial number. If a serial
-number is included in the Subject DN, it MUST be encoded in the
-X520SerialNumber attribute. If the serial number is used as an identifier,
+The subject field MAY include a unique manufacturer-assigned device serial
+number. If a serial number is included in the Subject DN, it MUST be encoded in
+the X520SerialNumber attribute. If the serial number is used as an identifier,
 it SHOULD also be placed in the subjectAltName (e.g., as a URI).
-e.g., {{?RFC8995}} use requires a serial number in IDevID certificates.
+For example, use with {{?RFC8995}} requires a serial number in IDevID
+certificates.
 
 {{!RFC5280}} defines: "The subject alternative name extension allows identities
 to be bound to the subject of the certificate. These identities may be included
@@ -857,10 +859,25 @@ in addition to or in place of the identity in the subject field of the certifica
 The subject alternative name extension MAY be set. If it is set, it MUST NOT be
 marked critical, except when the subject DN contains an empty sequence.
 
-If the EUI-64 format is used to identify the subject of an end entity
-certificate, it MUST be encoded as a Subject DN using the X520SerialNumber
-attribute.  The contents of the field is a string of the form `HH-HH-HH-HH-HH-HH-HH-HH`
+This profile distinguishes a manufacturer-assigned device serial number from a
+link-layer interface identifier, even when the manufacturer-assigned serial
+number happens to have the same textual form as an EUI-48 or EUI-64. If an
+EUI-48 or EUI-64 is used as the manufacturer-assigned device serial number, it
+MAY be encoded in the Subject DN using the X520SerialNumber attribute. In that
+case, the contents of the field are a string of the form
+`HH-HH-HH-HH-HH-HH-HH-HH` for an EUI-64 or `HH-HH-HH-HH-HH-HH` for an EUI-48,
 where 'H' is one of the symbols '0'-'9' or 'A'-'F'.
+
+If an EUI-48 or EUI-64 is included as a link-layer identifier, it SHOULD be
+encoded in the subjectAltName extension using the MACAddress otherName defined
+in {{I-D.ietf-lamps-macaddress-on}}. Certificates MUST NOT contain the same
+EUI-48 or EUI-64 in both the X520SerialNumber attribute and the MACAddress
+otherName unless the value intentionally serves both as the
+manufacturer-assigned device serial number and as the link-layer identifier. If
+both fields are present and are intended to identify the same value, relying
+parties MUST treat a mismatch as an authentication failure. Certificates MAY
+include more than one MACAddress otherName when the certificate intentionally
+binds multiple link-layer identifiers to the certified public key.
 
 Per {{!RFC9525}} domain names MUST NOT be encoded in the subject commonName. Instead they
 MUST be encoded in a subjectAltName of type DNS-ID. Domain names MUST NOT
