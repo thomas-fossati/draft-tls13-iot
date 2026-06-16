@@ -210,13 +210,32 @@ deployments and promote the broad adoption of secure communication standards.
 
 This document updates {{RFC7925}} with respect to the X.509 certificate profile ({{certificate_profile}}) and ciphersuite requirements ({{ciphersuites}}).
 
+This document is organized as follows. The sections from {{credential_types}}
+through {{zerortt}} profile TLS/DTLS credentials and protocol features relevant
+to constrained IoT deployments, including credential types, session resumption,
+compression, forward secrecy, server name indication (SNI), record sizing,
+crypto agility, key lengths, and 0-RTT data. {{certificate_profile}} updates
+and clarifies the X.509 certificate profile from {{RFC7925}}.
+{{trust_anchor_update}} and {{certificate_overhead}} discuss trust-anchor update
+and certificate-size overhead. {{ciphersuites}} updates the ciphersuite
+requirements. The remaining sections discuss fault attacks, post-quantum
+cryptography, privacy, and security considerations.
+
 # Conventions and Terminology
 
 {::boilerplate bcp14}
 
 This document reuses the terms "SHOULD+", "SHOULD-" and "MUST-" from {{!RFC8221}}.
 
+This document uses TLS terminology from {{-TLS13}}, DTLS terminology from
+{{-DTLS13}}, and X.509 certificate and certification path terminology from
+{{!RFC5280}}. IoT device-class terminology follows {{RFC7228}} and
+{{I-D.ietf-iotops-7228bis}}. The DevID, IDevID, and LDevID terms used in the
+certificate profile are introduced in {{IEEE-802.1AR}} and described in
+{{certificate_profile}}.
+
 # Credential Types
+{: #credential_types}
 
 TLS/DTLS allow different credential types to be used. These include X.509
 certificates and raw public keys, pre-shared keys (PSKs), and passwords.
@@ -407,6 +426,7 @@ The recommendations in {{Section 19 of !RFC7925}} are applicable.
 The recommendations in {{Section 20 of !RFC7925}} are applicable.
 
 # 0-RTT Data
+{: #zerortt}
 
 {{Appendix E.5 of -TLS13}} establishes that:
 
@@ -632,7 +652,11 @@ This section outlines the requirements for root CA certificates.
 
 ### Subject
 
-{{!RFC5280}} mandates that Root CA certificates MUST have a non-empty subject field. The subject field MUST contain the commonName, the organizationName, and the countryName attribute and MAY contain an organizationalUnitName attribute.
+{{Section 4.1.2.6 of !RFC5280}} requires that, when the subject is a CA,
+the subject field be populated with a non-empty distinguished name. Therefore,
+Root CA certificates MUST have a non-empty subject field. The subject field
+MUST contain the commonName, the organizationName, and the countryName
+attribute and MAY contain an organizationalUnitName attribute.
 If a subjectAltName extension is present, it SHOULD be set to a value
 consistent with the subject and SHOULD NOT be marked critical.
 
@@ -661,7 +685,7 @@ The subjectKeyIdentifier is used by path construction algorithms to identify whi
 
 ### Key Usage
 
-{{!RFC5280}} defines the key usage field as follows: "The key usage extension defines
+{{Section 4.2.1.3 of !RFC5280}} defines the key usage field as follows: "The key usage extension defines
 the purpose (e.g., encipherment, signature, certificate signing) of the key contained
 in the certificate."
 
@@ -671,7 +695,9 @@ the cRLSign purpose MUST also be set. Additional key usages MAY be set
 depending on the intended usage of the public key. The digitalSignature purpose
 is not required for a Root CA certificate.
 
-{{!RFC5280}} defines the extended key usage as follows: "This extension indicates
+### Extended Key Usage
+
+{{Section 4.2.1.12 of !RFC5280}} defines the extended key usage as follows: "This extension indicates
 one or more purposes for which the certified public key may be used, in addition to
 or in place of the basic purposes indicated in the key usage extension."
 
@@ -680,7 +706,7 @@ This extendedKeyUsage extension MUST NOT be set in CA certificates.
 
 ### Basic Constraints
 
-{{!RFC5280}} states that "The Basic Constraints extension identifies whether the subject
+{{Section 4.2.1.9 of !RFC5280}} states that "The Basic Constraints extension identifies whether the subject
 of the certificate is a CA and the maximum depth of valid certification paths that include
 this certificate. The cA boolean indicates whether the certified public key may be used to
 verify certificate signatures."
@@ -728,11 +754,14 @@ field.
 
 ### Key Usage
 
-The Key Usage extension MUST be set, MUST be marked critical, the keyCertSign or
-cRLSign purposes MUST be set, and the digitalSignature purpose SHOULD be set.
+{{Section 4.2.1.3 of !RFC5280}} defines the key usage extension. The Key Usage
+extension MUST be set, MUST be marked critical, and the keyCertSign purpose MUST
+be set. If the subordinate CA issues CRLs, the cRLSign purpose MUST also be set.
+The digitalSignature purpose SHOULD be set.
 
 Subordinate certification authorities SHOULD NOT have any extendedKeyUsage.
-{{RFC5280}} reserves EKUs to be meaningful only in end entity certificates.
+{{Section 4.2.1.12 of !RFC5280}} reserves EKUs to be meaningful only in end
+entity certificates.
 
 ### Basic Constraints
 
@@ -826,6 +855,7 @@ id-kp-serverAuth or id-kp-clientAuth. The selected EKUs MUST match the
 intended TLS role of the device or service using the certificate.
 
 # Update of Trust Anchors
+{: #trust_anchor_update}
 
 Since the publication of RFC 7925 the need for firmware update mechanisms
 has been reinforced and the work on standardizing a secure and
@@ -841,6 +871,7 @@ have also offered ways to update trust anchors. See, for example,
 via EST.
 
 # Certificate Overhead
+{: #certificate_overhead}
 
 In a public key-based key exchange, certificates and public keys are a major
 contributor to the size of the overall handshake. For example, in a regular TLS
