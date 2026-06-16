@@ -413,11 +413,11 @@ use it to indicate their RAM limitations.
 # Crypto Agility
 
 The recommendations in {{Section 19 of !RFC7925}} are applicable.
-The third bullet in that section anticipated the evolution of cryptographic
+The third bullet point in that section anticipated the evolution of cryptographic
 hardware support in IoT devices. Today, chip manufacturers commonly provide
-hardware acceleration for AES-CCM as well as other AES modes, including
-AES-GCM. Consequently, the ciphersuite recommendations in this document have
-shifted from CCM toward GCM, as described in {{ciphersuites}}.
+hardware acceleration for AES-CCM, as well as for other AES modes, including
+AES-GCM. Note that the ciphersuite recommendations in this document now
+include GCM, in addition to CCM, as described in {{ciphersuites}}.
 
 # Key Length Recommendations
 
