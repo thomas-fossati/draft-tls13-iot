@@ -6,11 +6,11 @@ UTA                                                        H. Tschofenig
 Internet-Draft                                                  UniBw M.
 Updates: 7925 (if approved)                                   T. Fossati
 Intended status: Standards Track                                  Linaro
-Expires: 24 November 2026                                  M. Richardson
+Expires: 18 December 2026                                  M. Richardson
                                                 Sandelman Software Works
                                                               D. Migault
                                                                 Ericsson
-                                                             23 May 2026
+                                                            16 June 2026
 
 
             TLS/DTLS 1.3 Profiles for the Internet of Things
@@ -46,7 +46,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 November 2026.
+   This Internet-Draft will expire on 18 December 2026.
 
 Copyright Notice
 
@@ -333,15 +333,17 @@ Table of Contents
    For a few, very specific Industrial IoT use cases [RFC9150] defines
    two cipher suites that provide data authenticity, but not data
    confidentiality.  For details and use constraints, defer to [RFC9150]
-   (especially Section 9 of [RFC9150]).  Implementations may not support
-   these suites; deployments should not assume availability.  This
-   document does not add new guidance beyond [RFC9150].  Profiling the
-   use of authentication- and integrity-only cipher suites is out of
+   (especially Section 9 of [RFC9150]).  Implementations might not
+   support these suites; deployments should not assume availability.
+   This document does not add new guidance beyond [RFC9150].  Profiling
+   the use of authentication- and integrity-only cipher suites is out of
    scope for this specification.
 
 9.  Keep-Alive
 
-   The discussion in Section 10 of [RFC7925] is applicable.
+   The discussion in Section 10 of [RFC7925] is applicable.  When a TLS/
+   DTLS-level keep-alive or path MTU discovery mechanism is needed, use
+   of the Heartbeat Extension defined in [RFC6520] is RECOMMENDED.
 
 10.  Timers and ACKs
 
@@ -1224,6 +1226,12 @@ Table of Contents
               RFC 5758, DOI 10.17487/RFC5758, January 2010,
               <https://www.rfc-editor.org/rfc/rfc5758>.
 
+   [RFC6520]  Seggelmann, R., Tuexen, M., and M. Williams, "Transport
+              Layer Security (TLS) and Datagram Transport Layer Security
+              (DTLS) Heartbeat Extension", RFC 6520,
+              DOI 10.17487/RFC6520, February 2012,
+              <https://www.rfc-editor.org/rfc/rfc6520>.
+
    [RFC7925]  Tschofenig, H., Ed. and T. Fossati, "Transport Layer
               Security (TLS) / Datagram Transport Layer Security (DTLS)
               Profiles for the Internet of Things", RFC 7925,
@@ -1289,9 +1297,9 @@ Table of Contents
               Richardson, M., Van der Stok, P., Kampanakis, P., and E.
               Dijk, "Constrained Bootstrapping Remote Secure Key
               Infrastructure (cBRSKI)", Work in Progress, Internet-
-              Draft, draft-ietf-anima-constrained-voucher-30, 27
-              February 2026, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-anima-constrained-voucher-30>.
+              Draft, draft-ietf-anima-constrained-voucher-31, 8 June
+              2026, <https://datatracker.ietf.org/doc/html/draft-ietf-
+              anima-constrained-voucher-31>.
 
    [I-D.ietf-cose-cbor-encoded-cert]
               Mattsson, J. P., Selander, G., Raza, S., Höglund, J.,
@@ -1364,9 +1372,9 @@ Table of Contents
               Richardson, M., "A Taxonomy of operational security
               considerations for manufacturer installed keys and Trust
               Anchors", Work in Progress, Internet-Draft, draft-irtf-
-              t2trg-taxonomy-manufacturer-anchors-16, 22 April 2026,
+              t2trg-taxonomy-manufacturer-anchors-18, 29 May 2026,
               <https://datatracker.ietf.org/doc/html/draft-irtf-t2trg-
-              taxonomy-manufacturer-anchors-16>.
+              taxonomy-manufacturer-anchors-18>.
 
    [IEEE-802.1AR]
               "ISO/IEC/IEEE International Standard for
@@ -1388,13 +1396,7 @@ Table of Contents
               LightweightM2M/V1_2_2-20240613-A/>.
 
    [PQC-ENERGY]
-              Tasopoulos, G., Dimopoulos, C., Fournaris, A., Zhao, R.,
-              Sakzad, A., and R. Steinfeld, "Energy Consumption
-              Evaluation of Post-Quantum TLS 1.3 for Resource-
-              Constrained Embedded Devices", ACM, Proceedings of the
-              20th ACM International Conference on Computing
-              Frontiers pp. 366-374, DOI 10.1145/3587135.3592821, May
-              2023, <https://doi.org/10.1145/3587135.3592821>.
+              "*** BROKEN REFERENCE ***".
 
    [PQC-PERF] Tasopoulos, G., Li, J., Fournaris, A., Zhao, R., Sakzad,
               A., and R. Steinfeld, "Performance Evaluation of Post-
