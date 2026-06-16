@@ -69,6 +69,7 @@ contributor:
 normative:
   RFC9147: DTLS13
   RFC8446: TLS13
+  RFC6520:
 
 informative:
   RFC9146:
@@ -318,7 +319,7 @@ SHOULD be avoided unless the application can tolerate the loss of forward secrec
 For a few, very specific Industrial IoT use cases {{?RFC9150}} defines two cipher
 suites that provide data authenticity, but not data confidentiality. For details
 and use constraints, defer to {{?RFC9150}} (especially {{Section 9 of RFC9150}}).
-Implementations may not support these suites; deployments should not assume
+Implementations might not support these suites; deployments should not assume
 availability. This document does not add new guidance beyond {{?RFC9150}}.
 Profiling the use of authentication- and integrity-only cipher suites is out of
 scope for this specification.
@@ -326,6 +327,8 @@ scope for this specification.
 # Keep-Alive
 
 The discussion in {{Section 10 of !RFC7925}} is applicable.
+When a TLS/DTLS-level keep-alive or path MTU discovery mechanism is needed,
+use of the Heartbeat Extension defined in {{RFC6520}} is RECOMMENDED.
 
 # Timers and ACKs
 
