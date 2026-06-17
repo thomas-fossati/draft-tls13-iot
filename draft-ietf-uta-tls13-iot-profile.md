@@ -374,17 +374,23 @@ Furthermore, in a multi-vendor IoT deployment, some devices may not be aware of
 whether they are communicating with another device or a cloud service.
 Therefore, it is best to leave SNI as MTI for all clients.
 
-Where privacy requirements necessitate it, the ECH (Encrypted Client Hello)
-extension {{?RFC9849}} prevents an on-path attacker from determining the domain
-name the client is trying to connect to.  Since the ECH extension requires the
-use of Hybrid Public Key Encryption (HPKE) {{?RFC9180}}, and additional
-protocols require further protocol exchanges and cryptographic operations,
-there is a certain overhead associated with this privacy feature.  Note that in
-industrial IoT deployments, the use of ECH may be disabled because network
-administrators routinely inspect the SNI to detect malicious behavior.
+When a deployment requires that the identity of the server being contacted
+is not revealed to on-path observers — for example, in consumer-facing IoT
+devices communicating over untrusted networks, or in healthcare and personal
+wellness applications where connection metadata may disclose sensitive
+information — the ECH (Encrypted Client Hello) extension {{?RFC9849}} prevents
+an on-path attacker from determining the domain name the client is trying to
+connect to.  Since the ECH extension requires the use of Hybrid Public Key
+Encryption (HPKE) {{?RFC9180}}, and additional protocols require further
+protocol exchanges and cryptographic operations, there is a certain overhead
+associated with this privacy feature.  Note that in industrial IoT deployments,
+the use of ECH may be disabled because network administrators routinely inspect
+the SNI to detect malicious behavior.
 Furthermore, to avoid leaking DNS lookups to network inspection altogether,
 additional protocols are needed, including DNS-over-HTTPS (DoH) {{?RFC8484}},
 DNS-over-TLS (DoT) {{?RFC7858}}, and DNS-over-QUIC (DoQ) {{?RFC9250}}.
+See {{privacy-considerations}} for further discussion of privacy properties
+and guidance on when ECH support is appropriate.
 
 Where IoT devices are accepting (D)TLS connections (i.e., they are acting as a
 server), it is unlikely that there will be a useful name placed into the SNI by
@@ -1020,13 +1026,21 @@ As detailed in {{I-D.ietf-pquip-pqc-engineers}}, the IETF is actively working to
 
 The work of incorporating PQC into TLS {{?I-D.ietf-uta-pqc-app}} {{?I-D.ietf-pquip-pqc-hsm-constrained}} is still ongoing, with key exchange message sizes increasing due to larger public keys. These larger keys demand more flash storage and higher RAM usage, presenting significant obstacles for resource-constrained IoT devices. The transition from classical cryptographic algorithms to PQC will be a significant challenge for constrained IoT devices, requiring careful planning to select hardware suitable for the task considering the lifetime of an IoT product.
 
-# Privacy Considerations
+# Privacy Considerations {#privacy-considerations}
 
 The privacy considerations in {{Section 22 of !RFC7925}} largely continue to
 apply. However, compared to TLS 1.2 and DTLS 1.2, TLS 1.3 and DTLS 1.3 encrypt
 a larger portion of the handshake, which reduces the amount of identity and
 credential metadata observable on the wire by passive attackers. Extensions,
-such as the encrypted ClientHello, further increase privacy protection.
+such as the Encrypted Client Hello (ECH) {{?RFC9849}} (see also {{sni}}),
+further increase privacy protection by concealing the target server identity
+from passive observers.  Deployments that handle personal data, operate over
+shared or untrusted network infrastructure, or must comply with data-protection
+regulations (e.g., devices in smart-home, healthcare, or consumer wearable
+contexts) SHOULD support ECH when the server infrastructure provides the
+necessary HPKE key configuration.  Deployments where network administrators
+require SNI visibility for security monitoring (e.g., industrial IoT) MAY
+disable ECH.
 
 Certificate fields can expose stable device identifiers and other metadata.
 In particular, IDevIDs and LDevIDs may reveal manufacturer identity, device
