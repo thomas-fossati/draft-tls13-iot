@@ -469,8 +469,12 @@ prime-field curves used by this profile, secp256r1 provides the intended
 > situation when the server rejects 0-RTT and falls back to 1-RTT.
 
 For any application protocol, 0-RTT MUST NOT be used unless a protocol-specific
-profile exists. At the time of writing, no such profile has been defined for
-CoAP {{CoAP}}. Therefore, 0-RTT MUST NOT be used by CoAP applications.
+profile exists.
+
+At the time of writing, no such profile has been defined for CoAP {{CoAP}}.
+Therefore, 0-RTT MUST NOT be used by CoAP applications.
+
+No specific recommendations are given for non-IETF IoT protocols such as MQTT.
 
 # Certificate Profile {#certificate_profile}
 
