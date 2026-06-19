@@ -495,10 +495,10 @@ Table of Contents
    protocol-specific profile exists.
 
    At the time of writing, no such profile has been defined for CoAP
-   [CoAP].  Therefore, 0-RTT MUST NOT be used by CoAP applications.  For
-   other IoT protocols, such as MQTT, no protocol-specific profiles
-   exist either.  No specific recommendations are given for non-IETF
-   protocols.
+   [CoAP].  Therefore, 0-RTT MUST NOT be used by CoAP applications.
+
+   No specific recommendations are given for non-IETF IoT protocols,
+   like MQTT.
 
 17.  Certificate Profile
 
