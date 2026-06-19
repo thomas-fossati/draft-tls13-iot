@@ -1058,7 +1058,8 @@ a future cryptographically relevant quantum computer, provided that the
 external PSK is generated and distributed securely. It does not make the
 certificate-based authentication quantum resistant. Deployments can use this
 mechanism as a migration path while PQC algorithms are being introduced, at
-the cost of provisioning and managing external PSKs.
+certificate-based authentication quantum resistant. Deployments can use this
+mechanism as a migration path while quantum resistant algorithms are being introduced, at
 
 # Privacy Considerations {#privacy-considerations}
 
