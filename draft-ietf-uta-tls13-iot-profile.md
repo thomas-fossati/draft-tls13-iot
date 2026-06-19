@@ -210,15 +210,20 @@ deployments and promote the broad adoption of secure communication standards.
 
 This document updates {{RFC7925}} with respect to the X.509 certificate profile ({{certificate_profile}}) and ciphersuite requirements ({{ciphersuites}}).
 
-This document is organized as follows. The sections from {{credential_types}}
+This document is organized as follows. 
+The sections from {{credential_types}}
 through {{zerortt}} profile TLS/DTLS credentials and protocol features relevant
 to constrained IoT deployments, including credential types, session resumption,
 compression, forward secrecy, server name indication (SNI), record sizing,
 crypto agility, key lengths, and 0-RTT data. {{certificate_profile}} updates
 and clarifies the X.509 certificate profile from {{RFC7925}}.
+
+TLS protocol compatibility is a required basis, but it is insufficient to permit interoperability at the level of authentication and authorization.
 {{trust_anchor_update}} and {{certificate_overhead}} discuss trust-anchor update
 and certificate-size overhead. {{ciphersuites}} updates the ciphersuite
-requirements. The remaining sections discuss fault attacks, post-quantum
+requirements. 
+
+The remaining sections discuss fault attacks, post-quantum
 cryptography, privacy, and security considerations.
 
 # Conventions and Terminology
