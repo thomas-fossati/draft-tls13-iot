@@ -658,8 +658,10 @@ This section outlines the requirements for root CA certificates.
 ### Subject
 
 {{Section 4.1.2.6 of !RFC5280}} requires that, when the subject is a CA,
-the subject field be populated with a non-empty distinguished name. Therefore,
-Root CA certificates MUST have a non-empty subject field. The subject field
+the subject field be populated with a non-empty distinguished name. 
+Therefore, Root CA certificates MUST have a non-empty subject field. 
+This is because a CA's SubjectDN becomes the subordinate certificate's IssuerDN, which MUST NOT be empty.
+The subject field
 MUST contain the commonName, the organizationName, and the countryName
 attribute and MAY contain an organizationalUnitName attribute.
 If a subjectAltName extension is present, it SHOULD be set to a value
