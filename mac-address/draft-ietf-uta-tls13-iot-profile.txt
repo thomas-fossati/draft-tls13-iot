@@ -6,11 +6,11 @@ UTA                                                        H. Tschofenig
 Internet-Draft                                                  UniBw M.
 Updates: 7925 (if approved)                                   T. Fossati
 Intended status: Standards Track                                  Linaro
-Expires: 18 December 2026                                  M. Richardson
+Expires: 21 December 2026                                  M. Richardson
                                                 Sandelman Software Works
                                                               D. Migault
                                                                 Ericsson
-                                                            16 June 2026
+                                                            19 June 2026
 
 
             TLS/DTLS 1.3 Profiles for the Internet of Things
@@ -46,7 +46,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 18 December 2026.
+   This Internet-Draft will expire on 21 December 2026.
 
 Copyright Notice
 
@@ -211,6 +211,23 @@ Table of Contents
    This document updates [RFC7925] with respect to the X.509 certificate
    profile (Section 17) and ciphersuite requirements (Section 20).
 
+   This document is organized as follows.  The sections from Section 3
+   through Section 16 profile TLS/DTLS credentials and protocol features
+   relevant to constrained IoT deployments, including credential types,
+   session resumption, compression, forward secrecy, server name
+   indication (SNI), record sizing, crypto agility, key lengths, and
+   0-RTT data.  Section 17 updates and clarifies the X.509 certificate
+   profile from [RFC7925].
+
+   TLS protocol compatibility is a required basis, but it is
+   insufficient to permit interoperability at the level of
+   authentication and authorization.  Section 18 and Section 19 discuss
+   trust-anchor update and certificate-size overhead.  Section 20
+   updates the ciphersuite requirements.
+
+   The remaining sections discuss fault attacks, post-quantum
+   cryptography, privacy, and security considerations.
+
 2.  Conventions and Terminology
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -221,6 +238,13 @@ Table of Contents
 
    This document reuses the terms "SHOULD+", "SHOULD-" and "MUST-" from
    [RFC8221].
+
+   This document uses TLS terminology from [RFC8446], DTLS terminology
+   from [RFC9147], and X.509 certificate and certification path
+   terminology from [RFC5280].  IoT device-class terminology follows
+   [RFC7228] and [I-D.ietf-iotops-7228bis].  The DevID, IDevID, and
+   LDevID terms used in the certificate profile are introduced in
+   [IEEE-802.1AR] and described in Section 17.
 
 3.  Credential Types
 
@@ -334,15 +358,17 @@ Table of Contents
    For a few, very specific Industrial IoT use cases [RFC9150] defines
    two cipher suites that provide data authenticity, but not data
    confidentiality.  For details and use constraints, defer to [RFC9150]
-   (especially Section 9 of [RFC9150]).  Implementations may not support
-   these suites; deployments should not assume availability.  This
-   document does not add new guidance beyond [RFC9150].  Profiling the
-   use of authentication- and integrity-only cipher suites is out of
+   (especially Section 9 of [RFC9150]).  Implementations might not
+   support these suites; deployments should not assume availability.
+   This document does not add new guidance beyond [RFC9150].  Profiling
+   the use of authentication- and integrity-only cipher suites is out of
    scope for this specification.
 
 9.  Keep-Alive
 
-   The discussion in Section 10 of [RFC7925] is applicable.
+   The discussion in Section 10 of [RFC7925] is applicable.  When a TLS/
+   DTLS-level keep-alive or path MTU discovery mechanism is needed, use
+   of the Heartbeat Extension defined in [RFC6520] is RECOMMENDED.
 
 10.  Timers and ACKs
 
@@ -436,12 +462,12 @@ Table of Contents
 14.  Crypto Agility
 
    The recommendations in Section 19 of [RFC7925] are applicable.  The
-   third bullet in that section anticipated the evolution of
+   third bullet point in that section anticipated the evolution of
    cryptographic hardware support in IoT devices.  Today, chip
-   manufacturers commonly provide hardware acceleration for AES-CCM as
-   well as other AES modes, including AES-GCM.  Consequently, the
-   ciphersuite recommendations in this document have shifted from CCM
-   toward GCM, as described in Section 20.
+   manufacturers commonly provide hardware acceleration for AES-CCM, as
+   well as for other AES modes, including AES-GCM.  Note that the
+   ciphersuite recommendations in this document now include GCM, in
+   addition to CCM, as described in Section 20.
 
 15.  Key Length Recommendations
 
@@ -483,8 +509,8 @@ Table of Contents
    deployments MAY define one if needed for local policy enforcement.
 
    The terminology used in this section is not intended to restrict the
-   scope of this profile to IEEE 802.1AR deployments.  Terms from IEEE
-   802.1AR are used because it conveniently distinguishes between
+   scope of this profile to IEEE 802.1AR deployments.  Terms from
+   [IEEE-802.1AR] are used because it conveniently distinguishes between
    manufacturer-provisioned and operational credentials, which is
    important in many IoT deployments.
 
@@ -716,12 +742,16 @@ Table of Contents
 
 17.2.1.  Subject
 
-   [RFC5280] mandates that Root CA certificates MUST have a non-empty
-   subject field.  The subject field MUST contain the commonName, the
-   organizationName, and the countryName attribute and MAY contain an
-   organizationalUnitName attribute.  If a subjectAltName extension is
-   present, it SHOULD be set to a value consistent with the subject and
-   SHOULD NOT be marked critical.
+   Section 4.1.2.6 of [RFC5280] requires that, when the subject is a CA,
+   the subject field be populated with a non-empty distinguished name.
+   Therefore, Root CA certificates MUST have a non-empty subject field.
+   This is because a CA's SubjectDN becomes the subordinate
+   certificate's IssuerDN, which MUST NOT be empty.  The subject field
+   MUST contain the commonName, the organizationName, and the
+   countryName attribute and MAY contain an organizationalUnitName
+   attribute.  If a subjectAltName extension is present, it SHOULD be
+   set to a value consistent with the subject and SHOULD NOT be marked
+   critical.
 
 17.2.2.  Authority Key Identifier
 
@@ -750,9 +780,10 @@ Table of Contents
 
 17.2.4.  Key Usage
 
-   [RFC5280] defines the key usage field as follows: "The key usage
-   extension defines the purpose (e.g., encipherment, signature,
-   certificate signing) of the key contained in the certificate."
+   Section 4.2.1.3 of [RFC5280] defines the key usage field as follows:
+   "The key usage extension defines the purpose (e.g., encipherment,
+   signature, certificate signing) of the key contained in the
+   certificate."
 
    The Key Usage extension SHOULD be set; if it is set, it MUST be
    marked critical, and the keyCertSign purpose MUST be set.  If the
@@ -763,20 +794,20 @@ Table of Contents
 
 17.2.5.  Extended Key Usage
 
-   [RFC5280] defines the extended key usage as follows: "This extension
-   indicates one or more purposes for which the certified public key may
-   be used, in addition to or in place of the basic purposes indicated
-   in the key usage extension."
+   Section 4.2.1.12 of [RFC5280] defines the extended key usage as
+   follows: "This extension indicates one or more purposes for which the
+   certified public key may be used, in addition to or in place of the
+   basic purposes indicated in the key usage extension."
 
    This extendedKeyUsage extension MUST NOT be set in CA certificates.
 
 17.2.6.  Basic Constraints
 
-   [RFC5280] states that "The Basic Constraints extension identifies
-   whether the subject of the certificate is a CA and the maximum depth
-   of valid certification paths that include this certificate.  The cA
-   boolean indicates whether the certified public key may be used to
-   verify certificate signatures."
+   Section 4.2.1.9 of [RFC5280] states that "The Basic Constraints
+   extension identifies whether the subject of the certificate is a CA
+   and the maximum depth of valid certification paths that include this
+   certificate.  The cA boolean indicates whether the certified public
+   key may be used to verify certificate signatures."
 
    For the pathLenConstraint RFC 5280 makes further statements:
 
@@ -828,13 +859,15 @@ Table of Contents
 
 17.3.4.  Key Usage
 
-   The Key Usage extension MUST be set, MUST be marked critical, the
-   keyCertSign or cRLSign purposes MUST be set, and the digitalSignature
-   purpose SHOULD be set.
+   Section 4.2.1.3 of [RFC5280] defines the key usage extension.  The
+   Key Usage extension MUST be set, MUST be marked critical, and the
+   keyCertSign purpose MUST be set.  If the subordinate CA issues CRLs,
+   the cRLSign purpose MUST also be set.  The digitalSignature purpose
+   SHOULD be set.
 
    Subordinate certification authorities SHOULD NOT have any
-   extendedKeyUsage.  [RFC5280] reserves EKUs to be meaningful only in
-   end entity certificates.
+   extendedKeyUsage.  Section 4.2.1.12 of [RFC5280] reserves EKUs to be
+   meaningful only in end entity certificates.
 
 17.3.5.  Basic Constraints
 
@@ -1111,7 +1144,7 @@ Table of Contents
    implementations support the following two ciphersuites for TLS 1.3:
 
    *  TLS_AES_128_GCM_SHA256
-   *  TLS_AES_128_CCM
+   *  TLS_AES_128_CCM_SHA256
 
    and offer them as their first choice.  These ciphersuites provide
    confidentiality and integrity limits that are considered acceptable
@@ -1135,7 +1168,7 @@ Table of Contents
    +==========================+=================+
    | TLS_AES_128_CCM_8_SHA256 | MUST-           |
    +--------------------------+-----------------+
-   | TLS_AES_128_CCM          | SHOULD+         |
+   | TLS_AES_128_CCM_SHA256   | SHOULD+         |
    +--------------------------+-----------------+
    | TLS_AES_128_GCM_SHA256   | SHOULD+         |
    +--------------------------+-----------------+
@@ -1197,7 +1230,9 @@ Table of Contents
    generated and distributed securely.  It does not make the
    certificate-based authentication quantum resistant.  Deployments can
    use this mechanism as a migration path while PQC algorithms are being
-   introduced, at the cost of provisioning and managing external PSKs.
+   introduced, at certificate-based authentication quantum resistant.
+   Deployments can use this mechanism as a migration path while quantum
+   resistant algorithms are being introduced, at
 
 23.  Privacy Considerations
 
@@ -1287,6 +1322,12 @@ Table of Contents
               RFC 5758, DOI 10.17487/RFC5758, January 2010,
               <https://www.rfc-editor.org/rfc/rfc5758>.
 
+   [RFC6520]  Seggelmann, R., Tuexen, M., and M. Williams, "Transport
+              Layer Security (TLS) and Datagram Transport Layer Security
+              (DTLS) Heartbeat Extension", RFC 6520,
+              DOI 10.17487/RFC6520, February 2012,
+              <https://www.rfc-editor.org/rfc/rfc6520>.
+
    [RFC7925]  Tschofenig, H., Ed. and T. Fossati, "Transport Layer
               Security (TLS) / Datagram Transport Layer Security (DTLS)
               Profiles for the Internet of Things", RFC 7925,
@@ -1375,9 +1416,8 @@ Table of Contents
               Gorbaty, E. and M. Bishop, "Secondary Certificate
               Authentication of HTTP Servers", Work in Progress,
               Internet-Draft, draft-ietf-httpbis-secondary-server-certs-
-              01, 12 October 2024,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-
-              secondary-server-certs-01>.
+              02, 17 June 2026, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-httpbis-secondary-server-certs-02>.
 
    [I-D.ietf-iotops-7228bis]
               Bormann, C., Ersue, M., Keränen, A., and C. Gomez,
