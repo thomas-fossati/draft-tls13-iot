@@ -69,6 +69,7 @@ contributor:
 normative:
   RFC9147: DTLS13
   RFC8446: TLS13
+  RFC6520:
 
 informative:
   RFC9146:
@@ -80,8 +81,18 @@ informative:
   RFC6066:
   I-D.ietf-iotops-7228bis:
   I-D.ietf-pquip-pqc-engineers:
+  I-D.ietf-tls-8773bis:
   PQC-ENERGY: DOI.10.1145/3587135.3592821
   PQC-PERF: DOI.10.1007/978-3-031-21280-2_24
+  NIST-SP-800-131Ar3:
+     author:
+      - ins: E. Barker
+        name: Elaine Barker
+      - ins: A. Roginsky
+        name: Allen Roginsky
+     title: "Transitioning the Use of Cryptographic Algorithms and Key Lengths"
+     target: https://doi.org/10.6028/NIST.SP.800-131Ar3.ipd
+     date: October 2024
   CoAP: RFC7252
   IEEE-802.1AR: DOI.10.1109/IEEESTD.2020.9052099
   FDO:
@@ -342,7 +353,7 @@ SHOULD be avoided unless the application can tolerate the loss of forward secrec
 For a few, very specific Industrial IoT use cases {{?RFC9150}} defines two cipher
 suites that provide data authenticity, but not data confidentiality. For details
 and use constraints, defer to {{?RFC9150}} (especially {{Section 9 of RFC9150}}).
-Implementations may not support these suites; deployments should not assume
+Implementations might not support these suites; deployments should not assume
 availability. This document does not add new guidance beyond {{?RFC9150}}.
 Profiling the use of authentication- and integrity-only cipher suites is out of
 scope for this specification.
@@ -350,6 +361,8 @@ scope for this specification.
 # Keep-Alive
 
 The discussion in {{Section 10 of !RFC7925}} is applicable.
+When a TLS/DTLS-level keep-alive or path MTU discovery mechanism is needed,
+use of the Heartbeat Extension defined in {{RFC6520}} is RECOMMENDED.
 
 # Timers and ACKs
 
@@ -406,6 +419,8 @@ administrators routinely inspect the SNI to detect malicious behavior.
 Furthermore, to avoid leaking DNS lookups to network inspection altogether,
 additional protocols are needed, including DNS-over-HTTPS (DoH) {{?RFC8484}},
 DNS-over-TLS (DoT) {{?RFC7858}}, and DNS-over-QUIC (DoQ) {{?RFC9250}}.
+See {{privacy-considerations}} for additional guidance on deciding whether ECH
+support is needed in a deployment.
 
 Where IoT devices are accepting (D)TLS connections (i.e., they are acting as a
 server), it is unlikely that there will be a useful name placed into the SNI by
@@ -425,10 +440,22 @@ use it to indicate their RAM limitations.
 # Crypto Agility
 
 The recommendations in {{Section 19 of !RFC7925}} are applicable.
+The third bullet point in that section anticipated the evolution of cryptographic
+hardware support in IoT devices. Today, chip manufacturers commonly provide
+hardware acceleration for AES-CCM, as well as for other AES modes, including
+AES-GCM. Note that the ciphersuite recommendations in this document now
+include GCM, in addition to CCM, as described in {{ciphersuites}}.
 
 # Key Length Recommendations
 
-The recommendations in {{Section 20 of !RFC7925}} are applicable.
+The recommendations in {{Section 20 of !RFC7925}} apply with the following
+update. The recommendation for 112 bits of security strength, described there
+as equivalent to a 112-bit symmetric key and a 233-bit ECC key, is raised to at
+least 128 bits of security strength. Using the comparison in RFC 7925, this
+corresponds to a 128-bit symmetric key and a 283-bit ECC key. For the
+prime-field curves used by this profile, secp256r1 provides the intended
+128-bit security strength. This update is consistent with the transition to
+128-bit security strength discussed in {{NIST-SP-800-131Ar3}}.
 
 # 0-RTT Data
 {: #zerortt}
@@ -450,13 +477,14 @@ CoAP {{CoAP}}. Therefore, 0-RTT MUST NOT be used by CoAP applications.
 This section contains updates and clarifications to the certificate profile
 defined in {{!RFC7925}}. The content of Table 1 of {{!RFC7925}} has been
 split by certificate "type" in order to clarify exactly what requirements and
-recommendations apply to which entity in the PKI hierarchy.
+recommendations apply to the certificates that make up a certification path
+from a trust anchor to an end entity certificate.
 
 This profile does not define a specific certificate policy OID; deployments
 MAY define one if needed for local policy enforcement.
 
 The terminology used in this section is not intended to restrict the scope of this profile to IEEE 802.1AR deployments.
-It is used because it conveniently distinguishes between manufacturer-provisioned and operational credentials, which is important in many IoT deployments.
+Terms from {{IEEE-802.1AR}} are used because it conveniently distinguishes between manufacturer-provisioned and operational credentials, which is important in many IoT deployments.
 
 A Device Identifier (DevID) consists of:
 
@@ -515,9 +543,10 @@ The serial number MUST be unique
 for each certificate issued by a given CA (i.e., the issuer name
 and the serial number uniquely identify a certificate).
 {{!RFC5280}} limits this field to a maximum of 20 octets.
-To reduce the risk of predictable serial numbers, CAs SHOULD generate
-serial numbers of at least eight (8) octets using a
-cryptographically secure pseudo-random number generator.
+To reduce the risk of predictable serial numbers, CAs SHOULD generate serial
+numbers containing at least eight (8) octets of unpredictable output from a
+cryptographically secure pseudo-random number generator. The random value MAY
+be combined with a counter or other information that ensures uniqueness.
 
 ### Signature
 
@@ -587,7 +616,7 @@ through notAfter, inclusive. This means that a hypothetical certificate with a
 notBefore date of 9 June 2021 at 03:42:01 and a notAfter date of 7 September
 2021 at 03:42:01 becomes valid at the beginning of the :01 second, and only
 becomes invalid at the :02 second, a period that is 90 days plus 1 second. So
-for a 90-day, notAfter must actually be 03:42:00.
+for a 90-day, the time portion of notAfter is 03:42:00.
 
 ### Subject Public Key Info
 
@@ -601,8 +630,15 @@ following algorithms:
 - id-ecPublicKey with secp384r1, and
 - id-ecPublicKey with secp521r1.
 
-There is no requirement to use CA certificates and certificates of
-subordinate CAs to use the same algorithm as the end entity certificate.
+TLS 1.3 certificate-based authentication requires end-entity certificates
+containing public keys suitable for digital signatures. TLS 1.2 also defined
+static DH/ECDH certificate-based key exchange modes in which the end-entity
+certificate contains a key-agreement public key rather than a signature public
+key. This specification prohibits the use of such static DH/ECDH end-entity
+certificates with TLS 1.2.
+
+There is no requirement for CA certificates to use the same algorithm as the
+end entity certificate.
 Certificates with longer lifetime may well use a cryptographically stronger
 algorithm. However, CAs (or their administrators) that issue certificates
 intended to be validated by constrained IoT devices SHOULD select algorithms
@@ -709,7 +745,6 @@ one or more purposes for which the certified public key may be used, in addition
 or in place of the basic purposes indicated in the key usage extension."
 
 This extendedKeyUsage extension MUST NOT be set in CA certificates.
-
 
 ### Basic Constraints
 
@@ -1055,7 +1090,17 @@ As detailed in {{I-D.ietf-pquip-pqc-engineers}}, the IETF is actively working to
 
 The work of incorporating PQC into TLS {{?I-D.ietf-uta-pqc-app}} {{?I-D.ietf-pquip-pqc-hsm-constrained}} is still ongoing, with key exchange message sizes increasing due to larger public keys. These larger keys demand more flash storage and higher RAM usage, presenting significant obstacles for resource-constrained IoT devices. The transition from classical cryptographic algorithms to PQC will be a significant challenge for constrained IoT devices, requiring careful planning to select hardware suitable for the task considering the lifetime of an IoT product.
 
-# Privacy Considerations
+As a transitional measure, {{I-D.ietf-tls-8773bis}} allows certificate-based
+authentication to be combined with a strong external PSK that is incorporated
+into the TLS 1.3 key schedule. This provides confidentiality protection against
+a future cryptographically relevant quantum computer, provided that the
+external PSK is generated and distributed securely. It does not make the
+certificate-based authentication quantum resistant. Deployments can use this
+mechanism as a migration path while PQC algorithms are being introduced, at
+certificate-based authentication quantum resistant. Deployments can use this
+mechanism as a migration path while quantum resistant algorithms are being introduced, at
+
+# Privacy Considerations {#privacy-considerations}
 
 The privacy considerations in {{Section 22 of !RFC7925}} largely continue to
 apply. However, compared to TLS 1.2 and DTLS 1.2, TLS 1.3 and DTLS 1.3 encrypt
