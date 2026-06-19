@@ -456,7 +456,7 @@ This profile does not define a specific certificate policy OID; deployments
 MAY define one if needed for local policy enforcement.
 
 The terminology used in this section is not intended to restrict the scope of this profile to IEEE 802.1AR deployments.
-Terms from IEEE 802.1AR are used because it conveniently distinguishes between manufacturer-provisioned and operational credentials, which is important in many IoT deployments.
+Terms from {{IEEE-802.1AR}} are used because it conveniently distinguishes between manufacturer-provisioned and operational credentials, which is important in many IoT deployments.
 
 A Device Identifier (DevID) consists of:
 
