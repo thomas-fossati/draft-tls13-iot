@@ -221,7 +221,7 @@ deployments and promote the broad adoption of secure communication standards.
 
 This document updates {{RFC7925}} with respect to the X.509 certificate profile ({{certificate_profile}}) and ciphersuite requirements ({{ciphersuites}}).
 
-This document is organized as follows. 
+This document is organized as follows.
 The sections from {{credential_types}}
 through {{zerortt}} profile TLS/DTLS credentials and protocol features relevant
 to constrained IoT deployments, including credential types, session resumption,
@@ -232,7 +232,7 @@ and clarifies the X.509 certificate profile from {{RFC7925}}.
 TLS protocol compatibility is a required basis, but it is insufficient to permit interoperability at the level of authentication and authorization.
 {{trust_anchor_update}} and {{certificate_overhead}} discuss trust-anchor update
 and certificate-size overhead. {{ciphersuites}} updates the ciphersuite
-requirements. 
+requirements.
 
 The remaining sections discuss fault attacks, post-quantum
 cryptography, privacy, and security considerations.
@@ -694,8 +694,8 @@ This section outlines the requirements for root CA certificates.
 ### Subject
 
 {{Section 4.1.2.6 of !RFC5280}} requires that, when the subject is a CA,
-the subject field be populated with a non-empty distinguished name. 
-Therefore, Root CA certificates MUST have a non-empty subject field. 
+the subject field be populated with a non-empty distinguished name.
+Therefore, Root CA certificates MUST have a non-empty subject field.
 This is because a CA's SubjectDN becomes the subordinate certificate's IssuerDN, which MUST NOT be empty.
 The subject field
 MUST contain the commonName, the organizationName, and the countryName
@@ -1040,7 +1040,7 @@ In order to ameliorate the situation, it is RECOMMENDED that
 implementations support the following two ciphersuites for TLS 1.3:
 
 * `TLS_AES_128_GCM_SHA256`
-* `TLS_AES_128_CCM`
+* `TLS_AES_128_CCM_SHA256`
 
 and offer them as their first choice.  These ciphersuites provide
 confidentiality and integrity limits that are considered acceptable in the most
@@ -1059,7 +1059,7 @@ In addition, the integrity limits on key usage detailed in {{Section 4.4 of !RFC
 | Ciphersuite | MTI Requirement |
 |--|--|
 | `TLS_AES_128_CCM_8_SHA256` | MUST- |
-| `TLS_AES_128_CCM` | SHOULD+ |
+| `TLS_AES_128_CCM_SHA256` | SHOULD+ |
 | `TLS_AES_128_GCM_SHA256` | SHOULD+ |
 {: #tab-cipher-reqs align="left" title="TLS 1.3 Ciphersuite Requirements"}
 
