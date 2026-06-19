@@ -16,22 +16,23 @@ companion to RFC 7925, defining TLS/DTLS 1.3 profiles for IoT devices.
 Additionally, it updates RFC 7925 with respect to the X.509 certificate
 profile and ciphersuite requirements. 
     " name="description">
-<meta content="xml2rfc 3.33.0" name="generator">
+<meta content="xml2rfc 3.34.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-uta-tls13-iot-profile-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.33.0
-    Python 3.12.13
-    ConfigArgParse 1.7
+  xml2rfc 3.34.0
+    Python 3.14.5
+    ConfigArgParse 1.7.5
     google-i18n-address 3.1.1
     intervaltree 3.2.1
     Jinja2 3.1.6
-    lxml 6.0.2
-    platformdirs 4.9.6
+    lxml 6.1.1
+    natsort 8.4.0
+    platformdirs 4.10.0
     pycountry 24.6.1
     PyYAML 6.0.3
     requests 2.33.1
-    wcwidth 0.7.0
+    wcwidth 0.8.1
 -->
 <link href="draft-ietf-uta-tls13-iot-profile.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1054,7 +1055,7 @@ svg {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Tschofenig, et al.</td>
-<td class="center">Expires 18 December 2026</td>
+<td class="center">Expires 21 December 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1070,12 +1071,12 @@ svg {
 <a href="https://www.rfc-editor.org/rfc/rfc7925" class="eref">7925</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-06-16" class="published">16 June 2026</time>
+<time datetime="2026-06-19" class="published">19 June 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-12-18">18 December 2026</time></dd>
+<dd class="expires"><time datetime="2026-12-21">21 December 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1133,7 +1134,7 @@ profile and ciphersuite requirements.<a href="#section-abstract-1" class="pilcro
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 18 December 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 21 December 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1255,7 +1256,10 @@ profile and ciphersuite requirements.<a href="#section-abstract-1" class="pilcro
                     <p id="section-toc.1-1.17.2.2.2.4.1"><a href="#section-17.2.4" class="auto internal xref">17.2.4</a>.  <a href="#name-key-usage" class="internal xref">Key Usage</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.17.2.2.2.5">
-                    <p id="section-toc.1-1.17.2.2.2.5.1"><a href="#section-17.2.5" class="auto internal xref">17.2.5</a>.  <a href="#name-basic-constraints" class="internal xref">Basic Constraints</a></p>
+                    <p id="section-toc.1-1.17.2.2.2.5.1"><a href="#section-17.2.5" class="auto internal xref">17.2.5</a>.  <a href="#name-extended-key-usage" class="internal xref">Extended Key Usage</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.17.2.2.2.6">
+                    <p id="section-toc.1-1.17.2.2.2.6.1"><a href="#section-17.2.6" class="auto internal xref">17.2.6</a>.  <a href="#name-basic-constraints" class="internal xref">Basic Constraints</a></p>
 </li>
                 </ul>
 </li>
@@ -1646,7 +1650,9 @@ industrial IoT deployments, the use of ECH may be disabled because network
 administrators routinely inspect the SNI to detect malicious behavior.
 Furthermore, to avoid leaking DNS lookups to network inspection altogether,
 additional protocols are needed, including DNS-over-HTTPS (DoH) <span>[<a href="#RFC8484" class="cite xref">RFC8484</a>]</span>,
-DNS-over-TLS (DoT) <span>[<a href="#RFC7858" class="cite xref">RFC7858</a>]</span>, and DNS-over-QUIC (DoQ) <span>[<a href="#RFC9250" class="cite xref">RFC9250</a>]</span>.<a href="#section-12-2" class="pilcrow">¶</a></p>
+DNS-over-TLS (DoT) <span>[<a href="#RFC7858" class="cite xref">RFC7858</a>]</span>, and DNS-over-QUIC (DoQ) <span>[<a href="#RFC9250" class="cite xref">RFC9250</a>]</span>.
+See <a href="#privacy-considerations" class="auto internal xref">Section 23</a> for additional guidance on deciding whether ECH
+support is needed in a deployment.<a href="#section-12-2" class="pilcrow">¶</a></p>
 <p id="section-12-3">Where IoT devices are accepting (D)TLS connections (i.e., they are acting as a
 server), it is unlikely that there will be a useful name placed into the SNI by
 the connecting client.  Since an IoT server cannot rely on a client to
@@ -1672,7 +1678,12 @@ use it to indicate their RAM limitations.<a href="#section-13-1" class="pilcrow"
       <h2 id="name-crypto-agility">
 <a href="#section-14" class="section-number selfRef">14. </a><a href="#name-crypto-agility" class="section-name selfRef">Crypto Agility</a>
       </h2>
-<p id="section-14-1">The recommendations in <span><a href="https://rfc-editor.org/rfc/rfc7925#section-19" class="relref">Section 19</a> of [<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> are applicable.<a href="#section-14-1" class="pilcrow">¶</a></p>
+<p id="section-14-1">The recommendations in <span><a href="https://rfc-editor.org/rfc/rfc7925#section-19" class="relref">Section 19</a> of [<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> are applicable.
+The third bullet point in that section anticipated the evolution of cryptographic
+hardware support in IoT devices. Today, chip manufacturers commonly provide
+hardware acceleration for AES-CCM, as well as for other AES modes, including
+AES-GCM. Note that the ciphersuite recommendations in this document now
+include GCM, in addition to CCM, as described in <a href="#ciphersuites" class="auto internal xref">Section 20</a>.<a href="#section-14-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="key-length-recommendations">
@@ -1680,7 +1691,14 @@ use it to indicate their RAM limitations.<a href="#section-13-1" class="pilcrow"
       <h2 id="name-key-length-recommendations">
 <a href="#section-15" class="section-number selfRef">15. </a><a href="#name-key-length-recommendations" class="section-name selfRef">Key Length Recommendations</a>
       </h2>
-<p id="section-15-1">The recommendations in <span><a href="https://rfc-editor.org/rfc/rfc7925#section-20" class="relref">Section 20</a> of [<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> are applicable.<a href="#section-15-1" class="pilcrow">¶</a></p>
+<p id="section-15-1">The recommendations in <span><a href="https://rfc-editor.org/rfc/rfc7925#section-20" class="relref">Section 20</a> of [<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> apply with the following
+update. The recommendation for 112 bits of security strength, described there
+as equivalent to a 112-bit symmetric key and a 233-bit ECC key, is raised to at
+least 128 bits of security strength. Using the comparison in RFC 7925, this
+corresponds to a 128-bit symmetric key and a 283-bit ECC key. For the
+prime-field curves used by this profile, secp256r1 provides the intended
+128-bit security strength. This update is consistent with the transition to
+128-bit security strength discussed in <span>[<a href="#NIST-SP-800-131Ar3" class="cite xref">NIST-SP-800-131Ar3</a>]</span>.<a href="#section-15-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="rtt-data">
@@ -1708,11 +1726,12 @@ CoAP <span>[<a href="#CoAP" class="cite xref">CoAP</a>]</span>. Therefore, 0-RTT
 <p id="section-17-1">This section contains updates and clarifications to the certificate profile
 defined in <span>[<a href="#RFC7925" class="cite xref">RFC7925</a>]</span>. The content of Table 1 of <span>[<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> has been
 split by certificate "type" in order to clarify exactly what requirements and
-recommendations apply to which entity in the PKI hierarchy.<a href="#section-17-1" class="pilcrow">¶</a></p>
+recommendations apply to the certificates that make up a certification path
+from a trust anchor to an end entity certificate.<a href="#section-17-1" class="pilcrow">¶</a></p>
 <p id="section-17-2">This profile does not define a specific certificate policy OID; deployments
 MAY define one if needed for local policy enforcement.<a href="#section-17-2" class="pilcrow">¶</a></p>
 <p id="section-17-3">The terminology used in this section is not intended to restrict the scope of this profile to IEEE 802.1AR deployments.
-It is used because it conveniently distinguishes between manufacturer-provisioned and operational credentials, which is important in many IoT deployments.<a href="#section-17-3" class="pilcrow">¶</a></p>
+Terms from <span>[<a href="#IEEE-802.1AR" class="cite xref">IEEE-802.1AR</a>]</span> are used because it conveniently distinguishes between manufacturer-provisioned and operational credentials, which is important in many IoT deployments.<a href="#section-17-3" class="pilcrow">¶</a></p>
 <p id="section-17-4">A Device Identifier (DevID) consists of:<a href="#section-17-4" class="pilcrow">¶</a></p>
 <ul class="compact">
 <li class="compact" id="section-17-5.1">
@@ -1785,9 +1804,10 @@ The section focuses on X.509 v3 certificates.<a href="#section-17.1-1" class="pi
 for each certificate issued by a given CA (i.e., the issuer name
 and the serial number uniquely identify a certificate).
 <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> limits this field to a maximum of 20 octets.
-To reduce the risk of predictable serial numbers, CAs SHOULD generate
-serial numbers of at least eight (8) octets using a
-cryptographically secure pseudo-random number generator.<a href="#section-17.1.2-1" class="pilcrow">¶</a></p>
+To reduce the risk of predictable serial numbers, CAs SHOULD generate serial
+numbers containing at least eight (8) octets of unpredictable output from a
+cryptographically secure pseudo-random number generator. The random value MAY
+be combined with a counter or other information that ensures uniqueness.<a href="#section-17.1.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="signature">
@@ -1862,7 +1882,7 @@ through notAfter, inclusive. This means that a hypothetical certificate with a
 notBefore date of 9 June 2021 at 03:42:01 and a notAfter date of 7 September
 2021 at 03:42:01 becomes valid at the beginning of the :01 second, and only
 becomes invalid at the :02 second, a period that is 90 days plus 1 second. So
-for a 90-day, notAfter must actually be 03:42:00.<a href="#section-17.1.5-6" class="pilcrow">¶</a></p>
+for a 90-day, the time portion of notAfter is 03:42:00.<a href="#section-17.1.5-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="subject-public-key-info">
@@ -1886,14 +1906,20 @@ following algorithms:<a href="#section-17.1.6-1" class="pilcrow">¶</a></p>
               <p id="section-17.1.6-2.3.1">id-ecPublicKey with secp521r1.<a href="#section-17.1.6-2.3.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-17.1.6-3">There is no requirement to use CA certificates and certificates of
-subordinate CAs to use the same algorithm as the end entity certificate.
+<p id="section-17.1.6-3">TLS 1.3 certificate-based authentication requires end-entity certificates
+containing public keys suitable for digital signatures. TLS 1.2 also defined
+static DH/ECDH certificate-based key exchange modes in which the end-entity
+certificate contains a key-agreement public key rather than a signature public
+key. This specification prohibits the use of such static DH/ECDH end-entity
+certificates with TLS 1.2.<a href="#section-17.1.6-3" class="pilcrow">¶</a></p>
+<p id="section-17.1.6-4">There is no requirement for CA certificates to use the same algorithm as the
+end entity certificate.
 Certificates with longer lifetime may well use a cryptographically stronger
 algorithm. However, CAs (or their administrators) that issue certificates
 intended to be validated by constrained IoT devices SHOULD select algorithms
 supported by those devices to ensure successful validation. Longer-lived CA
 certificates MAY intentionally use stronger or different algorithms if the
-target devices are expected to validate such chains successfully.<a href="#section-17.1.6-3" class="pilcrow">¶</a></p>
+target devices are expected to validate such chains successfully.<a href="#section-17.1.6-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="certificate-revocation-checks">
@@ -1996,47 +2022,54 @@ critical, and the keyCertSign purpose MUST be set. If the Root CA issues CRLs,
 the cRLSign purpose MUST also be set. Additional key usages MAY be set
 depending on the intended usage of the public key. The digitalSignature purpose
 is not required for a Root CA certificate.<a href="#section-17.2.4-2" class="pilcrow">¶</a></p>
-<p id="section-17.2.4-3"><span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> defines the extended key usage as follows: "This extension indicates
+</section>
+</div>
+<div id="extended-key-usage">
+<section id="section-17.2.5">
+          <h4 id="name-extended-key-usage">
+<a href="#section-17.2.5" class="section-number selfRef">17.2.5. </a><a href="#name-extended-key-usage" class="section-name selfRef">Extended Key Usage</a>
+          </h4>
+<p id="section-17.2.5-1"><span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> defines the extended key usage as follows: "This extension indicates
 one or more purposes for which the certified public key may be used, in addition to
-or in place of the basic purposes indicated in the key usage extension."<a href="#section-17.2.4-3" class="pilcrow">¶</a></p>
-<p id="section-17.2.4-4">This extendedKeyUsage extension MUST NOT be set in CA certificates.<a href="#section-17.2.4-4" class="pilcrow">¶</a></p>
+or in place of the basic purposes indicated in the key usage extension."<a href="#section-17.2.5-1" class="pilcrow">¶</a></p>
+<p id="section-17.2.5-2">This extendedKeyUsage extension MUST NOT be set in CA certificates.<a href="#section-17.2.5-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="basic-constraints">
-<section id="section-17.2.5">
+<section id="section-17.2.6">
           <h4 id="name-basic-constraints">
-<a href="#section-17.2.5" class="section-number selfRef">17.2.5. </a><a href="#name-basic-constraints" class="section-name selfRef">Basic Constraints</a>
+<a href="#section-17.2.6" class="section-number selfRef">17.2.6. </a><a href="#name-basic-constraints" class="section-name selfRef">Basic Constraints</a>
           </h4>
-<p id="section-17.2.5-1"><span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> states that "The Basic Constraints extension identifies whether the subject
+<p id="section-17.2.6-1"><span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> states that "The Basic Constraints extension identifies whether the subject
 of the certificate is a CA and the maximum depth of valid certification paths that include
 this certificate. The cA boolean indicates whether the certified public key may be used to
-verify certificate signatures."<a href="#section-17.2.5-1" class="pilcrow">¶</a></p>
-<p id="section-17.2.5-2">For the pathLenConstraint RFC 5280 makes further statements:<a href="#section-17.2.5-2" class="pilcrow">¶</a></p>
+verify certificate signatures."<a href="#section-17.2.6-1" class="pilcrow">¶</a></p>
+<p id="section-17.2.6-2">For the pathLenConstraint RFC 5280 makes further statements:<a href="#section-17.2.6-2" class="pilcrow">¶</a></p>
 <ul class="compact">
-<li class="compact" id="section-17.2.5-3.1">
-              <p id="section-17.2.5-3.1.1">"The pathLenConstraint field is meaningful only if the cA boolean is asserted and the
+<li class="compact" id="section-17.2.6-3.1">
+              <p id="section-17.2.6-3.1.1">"The pathLenConstraint field is meaningful only if the cA boolean is asserted and the
 key usage extension, if present, asserts the keyCertSign bit. In this case, it gives the
 maximum number of non-self-issued intermediate certificates that may follow this
-certificate in a valid certification path."<a href="#section-17.2.5-3.1.1" class="pilcrow">¶</a></p>
+certificate in a valid certification path."<a href="#section-17.2.6-3.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="compact" id="section-17.2.5-3.2">
-              <p id="section-17.2.5-3.2.1">"A pathLenConstraint of zero indicates that no non-self-issued intermediate CA
-certificates may follow in a valid certification path."<a href="#section-17.2.5-3.2.1" class="pilcrow">¶</a></p>
+            <li class="compact" id="section-17.2.6-3.2">
+              <p id="section-17.2.6-3.2.1">"A pathLenConstraint of zero indicates that no non-self-issued intermediate CA
+certificates may follow in a valid certification path."<a href="#section-17.2.6-3.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="compact" id="section-17.2.5-3.3">
-              <p id="section-17.2.5-3.3.1">"Where pathLenConstraint does not appear, no limit is imposed."<a href="#section-17.2.5-3.3.1" class="pilcrow">¶</a></p>
+            <li class="compact" id="section-17.2.6-3.3">
+              <p id="section-17.2.6-3.3.1">"Where pathLenConstraint does not appear, no limit is imposed."<a href="#section-17.2.6-3.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="compact" id="section-17.2.5-3.4">
-              <p id="section-17.2.5-3.4.1">"Conforming CAs MUST include this extension in all CA certificates that contain public
+            <li class="compact" id="section-17.2.6-3.4">
+              <p id="section-17.2.6-3.4.1">"Conforming CAs MUST include this extension in all CA certificates that contain public
 keys used to validate digital signatures on certificates and MUST mark the extension as
-critical in such certificates."<a href="#section-17.2.5-3.4.1" class="pilcrow">¶</a></p>
+critical in such certificates."<a href="#section-17.2.6-3.4.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-17.2.5-4">The Basic Constraints extension MUST be set, MUST be marked critical, the cA flag MUST
-be set to true and the pathLenConstraint MUST be omitted.<a href="#section-17.2.5-4" class="pilcrow">¶</a></p>
-<p id="section-17.2.5-5">Omitting pathLenConstraint follows common root CA practice but is not meant to
+<p id="section-17.2.6-4">The Basic Constraints extension MUST be set, MUST be marked critical, the cA flag MUST
+be set to true and the pathLenConstraint MUST be omitted.<a href="#section-17.2.6-4" class="pilcrow">¶</a></p>
+<p id="section-17.2.6-5">Omitting pathLenConstraint follows common root CA practice but is not meant to
 encourage arbitrarily deep certification hierarchies in IoT deployments.
-Shallow hierarchies remain preferable for constrained devices.<a href="#section-17.2.5-5" class="pilcrow">¶</a></p>
+Shallow hierarchies remain preferable for constrained devices.<a href="#section-17.2.6-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2448,6 +2481,15 @@ not add normative requirements to this profile.<a href="#section-22-1" class="pi
 cryptography and are not quantum-resistant.<a href="#section-22-2" class="pilcrow">¶</a></p>
 <p id="section-22-3">As detailed in <span>[<a href="#I-D.ietf-pquip-pqc-engineers" class="cite xref">I-D.ietf-pquip-pqc-engineers</a>]</span>, the IETF is actively working to address the challenges of adopting PQC in various protocols, including TLS. The document highlights key aspects engineers must consider, such as algorithm selection, performance impacts, and deployment strategies. It emphasizes the importance of gradual integration of PQC to ensure secure communication while accounting for the increased computational, memory, and bandwidth requirements of PQC algorithms. These challenges are especially relevant in the context of IoT, where device constraints limit the adoption of larger key sizes and more complex cryptographic operations <span>[<a href="#PQC-PERF" class="cite xref">PQC-PERF</a>]</span>. Besides, any choice need to careful evaluate the associated energy requirements <span>[<a href="#PQC-ENERGY" class="cite xref">PQC-ENERGY</a>]</span>.<a href="#section-22-3" class="pilcrow">¶</a></p>
 <p id="section-22-4">The work of incorporating PQC into TLS <span>[<a href="#I-D.ietf-uta-pqc-app" class="cite xref">I-D.ietf-uta-pqc-app</a>]</span> <span>[<a href="#I-D.ietf-pquip-pqc-hsm-constrained" class="cite xref">I-D.ietf-pquip-pqc-hsm-constrained</a>]</span> is still ongoing, with key exchange message sizes increasing due to larger public keys. These larger keys demand more flash storage and higher RAM usage, presenting significant obstacles for resource-constrained IoT devices. The transition from classical cryptographic algorithms to PQC will be a significant challenge for constrained IoT devices, requiring careful planning to select hardware suitable for the task considering the lifetime of an IoT product.<a href="#section-22-4" class="pilcrow">¶</a></p>
+<p id="section-22-5">As a transitional measure, <span>[<a href="#I-D.ietf-tls-8773bis" class="cite xref">I-D.ietf-tls-8773bis</a>]</span> allows certificate-based
+authentication to be combined with a strong external PSK that is incorporated
+into the TLS 1.3 key schedule. This provides confidentiality protection against
+a future cryptographically relevant quantum computer, provided that the
+external PSK is generated and distributed securely. It does not make the
+certificate-based authentication quantum resistant. Deployments can use this
+mechanism as a migration path while PQC algorithms are being introduced, at
+certificate-based authentication quantum resistant. Deployments can use this
+mechanism as a migration path while quantum resistant algorithms are being introduced, at<a href="#section-22-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="privacy-considerations">
@@ -2605,7 +2647,7 @@ Furthermore, they can make cryptographic transitions more operationally expensiv
 <dd class="break"></dd>
 <dt id="I-D.ietf-httpbis-secondary-server-certs">[I-D.ietf-httpbis-secondary-server-certs]</dt>
         <dd>
-<span class="refAuthor">Gorbaty, E.</span> and <span class="refAuthor">M. Bishop</span>, <span class="refTitle">"Secondary Certificate Authentication of HTTP Servers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-httpbis-secondary-server-certs-01</span>, <time datetime="2024-10-12" class="refDate">12 October 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-secondary-server-certs-01">https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-secondary-server-certs-01</a>&gt;</span>. </dd>
+<span class="refAuthor">Gorbaty, E.</span> and <span class="refAuthor">M. Bishop</span>, <span class="refTitle">"Secondary Certificate Authentication of HTTP Servers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-httpbis-secondary-server-certs-02</span>, <time datetime="2026-06-17" class="refDate">17 June 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-secondary-server-certs-02">https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-secondary-server-certs-02</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-iotops-7228bis">[I-D.ietf-iotops-7228bis]</dt>
         <dd>
@@ -2618,6 +2660,10 @@ Furthermore, they can make cryptographic transitions more operationally expensiv
 <dt id="I-D.ietf-pquip-pqc-hsm-constrained">[I-D.ietf-pquip-pqc-hsm-constrained]</dt>
         <dd>
 <span class="refAuthor">Reddy.K, T.</span>, <span class="refAuthor">Wing, D.</span>, <span class="refAuthor">S, B.</span>, and <span class="refAuthor">K. Kwiatkowski</span>, <span class="refTitle">"Adapting Constrained Devices for Post-Quantum Cryptography"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-pquip-pqc-hsm-constrained-05</span>, <time datetime="2026-04-01" class="refDate">1 April 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-pquip-pqc-hsm-constrained-05">https://datatracker.ietf.org/doc/html/draft-ietf-pquip-pqc-hsm-constrained-05</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.ietf-tls-8773bis">[I-D.ietf-tls-8773bis]</dt>
+        <dd>
+<span class="refAuthor">Housley, R.</span>, <span class="refTitle">"TLS 1.3 Extension for Using Certificates with an External Pre-Shared Key"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tls-8773bis-13</span>, <time datetime="2025-09-05" class="refDate">5 September 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-8773bis-13">https://datatracker.ietf.org/doc/html/draft-ietf-tls-8773bis-13</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-uta-pqc-app">[I-D.ietf-uta-pqc-app]</dt>
         <dd>
@@ -2647,9 +2693,13 @@ Furthermore, they can make cryptographic transitions more operationally expensiv
         <dd>
 <span class="refAuthor">OMA SpecWorks</span>, <span class="refTitle">"Lightweight Machine to Machine (LwM2M) V.1.2.2 Technical Specification: Transport Bindings"</span>, <time datetime="2024-06" class="refDate">June 2024</time>, <span>&lt;<a href="https://www.openmobilealliance.org/release/LightweightM2M/V1_2_2-20240613-A/">https://www.openmobilealliance.org/release/LightweightM2M/V1_2_2-20240613-A/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="NIST-SP-800-131Ar3">[NIST-SP-800-131Ar3]</dt>
+        <dd>
+<span class="refAuthor">Barker, E.</span> and <span class="refAuthor">A. Roginsky</span>, <span class="refTitle">"Transitioning the Use of Cryptographic Algorithms and Key Lengths"</span>, <time datetime="2024-10" class="refDate">October 2024</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.SP.800-131Ar3.ipd">https://doi.org/10.6028/NIST.SP.800-131Ar3.ipd</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="PQC-ENERGY">[PQC-ENERGY]</dt>
         <dd>
-<span class="refTitle">"*** BROKEN REFERENCE ***"</span>. </dd>
+<span class="refAuthor">Tasopoulos, G.</span>, <span class="refAuthor">Dimopoulos, C.</span>, <span class="refAuthor">Fournaris, A.</span>, <span class="refAuthor">Zhao, R.</span>, <span class="refAuthor">Sakzad, A.</span>, and <span class="refAuthor">R. Steinfeld</span>, <span class="refTitle">"Energy Consumption Evaluation of Post-Quantum TLS 1.3 for Resource-Constrained Embedded Devices"</span>, <span class="refContent">ACM</span>, <span class="seriesInfo">Proceedings of the 20th ACM International Conference on Computing Frontiers pp. 366-374</span>, <span class="seriesInfo">DOI 10.1145/3587135.3592821</span>, <time datetime="2023-05" class="refDate">May 2023</time>, <span>&lt;<a href="https://doi.org/10.1145/3587135.3592821">https://doi.org/10.1145/3587135.3592821</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="PQC-PERF">[PQC-PERF]</dt>
         <dd>
