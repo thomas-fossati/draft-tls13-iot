@@ -492,9 +492,13 @@ Table of Contents
    |  to 1-RTT.
 
    For any application protocol, 0-RTT MUST NOT be used unless a
-   protocol-specific profile exists.  At the time of writing, no such
-   profile has been defined for CoAP [CoAP].  Therefore, 0-RTT MUST NOT
-   be used by CoAP applications.
+   protocol-specific profile exists.
+
+   At the time of writing, no such profile has been defined for CoAP
+   [CoAP].  Therefore, 0-RTT MUST NOT be used by CoAP applications.
+
+   No specific recommendations are given for non-IETF IoT protocols such
+   as MQTT.
 
 17.  Certificate Profile
 
