@@ -1433,6 +1433,19 @@ robust security without overwhelming their limited processing, memory, and power
 resources. The document aims to facilitate the development of secure and efficient IoT
 deployments and promote the broad adoption of secure communication standards.<a href="#section-1-7" class="pilcrow">¶</a></p>
 <p id="section-1-8">This document updates <span>[<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> with respect to the X.509 certificate profile (<a href="#certificate_profile" class="auto internal xref">Section 17</a>) and ciphersuite requirements (<a href="#ciphersuites" class="auto internal xref">Section 20</a>).<a href="#section-1-8" class="pilcrow">¶</a></p>
+<p id="section-1-9">This document is organized as follows.
+The sections from <a href="#credential_types" class="auto internal xref">Section 3</a>
+through <a href="#zerortt" class="auto internal xref">Section 16</a> profile TLS/DTLS credentials and protocol features relevant
+to constrained IoT deployments, including credential types, session resumption,
+compression, forward secrecy, server name indication (SNI), record sizing,
+crypto agility, key lengths, and 0-RTT data. <a href="#certificate_profile" class="auto internal xref">Section 17</a> updates
+and clarifies the X.509 certificate profile from <span>[<a href="#RFC7925" class="cite xref">RFC7925</a>]</span>.<a href="#section-1-9" class="pilcrow">¶</a></p>
+<p id="section-1-10">TLS protocol compatibility is a required basis, but it is insufficient to permit interoperability at the level of authentication and authorization.
+<a href="#trust_anchor_update" class="auto internal xref">Section 18</a> and <a href="#certificate_overhead" class="auto internal xref">Section 19</a> discuss trust-anchor update
+and certificate-size overhead. <a href="#ciphersuites" class="auto internal xref">Section 20</a> updates the ciphersuite
+requirements.<a href="#section-1-10" class="pilcrow">¶</a></p>
+<p id="section-1-11">The remaining sections discuss fault attacks, post-quantum
+cryptography, privacy, and security considerations.<a href="#section-1-11" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-terminology">
@@ -1446,9 +1459,15 @@ NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
 described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
 appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶</a></p>
 <p id="section-2-2">This document reuses the terms "SHOULD+", "SHOULD-" and "MUST-" from <span>[<a href="#RFC8221" class="cite xref">RFC8221</a>]</span>.<a href="#section-2-2" class="pilcrow">¶</a></p>
+<p id="section-2-3">This document uses TLS terminology from <span>[<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>, DTLS terminology from
+<span>[<a href="#RFC9147" class="cite xref">RFC9147</a>]</span>, and X.509 certificate and certification path terminology from
+<span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>. IoT device-class terminology follows <span>[<a href="#RFC7228" class="cite xref">RFC7228</a>]</span> and
+<span>[<a href="#I-D.ietf-iotops-7228bis" class="cite xref">I-D.ietf-iotops-7228bis</a>]</span>. The DevID, IDevID, and LDevID terms used in the
+certificate profile are introduced in <span>[<a href="#IEEE-802.1AR" class="cite xref">IEEE-802.1AR</a>]</span> and described in
+<a href="#certificate_profile" class="auto internal xref">Section 17</a>.<a href="#section-2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="credential-types">
+<div id="credential_types">
 <section id="section-3">
       <h2 id="name-credential-types">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-credential-types" class="section-name selfRef">Credential Types</a>
@@ -1701,7 +1720,7 @@ prime-field curves used by this profile, secp256r1 provides the intended
 128-bit security strength discussed in <span>[<a href="#NIST-SP-800-131Ar3" class="cite xref">NIST-SP-800-131Ar3</a>]</span>.<a href="#section-15-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="rtt-data">
+<div id="zerortt">
 <section id="section-16">
       <h2 id="name-0-rtt-data">
 <a href="#section-16" class="section-number selfRef">16. </a><a href="#name-0-rtt-data" class="section-name selfRef">0-RTT Data</a>
@@ -1976,7 +1995,13 @@ implementing an application-layer solution.<a href="#section-17.1.7-5" class="pi
           <h4 id="name-subject">
 <a href="#section-17.2.1" class="section-number selfRef">17.2.1. </a><a href="#name-subject" class="section-name selfRef">Subject</a>
           </h4>
-<p id="section-17.2.1-1"><span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> mandates that Root CA certificates MUST have a non-empty subject field. The subject field MUST contain the commonName, the organizationName, and the countryName attribute and MAY contain an organizationalUnitName attribute.
+<p id="section-17.2.1-1"><span><a href="https://rfc-editor.org/rfc/rfc5280#section-4.1.2.6" class="relref">Section 4.1.2.6</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> requires that, when the subject is a CA,
+the subject field be populated with a non-empty distinguished name.
+Therefore, Root CA certificates MUST have a non-empty subject field.
+This is because a CA's SubjectDN becomes the subordinate certificate's IssuerDN, which MUST NOT be empty.
+The subject field
+MUST contain the commonName, the organizationName, and the countryName
+attribute and MAY contain an organizationalUnitName attribute.
 If a subjectAltName extension is present, it SHOULD be set to a value
 consistent with the subject and SHOULD NOT be marked critical.<a href="#section-17.2.1-1" class="pilcrow">¶</a></p>
 </section>
@@ -2014,7 +2039,7 @@ public key info field.<a href="#section-17.2.3-2" class="pilcrow">¶</a></p>
           <h4 id="name-key-usage">
 <a href="#section-17.2.4" class="section-number selfRef">17.2.4. </a><a href="#name-key-usage" class="section-name selfRef">Key Usage</a>
           </h4>
-<p id="section-17.2.4-1"><span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> defines the key usage field as follows: "The key usage extension defines
+<p id="section-17.2.4-1"><span><a href="https://rfc-editor.org/rfc/rfc5280#section-4.2.1.3" class="relref">Section 4.2.1.3</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> defines the key usage field as follows: "The key usage extension defines
 the purpose (e.g., encipherment, signature, certificate signing) of the key contained
 in the certificate."<a href="#section-17.2.4-1" class="pilcrow">¶</a></p>
 <p id="section-17.2.4-2">The Key Usage extension SHOULD be set; if it is set, it MUST be marked
@@ -2029,7 +2054,7 @@ is not required for a Root CA certificate.<a href="#section-17.2.4-2" class="pil
           <h4 id="name-extended-key-usage">
 <a href="#section-17.2.5" class="section-number selfRef">17.2.5. </a><a href="#name-extended-key-usage" class="section-name selfRef">Extended Key Usage</a>
           </h4>
-<p id="section-17.2.5-1"><span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> defines the extended key usage as follows: "This extension indicates
+<p id="section-17.2.5-1"><span><a href="https://rfc-editor.org/rfc/rfc5280#section-4.2.1.12" class="relref">Section 4.2.1.12</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> defines the extended key usage as follows: "This extension indicates
 one or more purposes for which the certified public key may be used, in addition to
 or in place of the basic purposes indicated in the key usage extension."<a href="#section-17.2.5-1" class="pilcrow">¶</a></p>
 <p id="section-17.2.5-2">This extendedKeyUsage extension MUST NOT be set in CA certificates.<a href="#section-17.2.5-2" class="pilcrow">¶</a></p>
@@ -2040,7 +2065,7 @@ or in place of the basic purposes indicated in the key usage extension."<a href=
           <h4 id="name-basic-constraints">
 <a href="#section-17.2.6" class="section-number selfRef">17.2.6. </a><a href="#name-basic-constraints" class="section-name selfRef">Basic Constraints</a>
           </h4>
-<p id="section-17.2.6-1"><span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> states that "The Basic Constraints extension identifies whether the subject
+<p id="section-17.2.6-1"><span><a href="https://rfc-editor.org/rfc/rfc5280#section-4.2.1.9" class="relref">Section 4.2.1.9</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> states that "The Basic Constraints extension identifies whether the subject
 of the certificate is a CA and the maximum depth of valid certification paths that include
 this certificate. The cA boolean indicates whether the certified public key may be used to
 verify certificate signatures."<a href="#section-17.2.6-1" class="pilcrow">¶</a></p>
@@ -2113,10 +2138,13 @@ field.<a href="#section-17.3.3-1" class="pilcrow">¶</a></p>
           <h4 id="name-key-usage-2">
 <a href="#section-17.3.4" class="section-number selfRef">17.3.4. </a><a href="#name-key-usage-2" class="section-name selfRef">Key Usage</a>
           </h4>
-<p id="section-17.3.4-1">The Key Usage extension MUST be set, MUST be marked critical, the keyCertSign or
-cRLSign purposes MUST be set, and the digitalSignature purpose SHOULD be set.<a href="#section-17.3.4-1" class="pilcrow">¶</a></p>
+<p id="section-17.3.4-1"><span><a href="https://rfc-editor.org/rfc/rfc5280#section-4.2.1.3" class="relref">Section 4.2.1.3</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> defines the key usage extension. The Key Usage
+extension MUST be set, MUST be marked critical, and the keyCertSign purpose MUST
+be set. If the subordinate CA issues CRLs, the cRLSign purpose MUST also be set.
+The digitalSignature purpose SHOULD be set.<a href="#section-17.3.4-1" class="pilcrow">¶</a></p>
 <p id="section-17.3.4-2">Subordinate certification authorities SHOULD NOT have any extendedKeyUsage.
-<span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> reserves EKUs to be meaningful only in end entity certificates.<a href="#section-17.3.4-2" class="pilcrow">¶</a></p>
+<span><a href="https://rfc-editor.org/rfc/rfc5280#section-4.2.1.12" class="relref">Section 4.2.1.12</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> reserves EKUs to be meaningful only in end
+entity certificates.<a href="#section-17.3.4-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="basic-constraints-1">
@@ -2235,7 +2263,7 @@ intended TLS role of the device or service using the certificate.<a href="#secti
 </div>
 </section>
 </div>
-<div id="update-of-trust-anchors">
+<div id="trust_anchor_update">
 <section id="section-18">
       <h2 id="name-update-of-trust-anchors">
 <a href="#section-18" class="section-number selfRef">18. </a><a href="#name-update-of-trust-anchors" class="section-name selfRef">Update of Trust Anchors</a>
@@ -2253,7 +2281,7 @@ have also offered ways to update trust anchors. See, for example,
 via EST.<a href="#section-18-2" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="certificate-overhead">
+<div id="certificate_overhead">
 <section id="section-19">
       <h2 id="name-certificate-overhead">
 <a href="#section-19" class="section-number selfRef">19. </a><a href="#name-certificate-overhead" class="section-name selfRef">Certificate Overhead</a>
@@ -2403,7 +2431,7 @@ implementations support the following two ciphersuites for TLS 1.3:<a href="#sec
           <p id="section-20-6.1.1"><code>TLS_AES_128_GCM_SHA256</code><a href="#section-20-6.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="compact" id="section-20-6.2">
-          <p id="section-20-6.2.1"><code>TLS_AES_128_CCM</code><a href="#section-20-6.2.1" class="pilcrow">¶</a></p>
+          <p id="section-20-6.2.1"><code>TLS_AES_128_CCM_SHA256</code><a href="#section-20-6.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="section-20-7">and offer them as their first choice.  These ciphersuites provide
@@ -2438,7 +2466,7 @@ In addition, the integrity limits on key usage detailed in <span><a href="https:
           </tr>
           <tr>
             <td class="text-left" rowspan="1" colspan="1">
-              <code>TLS_AES_128_CCM</code>
+              <code>TLS_AES_128_CCM_SHA256</code>
 </td>
             <td class="text-left" rowspan="1" colspan="1">SHOULD+</td>
           </tr>
