@@ -411,22 +411,15 @@ configuration, such as a configured IP address and port, a pinned certificate,
 a raw public key, or an external PSK identity. When no DNS name is used, SNI
 is not applicable.
 
-Where privacy requirements necessitate it, the ECH (Encrypted Client Hello)
-extension {{?RFC9849}} prevents an on-path attacker from determining the domain
-name the client is trying to connect to.  Since the ECH extension requires the
-use of Hybrid Public Key Encryption (HPKE) {{?RFC9180}}, and additional
-protocols require further protocol exchanges and cryptographic operations,
-there is a certain overhead associated with this privacy feature.  Note that in
-industrial IoT deployments, the use of ECH may be disabled because network
-administrators routinely inspect the SNI to detect malicious behavior.
-Furthermore, to avoid leaking DNS lookups to network inspection altogether,
-additional protocols are needed, including DNS-over-HTTPS (DoH) {{?RFC8484}},
-DNS-over-TLS (DoT) {{?RFC7858}}, and DNS-over-QUIC (DoQ) {{?RFC9250}}.
-IoT-specific guidance for DNS resolver configuration, encrypted DNS, DNSSEC,
-and DNS operational behavior is provided in
-{{I-D.ietf-iotops-iot-dns-guidelines}}.
-See {{privacy-considerations}} for additional guidance on deciding whether ECH
-support is needed in a deployment.
+Deployments that require confidentiality of SNI and other ClientHello metadata
+can use Encrypted ClientHello (ECH) {{?RFC9849}}. ECH is most applicable to
+IoT deployments that use named cloud services or shared service infrastructure
+and have explicit privacy requirements. Since ECH does not protect DNS lookups
+or other metadata outside the TLS handshake, deployments that rely on ECH for
+privacy also need to protect DNS resolution, for example using encrypted DNS
+mechanisms; see {{I-D.ietf-iotops-iot-dns-guidelines}} for IoT-specific DNS
+guidance. The applicability, deployment requirements, and limitations of ECH
+are described in {{?RFC9849}}.
 
 IoT servers MAY use SNI for certificate or application-context selection.
 Authorization decisions are outside the scope of SNI and are based on the
