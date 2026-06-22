@@ -262,7 +262,9 @@ public keys are conveyed via the raw_public_key extension.
 
 This profile considers three authentication modes for IoT devices:
 (1) certificate-based, (2) raw public key-based and (3) external PSK-based.
-PSK with (EC)DHE is optional and not assumed by default.
+TLS/DTLS 1.3 supports both PSK-only and PSK with (EC)DHE key exchange modes.
+For PSK use, endpoints SHOULD use (EC)DHE where possible; see
+{{forward_secrecy}}.
 
 TLS/DTLS 1.3 supports PSK-based authentication,
 wherein PSKs can be established via session tickets from prior
@@ -340,7 +342,7 @@ been applied to reduce the size of the exchanged payloads. TLS and DTLS 1.3 use 
 overhead, depending on the type of key confirmations, when compared to previous versions of the
 protocol.
 
-# Forward Secrecy
+# Forward Secrecy {#forward_secrecy}
 
 RFC 8446 has removed Static RSA and Static Diffie-Hellman cipher suites, therefore all public-key-based key exchange mechanisms available in TLS 1.3 provide forward secrecy.
 
