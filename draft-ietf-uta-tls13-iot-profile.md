@@ -1060,7 +1060,7 @@ In addition, the integrity limits on key usage detailed in {{Section 4.4 of !RFC
 
 | Ciphersuite | Requirement |
 |--|--|
-| `TLS_AES_128_CCM_8_SHA256` | MUST implement for compatibility with {{RFC7925}} and {{CoAP}} deployments; not recommended for new DTLS deployments |
+| `TLS_AES_128_CCM_8_SHA256` | MUST implement for compatibility with {{RFC7925}} and {{CoAP}} deployments; not recommended for new deployments |
 | `TLS_AES_128_CCM_SHA256` | SHOULD implement |
 | `TLS_AES_128_GCM_SHA256` | SHOULD implement |
 {: #tab-cipher-reqs align="left" title="TLS 1.3 Ciphersuite Requirements"}
