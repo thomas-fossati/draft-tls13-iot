@@ -80,6 +80,7 @@ informative:
   RFC7452:
   RFC6066:
   I-D.ietf-iotops-7228bis:
+  I-D.ietf-iotops-iot-dns-guidelines:
   I-D.ietf-pquip-pqc-engineers:
   I-D.ietf-tls-8773bis:
   PQC-ENERGY: DOI.10.1145/3587135.3592821
@@ -398,15 +399,17 @@ consult {{RFC8937}}.
 
 # Server Name Indication {#sni}
 
-To support edge-to-cloud communication, this specification mandates the
-implementation of the Server Name Indication (SNI) extension for IoT devices
-acting as clients.
-This functionality is not strictly required for constrained-to-constrained
-communication and could be disabled in such cases.
-However, figuring out how to deactivate SNI can be difficult in some libraries.
-Furthermore, in a multi-vendor IoT deployment, some devices may not be aware of
-whether they are communicating with another device or a cloud service.
-Therefore, it is best to leave SNI as MTI for all clients.
+TLS 1.3 requires implementations to support the Server Name Indication (SNI)
+extension when used with applications capable of using it
+({{Section 9.2 of -TLS13}}). This profile does not change that requirement.
+
+IoT clients SHOULD send SNI when connecting to a named service, in particular
+when the peer is a cloud service, a multi-tenant endpoint, or any server that
+uses SNI for certificate or application-context selection. IoT clients MAY omit
+SNI when the peer identity is established by other application-specific
+configuration, such as a configured IP address and port, a pinned certificate,
+a raw public key, or an external PSK identity. When no DNS name is used, SNI
+is not applicable.
 
 Where privacy requirements necessitate it, the ECH (Encrypted Client Hello)
 extension {{?RFC9849}} prevents an on-path attacker from determining the domain
@@ -419,16 +422,18 @@ administrators routinely inspect the SNI to detect malicious behavior.
 Furthermore, to avoid leaking DNS lookups to network inspection altogether,
 additional protocols are needed, including DNS-over-HTTPS (DoH) {{?RFC8484}},
 DNS-over-TLS (DoT) {{?RFC7858}}, and DNS-over-QUIC (DoQ) {{?RFC9250}}.
+IoT-specific guidance for DNS resolver configuration, encrypted DNS, DNSSEC,
+and DNS operational behavior is provided in
+{{I-D.ietf-iotops-iot-dns-guidelines}}.
 See {{privacy-considerations}} for additional guidance on deciding whether ECH
 support is needed in a deployment.
 
-Where IoT devices are accepting (D)TLS connections (i.e., they are acting as a
-server), it is unlikely that there will be a useful name placed into the SNI by
-the connecting client.  Since an IoT server cannot rely on a client to
-provide a correct SNI, IoT devices in a responding (server) mode SHOULD ignore SNI.
-In the rare event that an IoT device has multiple server instances responding
-with different server certificates, the device SHOULD use different IP
-addresses or port numbers rather than relying on SNI.
+IoT servers MAY use SNI for certificate or application-context selection.
+Authorization decisions are outside the scope of SNI and are based on the
+authenticated peer credentials and local policy. If constrained clients are not
+expected to send useful SNI values, deployments SHOULD prefer separate IP
+addresses or port numbers when different server identities or certificates need
+to be distinguished.
 
 # Maximum Fragment Length Negotiation {#record_size_limit}
 
