@@ -969,7 +969,10 @@ Additional techniques are available, but they are more deployment-specific and
 are not uniformly supported by TLS/DTLS stacks:
 
 * The TLS cached info {{?RFC7924}} extension can avoid sending certificates
-  with every full handshake.
+  with every full handshake. This mechanism is particularly useful when a
+  client has a pinned server certificate, or has otherwise cached the server
+  certificate or certificate chain, because it gives the client a standardized
+  way to indicate that retransmitting the cached information is unnecessary.
 * The client certificate URL mechanism defined in {{Section 5 of RFC6066}} can
   replace client certificates in the handshake with references to external
   certificate objects. When
