@@ -1411,8 +1411,9 @@ As a consequence, EAP-TLS 1.3 <span>[<a href="#RFC9190" class="cite xref">RFC919
 identity. TLS 1.3 removed this separate server-provided hint. Instead, the
 client offers one or more PSK identities in the <code>pre_shared_key</code> extension, and
 the server selects one of them as part of the handshake. As a result, TLS 1.3
-clients need sufficient local or application-provided context, such as SNI,
-ALPN, or configuration, to determine which PSK identities to offer.<a href="#section-1-5.4.1" class="pilcrow">¶</a></p>
+clients need sufficient local or application-provided context, such as the
+intended server name, the application protocol, or
+local configuration, to determine which PSK identities to offer.<a href="#section-1-5.4.1" class="pilcrow">¶</a></p>
 </li>
         <li class="compact" id="section-1-5.5">
           <p id="section-1-5.5.1">Finally, ciphersuites were deprecated and the RSA-based key transport is not
