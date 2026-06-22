@@ -241,8 +241,6 @@ cryptography, privacy, and security considerations.
 
 {::boilerplate bcp14}
 
-This document reuses the terms "SHOULD+", "SHOULD-" and "MUST-" from {{!RFC8221}}.
-
 This document uses TLS terminology from {{-TLS13}}, DTLS terminology from
 {{-DTLS13}}, and X.509 certificate and certification path terminology from
 {{!RFC5280}}. IoT device-class terminology follows {{RFC7228}} and
@@ -1060,11 +1058,11 @@ In addition, the integrity limits on key usage detailed in {{Section 4.4 of !RFC
 
 {{tab-cipher-reqs}} summarizes the recommendations regarding ciphersuites:
 
-| Ciphersuite | MTI Requirement |
+| Ciphersuite | Requirement |
 |--|--|
-| `TLS_AES_128_CCM_8_SHA256` | MUST- |
-| `TLS_AES_128_CCM_SHA256` | SHOULD+ |
-| `TLS_AES_128_GCM_SHA256` | SHOULD+ |
+| `TLS_AES_128_CCM_8_SHA256` | MUST implement for compatibility with {{RFC7925}} and {{CoAP}} deployments; not recommended for new DTLS deployments |
+| `TLS_AES_128_CCM_SHA256` | SHOULD implement |
+| `TLS_AES_128_GCM_SHA256` | SHOULD implement |
 {: #tab-cipher-reqs align="left" title="TLS 1.3 Ciphersuite Requirements"}
 
 # Fault Attacks on Deterministic Signature Schemes
