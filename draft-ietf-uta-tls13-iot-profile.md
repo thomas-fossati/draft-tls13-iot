@@ -198,8 +198,9 @@ As a consequence, EAP-TLS 1.3 {{?RFC9190}} introduced a placeholder message.
 identity. TLS 1.3 removed this separate server-provided hint. Instead, the
 client offers one or more PSK identities in the `pre_shared_key` extension, and
 the server selects one of them as part of the handshake. As a result, TLS 1.3
-clients need sufficient local or application-provided context, such as SNI,
-ALPN, or configuration, to determine which PSK identities to offer.
+clients need sufficient local or application-provided context, such as the
+intended server name, the application protocol, or
+local configuration, to determine which PSK identities to offer.
 
 - Finally, ciphersuites were deprecated and the RSA-based key transport is not
 supported in TLS 1.3. As a consequence, only a Diffie-Hellman-based key exchange
