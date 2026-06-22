@@ -1660,22 +1660,15 @@ SNI when the peer identity is established by other application-specific
 configuration, such as a configured IP address and port, a pinned certificate,
 a raw public key, or an external PSK identity. When no DNS name is used, SNI
 is not applicable.<a href="#section-12-2" class="pilcrow">¶</a></p>
-<p id="section-12-3">Where privacy requirements necessitate it, the ECH (Encrypted Client Hello)
-extension <span>[<a href="#RFC9849" class="cite xref">RFC9849</a>]</span> prevents an on-path attacker from determining the domain
-name the client is trying to connect to.  Since the ECH extension requires the
-use of Hybrid Public Key Encryption (HPKE) <span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span>, and additional
-protocols require further protocol exchanges and cryptographic operations,
-there is a certain overhead associated with this privacy feature.  Note that in
-industrial IoT deployments, the use of ECH may be disabled because network
-administrators routinely inspect the SNI to detect malicious behavior.
-Furthermore, to avoid leaking DNS lookups to network inspection altogether,
-additional protocols are needed, including DNS-over-HTTPS (DoH) <span>[<a href="#RFC8484" class="cite xref">RFC8484</a>]</span>,
-DNS-over-TLS (DoT) <span>[<a href="#RFC7858" class="cite xref">RFC7858</a>]</span>, and DNS-over-QUIC (DoQ) <span>[<a href="#RFC9250" class="cite xref">RFC9250</a>]</span>.
-IoT-specific guidance for DNS resolver configuration, encrypted DNS, DNSSEC,
-and DNS operational behavior is provided in
-<span>[<a href="#I-D.ietf-iotops-iot-dns-guidelines" class="cite xref">I-D.ietf-iotops-iot-dns-guidelines</a>]</span>.
-See <a href="#privacy-considerations" class="auto internal xref">Section 23</a> for additional guidance on deciding whether ECH
-support is needed in a deployment.<a href="#section-12-3" class="pilcrow">¶</a></p>
+<p id="section-12-3">Deployments that require confidentiality of SNI and other ClientHello metadata
+can use Encrypted ClientHello (ECH) <span>[<a href="#RFC9849" class="cite xref">RFC9849</a>]</span>. ECH is most applicable to
+IoT deployments that use named cloud services or shared service infrastructure
+and have explicit privacy requirements. Since ECH does not protect DNS lookups
+or other metadata outside the TLS handshake, deployments that rely on ECH for
+privacy also need to protect DNS resolution, for example using encrypted DNS
+mechanisms; see <span>[<a href="#I-D.ietf-iotops-iot-dns-guidelines" class="cite xref">I-D.ietf-iotops-iot-dns-guidelines</a>]</span> for IoT-specific DNS
+guidance. The applicability, deployment requirements, and limitations of ECH
+are described in <span>[<a href="#RFC9849" class="cite xref">RFC9849</a>]</span>.<a href="#section-12-3" class="pilcrow">¶</a></p>
 <p id="section-12-4">IoT servers MAY use SNI for certificate or application-context selection.
 Authorization decisions are outside the scope of SNI and are based on the
 authenticated peer credentials and local policy. If constrained clients are not
@@ -2783,10 +2776,6 @@ deployments (<span><a href="https://rfc-editor.org/rfc/rfc9147#section-11" class
         <dd>
 <span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Arkko, J.</span>, <span class="refAuthor">Thaler, D.</span>, and <span class="refAuthor">D. McPherson</span>, <span class="refTitle">"Architectural Considerations in Smart Object Networking"</span>, <span class="seriesInfo">RFC 7452</span>, <span class="seriesInfo">DOI 10.17487/RFC7452</span>, <time datetime="2015-03" class="refDate">March 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7452">https://www.rfc-editor.org/rfc/rfc7452</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC7858">[RFC7858]</dt>
-        <dd>
-<span class="refAuthor">Hu, Z.</span>, <span class="refAuthor">Zhu, L.</span>, <span class="refAuthor">Heidemann, J.</span>, <span class="refAuthor">Mankin, A.</span>, <span class="refAuthor">Wessels, D.</span>, and <span class="refAuthor">P. Hoffman</span>, <span class="refTitle">"Specification for DNS over Transport Layer Security (TLS)"</span>, <span class="seriesInfo">RFC 7858</span>, <span class="seriesInfo">DOI 10.17487/RFC7858</span>, <time datetime="2016-05" class="refDate">May 2016</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7858">https://www.rfc-editor.org/rfc/rfc7858</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC7924">[RFC7924]</dt>
         <dd>
 <span class="refAuthor">Santesson, S.</span> and <span class="refAuthor">H. Tschofenig</span>, <span class="refTitle">"Transport Layer Security (TLS) Cached Information Extension"</span>, <span class="seriesInfo">RFC 7924</span>, <span class="seriesInfo">DOI 10.17487/RFC7924</span>, <time datetime="2016-07" class="refDate">July 2016</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7924">https://www.rfc-editor.org/rfc/rfc7924</a>&gt;</span>. </dd>
@@ -2794,10 +2783,6 @@ deployments (<span><a href="https://rfc-editor.org/rfc/rfc9147#section-11" class
 <dt id="RFC8032">[RFC8032]</dt>
         <dd>
 <span class="refAuthor">Josefsson, S.</span> and <span class="refAuthor">I. Liusvaara</span>, <span class="refTitle">"Edwards-Curve Digital Signature Algorithm (EdDSA)"</span>, <span class="seriesInfo">RFC 8032</span>, <span class="seriesInfo">DOI 10.17487/RFC8032</span>, <time datetime="2017-01" class="refDate">January 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8032">https://www.rfc-editor.org/rfc/rfc8032</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC8484">[RFC8484]</dt>
-        <dd>
-<span class="refAuthor">Hoffman, P.</span> and <span class="refAuthor">P. McManus</span>, <span class="refTitle">"DNS Queries over HTTPS (DoH)"</span>, <span class="seriesInfo">RFC 8484</span>, <span class="seriesInfo">DOI 10.17487/RFC8484</span>, <time datetime="2018-10" class="refDate">October 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8484">https://www.rfc-editor.org/rfc/rfc8484</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8879">[RFC8879]</dt>
         <dd>
@@ -2823,17 +2808,9 @@ deployments (<span><a href="https://rfc-editor.org/rfc/rfc9147#section-11" class
         <dd>
 <span class="refAuthor">Cam-Winget, N.</span> and <span class="refAuthor">J. Visoky</span>, <span class="refTitle">"TLS 1.3 Authentication and Integrity-Only Cipher Suites"</span>, <span class="seriesInfo">RFC 9150</span>, <span class="seriesInfo">DOI 10.17487/RFC9150</span>, <time datetime="2022-04" class="refDate">April 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9150">https://www.rfc-editor.org/rfc/rfc9150</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC9180">[RFC9180]</dt>
-        <dd>
-<span class="refAuthor">Barnes, R.</span>, <span class="refAuthor">Bhargavan, K.</span>, <span class="refAuthor">Lipp, B.</span>, and <span class="refAuthor">C. Wood</span>, <span class="refTitle">"Hybrid Public Key Encryption"</span>, <span class="seriesInfo">RFC 9180</span>, <span class="seriesInfo">DOI 10.17487/RFC9180</span>, <time datetime="2022-02" class="refDate">February 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9180">https://www.rfc-editor.org/rfc/rfc9180</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC9190">[RFC9190]</dt>
         <dd>
 <span class="refAuthor">Preuß Mattsson, J.</span> and <span class="refAuthor">M. Sethi</span>, <span class="refTitle">"EAP-TLS 1.3: Using the Extensible Authentication Protocol with TLS 1.3"</span>, <span class="seriesInfo">RFC 9190</span>, <span class="seriesInfo">DOI 10.17487/RFC9190</span>, <time datetime="2022-02" class="refDate">February 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9190">https://www.rfc-editor.org/rfc/rfc9190</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC9250">[RFC9250]</dt>
-        <dd>
-<span class="refAuthor">Huitema, C.</span>, <span class="refAuthor">Dickinson, S.</span>, and <span class="refAuthor">A. Mankin</span>, <span class="refTitle">"DNS over Dedicated QUIC Connections"</span>, <span class="seriesInfo">RFC 9250</span>, <span class="seriesInfo">DOI 10.17487/RFC9250</span>, <time datetime="2022-05" class="refDate">May 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9250">https://www.rfc-editor.org/rfc/rfc9250</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9261">[RFC9261]</dt>
         <dd>
