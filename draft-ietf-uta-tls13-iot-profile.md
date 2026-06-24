@@ -1101,8 +1101,7 @@ a future cryptographically relevant quantum computer, provided that the
 external PSK is generated and distributed securely. It does not make the
 certificate-based authentication quantum resistant. Deployments can use this
 mechanism as a migration path while PQC algorithms are being introduced, at
-certificate-based authentication quantum resistant. Deployments can use this
-mechanism as a migration path while quantum resistant algorithms are being introduced, at
+certificate-based authentication quantum resistant.
 
 # Privacy Considerations {#privacy-considerations}
 
