@@ -1462,13 +1462,12 @@ NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
 "MAY", and "OPTIONAL" in this document are to be interpreted as
 described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
 appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶</a></p>
-<p id="section-2-2">This document reuses the terms "SHOULD+", "SHOULD-" and "MUST-" from <span>[<a href="#RFC8221" class="cite xref">RFC8221</a>]</span>.<a href="#section-2-2" class="pilcrow">¶</a></p>
-<p id="section-2-3">This document uses TLS terminology from <span>[<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>, DTLS terminology from
+<p id="section-2-2">This document uses TLS terminology from <span>[<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>, DTLS terminology from
 <span>[<a href="#RFC9147" class="cite xref">RFC9147</a>]</span>, and X.509 certificate and certification path terminology from
 <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>. IoT device-class terminology follows <span>[<a href="#RFC7228" class="cite xref">RFC7228</a>]</span> and
 <span>[<a href="#I-D.ietf-iotops-7228bis" class="cite xref">I-D.ietf-iotops-7228bis</a>]</span>. The DevID, IDevID, and LDevID terms used in the
 certificate profile are introduced in <span>[<a href="#IEEE-802.1AR" class="cite xref">IEEE-802.1AR</a>]</span> and described in
-<a href="#certificate_profile" class="auto internal xref">Section 17</a>.<a href="#section-2-3" class="pilcrow">¶</a></p>
+<a href="#certificate_profile" class="auto internal xref">Section 17</a>.<a href="#section-2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="credential_types">
@@ -2460,7 +2459,7 @@ In addition, the integrity limits on key usage detailed in <span><a href="https:
 <thead>
           <tr>
             <th class="text-left" rowspan="1" colspan="1">Ciphersuite</th>
-            <th class="text-left" rowspan="1" colspan="1">MTI Requirement</th>
+            <th class="text-left" rowspan="1" colspan="1">Requirement</th>
           </tr>
         </thead>
         <tbody>
@@ -2468,19 +2467,19 @@ In addition, the integrity limits on key usage detailed in <span><a href="https:
             <td class="text-left" rowspan="1" colspan="1">
               <code>TLS_AES_128_CCM_8_SHA256</code>
 </td>
-            <td class="text-left" rowspan="1" colspan="1">MUST-</td>
+            <td class="text-left" rowspan="1" colspan="1">MUST implement for compatibility with <span>[<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> and <span>[<a href="#CoAP" class="cite xref">CoAP</a>]</span> deployments; not recommended for new deployments</td>
           </tr>
           <tr>
             <td class="text-left" rowspan="1" colspan="1">
               <code>TLS_AES_128_CCM_SHA256</code>
 </td>
-            <td class="text-left" rowspan="1" colspan="1">SHOULD+</td>
+            <td class="text-left" rowspan="1" colspan="1">SHOULD implement</td>
           </tr>
           <tr>
             <td class="text-left" rowspan="1" colspan="1">
               <code>TLS_AES_128_GCM_SHA256</code>
 </td>
-            <td class="text-left" rowspan="1" colspan="1">SHOULD+</td>
+            <td class="text-left" rowspan="1" colspan="1">SHOULD implement</td>
           </tr>
         </tbody>
       </table>
@@ -2613,10 +2612,6 @@ deployments (<span><a href="https://rfc-editor.org/rfc/rfc9147#section-11" class
 <dt id="RFC8174">[RFC8174]</dt>
         <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC8221">[RFC8221]</dt>
-        <dd>
-<span class="refAuthor">Wouters, P.</span>, <span class="refAuthor">Migault, D.</span>, <span class="refAuthor">Mattsson, J.</span>, <span class="refAuthor">Nir, Y.</span>, and <span class="refAuthor">T. Kivinen</span>, <span class="refTitle">"Cryptographic Algorithm Implementation Requirements and Usage Guidance for Encapsulating Security Payload (ESP) and Authentication Header (AH)"</span>, <span class="seriesInfo">RFC 8221</span>, <span class="seriesInfo">DOI 10.17487/RFC8221</span>, <time datetime="2017-10" class="refDate">October 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8221">https://www.rfc-editor.org/rfc/rfc8221</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8446">[RFC8446]</dt>
         <dd>
