@@ -193,10 +193,14 @@ based on the exporter_master_secret and not on the application traffic secret.
 - Flight #4, which was used by EAP-TLS 1.2 {{?RFC5216}}, does not exist in TLS 1.3.
 As a consequence, EAP-TLS 1.3 {{?RFC9190}} introduced a placeholder message.
 
-- {{?RFC4279}} introduced PSK-based authentication to TLS, a feature re-designed
-in TLS 1.3. The "PSK identity hint" defined in {{?RFC4279}}, which is used by the
-server to help the client in selecting which PSK identity to use, is, however, not
-available anymore in TLS 1.3.
+- {{?RFC4279}} introduced PSK-based authentication to TLS, including the
+"PSK identity hint", which allowed a server to help the client select a PSK
+identity. TLS 1.3 removed this separate server-provided hint. Instead, the
+client offers one or more PSK identities in the `pre_shared_key` extension, and
+the server selects one of them as part of the handshake. As a result, TLS 1.3
+clients need sufficient local or application-provided context, such as the
+intended server name, the application protocol, or
+local configuration, to determine which PSK identities to offer.
 
 - Finally, ciphersuites were deprecated and the RSA-based key transport is not
 supported in TLS 1.3. As a consequence, only a Diffie-Hellman-based key exchange
