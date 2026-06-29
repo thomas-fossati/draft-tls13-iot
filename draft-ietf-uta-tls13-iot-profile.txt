@@ -1635,12 +1635,13 @@ Table of Contents
 
 Acknowledgments
 
-   We would like to thank Henk Birkholz, Hendrik Brockhaus, Ben Kaduk,
-   John Mattsson, Daniel Migault, Tiru Reddy, Rich Salz, and Marco
-   Tiloca.
+   We would like to thank Henk Birkholz, Hendrik Brockhaus, Menachem
+   Dodge, Martin Duke, Russ Housley, Ben Kaduk, Achim Kraus, John
+   Mattsson, Tiru Reddy, Scott Rose, Rich Salz, Martin Thomson, and
+   Marco Tiloca.
 
-   Furthermore, we would like to thank our security area director Deb
-   Cooley for her detailed review comments.
+   Finally, we would like to thank our security area director Deb Cooley
+   for her detailed review comments.
 
 Contributors
 
