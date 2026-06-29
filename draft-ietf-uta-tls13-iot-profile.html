@@ -1406,10 +1406,14 @@ based on the exporter_master_secret and not on the application traffic secret.<a
 As a consequence, EAP-TLS 1.3 <span>[<a href="#RFC9190" class="cite xref">RFC9190</a>]</span> introduced a placeholder message.<a href="#section-1-5.3.1" class="pilcrow">¶</a></p>
 </li>
         <li class="compact" id="section-1-5.4">
-          <p id="section-1-5.4.1"><span>[<a href="#RFC4279" class="cite xref">RFC4279</a>]</span> introduced PSK-based authentication to TLS, a feature re-designed
-in TLS 1.3. The "PSK identity hint" defined in <span>[<a href="#RFC4279" class="cite xref">RFC4279</a>]</span>, which is used by the
-server to help the client in selecting which PSK identity to use, is, however, not
-available anymore in TLS 1.3.<a href="#section-1-5.4.1" class="pilcrow">¶</a></p>
+          <p id="section-1-5.4.1"><span>[<a href="#RFC4279" class="cite xref">RFC4279</a>]</span> introduced PSK-based authentication to TLS, including the
+"PSK identity hint", which allowed a server to help the client select a PSK
+identity. TLS 1.3 removed this separate server-provided hint. Instead, the
+client offers one or more PSK identities in the <code>pre_shared_key</code> extension, and
+the server selects one of them as part of the handshake. As a result, TLS 1.3
+clients need sufficient local or application-provided context, such as the
+intended server name, the application protocol, or
+local configuration, to determine which PSK identities to offer.<a href="#section-1-5.4.1" class="pilcrow">¶</a></p>
 </li>
         <li class="compact" id="section-1-5.5">
           <p id="section-1-5.5.1">Finally, ciphersuites were deprecated and the RSA-based key transport is not
