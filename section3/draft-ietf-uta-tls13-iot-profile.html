@@ -1484,12 +1484,20 @@ The extensions used in TLS/DTLS differ depending on the credential types
 supported.
 Self-signed X.509 certificates are still X.509, not raw public keys; raw
 public keys are conveyed via the raw_public_key extension.<a href="#section-3-1" class="pilcrow">¶</a></p>
-<p id="section-3-2">This profile considers three authentication modes for IoT devices:
+<p id="section-3-2">Password-authenticated key exchange (PAKE) mechanisms allow two endpoints to
+authenticate and establish keys from a low-entropy shared secret, such as a
+user-entered password, without using that secret directly as a TLS PSK. Such
+mechanisms have been defined for earlier versions of TLS, and new work is
+underway to add PAKE authentication to TLS 1.3 <span>[<a href="#I-D.ietf-tls-pake" class="cite xref">I-D.ietf-tls-pake</a>]</span>. The
+deployment model for PAKE mechanisms in constrained IoT environments is
+still evolving. This profile therefore does not cover password-authenticated
+TLS deployments.<a href="#section-3-2" class="pilcrow">¶</a></p>
+<p id="section-3-3">This profile considers three authentication modes for IoT devices:
 (1) certificate-based, (2) raw public key-based and (3) external PSK-based.
 TLS/DTLS 1.3 supports both PSK-only and PSK with (EC)DHE key exchange modes.
 For PSK use, endpoints SHOULD use (EC)DHE where possible; see
-<a href="#forward_secrecy" class="auto internal xref">Section 7</a>.<a href="#section-3-2" class="pilcrow">¶</a></p>
-<p id="section-3-3">TLS/DTLS 1.3 supports PSK-based authentication,
+<a href="#forward_secrecy" class="auto internal xref">Section 7</a>.<a href="#section-3-3" class="pilcrow">¶</a></p>
+<p id="section-3-4">TLS/DTLS 1.3 supports PSK-based authentication,
 wherein PSKs can be established via session tickets from prior
 connections or via some external, out-of-band mechanism. To distinguish
 the two modes, the former is called resumption PSK and the latter
@@ -1498,8 +1506,8 @@ is often found in implementations that use X.509 certificates for
 authentication.
 Implementations that only support external PSKs are common in constrained
 devices; implementations using certificates often also support resumption
-PSKs for performance.<a href="#section-3-3" class="pilcrow">¶</a></p>
-<p id="section-3-4">Endpoints that use external PSKs as their only long-term credential still
+PSKs for performance.<a href="#section-3-4" class="pilcrow">¶</a></p>
+<p id="section-3-5">Endpoints that use external PSKs as their only long-term credential still
 follow the TLS/DTLS 1.3 extension requirements according to their
 applicability; see <a href="#_table-mandatory-extensions" class="auto internal xref">Table 1</a>. This profile differs from
 certificate-based and raw-public-key-based deployments only in that endpoints
@@ -1507,25 +1515,25 @@ that exclusively support external PSK authentication do not need to implement
 certificate-authentication extensions or signature algorithm support. When
 such endpoints offer or negotiate <code>psk_dhe_ke</code>, the <code>supported_groups</code> and
 <code>key_share</code> extensions are required as specified by TLS 1.3. When <code>psk_ke</code> is
-used without (EC)DHE, those extensions are not needed for that handshake.<a href="#section-3-4" class="pilcrow">¶</a></p>
-<p id="section-3-5">For external pre-shared keys, <span>[<a href="#RFC9258" class="cite xref">RFC9258</a>]</span> recommends that applications
-SHOULD provision separate PSKs for (D)TLS 1.3 and prior versions.<a href="#section-3-5" class="pilcrow">¶</a></p>
-<p id="section-3-6">Where possible, the importer interface defined in <span>[<a href="#RFC9258" class="cite xref">RFC9258</a>]</span> MUST be used
+used without (EC)DHE, those extensions are not needed for that handshake.<a href="#section-3-5" class="pilcrow">¶</a></p>
+<p id="section-3-6">For external pre-shared keys, <span>[<a href="#RFC9258" class="cite xref">RFC9258</a>]</span> recommends that applications
+SHOULD provision separate PSKs for (D)TLS 1.3 and prior versions.<a href="#section-3-6" class="pilcrow">¶</a></p>
+<p id="section-3-7">Where possible, the importer interface defined in <span>[<a href="#RFC9258" class="cite xref">RFC9258</a>]</span> MUST be used
 for external PSKs. This ensures that external PSKs used in (D)TLS 1.3
-are bound to a specific key derivation function (KDF) and hash function.<a href="#section-3-6" class="pilcrow">¶</a></p>
-<p id="section-3-7">An implementation supporting authentication based on certificates and
+are bound to a specific key derivation function (KDF) and hash function.<a href="#section-3-7" class="pilcrow">¶</a></p>
+<p id="section-3-8">An implementation supporting authentication based on certificates and
 raw public keys MUST support digital signatures with ecdsa_secp256r1_sha256. A
 compliant implementation MUST support the key exchange with secp256r1 (NIST
-P-256) and SHOULD support key exchange with X25519.<a href="#section-3-7" class="pilcrow">¶</a></p>
-<p id="section-3-8">Entities deploying IoT devices may select credential types based on security
+P-256) and SHOULD support key exchange with X25519.<a href="#section-3-8" class="pilcrow">¶</a></p>
+<p id="section-3-9">Entities deploying IoT devices may select credential types based on security
 characteristics, operational requirements, cost, and other factors.
 Consequently, this specification does not mandate a single credential type
-but provides guidance on considerations relevant to the use of particular types.<a href="#section-3-8" class="pilcrow">¶</a></p>
-<p id="section-3-9">TLS/DTLS 1.3 implementations conforming to this profile MUST follow the
+but provides guidance on considerations relevant to the use of particular types.<a href="#section-3-9" class="pilcrow">¶</a></p>
+<p id="section-3-10">TLS/DTLS 1.3 implementations conforming to this profile MUST follow the
 mandatory-to-implement extension requirements in <span><a href="https://rfc-editor.org/rfc/rfc8446#section-9.2" class="relref">Section 9.2</a> of [<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>.
 This section summarizes those requirements and the additional extension
 requirements established by this profile. The table does not replace the
-normative requirements in the referenced sections.<a href="#section-3-9" class="pilcrow">¶</a></p>
+normative requirements in the referenced sections.<a href="#section-3-10" class="pilcrow">¶</a></p>
 <span id="name-mandatory-and-profile-speci"></span><div id="_table-mandatory-extensions">
 <table class="left" id="table-1">
         <caption>
@@ -2788,6 +2796,10 @@ deployments (<span><a href="https://rfc-editor.org/rfc/rfc9147#section-11" class
 <dt id="I-D.ietf-tls-8773bis">[I-D.ietf-tls-8773bis]</dt>
         <dd>
 <span class="refAuthor">Housley, R.</span>, <span class="refTitle">"TLS 1.3 Extension for Using Certificates with an External Pre-Shared Key"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tls-8773bis-13</span>, <time datetime="2025-09-05" class="refDate">5 September 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-8773bis-13">https://datatracker.ietf.org/doc/html/draft-ietf-tls-8773bis-13</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.ietf-tls-pake">[I-D.ietf-tls-pake]</dt>
+        <dd>
+<span class="refAuthor">Bauman, L.</span>, <span class="refAuthor">Benjamin, D.</span>, <span class="refAuthor">Menon, S.</span>, and <span class="refAuthor">C. A. Wood</span>, <span class="refTitle">"A Password Authenticated Key Exchange Extension for TLS 1.3"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tls-pake-01</span>, <time datetime="2026-03-02" class="refDate">2 March 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-pake-01">https://datatracker.ietf.org/doc/html/draft-ietf-tls-pake-01</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-uta-pqc-app">[I-D.ietf-uta-pqc-app]</dt>
         <dd>
