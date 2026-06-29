@@ -1149,11 +1149,16 @@ This document makes no requests to IANA.
 We would like to thank
 Henk Birkholz,
 Hendrik Brockhaus,
+Menachem Dodge,
+Martin Duke,
+Russ Housley,
 Ben Kaduk,
+Achim Kraus,
 John Mattsson,
-Daniel Migault,
 Tiru Reddy,
-Rich Salz, and
+Scott Rose,
+Rich Salz,
+Martin Thomson, and
 Marco Tiloca.
 
-Furthermore, we would like to thank our security area director Deb Cooley for her detailed review comments.
+Finally, we would like to thank our security area director Deb Cooley for her detailed review comments.
