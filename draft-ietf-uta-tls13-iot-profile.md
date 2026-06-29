@@ -353,15 +353,6 @@ Pre-shared keys (PSKs) can be used with (EC)DHE key exchange to provide forward 
 For PSK use, endpoints SHOULD use (EC)DHE to achieve forward secrecy; PSK-only
 SHOULD be avoided unless the application can tolerate the loss of forward secrecy.
 
-# Authentication and Integrity-only Cipher Suites
-
-For a few, very specific Industrial IoT use cases {{?RFC9150}} defines two cipher
-suites that provide data authenticity, but not data confidentiality. For details
-and use constraints, defer to {{?RFC9150}} (especially {{Section 9 of RFC9150}}).
-Implementations might not support these suites; deployments should not assume
-availability. This document does not add new guidance beyond {{?RFC9150}}.
-Profiling the use of authentication- and integrity-only cipher suites is out of
-scope for this specification.
 
 # Keep-Alive
 
@@ -1118,6 +1109,11 @@ deployments ({{Section 11 of -DTLS13}}).
 # Security Considerations
 
 This entire document is about security.
+
+This profile does not specify authentication- or integrity-only cipher suites.
+Deployments considering such cipher suites, such as defined in {{?RFC9150}},
+need application-specific analysis outside the scope of this
+document.
 
 # IANA Considerations
 
