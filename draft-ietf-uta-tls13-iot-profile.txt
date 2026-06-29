@@ -420,39 +420,37 @@ Table of Contents
 
 12.  Server Name Indication
 
-   To support edge-to-cloud communication, this specification mandates
-   the implementation of the Server Name Indication (SNI) extension for
-   IoT devices acting as clients.  This functionality is not strictly
-   required for constrained-to-constrained communication and could be
-   disabled in such cases.  However, figuring out how to deactivate SNI
-   can be difficult in some libraries.  Furthermore, in a multi-vendor
-   IoT deployment, some devices may not be aware of whether they are
-   communicating with another device or a cloud service.  Therefore, it
-   is best to leave SNI as MTI for all clients.
+   TLS 1.3 requires implementations to support the Server Name
+   Indication (SNI) extension when used with applications capable of
+   using it (Section 9.2 of [RFC8446]).  This profile does not change
+   that requirement.
 
-   Where privacy requirements necessitate it, the ECH (Encrypted Client
-   Hello) extension [RFC9849] prevents an on-path attacker from
-   determining the domain name the client is trying to connect to.
-   Since the ECH extension requires the use of Hybrid Public Key
-   Encryption (HPKE) [RFC9180], and additional protocols require further
-   protocol exchanges and cryptographic operations, there is a certain
-   overhead associated with this privacy feature.  Note that in
-   industrial IoT deployments, the use of ECH may be disabled because
-   network administrators routinely inspect the SNI to detect malicious
-   behavior.  Furthermore, to avoid leaking DNS lookups to network
-   inspection altogether, additional protocols are needed, including
-   DNS-over-HTTPS (DoH) [RFC8484], DNS-over-TLS (DoT) [RFC7858], and
-   DNS-over-QUIC (DoQ) [RFC9250].  See Section 23 for additional
-   guidance on deciding whether ECH support is needed in a deployment.
+   IoT clients SHOULD send SNI when connecting to a named service, in
+   particular when the peer is a cloud service, a multi-tenant endpoint,
+   or any server that uses SNI for certificate or application-context
+   selection.  IoT clients MAY omit SNI when the peer identity is
+   established by other application-specific configuration, such as a
+   configured IP address and port, a pinned certificate, a raw public
+   key, or an external PSK identity.  When no DNS name is used, SNI is
+   not applicable.
 
-   Where IoT devices are accepting (D)TLS connections (i.e., they are
-   acting as a server), it is unlikely that there will be a useful name
-   placed into the SNI by the connecting client.  Since an IoT server
-   cannot rely on a client to provide a correct SNI, IoT devices in a
-   responding (server) mode SHOULD ignore SNI.  In the rare event that
-   an IoT device has multiple server instances responding with different
-   server certificates, the device SHOULD use different IP addresses or
-   port numbers rather than relying on SNI.
+   Deployments that require confidentiality of SNI and other ClientHello
+   metadata can use Encrypted ClientHello (ECH) [RFC9849].  ECH is most
+   applicable to IoT deployments that use named cloud services or shared
+   service infrastructure and have explicit privacy requirements.  Since
+   ECH does not protect DNS lookups or other metadata outside the TLS
+   handshake, deployments that rely on ECH for privacy also need to
+   protect DNS resolution, for example using encrypted DNS mechanisms;
+   see [I-D.ietf-iotops-iot-dns-guidelines] for IoT-specific DNS
+   guidance.  The applicability, deployment requirements, and
+   limitations of ECH are described in [RFC9849].
+
+   IoT servers MAY use SNI for certificate or application-context
+   selection.  Authorization decisions are outside the scope of SNI and
+   are based on the authenticated peer credentials and local policy.  If
+   constrained clients are not expected to send useful SNI values,
+   deployments SHOULD prefer separate IP addresses or port numbers when
+   different server identities or certificates need to be distinguished.
 
 13.  Maximum Fragment Length Negotiation
 
@@ -1396,6 +1394,14 @@ Table of Contents
               May 2026, <https://datatracker.ietf.org/doc/html/draft-
               ietf-iotops-7228bis-08>.
 
+   [I-D.ietf-iotops-iot-dns-guidelines]
+              Mishra, A. K., Losty, A., Mandalari, A. M., Mozley, J.,
+              and M. Cunche, "IoT DNS Security and Privacy Guidelines",
+              Work in Progress, Internet-Draft, draft-ietf-iotops-iot-
+              dns-guidelines-03, 8 May 2026,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-iotops-
+              iot-dns-guidelines-03>.
+
    [I-D.ietf-pquip-pqc-engineers]
               Banerjee, A., Reddy.K, T., Schoinianakis, D., Hollebeek,
               T., and M. Ounsworth, "Post-Quantum Cryptography for
@@ -1545,11 +1551,6 @@ Table of Contents
               RFC 7452, DOI 10.17487/RFC7452, March 2015,
               <https://www.rfc-editor.org/rfc/rfc7452>.
 
-   [RFC7858]  Hu, Z., Zhu, L., Heidemann, J., Mankin, A., Wessels, D.,
-              and P. Hoffman, "Specification for DNS over Transport
-              Layer Security (TLS)", RFC 7858, DOI 10.17487/RFC7858, May
-              2016, <https://www.rfc-editor.org/rfc/rfc7858>.
-
    [RFC7924]  Santesson, S. and H. Tschofenig, "Transport Layer Security
               (TLS) Cached Information Extension", RFC 7924,
               DOI 10.17487/RFC7924, July 2016,
@@ -1559,10 +1560,6 @@ Table of Contents
               Signature Algorithm (EdDSA)", RFC 8032,
               DOI 10.17487/RFC8032, January 2017,
               <https://www.rfc-editor.org/rfc/rfc8032>.
-
-   [RFC8484]  Hoffman, P. and P. McManus, "DNS Queries over HTTPS
-              (DoH)", RFC 8484, DOI 10.17487/RFC8484, October 2018,
-              <https://www.rfc-editor.org/rfc/rfc8484>.
 
    [RFC8879]  Ghedini, A. and V. Vasiliev, "TLS Certificate
               Compression", RFC 8879, DOI 10.17487/RFC8879, December
@@ -1593,19 +1590,10 @@ Table of Contents
               DOI 10.17487/RFC9150, April 2022,
               <https://www.rfc-editor.org/rfc/rfc9150>.
 
-   [RFC9180]  Barnes, R., Bhargavan, K., Lipp, B., and C. Wood, "Hybrid
-              Public Key Encryption", RFC 9180, DOI 10.17487/RFC9180,
-              February 2022, <https://www.rfc-editor.org/rfc/rfc9180>.
-
    [RFC9190]  Preuß Mattsson, J. and M. Sethi, "EAP-TLS 1.3: Using the
               Extensible Authentication Protocol with TLS 1.3",
               RFC 9190, DOI 10.17487/RFC9190, February 2022,
               <https://www.rfc-editor.org/rfc/rfc9190>.
-
-   [RFC9250]  Huitema, C., Dickinson, S., and A. Mankin, "DNS over
-              Dedicated QUIC Connections", RFC 9250,
-              DOI 10.17487/RFC9250, May 2022,
-              <https://www.rfc-editor.org/rfc/rfc9250>.
 
    [RFC9261]  Sullivan, N., "Exported Authenticators in TLS", RFC 9261,
               DOI 10.17487/RFC9261, July 2022,
