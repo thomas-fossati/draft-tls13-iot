@@ -280,45 +280,53 @@ Implementations that only support external PSKs are common in constrained
 devices; implementations using certificates often also support resumption
 PSKs for performance.
 
-A "plain" PSK-based TLS/DTLS client or server, which only implements support
-for external PSKs as its long-term credential, MUST implement the following extensions:
-
-* Supported Versions,
-* Cookie,
-* Server Name Indication (SNI),
-* Pre-Shared Key,
-* PSK Key Exchange Modes, and
-* Application-Layer Protocol Negotiation (ALPN).
-
-Note that these extensions may also appear in ECDHE or resumption handshakes;
-the requirement here is that external PSK-only endpoints MUST support them.
+Endpoints that use external PSKs as their only long-term credential still
+follow the TLS/DTLS 1.3 extension requirements according to their
+applicability; see {{table-mandatory-extensions}}. This profile differs from
+certificate-based and raw-public-key-based deployments only in that endpoints
+that exclusively support external PSK authentication do not need to implement
+certificate-authentication extensions or signature algorithm support. When
+such endpoints offer or negotiate `psk_dhe_ke`, the `supported_groups` and
+`key_share` extensions are required as specified by TLS 1.3. When `psk_ke` is
+used without (EC)DHE, those extensions are not needed for that handshake.
 
 For external pre-shared keys, {{!RFC9258}} recommends that applications
 SHOULD provision separate PSKs for (D)TLS 1.3 and prior versions.
 
 Where possible, the importer interface defined in {{!RFC9258}} MUST be used
-for external PSKs. This ensures
-that external PSKs used in (D)TLS 1.3
+for external PSKs. This ensures that external PSKs used in (D)TLS 1.3
 are bound to a specific key derivation function (KDF) and hash function.
-
-SNI is discussed in {{sni}}; the justification for implementing and using
-the ALPN extension can be found in {{?RFC9325}}.
 
 An implementation supporting authentication based on certificates and
 raw public keys MUST support digital signatures with ecdsa_secp256r1_sha256. A
 compliant implementation MUST support the key exchange with secp256r1 (NIST
 P-256) and SHOULD support key exchange with X25519.
 
-For TLS/DTLS clients and servers implementing raw public keys and/or
-certificates the guidance for mandatory-to-implement extensions described in
-{{Section 9.2 of -TLS13}} MUST be followed.
-In addition, compliant implementations MUST implement the Record Size Limit
-(RSL) extension; see {{record_size_limit}}.
-
 Entities deploying IoT devices may select credential types based on security
 characteristics, operational requirements, cost, and other factors.
-Consequently, this specification does not prescribe a single credential type
+Consequently, this specification does not mandate a single credential type
 but provides guidance on considerations relevant to the use of particular types.
+
+TLS/DTLS 1.3 implementations conforming to this profile MUST follow the
+mandatory-to-implement extension requirements in {{Section 9.2 of -TLS13}}.
+This section summarizes those requirements and the additional extension
+requirements established by this profile. The table does not replace the
+normative requirements in the referenced sections.
+
+| Extension | Applicability | Reference |
+|---|---|---|
+| `supported_versions` | TLS/DTLS 1.3 negotiation | {{Section 9.2 of -TLS13}} |
+| `cookie` | HelloRetryRequest and DTLS use | {{Section 9.2 of -TLS13}} |
+| `signature_algorithms` | Certificate authentication and other signature-based authentication mechanisms | {{Section 9.2 of -TLS13}} |
+| `signature_algorithms_cert` | Certificate authentication where certificate signature algorithms are negotiated separately | {{Section 9.2 of -TLS13}} |
+| `supported_groups` | DHE/ECDHE key exchange, including `psk_dhe_ke` | {{Section 9.2 of -TLS13}} |
+| `key_share` | DHE/ECDHE key exchange, including `psk_dhe_ke` | {{Section 9.2 of -TLS13}} |
+| `server_name` | Applications capable of using SNI | {{sni}} |
+| `pre_shared_key` | PSK authentication and resumption | {{Section 9.2 of -TLS13}} |
+| `psk_key_exchange_modes` | PSK authentication and resumption | {{Section 9.2 of -TLS13}} |
+| `application_layer_protocol_negotiation` | Application protocol selection | {{alpn}} |
+| `record_size_limit` | Constrained endpoints | {{record_size_limit}} |
+{: #table-mandatory-extensions align="left" title="Mandatory and Profile-Specific Extension Requirements"}
 
 # Error Handling
 
@@ -431,6 +439,20 @@ authenticated peer credentials and local policy. If constrained clients are not
 expected to send useful SNI values, deployments SHOULD prefer separate IP
 addresses or port numbers when different server identities or certificates need
 to be distinguished.
+
+# Application-Layer Protocol Negotiation {#alpn}
+
+The Application-Layer Protocol Negotiation (ALPN) extension {{?RFC7301}} is
+independent of the credential type used for TLS authentication.
+
+Implementations conforming to this profile MUST support ALPN. Endpoints SHOULD
+use ALPN when more than one application protocol, protocol version, or
+application context can be served by the same TLS endpoint, certificate, raw
+public key, or PSK identity. When a deployment is restricted by configuration
+to a single application protocol, ALPN MAY be omitted.
+
+Use of ALPN helps prevent cross-protocol confusion attacks and follows the
+guidance in {{Section 3.8 of ?RFC9325}}.
 
 # Maximum Fragment Length Negotiation {#record_size_limit}
 
