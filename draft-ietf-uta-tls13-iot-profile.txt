@@ -995,115 +995,95 @@ Table of Contents
 
 19.  Certificate Overhead
 
-   In a public key-based key exchange, certificates and public keys are
+   In certificate-based authentication, certificates and public keys are
    a major contributor to the size of the overall handshake.  For
    example, in a regular TLS 1.3 handshake with minimal ECC certificates
-   and no subordinate CA utilizing the secp256r1 curve with mutual
+   and no subordinate CA using the secp256r1 curve with mutual
    authentication, around 40% of the entire handshake payload is
    consumed by the two exchanged certificates.
 
-   Hence, it is not surprising that there is a strong desire to reduce
-   the size of certificates and certificate chains.  This has led to
-   various standardization efforts.  Below is a brief summary of what
-   options an implementer has to reduce the bandwidth requirements of a
-   public key-based key exchange.  Note that many of the standardized
-   extensions are not readily available in TLS/DTLS stacks since
-   optimizations typically get implemented last.
+   Deployments should first apply the certificate-profile
+   recommendations in this document, since they reduce both bandwidth
+   use and certificate processing cost without requiring additional TLS
+   extensions:
 
    *  Use elliptic curve cryptography (ECC) instead of RSA-based
-      certificate due to the smaller certificate size.  This document
-      recommends the use of elliptic curve cryptography only.
+      certificates.  This document recommends the use of elliptic curve
+      cryptography only.
    *  Avoid deep and complex CA hierarchies to reduce the number of
       subordinate CA certificates that need to be transmitted and
       processed.  See [I-D.irtf-t2trg-taxonomy-manufacturer-anchors] for
       a discussion about CA hierarchies.  Most security requirements can
       be satisfied with a PKI depth of 3 (root CA, one subordinate CA,
       and end entity certificates).
-   *  Pay attention to the amount of information conveyed inside
-      certificates.
-   *  Use session resumption to reduce the number of times a full
-      handshake is needed.  Use Connection IDs [RFC9146], when possible,
-      to enable long-lasting connections.
-   *  Use the TLS cached info [RFC7924] extension to avoid sending
-      certificates with every full handshake.
-   *  Use client certificate URLs Section 5 of [RFC6066] instead of full
-      certificates for clients.  When applications perform TLS client
-      authentication via DNS-Based Authentication of Named Entities
-      (DANE) TLSA records then the [I-D.ietf-dance-tls-clientid]
-      specification may be used to reduce the packets on the wire.
-      Note: The term "TLSA" does not stand for anything; it is just the
+   *  Include only the certificate fields and extensions needed for the
+      intended deployment.  The profile in Section 17 identifies
+      certificate content that can be omitted in constrained IoT
+      deployments.
+   *  Transmit only the certificates needed by the peer to build a path
+      to one of its configured trust anchors.  Trust anchors are
+      intended to be provisioned out of band and a trust anchor received
+      in a TLS Certificate message cannot be assumed trustworthy.  A
+      trust anchor therefore SHOULD NOT be included in the Certificate
+      message.
+
+   TLS and DTLS also provide mechanisms that reduce how often large
+   certificate chains have to be exchanged.  Session resumption reduces
+   the size of subsequent handshakes after an initial authenticated
+   exchange.  DTLS Connection IDs [RFC9146], when applicable, help
+   preserve long-lived associations across address or path changes and
+   can therefore avoid handshakes that would otherwise be needed to re-
+   establish the connection.
+
+   Omitting trust anchors from the Certificate message is the preferred
+   baseline, but the sender still has to provide enough information for
+   the peer to validate the presented end entity certificate.  In some
+   deployments the sender cannot infer which trust anchor the peer has
+   configured.  For example, the peer's trust anchor might be an
+   intermediate CA rather than a root CA, or a root key transition might
+   mean that different devices have different old or new trust anchors
+   installed.  In these cases, the peer MAY use the Trusted CA
+   Indication extension [RFC6066] to help the sender select an
+   appropriate certificate chain.  During trust-anchor updates,
+   deployments may also need transitional cross-certificates, such as
+   the newWithOld and oldWithNew certificates described by Section 4.4
+   of [RFC9810].  Such certificates can help bridge the transition, but
+   they do not replace out-of-band provisioning of trust anchors.
+
+   Additional techniques are available, but they are more deployment-
+   specific and are not uniformly supported by TLS/DTLS stacks:
+
+   *  The TLS cached info [RFC7924] extension can avoid sending
+      certificates with every full handshake.  This mechanism is
+      particularly useful when a client has a pinned server certificate,
+      or has otherwise cached the server certificate or certificate
+      chain, because it gives the client a standardized way to indicate
+      that retransmitting the cached information is unnecessary.
+   *  The client certificate URL mechanism defined in Section 5 of
+      [RFC6066] can replace client certificates in the handshake with
+      references to external certificate objects.  When applications
+      perform TLS client authentication via DNS-Based Authentication of
+      Named Entities (DANE) TLSA records, then
+      [I-D.ietf-dance-tls-clientid] may be used to reduce the packets on
+      the wire.  The term "TLSA" does not stand for anything; it is the
       name of the RRtype, as explained in [RFC6698].
-   *  Use certificate compression as defined in [RFC8879].
-   *  Use alternative certificate formats, where possible, such as raw
-      public keys [RFC7250] or CBOR-encoded certificates
-      [I-D.ietf-cose-cbor-encoded-cert].
+   *  Certificate compression [RFC8879] can reduce the size of
+      certificates that still have to be transmitted.
+   *  Alternative certificate formats, such as raw public keys [RFC7250]
+      or CBOR-encoded certificates [I-D.ietf-cose-cbor-encoded-cert],
+      can reduce credential size where the application and provisioning
+      model support them.
+   *  Certificate handles, where available, are another form of caching.
 
-   The use of certificate handles is a form of caching or compressing
-   certificates as well.
-
-   Although the TLS specification does not explicitly prohibit a server
-   from including trust anchors in the Certificate message - and some
-   implementations do - trust anchors SHOULD NOT be transmitted in this
-   way.  Trust anchors are intended to be provisioned through out-of-
-   band mechanisms, and any trust anchor included in the TLS Certificate
-   message cannot be assumed trustworthy by the client.  Including them
-   therefore serves no functional purpose and unnecessarily consumes
-   bandwidth.
-
-   However, due to limited or asymmetric knowledge between client and
-   server, omitting trust anchors entirely is not always
-   straightforward.  Several scenarios highlight this challenge:
-
-   *  Pinned Server Certificates: In many device-to-cloud deployments
-      (see Section 2.2 of [RFC7452]), clients pin a specific server
-      certificate.  If the client has pinned the server certificate,
-      retransmitting it is unnecessary - but the server cannot reliably
-      determine this.
-   *  Root Key Transitions: During root key rollover events (see
-      Section 4.4 of [RFC9810]), new trust anchors may not yet be fully
-      distributed across all devices.  This is especially relevant in
-      device-to-device communication Section 2.1 of [RFC7452]), where
-      server roles are determined dynamically and trust anchor
-      distribution may be inconsistent.
-   *  Non-Root Trust Anchors: In some deployments, the client's trust
-      anchor may be an intermediate CA rather than a root certificate.
-      The server, lacking knowledge of the client's trust store, cannot
-      always select a certificate chain that aligns with the client's
-      trust anchor.  To mitigate this, the client MAY include the
-      Trusted CA Indication extension (see Section 6 of [RFC6066]) in
-      its ClientHello to signal the set of trust anchors it supports.
-
-   [RFC9810] assumes the presence of a shared directory service for
-   certificate retrieval.  In constrained or isolated IoT environments,
-   this assumption does not hold.  Trust anchors are often distributed
-   via firmware updates or fetched periodically using certificate
-   management protocols, such as EST (e.g., the /cacerts endpoint).
-
-   To support transitional trust states during trust anchor updates,
-   devices MUST handle both:
-
-   *  newWithOld: a certificate where the new trust anchor is signed by
-      the old one, enabling communication with peers that have not yet
-      received the update.
-   *  oldWithNew: a certificate where the old trust anchor is signed by
-      the new one, enabling verification of peers that still rely on the
-      older anchor.
-
-   These certificates may be presented as an unordered set, and devices
-   may not be able to distinguish their roles without additional
-   metadata.
-
-   A complication arises when the client's trust anchor is not a widely
-   trusted root CA.  In that case, the server cannot determine in
-   advance which trust anchors the client has.  To address this, the
-   client MAY include the Trusted CA Indication extension [RFC6066] in
-   its ClientHello to signal the set of trust anchors it supports,
-   allowing the server to select an appropriate certificate chain.
-
-   Whether to utilize any of the above extensions or a combination of
-   them depends on the anticipated deployment environment, the
-   availability of code, and the constraints imposed by already deployed
-   infrastructure (e.g., CA infrastructure, tool support).
+   These additional mechanisms can be useful, but they can also
+   introduce side effects, such as reliance on DNS or directory
+   infrastructure, cache invalidation requirements, privacy exposure to
+   retrieval services, changes to the credential provisioning model, and
+   additional implementation code.  A deployment SHOULD evaluate these
+   trade-offs and use such mechanisms only when the baseline
+   certificate-profile recommendations, shallow certification paths,
+   session resumption, and long-lived DTLS associations do not provide
+   the desired reduction in handshake size or frequency.
 
 20.  Ciphersuites
 
