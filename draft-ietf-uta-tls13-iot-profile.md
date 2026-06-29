@@ -82,6 +82,7 @@ informative:
   I-D.ietf-iotops-7228bis:
   I-D.ietf-iotops-iot-dns-guidelines:
   I-D.ietf-pquip-pqc-engineers:
+  I-D.ietf-tls-pake:
   I-D.ietf-tls-8773bis:
   PQC-ENERGY: DOI.10.1145/3587135.3592821
   PQC-PERF: DOI.10.1007/978-3-031-21280-2_24
@@ -262,6 +263,15 @@ The extensions used in TLS/DTLS differ depending on the credential types
 supported.
 Self-signed X.509 certificates are still X.509, not raw public keys; raw
 public keys are conveyed via the raw_public_key extension.
+
+Password-authenticated key exchange (PAKE) mechanisms allow two endpoints to
+authenticate and establish keys from a low-entropy shared secret, such as a
+user-entered password, without using that secret directly as a TLS PSK. Such
+mechanisms have been defined for earlier versions of TLS, and new work is
+underway to add PAKE authentication to TLS 1.3 {{I-D.ietf-tls-pake}}. The
+deployment model for PAKE mechanisms in constrained IoT environments is
+still evolving. This profile therefore does not cover password-authenticated
+TLS deployments.
 
 This profile considers three authentication modes for IoT devices:
 (1) certificate-based, (2) raw public key-based and (3) external PSK-based.
