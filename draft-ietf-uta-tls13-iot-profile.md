@@ -456,7 +456,7 @@ The Application-Layer Protocol Negotiation (ALPN) extension {{?RFC7301}} is
 independent of the credential type used for TLS authentication.
 
 Implementations conforming to this profile MUST support ALPN. Endpoints SHOULD
-use ALPN when more than one application protocol, protocol version, or
+use ALPN when more than one application protocol, application protocol version, or
 application context can be served by the same TLS endpoint, certificate, raw
 public key, or PSK identity. When a deployment is restricted by configuration
 to a single application protocol, ALPN MAY be omitted.
