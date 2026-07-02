@@ -697,7 +697,7 @@ This section outlines the requirements for root CA certificates.
 {{Section 4.1.2.6 of !RFC5280}} requires that, when the subject is a CA,
 the subject field be populated with a non-empty distinguished name.
 Therefore, Root CA certificates MUST have a non-empty subject field.
-This is because a CA's SubjectDN becomes the subordinate certificate's IssuerDN, which MUST NOT be empty.
+This is because a CA's Subject DN becomes the subordinate certificate's Issuer DN, which MUST NOT be empty.
 The subject field
 MUST contain the commonName, the organizationName, and the countryName
 attribute and MAY contain an organizationalUnitName attribute.
@@ -829,7 +829,7 @@ This section outlines the requirements for end entity certificates.
 
 ### Subject
 
-This section describes the use of end entity certificate primarily for (D)TLS
+This section describes the use of end entity certificates primarily for (D)TLS
 clients running on IoT devices. Operating (D)TLS servers on IoT devices is
 possible but less common.
 
@@ -845,12 +845,56 @@ Subject and the subjectAltName fields. Protocol specifications tend to offer
 recommendations about what identifiers to use and the deployment situation is
 fragmented.
 
-The subject field MAY include a unique manufacturer-assigned device serial
-number. If a serial number is included in the Subject DN, it MUST be encoded in
-the X520SerialNumber attribute. If the serial number is used as an identifier,
-it SHOULD also be placed in the subjectAltName (e.g., as a URI).
-For example, use with {{?RFC8995}} requires a serial number in IDevID
-certificates.
+It is common to use serial numbers as identifiers for IoT devices, but the
+term "serial number" is overloaded. This profile distinguishes between a
+manufacturer-assigned device serial number and a link-layer identifier such as
+an EUI-48, EUI-64, or MAC address.
+
+A manufacturer-assigned device serial number is an identifier assigned to a
+device by its manufacturer. When this identifier is included in the certificate
+subject distinguished name (Subject DN), {{Appendix A.1 of !RFC5280}} provides
+the X520SerialNumber attribute:
+
+~~~~
+id-at-serialNumber   OBJECT IDENTIFIER ::= { id-at 5 }
+X520SerialNumber    ::= PrintableString
+~~~~
+
+This value is part of the Subject DN. Section 8.6 of {{IEEE-802.1AR}} mandates
+that the Subject DN is not null and encourages use of
+the X520SerialNumber attribute as the primary name for the device.
+
+An EUI-48 or EUI-64 identifies a link-layer interface or, depending on the
+allocation scheme, a device. It has defined binary semantics and is not
+inherently the same concept as a manufacturer's product serial number. A
+deployment may use an EUI-64 as its device serial number, but that does not
+make the concepts identical. A device serial number can be an arbitrary
+manufacturer-defined string, while a device can have multiple MAC addresses,
+and those addresses can change when interfaces are replaced or reconfigured.
+Many constrained IoT devices, however, do not have more than one network
+interface; for those devices it can be convenient for manufacturers to reuse an
+existing unique MAC address or EUI as the device identifier.
+
+{{Section 4.4.2 of !RFC7925}} requires the identifier in a client certificate
+to be an EUI-64 and permits that identifier to appear either in the
+subjectAltName or in the leftmost commonName component of the Subject DN. This
+profile updates that guidance by distinguishing manufacturer-assigned device
+serial numbers from EUI-48 and EUI-64 link-layer identifiers.
+
+{{Section 2.3.1 of ?RFC8995}} uses a device serial number to identify a BRSKI
+pledge. Consistent with {{IEEE-802.1AR}}, {{?RFC8995}} identifies the device
+serial-number field as the X520SerialNumber attribute defined in
+{{Appendix A.1 of !RFC5280}}. The registrar extracts this certified device
+serial number from the pledge's IDevID and uses it in voucher processing. The
+important semantic point is that BRSKI needs a stable manufacturer device
+identifier; {{?RFC8995}} does not require this value to be an EUI-48 or EUI-64.
+
+A manufacturer-assigned device serial number included in the Subject DN MUST be
+encoded in the X520SerialNumber attribute. If an EUI-48 or EUI-64 is used to
+identify a device, it SHOULD be encoded in the subjectAltName extension using
+the MACAddress otherName defined in {{I-D.ietf-lamps-macaddress-on}}. An
+EUI-64 that serves as the manufacturer-assigned device serial number MAY
+instead be encoded in the X520SerialNumber attribute.
 
 {{!RFC5280}} defines: "The subject alternative name extension allows identities
 to be bound to the subject of the certificate. These identities may be included
@@ -859,25 +903,29 @@ in addition to or in place of the identity in the subject field of the certifica
 The subject alternative name extension MAY be set. If it is set, it MUST NOT be
 marked critical, except when the subject DN contains an empty sequence.
 
-This profile distinguishes a manufacturer-assigned device serial number from a
-link-layer interface identifier, even when the manufacturer-assigned serial
-number happens to have the same textual form as an EUI-48 or EUI-64. If an
-EUI-48 or EUI-64 is used as the manufacturer-assigned device serial number, it
-MAY be encoded in the Subject DN using the X520SerialNumber attribute. In that
-case, the contents of the field are a string of the form
-`HH-HH-HH-HH-HH-HH-HH-HH` for an EUI-64 or `HH-HH-HH-HH-HH-HH` for an EUI-48,
-where 'H' is one of the symbols '0'-'9' or 'A'-'F'.
+The MACAddress otherName carries the value as an OCTET STRING. An EUI-48 is
+encoded as exactly 6 octets and an EUI-64 is encoded as exactly 8 octets.
+{{I-D.ietf-lamps-macaddress-on}} also defines how this name form is used with
+the {{!RFC5280}} Name Constraints extension, allowing a CA certificate to
+constrain permitted or excluded MAC address ranges, for example by an
+Organizationally Unique Identifier (OUI).
 
-If an EUI-48 or EUI-64 is included as a link-layer identifier, it SHOULD be
-encoded in the subjectAltName extension using the MACAddress otherName defined
-in {{I-D.ietf-lamps-macaddress-on}}. Certificates MUST NOT contain the same
-EUI-48 or EUI-64 in both the X520SerialNumber attribute and the MACAddress
-otherName unless the value intentionally serves both as the
-manufacturer-assigned device serial number and as the link-layer identifier. If
-both fields are present and are intended to identify the same value, relying
-parties MUST treat a mismatch as an authentication failure. Certificates MAY
-include more than one MACAddress otherName when the certificate intentionally
-binds multiple link-layer identifiers to the certified public key.
+The CA needs to validate the identifier's relationship to the subject. For a
+MACAddress value, {{I-D.ietf-lamps-macaddress-on}} requires the CA to ensure
+that the address is owned by, or expected to be owned by, the subject device for
+the certificate's lifetime. This requirement can be difficult for replaceable
+interfaces, virtual interfaces, locally administered addresses, and MAC address
+randomization.
+
+Both manufacturer-assigned device serial numbers and EUI-48 or EUI-64 values
+can expose stable identifiers to certificate recipients. TLS 1.3 encrypts
+certificates during the handshake, but the
+peer still learns the identifier. An EUI-48 or EUI-64 can reveal
+organizational allocation information and can enable correlation across
+networks or application contexts. A stable device serial number has similar
+correlation risks. Environments that are concerned about such traffic analysis
+SHOULD use an enrollment protocol to migrate from identifiable IDevID
+certificates to less identifiable operational LDevID certificates.
 
 Per {{!RFC9525}} domain names MUST NOT be encoded in the subject commonName. Instead they
 MUST be encoded in a subjectAltName of type DNS-ID. Domain names MUST NOT
@@ -1130,6 +1178,13 @@ In particular, IDevIDs and LDevIDs may reveal manufacturer identity, device
 serial numbers, or other information to peers. Protection against passive
 observers is, however, substantially improved since certificates are not
 transmitted in the clear in TLS 1.3 and DTLS 1.3.
+
+Manufacturer-assigned device serial numbers and EUI-48 or EUI-64 values can
+enable correlation across networks or application contexts. EUI-48 and EUI-64
+values can also reveal organizational allocation information. Deployments that
+are concerned about such traffic analysis SHOULD use an enrollment protocol to
+migrate from identifiable IDevID certificates to less identifiable operational
+LDevID certificates.
 
 Some deployments use the mechanisms discussed in the Certificate Overhead section,
 such as certificate URLs or external certificate retrieval, instead of always
