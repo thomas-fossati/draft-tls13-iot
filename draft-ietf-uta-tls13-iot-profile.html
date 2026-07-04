@@ -32,7 +32,7 @@ profile and ciphersuite requirements.
     pycountry 24.6.1
     PyYAML 6.0.3
     requests 2.33.1
-    wcwidth 0.8.1
+    wcwidth 0.8.2
 -->
 <link href="draft-ietf-uta-tls13-iot-profile.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1051,11 +1051,11 @@ svg {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">TLS/DTLS 1.3 IoT Profiles</td>
-<td class="right">June 2026</td>
+<td class="right">July 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Tschofenig, et al.</td>
-<td class="center">Expires 31 December 2026</td>
+<td class="center">Expires 5 January 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1071,12 +1071,12 @@ svg {
 <a href="https://www.rfc-editor.org/rfc/rfc7925" class="eref">7925</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-06-29" class="published">29 June 2026</time>
+<time datetime="2026-07-04" class="published">4 July 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-12-31">31 December 2026</time></dd>
+<dd class="expires"><time datetime="2027-01-05">5 January 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1134,7 +1134,7 @@ profile and ciphersuite requirements.<a href="#section-abstract-1" class="pilcro
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 31 December 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 5 January 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -2001,7 +2001,7 @@ implementing an application-layer solution.<a href="#section-17.1.7-5" class="pi
 <p id="section-17.2.1-1"><span><a href="https://rfc-editor.org/rfc/rfc5280#section-4.1.2.6" class="relref">Section 4.1.2.6</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> requires that, when the subject is a CA,
 the subject field be populated with a non-empty distinguished name.
 Therefore, Root CA certificates MUST have a non-empty subject field.
-This is because a CA's SubjectDN becomes the subordinate certificate's IssuerDN, which MUST NOT be empty.
+This is because a CA's Subject DN becomes the subordinate certificate's Issuer DN, which MUST NOT be empty.
 The subject field
 MUST contain the commonName, the organizationName, and the countryName
 attribute and MAY contain an organizationalUnitName attribute.
@@ -2192,7 +2192,7 @@ status service (OCSP).<a href="#section-17.3.7-1" class="pilcrow">¶</a></p>
           <h4 id="name-subject-3">
 <a href="#section-17.4.1" class="section-number selfRef">17.4.1. </a><a href="#name-subject-3" class="section-name selfRef">Subject</a>
           </h4>
-<p id="section-17.4.1-1">This section describes the use of end entity certificate primarily for (D)TLS
+<p id="section-17.4.1-1">This section describes the use of end entity certificates primarily for (D)TLS
 clients running on IoT devices. Operating (D)TLS servers on IoT devices is
 possible but less common.<a href="#section-17.4.1-1" class="pilcrow">¶</a></p>
 <p id="section-17.4.1-2"><span>[<a href="#RFC9525" class="cite xref">RFC9525</a>], <a href="https://rfc-editor.org/rfc/rfc9525#section-2" class="relref">Section 2</a></span> mandates that the subject field not be used to identify a service.
@@ -2204,27 +2204,84 @@ entity certificates as a subject field is lifted.<a href="#section-17.4.1-3" cla
 Subject and the subjectAltName fields. Protocol specifications tend to offer
 recommendations about what identifiers to use and the deployment situation is
 fragmented.<a href="#section-17.4.1-4" class="pilcrow">¶</a></p>
-<p id="section-17.4.1-5">The subject field MAY include a unique device serial number. If a serial
-number is included in the Subject DN, it MUST be encoded in the
-X520SerialNumber attribute. If the serial number is used as an identifier,
-it SHOULD also be placed in the subjectAltName (e.g., as a URI).
-e.g., <span>[<a href="#RFC8995" class="cite xref">RFC8995</a>]</span> use requires a serial number in IDevID certificates.<a href="#section-17.4.1-5" class="pilcrow">¶</a></p>
-<p id="section-17.4.1-6"><span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> defines: "The subject alternative name extension allows identities
+<p id="section-17.4.1-5">It is common to use serial numbers as identifiers for IoT devices, but the
+term "serial number" is overloaded. This profile distinguishes between a
+manufacturer-assigned device serial number and a link-layer identifier such as
+an EUI-48, EUI-64, or MAC address.<a href="#section-17.4.1-5" class="pilcrow">¶</a></p>
+<p id="section-17.4.1-6">A manufacturer-assigned device serial number is an identifier assigned to a
+device by its manufacturer. When this identifier is included in the certificate
+subject distinguished name (Subject DN), <span><a href="https://rfc-editor.org/rfc/rfc5280#appendix-A.1" class="relref">Appendix A.1</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> provides
+the X520SerialNumber attribute:<a href="#section-17.4.1-6" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-17.4.1-7">
+<pre>
+id-at-serialNumber   OBJECT IDENTIFIER ::= { id-at 5 }
+X520SerialNumber    ::= PrintableString
+</pre><a href="#section-17.4.1-7" class="pilcrow">¶</a>
+</div>
+<p id="section-17.4.1-8">This value is part of the Subject DN. Section 8.6 of <span>[<a href="#IEEE-802.1AR" class="cite xref">IEEE-802.1AR</a>]</span> mandates
+that the Subject DN is not null and encourages use of
+the X520SerialNumber attribute as the primary name for the device.<a href="#section-17.4.1-8" class="pilcrow">¶</a></p>
+<p id="section-17.4.1-9">An EUI-48 or EUI-64 identifies a link-layer interface or, depending on the
+allocation scheme, a device. It has defined binary semantics and is not
+inherently the same concept as a manufacturer's product serial number. A
+deployment may use an EUI-64 as its device serial number, but that does not
+make the concepts identical. A device serial number can be an arbitrary
+manufacturer-defined string, while a device can have multiple MAC addresses,
+and those addresses can change when interfaces are replaced or reconfigured.
+Many constrained IoT devices, however, do not have more than one network
+interface; for those devices it can be convenient for manufacturers to reuse an
+existing unique MAC address or EUI as the device identifier.<a href="#section-17.4.1-9" class="pilcrow">¶</a></p>
+<p id="section-17.4.1-10"><span><a href="https://rfc-editor.org/rfc/rfc7925#section-4.4.2" class="relref">Section 4.4.2</a> of [<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> requires the identifier in a client certificate
+to be an EUI-64 and permits that identifier to appear either in the
+subjectAltName or in the leftmost commonName component of the Subject DN. This
+profile updates that guidance by distinguishing manufacturer-assigned device
+serial numbers from EUI-48 and EUI-64 link-layer identifiers.<a href="#section-17.4.1-10" class="pilcrow">¶</a></p>
+<p id="section-17.4.1-11"><span><a href="https://rfc-editor.org/rfc/rfc8995#section-2.3.1" class="relref">Section 2.3.1</a> of [<a href="#RFC8995" class="cite xref">RFC8995</a>]</span> uses a device serial number to identify a BRSKI
+pledge. Consistent with <span>[<a href="#IEEE-802.1AR" class="cite xref">IEEE-802.1AR</a>]</span>, <span>[<a href="#RFC8995" class="cite xref">RFC8995</a>]</span> identifies the device
+serial-number field as the X520SerialNumber attribute defined in
+<span><a href="https://rfc-editor.org/rfc/rfc5280#appendix-A.1" class="relref">Appendix A.1</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>. The registrar extracts this certified device
+serial number from the pledge's IDevID and uses it in voucher processing. The
+important semantic point is that BRSKI needs a stable manufacturer device
+identifier; <span>[<a href="#RFC8995" class="cite xref">RFC8995</a>]</span> does not require this value to be an EUI-48 or EUI-64.<a href="#section-17.4.1-11" class="pilcrow">¶</a></p>
+<p id="section-17.4.1-12">A manufacturer-assigned device serial number included in the Subject DN MUST be
+encoded in the X520SerialNumber attribute. If an EUI-48 or EUI-64 is used to
+identify a device, it SHOULD be encoded in the subjectAltName extension using
+the MACAddress otherName defined in <span>[<a href="#I-D.ietf-lamps-macaddress-on" class="cite xref">I-D.ietf-lamps-macaddress-on</a>]</span>. An
+EUI-64 that serves as the manufacturer-assigned device serial number MAY
+instead be encoded in the X520SerialNumber attribute.<a href="#section-17.4.1-12" class="pilcrow">¶</a></p>
+<p id="section-17.4.1-13"><span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> defines: "The subject alternative name extension allows identities
 to be bound to the subject of the certificate. These identities may be included
-in addition to or in place of the identity in the subject field of the certificate."<a href="#section-17.4.1-6" class="pilcrow">¶</a></p>
-<p id="section-17.4.1-7">The subject alternative name extension MAY be set. If it is set, it MUST NOT be
-marked critical, except when the subject DN contains an empty sequence.<a href="#section-17.4.1-7" class="pilcrow">¶</a></p>
-<p id="section-17.4.1-8">If the EUI-64 format is used to identify the subject of an end entity
-certificate, it MUST be encoded as a Subject DN using the X520SerialNumber
-attribute.  The contents of the field is a string of the form <code>HH-HH-HH-HH-HH-HH-HH-HH</code>
-where 'H' is one of the symbols '0'-'9' or 'A'-'F'.<a href="#section-17.4.1-8" class="pilcrow">¶</a></p>
-<p id="section-17.4.1-9">Per <span>[<a href="#RFC9525" class="cite xref">RFC9525</a>]</span> domain names MUST NOT be encoded in the subject commonName. Instead they
+in addition to or in place of the identity in the subject field of the certificate."<a href="#section-17.4.1-13" class="pilcrow">¶</a></p>
+<p id="section-17.4.1-14">The subject alternative name extension MAY be set. If it is set, it MUST NOT be
+marked critical, except when the subject DN contains an empty sequence.<a href="#section-17.4.1-14" class="pilcrow">¶</a></p>
+<p id="section-17.4.1-15">The MACAddress otherName carries the value as an OCTET STRING. An EUI-48 is
+encoded as exactly 6 octets and an EUI-64 is encoded as exactly 8 octets.
+<span>[<a href="#I-D.ietf-lamps-macaddress-on" class="cite xref">I-D.ietf-lamps-macaddress-on</a>]</span> also defines how this name form is used with
+the <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> Name Constraints extension, allowing a CA certificate to
+constrain permitted or excluded MAC address ranges, for example by an
+Organizationally Unique Identifier (OUI).<a href="#section-17.4.1-15" class="pilcrow">¶</a></p>
+<p id="section-17.4.1-16">The CA needs to validate the identifier's relationship to the subject. For a
+MACAddress value, <span>[<a href="#I-D.ietf-lamps-macaddress-on" class="cite xref">I-D.ietf-lamps-macaddress-on</a>]</span> requires the CA to ensure
+that the address is owned by, or expected to be owned by, the subject device for
+the certificate's lifetime. This requirement can be difficult for replaceable
+interfaces, virtual interfaces, locally administered addresses, and MAC address
+randomization.<a href="#section-17.4.1-16" class="pilcrow">¶</a></p>
+<p id="section-17.4.1-17">Both manufacturer-assigned device serial numbers and EUI-48 or EUI-64 values
+can expose stable identifiers to certificate recipients. TLS 1.3 encrypts
+certificates during the handshake, but the
+peer still learns the identifier. An EUI-48 or EUI-64 can reveal
+organizational allocation information and can enable correlation across
+networks or application contexts. A stable device serial number has similar
+correlation risks. Environments that are concerned about such traffic analysis
+SHOULD use an enrollment protocol to migrate from identifiable IDevID
+certificates to less identifiable operational LDevID certificates.<a href="#section-17.4.1-17" class="pilcrow">¶</a></p>
+<p id="section-17.4.1-18">Per <span>[<a href="#RFC9525" class="cite xref">RFC9525</a>]</span> domain names MUST NOT be encoded in the subject commonName. Instead they
 MUST be encoded in a subjectAltName of type DNS-ID. Domain names MUST NOT
 contain wildcard (<code>*</code>) characters. The subjectAltName MUST NOT contain multiple
-names.<a href="#section-17.4.1-9" class="pilcrow">¶</a></p>
-<p id="section-17.4.1-10">Note: The IEEE 802.1AR recommends to encode information about a Trusted
+names.<a href="#section-17.4.1-18" class="pilcrow">¶</a></p>
+<p id="section-17.4.1-19">Note: The IEEE 802.1AR recommends to encode information about a Trusted
 Platform Module (TPM), if present, in the HardwareModuleName (<span><a href="https://rfc-editor.org/rfc/rfc4108#section-5" class="relref">Section 5</a> of [<a href="#RFC4108" class="cite xref">RFC4108</a>]</span>). This
-specification does not follow this recommendation.<a href="#section-17.4.1-10" class="pilcrow">¶</a></p>
+specification does not follow this recommendation.<a href="#section-17.4.1-19" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authority-key-identifier-2">
@@ -2515,19 +2572,25 @@ In particular, IDevIDs and LDevIDs may reveal manufacturer identity, device
 serial numbers, or other information to peers. Protection against passive
 observers is, however, substantially improved since certificates are not
 transmitted in the clear in TLS 1.3 and DTLS 1.3.<a href="#section-23-2" class="pilcrow">¶</a></p>
-<p id="section-23-3">Some deployments use the mechanisms discussed in the Certificate Overhead section,
+<p id="section-23-3">Manufacturer-assigned device serial numbers and EUI-48 or EUI-64 values can
+enable correlation across networks or application contexts. EUI-48 and EUI-64
+values can also reveal organizational allocation information. Deployments that
+are concerned about such traffic analysis SHOULD use an enrollment protocol to
+migrate from identifiable IDevID certificates to less identifiable operational
+LDevID certificates.<a href="#section-23-3" class="pilcrow">¶</a></p>
+<p id="section-23-4">Some deployments use the mechanisms discussed in the Certificate Overhead section,
 such as certificate URLs or external certificate retrieval, instead of always
 transmitting full certificates in the handshake. In these cases, the privacy
 properties differ because stable identifiers may be exposed to retrieval
-services, directories, or to observers of those retrieval transactions.<a href="#section-23-3" class="pilcrow">¶</a></p>
-<p id="section-23-4">Where privacy is a deployment requirement, implementations and PKI profiles
+services, directories, or to observers of those retrieval transactions.<a href="#section-23-4" class="pilcrow">¶</a></p>
+<p id="section-23-5">Where privacy is a deployment requirement, implementations and PKI profiles
 should include only the minimum identity information needed for authorization
-and interoperability.<a href="#section-23-4" class="pilcrow">¶</a></p>
-<p id="section-23-5">When Connection IDs are used with DTLS 1.3, CID negotiation in post-handshake
+and interoperability.<a href="#section-23-5" class="pilcrow">¶</a></p>
+<p id="section-23-6">When Connection IDs are used with DTLS 1.3, CID negotiation in post-handshake
 messages is encrypted and integrity protected. In addition, record sequence
 numbers are encrypted. Compared to DTLS 1.2 CID, this makes tracking by on-path
 adversaries more difficult and improves privacy in multi-home and mobile
-deployments (<span><a href="https://rfc-editor.org/rfc/rfc9147#section-11" class="relref">Section 11</a> of [<a href="#RFC9147" class="cite xref">RFC9147</a>]</span>).<a href="#section-23-5" class="pilcrow">¶</a></p>
+deployments (<span><a href="https://rfc-editor.org/rfc/rfc9147#section-11" class="relref">Section 11</a> of [<a href="#RFC9147" class="cite xref">RFC9147</a>]</span>).<a href="#section-23-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">
@@ -2557,6 +2620,10 @@ deployments (<span><a href="https://rfc-editor.org/rfc/rfc9147#section-11" class
 <a href="#section-26.1" class="section-number selfRef">26.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
+<dt id="I-D.ietf-lamps-macaddress-on">[I-D.ietf-lamps-macaddress-on]</dt>
+        <dd>
+<span class="refAuthor">Housley, R.</span>, <span class="refAuthor">Bonnell, C.</span>, <span class="refAuthor">Mandel, J.</span>, <span class="refAuthor">Okubo, T.</span>, and <span class="refAuthor">M. StJohns</span>, <span class="refTitle">"Media Access Control (MAC) Addresses in X.509 Certificates"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-lamps-macaddress-on-07</span>, <time datetime="2026-03-12" class="refDate">12 March 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-lamps-macaddress-on-07">https://datatracker.ietf.org/doc/html/draft-ietf-lamps-macaddress-on-07</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="I-D.ietf-tls-dtls-rrc">[I-D.ietf-tls-dtls-rrc]</dt>
         <dd>
 <span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Kraus, A.</span>, and <span class="refAuthor">T. Fossati</span>, <span class="refTitle">"Return Routability Check for DTLS 1.2 and DTLS 1.3"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tls-dtls-rrc-20</span>, <time datetime="2025-07-14" class="refDate">14 July 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-dtls-rrc-20">https://datatracker.ietf.org/doc/html/draft-ietf-tls-dtls-rrc-20</a>&gt;</span>. </dd>
@@ -2640,7 +2707,7 @@ deployments (<span><a href="https://rfc-editor.org/rfc/rfc9147#section-11" class
 <dd class="break"></dd>
 <dt id="I-D.ietf-cose-cbor-encoded-cert">[I-D.ietf-cose-cbor-encoded-cert]</dt>
         <dd>
-<span class="refAuthor">Mattsson, J. P.</span>, <span class="refAuthor">Selander, G.</span>, <span class="refAuthor">Raza, S.</span>, <span class="refAuthor">Höglund, J.</span>, <span class="refAuthor">Furuhed, M.</span>, and <span class="refAuthor">L. Liao</span>, <span class="refTitle">"CBOR Encoded X.509 Certificates (C509 Certificates)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-cbor-encoded-cert-19</span>, <time datetime="2026-05-11" class="refDate">11 May 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-19">https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-19</a>&gt;</span>. </dd>
+<span class="refAuthor">Mattsson, J. P.</span>, <span class="refAuthor">Selander, G.</span>, <span class="refAuthor">Raza, S.</span>, <span class="refAuthor">Höglund, J.</span>, <span class="refAuthor">Furuhed, M.</span>, and <span class="refAuthor">L. Liao</span>, <span class="refTitle">"CBOR Encoded X.509 Certificates (C509 Certificates)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-cbor-encoded-cert-20</span>, <time datetime="2026-06-30" class="refDate">30 June 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-20">https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-20</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-dance-tls-clientid">[I-D.ietf-dance-tls-clientid]</dt>
         <dd>
@@ -2652,7 +2719,7 @@ deployments (<span><a href="https://rfc-editor.org/rfc/rfc9147#section-11" class
 <dd class="break"></dd>
 <dt id="I-D.ietf-iotops-7228bis">[I-D.ietf-iotops-7228bis]</dt>
         <dd>
-<span class="refAuthor">Bormann, C.</span>, <span class="refAuthor">Ersue, M.</span>, <span class="refAuthor">Keränen, A.</span>, and <span class="refAuthor">C. Gomez</span>, <span class="refTitle">"Terminology for Constrained-Node Networks"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-iotops-7228bis-08</span>, <time datetime="2026-05-15" class="refDate">15 May 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-iotops-7228bis-08">https://datatracker.ietf.org/doc/html/draft-ietf-iotops-7228bis-08</a>&gt;</span>. </dd>
+<span class="refAuthor">Bormann, C.</span>, <span class="refAuthor">Ersue, M.</span>, <span class="refAuthor">Keränen, A.</span>, and <span class="refAuthor">C. Gomez</span>, <span class="refTitle">"Terminology for Constrained-Node Networks"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-iotops-7228bis-09</span>, <time datetime="2026-06-29" class="refDate">29 June 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-iotops-7228bis-09">https://datatracker.ietf.org/doc/html/draft-ietf-iotops-7228bis-09</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-iotops-iot-dns-guidelines">[I-D.ietf-iotops-iot-dns-guidelines]</dt>
         <dd>
@@ -2672,7 +2739,7 @@ deployments (<span><a href="https://rfc-editor.org/rfc/rfc9147#section-11" class
 <dd class="break"></dd>
 <dt id="I-D.ietf-uta-pqc-app">[I-D.ietf-uta-pqc-app]</dt>
         <dd>
-<span class="refAuthor">Reddy.K, T.</span> and <span class="refAuthor">H. Tschofenig</span>, <span class="refTitle">"Post-Quantum Cryptography Recommendations for TLS-based Applications"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-uta-pqc-app-02</span>, <time datetime="2026-06-22" class="refDate">22 June 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-uta-pqc-app-02">https://datatracker.ietf.org/doc/html/draft-ietf-uta-pqc-app-02</a>&gt;</span>. </dd>
+<span class="refAuthor">Reddy.K, T.</span> and <span class="refAuthor">H. Tschofenig</span>, <span class="refTitle">"Post-Quantum Cryptography Recommendations for TLS-based Applications"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-uta-pqc-app-03</span>, <time datetime="2026-07-04" class="refDate">4 July 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-uta-pqc-app-03">https://datatracker.ietf.org/doc/html/draft-ietf-uta-pqc-app-03</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.irtf-cfrg-aead-limits">[I-D.irtf-cfrg-aead-limits]</dt>
         <dd>
