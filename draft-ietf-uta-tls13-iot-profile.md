@@ -82,7 +82,7 @@ informative:
   RFC6066:
   I-D.ietf-iotops-7228bis:
   I-D.ietf-iotops-iot-dns-guidelines:
-  I-D.ietf-pquip-pqc-engineers:
+  RFC9958:
   I-D.ietf-tls-pake:
   I-D.ietf-tls-8773bis:
   PQC-ENERGY: DOI.10.1145/3587135.3592821
@@ -1063,8 +1063,8 @@ are not uniformly supported by TLS/DTLS stacks:
   replace client certificates in the handshake with references to external
   certificate objects. When
   applications perform TLS client authentication via DNS-Based Authentication
-  of Named Entities (DANE) TLSA records, then
-  {{?I-D.ietf-dance-tls-clientid}} may be used to reduce the packets on the
+  of Named Entities (DANE) TLSA records, then the DANE Client Identity TLS extension
+  {{?I-D.ietf-dance-client-auth}} may be used to reduce the packets on the
   wire. The term "TLSA" does not stand for anything; it is the name of the
   RRtype, as explained in {{?RFC6698}}.
 * Certificate compression {{?RFC8879}} can reduce the size of certificates
@@ -1156,7 +1156,7 @@ not add normative requirements to this profile.
 The recommendations and ciphersuites in this profile are based on classical
 cryptography and are not quantum-resistant.
 
-As detailed in {{I-D.ietf-pquip-pqc-engineers}}, the IETF is actively working to address the challenges of adopting PQC in various protocols, including TLS. The document highlights key aspects engineers must consider, such as algorithm selection, performance impacts, and deployment strategies. It emphasizes the importance of gradual integration of PQC to ensure secure communication while accounting for the increased computational, memory, and bandwidth requirements of PQC algorithms. These challenges are especially relevant in the context of IoT, where device constraints limit the adoption of larger key sizes and more complex cryptographic operations {{PQC-PERF}}. Besides, any choice need to careful evaluate the associated energy requirements {{PQC-ENERGY}}.
+As detailed in {{RFC9958}}, the IETF is actively working to address the challenges of adopting PQC in various protocols, including TLS. The document highlights key aspects engineers must consider, such as algorithm selection, performance impacts, and deployment strategies. It emphasizes the importance of gradual integration of PQC to ensure secure communication while accounting for the increased computational, memory, and bandwidth requirements of PQC algorithms. These challenges are especially relevant in the context of IoT, where device constraints limit the adoption of larger key sizes and more complex cryptographic operations {{PQC-PERF}}. Besides, any choice need to careful evaluate the associated energy requirements {{PQC-ENERGY}}.
 
 The work of incorporating PQC into TLS {{?I-D.ietf-uta-pqc-app}} {{?I-D.ietf-pquip-pqc-hsm-constrained}} is still ongoing, with key exchange message sizes increasing due to larger public keys. These larger keys demand more flash storage and higher RAM usage, presenting significant obstacles for resource-constrained IoT devices. The transition from classical cryptographic algorithms to PQC will be a significant challenge for constrained IoT devices, requiring careful planning to select hardware suitable for the task considering the lifetime of an IoT product.
 
