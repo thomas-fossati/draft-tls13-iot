@@ -68,7 +68,7 @@ contributor:
 
 normative:
   RFC9147: DTLS13
-  RFC8446: TLS13
+  RFC9846: TLS13
   RFC6520:
   I-D.ietf-lamps-macaddress-on:
 
@@ -153,10 +153,6 @@ profile and ciphersuite requirements.
 
 # Introduction
 
-{:aside}
-> Note to RFC Editor: Once RFC 9846 (RFC 8446bis) is published, all references to RFC 8446 must be updated to refer to RFC 9846.
-> All section references must also be updated accordingly.
-
 In the rapidly evolving Internet of Things (IoT) ecosystem, communication security
 is a critical requirement. The Transport Layer Security (TLS) and Datagram Transport
 Layer Security (DTLS) protocols have been foundational for ensuring encryption,
@@ -179,10 +175,10 @@ with the transition from TLS 1.2 to 1.3:
 
 - TLS 1.3 introduced the concept of post-handshake authentication messages, which
 partially replaced the need for the re-negotiation feature {{?RFC5746}} available
-in earlier TLS versions. However, the rekeying mechanism defined in {{Section 4.6.3 of -TLS13}}
-does not provide post-compromise security (see {{Appendix E.1.5 of -TLS13}}).
+in earlier TLS versions. However, the rekeying mechanism defined in {{Section 4.7.3 of -TLS13}}
+does not provide post-compromise security (see {{Appendix F.1.5 of -TLS13}}).
 Furthermore, post-handshake authentication defined in
-{{Section 4.6.2 of -TLS13}} only offers client authentication (client-to-server).
+{{Section 4.7.2 of -TLS13}} only offers client authentication (client-to-server).
 The "Exported Authenticator" specification, see {{?RFC9261}}, added support
 for mutual post-handshake authentication, but this requires the Certificate,
 CertificateVerify and the Finished messages to be conveyed by the application
@@ -366,7 +362,7 @@ protocol.
 
 # Forward Secrecy {#forward_secrecy}
 
-RFC 8446 has removed Static RSA and Static Diffie-Hellman cipher suites, therefore all public-key-based key exchange mechanisms available in TLS 1.3 provide forward secrecy.
+RFC 9846 has removed Static RSA and Static Diffie-Hellman cipher suites, therefore all public-key-based key exchange mechanisms available in TLS 1.3 provide forward secrecy.
 
 Pre-shared keys (PSKs) can be used with (EC)DHE key exchange to provide forward secrecy or can be used alone, at the cost of losing forward secrecy for the application data.
 For PSK use, endpoints SHOULD use (EC)DHE to achieve forward secrecy; PSK-only
@@ -486,7 +482,7 @@ prime-field curves used by this profile, secp256r1 provides the intended
 # 0-RTT Data
 {: #zerortt}
 
-{{Appendix E.5 of -TLS13}} establishes that:
+{{Appendix F.5 of -TLS13}} establishes that:
 
 {: quote}
 > Application protocols MUST NOT use 0-RTT data without a profile that
