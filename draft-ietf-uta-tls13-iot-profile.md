@@ -418,7 +418,7 @@ when the peer is a cloud service, a multi-tenant endpoint, or any server that
 uses SNI for certificate or application-context selection. IoT clients MAY omit
 SNI when the peer identity is established by other application-specific
 configuration, such as a configured IP address and port, a pinned certificate,
-a raw public key, or an external PSK identity. When no DNS name is used, SNI
+a raw public key, or an external PSK identity. When no domain name is used, SNI
 is not applicable.
 
 Deployments that require confidentiality of SNI and other ClientHello metadata
@@ -1229,6 +1229,7 @@ Henk Birkholz,
 Hendrik Brockhaus,
 Menachem Dodge,
 Martin Duke,
+Miek Gieben,
 Russ Housley,
 Ben Kaduk,
 Achim Kraus,
