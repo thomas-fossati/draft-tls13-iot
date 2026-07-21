@@ -5,7 +5,7 @@
 UTA                                                        H. Tschofenig
 Internet-Draft                                                  UniBw M.
 Updates: 7925 (if approved)                                   T. Fossati
-Intended status: Standards Track                                  Linaro
+Intended status: Standards Track                                  NVIDIA
 Expires: 22 January 2027                                   M. Richardson
                                                 Sandelman Software Works
                                                               D. Migault
@@ -1789,8 +1789,8 @@ Authors' Addresses
 
 
    Thomas Fossati
-   Linaro
-   Email: Thomas.Fossati@linaro.org
+   NVIDIA
+   Email: tfossati@nvidia.com
 
 
    Michael Richardson
