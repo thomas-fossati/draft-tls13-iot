@@ -42,8 +42,8 @@ author:
  -
     ins: T. Fossati
     name: Thomas Fossati
-    organization: "Linaro"
-    email: Thomas.Fossati@linaro.org
+    organization: "NVIDIA"
+    email: tfossati@nvidia.com
 
  -
     ins: M. Richardson
