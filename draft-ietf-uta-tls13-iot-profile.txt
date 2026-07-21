@@ -6,11 +6,11 @@ UTA                                                        H. Tschofenig
 Internet-Draft                                                  UniBw M.
 Updates: 7925 (if approved)                                   T. Fossati
 Intended status: Standards Track                                  Linaro
-Expires: 17 January 2027                                   M. Richardson
+Expires: 22 January 2027                                   M. Richardson
                                                 Sandelman Software Works
                                                               D. Migault
                                                                 Ericsson
-                                                            16 July 2026
+                                                            21 July 2026
 
 
             TLS/DTLS 1.3 Profiles for the Internet of Things
@@ -46,7 +46,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 January 2027.
+   This Internet-Draft will expire on 22 January 2027.
 
 Copyright Notice
 
@@ -478,8 +478,8 @@ Table of Contents
    selection.  IoT clients MAY omit SNI when the peer identity is
    established by other application-specific configuration, such as a
    configured IP address and port, a pinned certificate, a raw public
-   key, or an external PSK identity.  When no DNS name is used, SNI is
-   not applicable.
+   key, or an external PSK identity.  When no domain name is used, SNI
+   is not applicable.
 
    Deployments that require confidentiality of SNI and other ClientHello
    metadata can use Encrypted ClientHello (ECH) [RFC9849].  ECH is most
@@ -1764,9 +1764,9 @@ Table of Contents
 Acknowledgments
 
    We would like to thank Henk Birkholz, Hendrik Brockhaus, Menachem
-   Dodge, Martin Duke, Russ Housley, Ben Kaduk, Achim Kraus, John
-   Mattsson, Tiru Reddy, Scott Rose, Rich Salz, Martin Thomson, and
-   Marco Tiloca.
+   Dodge, Martin Duke, Miek Gieben, Russ Housley, Ben Kaduk, Achim
+   Kraus, John Mattsson, Tiru Reddy, Scott Rose, Rich Salz, Martin
+   Thomson, and Marco Tiloca.
 
    Finally, we would like to thank our security area director Deb Cooley
    for her detailed review comments.
