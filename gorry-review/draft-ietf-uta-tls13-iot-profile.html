@@ -28,11 +28,11 @@ profile and ciphersuite requirements.
     Jinja2 3.1.6
     lxml 6.1.1
     natsort 8.4.0
-    platformdirs 4.10.0
+    platformdirs 4.10.1
     pycountry 24.6.1
     PyYAML 6.0.3
     requests 2.33.1
-    wcwidth 0.8.1
+    wcwidth 0.8.2
 -->
 <link href="draft-ietf-uta-tls13-iot-profile.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1051,11 +1051,11 @@ svg {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">TLS/DTLS 1.3 IoT Profiles</td>
-<td class="right">June 2026</td>
+<td class="right">July 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Tschofenig, et al.</td>
-<td class="center">Expires 24 December 2026</td>
+<td class="center">Expires 29 January 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1071,12 +1071,12 @@ svg {
 <a href="https://www.rfc-editor.org/rfc/rfc7925" class="eref">7925</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-06-22" class="published">22 June 2026</time>
+<time datetime="2026-07-28" class="published">28 July 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-12-24">24 December 2026</time></dd>
+<dd class="expires"><time datetime="2027-01-29">29 January 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1085,7 +1085,7 @@ svg {
 </div>
 <div class="author">
       <div class="author-name">T. Fossati</div>
-<div class="org">Linaro</div>
+<div class="org">NVIDIA</div>
 </div>
 <div class="author">
       <div class="author-name">M. Richardson</div>
@@ -1134,7 +1134,7 @@ profile and ciphersuite requirements.<a href="#section-abstract-1" class="pilcro
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 24 December 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 29 January 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1185,19 +1185,19 @@ profile and ciphersuite requirements.<a href="#section-abstract-1" class="pilcro
             <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-forward-secrecy" class="internal xref">Forward Secrecy</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
-            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-authentication-and-integrit" class="internal xref">Authentication and Integrity-only Cipher Suites</a></p>
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-keep-alive" class="internal xref">Keep-Alive</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-keep-alive" class="internal xref">Keep-Alive</a></p>
+            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-timers-and-acks" class="internal xref">Timers and ACKs</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-timers-and-acks" class="internal xref">Timers and ACKs</a></p>
+            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-random-number-generation" class="internal xref">Random Number Generation</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
-            <p id="section-toc.1-1.11.1"><a href="#section-11" class="auto internal xref">11</a>. <a href="#name-random-number-generation" class="internal xref">Random Number Generation</a></p>
+            <p id="section-toc.1-1.11.1"><a href="#section-11" class="auto internal xref">11</a>. <a href="#name-server-name-indication" class="internal xref">Server Name Indication</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
-            <p id="section-toc.1-1.12.1"><a href="#section-12" class="auto internal xref">12</a>. <a href="#name-server-name-indication" class="internal xref">Server Name Indication</a></p>
+            <p id="section-toc.1-1.12.1"><a href="#section-12" class="auto internal xref">12</a>. <a href="#name-application-layer-protocol-" class="internal xref">Application-Layer Protocol Negotiation</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
             <p id="section-toc.1-1.13.1"><a href="#section-13" class="auto internal xref">13</a>. <a href="#name-maximum-fragment-length-neg" class="internal xref">Maximum Fragment Length Negotiation</a></p>
@@ -1361,91 +1361,91 @@ profile and ciphersuite requirements.<a href="#section-abstract-1" class="pilcro
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<aside id="section-1-1">
-        <p id="section-1-1.1">Note to RFC Editor: Once RFC 9846 (RFC 8446bis) is published, all references to RFC 8446 must be updated to refer to RFC 9846.
-All section references must also be updated accordingly.<a href="#section-1-1.1" class="pilcrow">¶</a></p>
-</aside>
-<p id="section-1-2">In the rapidly evolving Internet of Things (IoT) ecosystem, communication security
+<p id="section-1-1">In the rapidly evolving Internet of Things (IoT) ecosystem, communication security
 is a critical requirement. The Transport Layer Security (TLS) and Datagram Transport
 Layer Security (DTLS) protocols have been foundational for ensuring encryption,
 integrity, and authenticity in communications. However, the constraints of a certain
 class of IoT devices render conventional, off-the-shelf TLS/DTLS implementations
-suboptimal for many IoT use cases. This document addresses these limitations by specifying TLS 1.3 and DTLS 1.3 profiles that are optimized for resource-constrained IoT devices.<a href="#section-1-2" class="pilcrow">¶</a></p>
-<p id="section-1-3">Note that IoT devices vary widely in terms of capabilities. While some are highly
+suboptimal for many IoT use cases. This document addresses these limitations by specifying TLS 1.3 and DTLS 1.3 profiles that are optimized for resource-constrained IoT devices.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">Note that IoT devices vary widely in terms of capabilities. While some are highly
 resource-constrained, others offer performance comparable to regular desktop computers
 but operate without end-user interfaces. For a detailed description of the different
 classes of IoT devices, please refer to <span>[<a href="#RFC7228" class="cite xref">RFC7228</a>]</span> and <span>[<a href="#I-D.ietf-iotops-7228bis" class="cite xref">I-D.ietf-iotops-7228bis</a>]</span>.
 It is crucial for developers to thoroughly assess the limitations of their IoT devices
 and communication technologies to implement the most suitable optimizations.
 The profiles in this document aim to balance strong security with the hardware and
-software limitations of IoT devices.<a href="#section-1-3" class="pilcrow">¶</a></p>
-<p id="section-1-4">TLS 1.3 has been re-designed and several previously defined extensions are not
-applicable to the new version of TLS/DTLS anymore. The following features changed
-with the transition from TLS 1.2 to 1.3:<a href="#section-1-4" class="pilcrow">¶</a></p>
+software limitations of IoT devices.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">TLS 1.3 has been re-designed and several previously defined extensions are no longer
+applicable to the new version of TLS/DTLS. The following features changed
+with the transition from TLS 1.2 to 1.3:<a href="#section-1-3" class="pilcrow">¶</a></p>
 <ul class="compact">
-<li class="compact" id="section-1-5.1">
-          <p id="section-1-5.1.1">TLS 1.3 introduced the concept of post-handshake authentication messages, which
+<li class="compact" id="section-1-4.1">
+          <p id="section-1-4.1.1">TLS 1.3 introduced the concept of post-handshake authentication messages, which
 partially replaced the need for the re-negotiation feature <span>[<a href="#RFC5746" class="cite xref">RFC5746</a>]</span> available
-in earlier TLS versions. However, the rekeying mechanism defined in <span><a href="https://rfc-editor.org/rfc/rfc8446#section-4.6.3" class="relref">Section 4.6.3</a> of [<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>
-does not provide post-compromise security (see <span><a href="https://rfc-editor.org/rfc/rfc8446#appendix-E.1.5" class="relref">Appendix E.1.5</a> of [<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>).
+in earlier TLS versions. However, the rekeying mechanism defined in <span><a href="https://rfc-editor.org/rfc/rfc9846#section-4.7.3" class="relref">Section 4.7.3</a> of [<a href="#RFC9846" class="cite xref">RFC9846</a>]</span>
+does not provide post-compromise security (see <span><a href="https://rfc-editor.org/rfc/rfc9846#appendix-F.1.5" class="relref">Appendix F.1.5</a> of [<a href="#RFC9846" class="cite xref">RFC9846</a>]</span>).
 Furthermore, post-handshake authentication defined in
-<span><a href="https://rfc-editor.org/rfc/rfc8446#section-4.6.2" class="relref">Section 4.6.2</a> of [<a href="#RFC8446" class="cite xref">RFC8446</a>]</span> only offers client authentication (client-to-server).
+<span><a href="https://rfc-editor.org/rfc/rfc9846#section-4.7.2" class="relref">Section 4.7.2</a> of [<a href="#RFC9846" class="cite xref">RFC9846</a>]</span> only offers client authentication (client-to-server).
 The "Exported Authenticator" specification, see <span>[<a href="#RFC9261" class="cite xref">RFC9261</a>]</span>, added support
 for mutual post-handshake authentication, but this requires the Certificate,
 CertificateVerify and the Finished messages to be conveyed by the application
 layer protocol, as it is exercised for HTTP/2 and HTTP/3 in <span>[<a href="#I-D.ietf-httpbis-secondary-server-certs" class="cite xref">I-D.ietf-httpbis-secondary-server-certs</a>]</span>.
-Therefore, the application layer protocol must be enhanced whenever this feature is required.<a href="#section-1-5.1.1" class="pilcrow">¶</a></p>
+Therefore, the application layer protocol must be enhanced whenever this feature is required.<a href="#section-1-4.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="compact" id="section-1-5.2">
-          <p id="section-1-5.2.1">Rekeying of the application traffic secret does not lead to an update of the
-exporter secret (see <span><a href="https://rfc-editor.org/rfc/rfc8446#section-7.5" class="relref">Section 7.5</a> of [<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>) since the derived export secret is
-based on the exporter_master_secret and not on the application traffic secret.<a href="#section-1-5.2.1" class="pilcrow">¶</a></p>
+        <li class="compact" id="section-1-4.2">
+          <p id="section-1-4.2.1">Rekeying of the application traffic secret does not lead to an update of the
+exporter secret (see <span><a href="https://rfc-editor.org/rfc/rfc9846#section-7.5" class="relref">Section 7.5</a> of [<a href="#RFC9846" class="cite xref">RFC9846</a>]</span>) since the derived export secret is
+based on the exporter_master_secret and not on the application traffic secret.<a href="#section-1-4.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="compact" id="section-1-5.3">
-          <p id="section-1-5.3.1">Flight #4, which was used by EAP-TLS 1.2 <span>[<a href="#RFC5216" class="cite xref">RFC5216</a>]</span>, does not exist in TLS 1.3.
-As a consequence, EAP-TLS 1.3 <span>[<a href="#RFC9190" class="cite xref">RFC9190</a>]</span> introduced a placeholder message.<a href="#section-1-5.3.1" class="pilcrow">¶</a></p>
+        <li class="compact" id="section-1-4.3">
+          <p id="section-1-4.3.1">Flight #4, which was used by EAP-TLS 1.2 <span>[<a href="#RFC5216" class="cite xref">RFC5216</a>]</span>, does not exist in TLS 1.3.
+As a consequence, EAP-TLS 1.3 <span>[<a href="#RFC9190" class="cite xref">RFC9190</a>]</span> introduced a placeholder message.<a href="#section-1-4.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="compact" id="section-1-5.4">
-          <p id="section-1-5.4.1"><span>[<a href="#RFC4279" class="cite xref">RFC4279</a>]</span> introduced PSK-based authentication to TLS, a feature re-designed
-in TLS 1.3. The "PSK identity hint" defined in <span>[<a href="#RFC4279" class="cite xref">RFC4279</a>]</span>, which is used by the
-server to help the client in selecting which PSK identity to use, is, however, not
-available anymore in TLS 1.3.<a href="#section-1-5.4.1" class="pilcrow">¶</a></p>
+        <li class="compact" id="section-1-4.4">
+          <p id="section-1-4.4.1"><span>[<a href="#RFC4279" class="cite xref">RFC4279</a>]</span> introduced PSK-based authentication to TLS, including the
+"PSK identity hint", which allowed a server to help the client select a PSK
+identity. TLS 1.3 removed this separate server-provided hint. Instead, the
+client offers one or more PSK identities in the <code>pre_shared_key</code> extension, and
+the server selects one of them as part of the handshake. As a result, TLS 1.3
+clients need sufficient local or application-provided context, such as the
+intended server name, the application protocol, or
+local configuration, to determine which PSK identities to offer.<a href="#section-1-4.4.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="compact" id="section-1-5.5">
-          <p id="section-1-5.5.1">Finally, ciphersuites were deprecated and the RSA-based key transport is not
+        <li class="compact" id="section-1-4.5">
+          <p id="section-1-4.5.1">Finally, ciphersuites were deprecated and the RSA-based key transport is not
 supported in TLS 1.3. As a consequence, only a Diffie-Hellman-based key exchange
 is available for non-PSK-based (i.e., certificate-based) authentication. (For PSK-based authentication the
-use of Diffie-Hellman is optional.)<a href="#section-1-5.5.1" class="pilcrow">¶</a></p>
+use of Diffie-Hellman is optional.)<a href="#section-1-4.5.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-1-6">The profiles in this specification are designed to be adaptable to the broad spectrum
+<p id="section-1-5">The profiles in this specification are designed to be adaptable to the broad spectrum
 of IoT applications, from low-power consumer devices to large-scale industrial
 deployments. It provides guidelines for implementing TLS/DTLS 1.3 in diverse
 networking contexts, including reliable, connection-oriented transport via TCP
 for TLS, and lightweight, connectionless communication via UDP for DTLS. In
 particular, DTLS is emphasized for scenarios where low-latency communication is
 paramount, such as multi-hop mesh networks and low-power wide-area networks,
-where the amount of data exchanged needs to be minimized.<a href="#section-1-6" class="pilcrow">¶</a></p>
-<p id="section-1-7">This document offers comprehensive guidance for deploying secure
+where the amount of data exchanged needs to be minimized.<a href="#section-1-5" class="pilcrow">¶</a></p>
+<p id="section-1-6">This document offers comprehensive guidance for deploying secure
 communication in resource-constrained IoT environments. It outlines best practices
 for configuring TLS/DTLS 1.3 to meet the unique needs of IoT devices, ensuring
 robust security without overwhelming their limited processing, memory, and power
 resources. The document aims to facilitate the development of secure and efficient IoT
-deployments and promote the broad adoption of secure communication standards.<a href="#section-1-7" class="pilcrow">¶</a></p>
-<p id="section-1-8">This document updates <span>[<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> with respect to the X.509 certificate profile (<a href="#certificate_profile" class="auto internal xref">Section 17</a>) and ciphersuite requirements (<a href="#ciphersuites" class="auto internal xref">Section 20</a>).<a href="#section-1-8" class="pilcrow">¶</a></p>
-<p id="section-1-9">This document is organized as follows.
+deployments and promote the broad adoption of secure communication standards.<a href="#section-1-6" class="pilcrow">¶</a></p>
+<p id="section-1-7">This document updates <span>[<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> with respect to the X.509 certificate profile (<a href="#certificate_profile" class="auto internal xref">Section 17</a>) and ciphersuite requirements (<a href="#ciphersuites" class="auto internal xref">Section 20</a>).<a href="#section-1-7" class="pilcrow">¶</a></p>
+<p id="section-1-8">This document is organized as follows.
 The sections from <a href="#credential_types" class="auto internal xref">Section 3</a>
 through <a href="#zerortt" class="auto internal xref">Section 16</a> profile TLS/DTLS credentials and protocol features relevant
 to constrained IoT deployments, including credential types, session resumption,
 compression, forward secrecy, server name indication (SNI), record sizing,
 crypto agility, key lengths, and 0-RTT data. <a href="#certificate_profile" class="auto internal xref">Section 17</a> updates
-and clarifies the X.509 certificate profile from <span>[<a href="#RFC7925" class="cite xref">RFC7925</a>]</span>.<a href="#section-1-9" class="pilcrow">¶</a></p>
-<p id="section-1-10">TLS protocol compatibility is a required basis, but it is insufficient to permit interoperability at the level of authentication and authorization.
+and clarifies the X.509 certificate profile from <span>[<a href="#RFC7925" class="cite xref">RFC7925</a>]</span>.<a href="#section-1-8" class="pilcrow">¶</a></p>
+<p id="section-1-9">TLS protocol compatibility is a required basis, but it is insufficient to permit interoperability at the level of authentication and authorization.
 <a href="#trust_anchor_update" class="auto internal xref">Section 18</a> and <a href="#certificate_overhead" class="auto internal xref">Section 19</a> discuss trust-anchor update
 and certificate-size overhead. <a href="#ciphersuites" class="auto internal xref">Section 20</a> updates the ciphersuite
-requirements.<a href="#section-1-10" class="pilcrow">¶</a></p>
-<p id="section-1-11">The remaining sections discuss fault attacks, post-quantum
-cryptography, privacy, and security considerations.<a href="#section-1-11" class="pilcrow">¶</a></p>
+requirements.<a href="#section-1-9" class="pilcrow">¶</a></p>
+<p id="section-1-10">The remaining sections discuss fault attacks, post-quantum
+cryptography, privacy, and security considerations.<a href="#section-1-10" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-terminology">
@@ -1458,13 +1458,12 @@ NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
 "MAY", and "OPTIONAL" in this document are to be interpreted as
 described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
 appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶</a></p>
-<p id="section-2-2">This document reuses the terms "SHOULD+", "SHOULD-" and "MUST-" from <span>[<a href="#RFC8221" class="cite xref">RFC8221</a>]</span>.<a href="#section-2-2" class="pilcrow">¶</a></p>
-<p id="section-2-3">This document uses TLS terminology from <span>[<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>, DTLS terminology from
+<p id="section-2-2">This document uses TLS terminology from <span>[<a href="#RFC9846" class="cite xref">RFC9846</a>]</span>, DTLS terminology from
 <span>[<a href="#RFC9147" class="cite xref">RFC9147</a>]</span>, and X.509 certificate and certification path terminology from
 <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>. IoT device-class terminology follows <span>[<a href="#RFC7228" class="cite xref">RFC7228</a>]</span> and
 <span>[<a href="#I-D.ietf-iotops-7228bis" class="cite xref">I-D.ietf-iotops-7228bis</a>]</span>. The DevID, IDevID, and LDevID terms used in the
 certificate profile are introduced in <span>[<a href="#IEEE-802.1AR" class="cite xref">IEEE-802.1AR</a>]</span> and described in
-<a href="#certificate_profile" class="auto internal xref">Section 17</a>.<a href="#section-2-3" class="pilcrow">¶</a></p>
+<a href="#certificate_profile" class="auto internal xref">Section 17</a>.<a href="#section-2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="credential_types">
@@ -1478,10 +1477,20 @@ The extensions used in TLS/DTLS differ depending on the credential types
 supported.
 Self-signed X.509 certificates are still X.509, not raw public keys; raw
 public keys are conveyed via the raw_public_key extension.<a href="#section-3-1" class="pilcrow">¶</a></p>
-<p id="section-3-2">This profile considers three authentication modes for IoT devices:
+<p id="section-3-2">Password-authenticated key exchange (PAKE) mechanisms allow two endpoints to
+authenticate and establish keys from a low-entropy shared secret, such as a
+user-entered password, without using that secret directly as a TLS PSK. Such
+mechanisms have been defined for earlier versions of TLS, and new work is
+underway to add PAKE authentication to TLS 1.3 <span>[<a href="#I-D.ietf-tls-pake" class="cite xref">I-D.ietf-tls-pake</a>]</span>. The
+deployment model for PAKE mechanisms in constrained IoT environments is
+still evolving. This profile therefore does not cover password-authenticated
+TLS deployments.<a href="#section-3-2" class="pilcrow">¶</a></p>
+<p id="section-3-3">This profile considers three authentication modes for IoT devices:
 (1) certificate-based, (2) raw public key-based and (3) external PSK-based.
-PSK with (EC)DHE is optional and not assumed by default.<a href="#section-3-2" class="pilcrow">¶</a></p>
-<p id="section-3-3">TLS/DTLS 1.3 supports PSK-based authentication,
+TLS/DTLS 1.3 supports both PSK-only and PSK with (EC)DHE key exchange modes.
+For PSK use, endpoints SHOULD use (EC)DHE where possible; see
+<a href="#forward_secrecy" class="auto internal xref">Section 7</a>.<a href="#section-3-3" class="pilcrow">¶</a></p>
+<p id="section-3-4">TLS/DTLS 1.3 supports PSK-based authentication,
 wherein PSKs can be established via session tickets from prior
 connections or via some external, out-of-band mechanism. To distinguish
 the two modes, the former is called resumption PSK and the latter
@@ -1490,52 +1499,152 @@ is often found in implementations that use X.509 certificates for
 authentication.
 Implementations that only support external PSKs are common in constrained
 devices; implementations using certificates often also support resumption
-PSKs for performance.<a href="#section-3-3" class="pilcrow">¶</a></p>
-<p id="section-3-4">A "plain" PSK-based TLS/DTLS client or server, which only implements support
-for external PSKs as its long-term credential, MUST implement the following extensions:<a href="#section-3-4" class="pilcrow">¶</a></p>
-<ul class="compact">
-<li class="compact" id="section-3-5.1">
-          <p id="section-3-5.1.1">Supported Versions,<a href="#section-3-5.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="compact" id="section-3-5.2">
-          <p id="section-3-5.2.1">Cookie,<a href="#section-3-5.2.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="compact" id="section-3-5.3">
-          <p id="section-3-5.3.1">Server Name Indication (SNI),<a href="#section-3-5.3.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="compact" id="section-3-5.4">
-          <p id="section-3-5.4.1">Pre-Shared Key,<a href="#section-3-5.4.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="compact" id="section-3-5.5">
-          <p id="section-3-5.5.1">PSK Key Exchange Modes, and<a href="#section-3-5.5.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="compact" id="section-3-5.6">
-          <p id="section-3-5.6.1">Application-Layer Protocol Negotiation (ALPN).<a href="#section-3-5.6.1" class="pilcrow">¶</a></p>
-</li>
-      </ul>
-<p id="section-3-6">Note that these extensions may also appear in ECDHE or resumption handshakes;
-the requirement here is that external PSK-only endpoints MUST support them.<a href="#section-3-6" class="pilcrow">¶</a></p>
-<p id="section-3-7">For external pre-shared keys, <span>[<a href="#RFC9258" class="cite xref">RFC9258</a>]</span> recommends that applications
-SHOULD provision separate PSKs for (D)TLS 1.3 and prior versions.<a href="#section-3-7" class="pilcrow">¶</a></p>
-<p id="section-3-8">Where possible, the importer interface defined in <span>[<a href="#RFC9258" class="cite xref">RFC9258</a>]</span> MUST be used
-for external PSKs. This ensures
-that external PSKs used in (D)TLS 1.3
-are bound to a specific key derivation function (KDF) and hash function.<a href="#section-3-8" class="pilcrow">¶</a></p>
-<p id="section-3-9">SNI is discussed in <a href="#sni" class="auto internal xref">Section 12</a>; the justification for implementing and using
-the ALPN extension can be found in <span>[<a href="#RFC9325" class="cite xref">RFC9325</a>]</span>.<a href="#section-3-9" class="pilcrow">¶</a></p>
-<p id="section-3-10">An implementation supporting authentication based on certificates and
+PSKs for performance.<a href="#section-3-4" class="pilcrow">¶</a></p>
+<p id="section-3-5">Endpoints that use external PSKs as their only long-term credential still
+follow the TLS/DTLS 1.3 extension requirements according to their
+applicability; see <a href="#_table-mandatory-extensions" class="auto internal xref">Table 1</a>. This profile differs from
+certificate-based and raw-public-key-based deployments only in that endpoints
+that exclusively support external PSK authentication do not need to implement
+certificate-authentication extensions or signature algorithm support. When
+such endpoints offer or negotiate <code>psk_dhe_ke</code>, the <code>supported_groups</code> and
+<code>key_share</code> extensions are required as specified by TLS 1.3. When <code>psk_ke</code> is
+used without (EC)DHE, those extensions are not needed for that handshake.<a href="#section-3-5" class="pilcrow">¶</a></p>
+<p id="section-3-6">For external pre-shared keys, <span>[<a href="#RFC9258" class="cite xref">RFC9258</a>]</span> recommends that applications
+SHOULD provision separate PSKs for (D)TLS 1.3 and prior versions.<a href="#section-3-6" class="pilcrow">¶</a></p>
+<p id="section-3-7">Where possible, the importer interface defined in <span>[<a href="#RFC9258" class="cite xref">RFC9258</a>]</span> MUST be used
+for external PSKs. This ensures that external PSKs used in (D)TLS 1.3
+are bound to a specific key derivation function (KDF) and hash function.<a href="#section-3-7" class="pilcrow">¶</a></p>
+<p id="section-3-8">An implementation supporting authentication based on certificates and
 raw public keys MUST support digital signatures with ecdsa_secp256r1_sha256. A
 compliant implementation MUST support the key exchange with secp256r1 (NIST
-P-256) and SHOULD support key exchange with X25519.<a href="#section-3-10" class="pilcrow">¶</a></p>
-<p id="section-3-11">For TLS/DTLS clients and servers implementing raw public keys and/or
-certificates the guidance for mandatory-to-implement extensions described in
-<span><a href="https://rfc-editor.org/rfc/rfc8446#section-9.2" class="relref">Section 9.2</a> of [<a href="#RFC8446" class="cite xref">RFC8446</a>]</span> MUST be followed.
-In addition, compliant implementations MUST implement the Record Size Limit
-(RSL) extension; see <a href="#record_size_limit" class="auto internal xref">Section 13</a>.<a href="#section-3-11" class="pilcrow">¶</a></p>
-<p id="section-3-12">Entities deploying IoT devices may select credential types based on security
+P-256) and SHOULD support key exchange with X25519.<a href="#section-3-8" class="pilcrow">¶</a></p>
+<p id="section-3-9">Entities deploying IoT devices may select credential types based on security
 characteristics, operational requirements, cost, and other factors.
-Consequently, this specification does not prescribe a single credential type
-but provides guidance on considerations relevant to the use of particular types.<a href="#section-3-12" class="pilcrow">¶</a></p>
+Consequently, this specification does not mandate a single credential type
+but provides guidance on considerations relevant to the use of particular types.<a href="#section-3-9" class="pilcrow">¶</a></p>
+<p id="section-3-10">TLS/DTLS 1.3 implementations conforming to this profile MUST follow the
+mandatory-to-implement extension requirements in <span><a href="https://rfc-editor.org/rfc/rfc9846#section-9.2" class="relref">Section 9.2</a> of [<a href="#RFC9846" class="cite xref">RFC9846</a>]</span>.
+This section summarizes those requirements and the additional extension
+requirements established by this profile. The table does not replace the
+normative requirements in the referenced sections.<a href="#section-3-10" class="pilcrow">¶</a></p>
+<span id="name-mandatory-and-profile-speci"></span><div id="_table-mandatory-extensions">
+<table class="left" id="table-1">
+        <caption>
+<a href="#table-1" class="selfRef">Table 1</a>:
+<a href="#name-mandatory-and-profile-speci" class="selfRef">Mandatory and Profile-Specific Extension Requirements</a>
+        </caption>
+<thead>
+          <tr>
+            <th class="text-left" rowspan="1" colspan="1">Extension</th>
+            <th class="text-left" rowspan="1" colspan="1">Applicability</th>
+            <th class="text-left" rowspan="1" colspan="1">Reference</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">
+              <code>supported_versions</code>
+</td>
+            <td class="text-left" rowspan="1" colspan="1">TLS/DTLS 1.3 negotiation</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <span><a href="https://rfc-editor.org/rfc/rfc9846#section-9.2" class="relref">Section 9.2</a> of [<a href="#RFC9846" class="cite xref">RFC9846</a>]</span>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">
+              <code>cookie</code>
+</td>
+            <td class="text-left" rowspan="1" colspan="1">HelloRetryRequest and DTLS use</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <span><a href="https://rfc-editor.org/rfc/rfc9846#section-9.2" class="relref">Section 9.2</a> of [<a href="#RFC9846" class="cite xref">RFC9846</a>]</span>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">
+              <code>signature_algorithms</code>
+</td>
+            <td class="text-left" rowspan="1" colspan="1">Certificate authentication and other signature-based authentication mechanisms</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <span><a href="https://rfc-editor.org/rfc/rfc9846#section-9.2" class="relref">Section 9.2</a> of [<a href="#RFC9846" class="cite xref">RFC9846</a>]</span>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">
+              <code>signature_algorithms_cert</code>
+</td>
+            <td class="text-left" rowspan="1" colspan="1">Certificate authentication where certificate signature algorithms are negotiated separately</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <span><a href="https://rfc-editor.org/rfc/rfc9846#section-9.2" class="relref">Section 9.2</a> of [<a href="#RFC9846" class="cite xref">RFC9846</a>]</span>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">
+              <code>supported_groups</code>
+</td>
+            <td class="text-left" rowspan="1" colspan="1">DHE/ECDHE key exchange, including <code>psk_dhe_ke</code>
+</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <span><a href="https://rfc-editor.org/rfc/rfc9846#section-9.2" class="relref">Section 9.2</a> of [<a href="#RFC9846" class="cite xref">RFC9846</a>]</span>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">
+              <code>key_share</code>
+</td>
+            <td class="text-left" rowspan="1" colspan="1">DHE/ECDHE key exchange, including <code>psk_dhe_ke</code>
+</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <span><a href="https://rfc-editor.org/rfc/rfc9846#section-9.2" class="relref">Section 9.2</a> of [<a href="#RFC9846" class="cite xref">RFC9846</a>]</span>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">
+              <code>server_name</code>
+</td>
+            <td class="text-left" rowspan="1" colspan="1">Applications capable of using SNI</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#sni" class="auto internal xref">Section 11</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">
+              <code>pre_shared_key</code>
+</td>
+            <td class="text-left" rowspan="1" colspan="1">PSK authentication and resumption</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <span><a href="https://rfc-editor.org/rfc/rfc9846#section-9.2" class="relref">Section 9.2</a> of [<a href="#RFC9846" class="cite xref">RFC9846</a>]</span>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">
+              <code>psk_key_exchange_modes</code>
+</td>
+            <td class="text-left" rowspan="1" colspan="1">PSK authentication and resumption</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <span><a href="https://rfc-editor.org/rfc/rfc9846#section-9.2" class="relref">Section 9.2</a> of [<a href="#RFC9846" class="cite xref">RFC9846</a>]</span>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">
+              <code>application_layer_protocol_negotiation</code>
+</td>
+            <td class="text-left" rowspan="1" colspan="1">Application protocol selection</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#alpn" class="auto internal xref">Section 12</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">
+              <code>record_size_limit</code>
+</td>
+            <td class="text-left" rowspan="1" colspan="1">Constrained endpoints</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#record_size_limit" class="auto internal xref">Section 13</a>
+</td>
+          </tr>
+        </tbody>
+      </table>
+</div>
 </section>
 </div>
 <div id="error-handling">
@@ -1574,111 +1683,109 @@ overhead, depending on the type of key confirmations, when compared to previous 
 protocol.<a href="#section-6-2" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="forward-secrecy">
+<div id="forward_secrecy">
 <section id="section-7">
       <h2 id="name-forward-secrecy">
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-forward-secrecy" class="section-name selfRef">Forward Secrecy</a>
       </h2>
-<p id="section-7-1">RFC 8446 has removed Static RSA and Static Diffie-Hellman cipher suites, therefore all public-key-based key exchange mechanisms available in TLS 1.3 provide forward secrecy.<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-1">RFC 9846 has removed Static RSA and Static Diffie-Hellman cipher suites, therefore all public-key-based key exchange mechanisms available in TLS 1.3 provide forward secrecy.<a href="#section-7-1" class="pilcrow">¶</a></p>
 <p id="section-7-2">Pre-shared keys (PSKs) can be used with (EC)DHE key exchange to provide forward secrecy or can be used alone, at the cost of losing forward secrecy for the application data.
 For PSK use, endpoints SHOULD use (EC)DHE to achieve forward secrecy; PSK-only
 SHOULD be avoided unless the application can tolerate the loss of forward secrecy.<a href="#section-7-2" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="authentication-and-integrity-only-cipher-suites">
-<section id="section-8">
-      <h2 id="name-authentication-and-integrit">
-<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-authentication-and-integrit" class="section-name selfRef">Authentication and Integrity-only Cipher Suites</a>
-      </h2>
-<p id="section-8-1">For a few, very specific Industrial IoT use cases <span>[<a href="#RFC9150" class="cite xref">RFC9150</a>]</span> defines two cipher
-suites that provide data authenticity, but not data confidentiality. For details
-and use constraints, defer to <span>[<a href="#RFC9150" class="cite xref">RFC9150</a>]</span> (especially <span><a href="https://rfc-editor.org/rfc/rfc9150#section-9" class="relref">Section 9</a> of [<a href="#RFC9150" class="cite xref">RFC9150</a>]</span>).
-Implementations might not support these suites; deployments should not assume
-availability. This document does not add new guidance beyond <span>[<a href="#RFC9150" class="cite xref">RFC9150</a>]</span>.
-Profiling the use of authentication- and integrity-only cipher suites is out of
-scope for this specification.<a href="#section-8-1" class="pilcrow">¶</a></p>
-</section>
-</div>
 <div id="keep-alive">
-<section id="section-9">
+<section id="section-8">
       <h2 id="name-keep-alive">
-<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-keep-alive" class="section-name selfRef">Keep-Alive</a>
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-keep-alive" class="section-name selfRef">Keep-Alive</a>
       </h2>
-<p id="section-9-1">The discussion in <span><a href="https://rfc-editor.org/rfc/rfc7925#section-10" class="relref">Section 10</a> of [<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> is applicable.
+<p id="section-8-1">The discussion in <span><a href="https://rfc-editor.org/rfc/rfc7925#section-10" class="relref">Section 10</a> of [<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> is applicable.
 When a TLS/DTLS-level keep-alive or path MTU discovery mechanism is needed,
-use of the Heartbeat Extension defined in <span>[<a href="#RFC6520" class="cite xref">RFC6520</a>]</span> is RECOMMENDED.<a href="#section-9-1" class="pilcrow">¶</a></p>
+use of the Heartbeat Extension defined in <span>[<a href="#RFC6520" class="cite xref">RFC6520</a>]</span> is RECOMMENDED.<a href="#section-8-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="timers-and-acks">
-<section id="section-10">
+<section id="section-9">
       <h2 id="name-timers-and-acks">
-<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-timers-and-acks" class="section-name selfRef">Timers and ACKs</a>
+<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-timers-and-acks" class="section-name selfRef">Timers and ACKs</a>
       </h2>
-<p id="section-10-1">Compared to DTLS 1.2 timeout-based whole flight retransmission, DTLS 1.3 ACKs sensibly decrease the risk of congestion collapse which was the basis for the very conservative recommendations given in <span><a href="https://rfc-editor.org/rfc/rfc7925#section-11" class="relref">Section 11</a> of [<a href="#RFC7925" class="cite xref">RFC7925</a>]</span>.<a href="#section-10-1" class="pilcrow">¶</a></p>
-<p id="section-10-2">The recommendations in <span><a href="https://rfc-editor.org/rfc/rfc9147#section-7.3" class="relref">Section 7.3</a> of [<a href="#RFC9147" class="cite xref">RFC9147</a>]</span> regarding ACKs apply.
-In particular,<a href="#section-10-2" class="pilcrow">¶</a></p>
-<blockquote id="section-10-3">
-        <p id="section-10-3.1">When DTLS 1.3 is used in deployments with lossy networks, such as low-power, long-range radio networks as well as low-power mesh networks, the use of ACKs is recommended.<a href="#section-10-3.1" class="pilcrow">¶</a></p>
+<p id="section-9-1">Compared to DTLS 1.2 timeout-based whole flight retransmission, DTLS 1.3 ACKs sensibly decrease the risk of congestion collapse which was the basis for the very conservative recommendations given in <span><a href="https://rfc-editor.org/rfc/rfc7925#section-11" class="relref">Section 11</a> of [<a href="#RFC7925" class="cite xref">RFC7925</a>]</span>.<a href="#section-9-1" class="pilcrow">¶</a></p>
+<p id="section-9-2">The recommendations in <span><a href="https://rfc-editor.org/rfc/rfc9147#section-7.3" class="relref">Section 7.3</a> of [<a href="#RFC9147" class="cite xref">RFC9147</a>]</span> regarding ACKs apply.
+In particular,<a href="#section-9-2" class="pilcrow">¶</a></p>
+<blockquote id="section-9-3">
+        <p id="section-9-3.1">When DTLS 1.3 is used in deployments with lossy networks, such as low-power, long-range radio networks as well as low-power mesh networks, the use of ACKs is recommended.<a href="#section-9-3.1" class="pilcrow">¶</a></p>
 </blockquote>
-<p id="section-10-4">ACKs provide explicit feedback on which handshake messages have been received.
-This enables endpoints to detect a lack of progress more quickly and to trigger selective or early retransmission, leading to more efficient use of bandwidth and memory.<a href="#section-10-4" class="pilcrow">¶</a></p>
-<p id="section-10-5">Due to the vast range of network technologies used in IoT deployments, from wired LAN to GSM-SMS, it's not possible to provide a universal recommendation for an initial timeout.
+<p id="section-9-4">ACKs provide explicit feedback on which handshake messages have been received.
+This enables endpoints to detect a lack of progress more quickly and to trigger selective or early retransmission, leading to more efficient use of bandwidth and memory.<a href="#section-9-4" class="pilcrow">¶</a></p>
+<p id="section-9-5">Due to the vast range of network technologies used in IoT deployments, from wired LAN to GSM-SMS, it's not possible to provide a universal recommendation for an initial timeout.
 Therefore, it is RECOMMENDED that DTLS 1.3 implementations allow developers to explicitly set the initial timer value.
 Developers SHOULD set the initial timeout to be twice the expected round-trip time (RTT),
 but no less than 1000ms, which is a conservative default aligned with the guidance in
 <span><a href="https://rfc-editor.org/rfc/rfc7925#section-11" class="relref">Section 11</a> of [<a href="#RFC7925" class="cite xref">RFC7925</a>]</span>.
 For specific application/network combinations, a sub-second initial timeout MAY be set.
-In cases where no RTT estimates are available, a 1000ms initial timeout is suitable for the general Internet.<a href="#section-10-5" class="pilcrow">¶</a></p>
-<p id="section-10-6">Regarding the timers used by the Return Routability Check (RRC) functionality, the recommendations in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-dtls-rrc-20#section-5.5" class="relref">Section 5.5</a> of [<a href="#I-D.ietf-tls-dtls-rrc" class="cite xref">I-D.ietf-tls-dtls-rrc</a>]</span> apply.
-Just like the handshake initial timers, it is RECOMMENDED that DTLS 1.2 and 1.3 implementations offer an option for their developers to explicitly set the RRC timer.<a href="#section-10-6" class="pilcrow">¶</a></p>
+In cases where no RTT estimates are available, a 1000ms initial timeout is suitable for the general Internet.<a href="#section-9-5" class="pilcrow">¶</a></p>
+<p id="section-9-6">Regarding the timers used by the Return Routability Check (RRC) functionality, the recommendations in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-dtls-rrc-20#section-5.5" class="relref">Section 5.5</a> of [<a href="#I-D.ietf-tls-dtls-rrc" class="cite xref">I-D.ietf-tls-dtls-rrc</a>]</span> apply.
+Just like the handshake initial timers, it is RECOMMENDED that DTLS 1.2 and 1.3 implementations offer an option for their developers to explicitly set the RRC timer.<a href="#section-9-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="random-number-generation">
-<section id="section-11">
+<section id="section-10">
       <h2 id="name-random-number-generation">
-<a href="#section-11" class="section-number selfRef">11. </a><a href="#name-random-number-generation" class="section-name selfRef">Random Number Generation</a>
+<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-random-number-generation" class="section-name selfRef">Random Number Generation</a>
       </h2>
-<p id="section-11-1">The discussion in <span><a href="https://rfc-editor.org/rfc/rfc7925#section-12" class="relref">Section 12</a> of [<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> is applicable with one exception:
+<p id="section-10-1">The discussion in <span><a href="https://rfc-editor.org/rfc/rfc7925#section-12" class="relref">Section 12</a> of [<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> is applicable with one exception:
 the ClientHello and the ServerHello messages in TLS 1.3 do not contain
 gmt_unix_time component anymore.
 For entropy generation and randomness considerations, implementers should also
-consult <span>[<a href="#RFC8937" class="cite xref">RFC8937</a>]</span>.<a href="#section-11-1" class="pilcrow">¶</a></p>
+consult <span>[<a href="#RFC8937" class="cite xref">RFC8937</a>]</span>.<a href="#section-10-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sni">
-<section id="section-12">
+<section id="section-11">
       <h2 id="name-server-name-indication">
-<a href="#section-12" class="section-number selfRef">12. </a><a href="#name-server-name-indication" class="section-name selfRef">Server Name Indication</a>
+<a href="#section-11" class="section-number selfRef">11. </a><a href="#name-server-name-indication" class="section-name selfRef">Server Name Indication</a>
       </h2>
-<p id="section-12-1">To support edge-to-cloud communication, this specification mandates the
-implementation of the Server Name Indication (SNI) extension for IoT devices
-acting as clients.
-This functionality is not strictly required for constrained-to-constrained
-communication and could be disabled in such cases.
-However, figuring out how to deactivate SNI can be difficult in some libraries.
-Furthermore, in a multi-vendor IoT deployment, some devices may not be aware of
-whether they are communicating with another device or a cloud service.
-Therefore, it is best to leave SNI as MTI for all clients.<a href="#section-12-1" class="pilcrow">¶</a></p>
-<p id="section-12-2">Where privacy requirements necessitate it, the ECH (Encrypted Client Hello)
-extension <span>[<a href="#RFC9849" class="cite xref">RFC9849</a>]</span> prevents an on-path attacker from determining the domain
-name the client is trying to connect to.  Since the ECH extension requires the
-use of Hybrid Public Key Encryption (HPKE) <span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span>, and additional
-protocols require further protocol exchanges and cryptographic operations,
-there is a certain overhead associated with this privacy feature.  Note that in
-industrial IoT deployments, the use of ECH may be disabled because network
-administrators routinely inspect the SNI to detect malicious behavior.
-Furthermore, to avoid leaking DNS lookups to network inspection altogether,
-additional protocols are needed, including DNS-over-HTTPS (DoH) <span>[<a href="#RFC8484" class="cite xref">RFC8484</a>]</span>,
-DNS-over-TLS (DoT) <span>[<a href="#RFC7858" class="cite xref">RFC7858</a>]</span>, and DNS-over-QUIC (DoQ) <span>[<a href="#RFC9250" class="cite xref">RFC9250</a>]</span>.
-See <a href="#privacy-considerations" class="auto internal xref">Section 23</a> for additional guidance on deciding whether ECH
-support is needed in a deployment.<a href="#section-12-2" class="pilcrow">¶</a></p>
-<p id="section-12-3">Where IoT devices are accepting (D)TLS connections (i.e., they are acting as a
-server), it is unlikely that there will be a useful name placed into the SNI by
-the connecting client.  Since an IoT server cannot rely on a client to
-provide a correct SNI, IoT devices in a responding (server) mode SHOULD ignore SNI.
-In the rare event that an IoT device has multiple server instances responding
-with different server certificates, the device SHOULD use different IP
-addresses or port numbers rather than relying on SNI.<a href="#section-12-3" class="pilcrow">¶</a></p>
+<p id="section-11-1">TLS 1.3 requires implementations to support the Server Name Indication (SNI)
+extension when used with applications capable of using it
+(<span><a href="https://rfc-editor.org/rfc/rfc9846#section-9.2" class="relref">Section 9.2</a> of [<a href="#RFC9846" class="cite xref">RFC9846</a>]</span>). This profile does not change that requirement.<a href="#section-11-1" class="pilcrow">¶</a></p>
+<p id="section-11-2">IoT clients SHOULD send SNI when connecting to a named service, in particular
+when the peer is a cloud service, a multi-tenant endpoint, or any server that
+uses SNI for certificate or application-context selection. IoT clients MAY omit
+SNI when the peer identity is established by other application-specific
+configuration, such as a configured IP address and port, a pinned certificate,
+a raw public key, or an external PSK identity. When no domain name is used, SNI
+is not applicable.<a href="#section-11-2" class="pilcrow">¶</a></p>
+<p id="section-11-3">Deployments that require confidentiality of SNI and other ClientHello metadata
+can use Encrypted ClientHello (ECH) <span>[<a href="#RFC9849" class="cite xref">RFC9849</a>]</span>. ECH is most applicable to
+IoT deployments that use named cloud services or shared service infrastructure
+and have explicit privacy requirements. Since ECH does not protect DNS lookups
+or other metadata outside the TLS handshake, deployments that rely on ECH for
+privacy also need to protect DNS resolution, for example using encrypted DNS
+mechanisms; see <span>[<a href="#I-D.ietf-iotops-iot-dns-guidelines" class="cite xref">I-D.ietf-iotops-iot-dns-guidelines</a>]</span> for IoT-specific DNS
+guidance. The applicability, deployment requirements, and limitations of ECH
+are described in <span>[<a href="#RFC9849" class="cite xref">RFC9849</a>]</span>.<a href="#section-11-3" class="pilcrow">¶</a></p>
+<p id="section-11-4">IoT servers MAY use SNI for certificate or application-context selection.
+Authorization decisions are outside the scope of SNI and are based on the
+authenticated peer credentials and local policy. If constrained clients are not
+expected to send useful SNI values, deployments SHOULD prefer separate IP
+addresses or port numbers when different server identities or certificates need
+to be distinguished.<a href="#section-11-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="alpn">
+<section id="section-12">
+      <h2 id="name-application-layer-protocol-">
+<a href="#section-12" class="section-number selfRef">12. </a><a href="#name-application-layer-protocol-" class="section-name selfRef">Application-Layer Protocol Negotiation</a>
+      </h2>
+<p id="section-12-1">The Application-Layer Protocol Negotiation (ALPN) extension <span>[<a href="#RFC7301" class="cite xref">RFC7301</a>]</span> is
+independent of the credential type used for TLS authentication.<a href="#section-12-1" class="pilcrow">¶</a></p>
+<p id="section-12-2">Implementations conforming to this profile MUST support ALPN. Endpoints SHOULD
+use ALPN when more than one application protocol, application protocol version, or
+application context can be served by the same TLS endpoint, certificate, raw
+public key, or PSK identity. When a deployment is restricted by configuration
+to a single application protocol, ALPN MAY be omitted.<a href="#section-12-2" class="pilcrow">¶</a></p>
+<p id="section-12-3">Use of ALPN helps prevent cross-protocol confusion attacks and follows the
+guidance in <span><a href="https://rfc-editor.org/rfc/rfc9325#section-3.8" class="relref">Section 3.8</a> of [<a href="#RFC9325" class="cite xref">RFC9325</a>]</span>.<a href="#section-12-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="record_size_limit">
@@ -1725,7 +1832,7 @@ prime-field curves used by this profile, secp256r1 provides the intended
       <h2 id="name-0-rtt-data">
 <a href="#section-16" class="section-number selfRef">16. </a><a href="#name-0-rtt-data" class="section-name selfRef">0-RTT Data</a>
       </h2>
-<p id="section-16-1"><span><a href="https://rfc-editor.org/rfc/rfc8446#appendix-E.5" class="relref">Appendix E.5</a> of [<a href="#RFC8446" class="cite xref">RFC8446</a>]</span> establishes that:<a href="#section-16-1" class="pilcrow">¶</a></p>
+<p id="section-16-1"><span><a href="https://rfc-editor.org/rfc/rfc9846#appendix-F.5" class="relref">Appendix F.5</a> of [<a href="#RFC9846" class="cite xref">RFC9846</a>]</span> establishes that:<a href="#section-16-1" class="pilcrow">¶</a></p>
 <blockquote id="section-16-2">
         <p id="section-16-2.1">Application protocols MUST NOT use 0-RTT data without a profile that
 defines its use.  That profile needs to identify which messages or
@@ -1736,7 +1843,7 @@ situation when the server rejects 0-RTT and falls back to 1-RTT.<a href="#sectio
 profile exists.<a href="#section-16-3" class="pilcrow">¶</a></p>
 <p id="section-16-4">At the time of writing, no such profile has been defined for CoAP <span>[<a href="#CoAP" class="cite xref">CoAP</a>]</span>.
 Therefore, 0-RTT MUST NOT be used by CoAP applications.<a href="#section-16-4" class="pilcrow">¶</a></p>
-<p id="section-16-5">No specific recommendations are given for non-IETF IoT protocols such as MQTT.<a href="#section-16-5" class="pilcrow">¶</a></p>
+<p id="section-16-5">No specific recommendations are given for non-IETF IoT protocols such as MQTT (Message Queuing Telemetry Transport).<a href="#section-16-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="certificate_profile">
@@ -2000,7 +2107,7 @@ implementing an application-layer solution.<a href="#section-17.1.7-5" class="pi
 <p id="section-17.2.1-1"><span><a href="https://rfc-editor.org/rfc/rfc5280#section-4.1.2.6" class="relref">Section 4.1.2.6</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> requires that, when the subject is a CA,
 the subject field be populated with a non-empty distinguished name.
 Therefore, Root CA certificates MUST have a non-empty subject field.
-This is because a CA's SubjectDN becomes the subordinate certificate's IssuerDN, which MUST NOT be empty.
+This is because a CA's Subject DN becomes the subordinate certificate's Issuer DN, which MUST NOT be empty.
 The subject field
 MUST contain the commonName, the organizationName, and the countryName
 attribute and MAY contain an organizationalUnitName attribute.
@@ -2191,39 +2298,96 @@ status service (OCSP).<a href="#section-17.3.7-1" class="pilcrow">¶</a></p>
           <h4 id="name-subject-3">
 <a href="#section-17.4.1" class="section-number selfRef">17.4.1. </a><a href="#name-subject-3" class="section-name selfRef">Subject</a>
           </h4>
-<p id="section-17.4.1-1">This section describes the use of end entity certificate primarily for (D)TLS
+<p id="section-17.4.1-1">This section describes the use of end entity certificates primarily for (D)TLS
 clients running on IoT devices. Operating (D)TLS servers on IoT devices is
 possible but less common.<a href="#section-17.4.1-1" class="pilcrow">¶</a></p>
 <p id="section-17.4.1-2"><span>[<a href="#RFC9525" class="cite xref">RFC9525</a>], <a href="https://rfc-editor.org/rfc/rfc9525#section-2" class="relref">Section 2</a></span> mandates that the subject field not be used to identify a service.
 However, certain IoT applications (for example, <span>[<a href="#I-D.ietf-anima-constrained-voucher" class="cite xref">I-D.ietf-anima-constrained-voucher</a>]</span>,
 <span>[<a href="#IEEE-802.1AR" class="cite xref">IEEE-802.1AR</a>]</span>) use the subject field to encode the device serial number.<a href="#section-17.4.1-2" class="pilcrow">¶</a></p>
-<p id="section-17.4.1-3">The requirement in <span><a href="https://rfc-editor.org/rfc/rfc7925#section-4.4.2" class="relref">Section 4.4.2</a> of [<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> to only use EUI-64 for end
-entity certificates as a subject field is lifted.<a href="#section-17.4.1-3" class="pilcrow">¶</a></p>
+<p id="section-17.4.1-3">This specification removes the requirement in <span><a href="https://rfc-editor.org/rfc/rfc7925#section-4.4.2" class="relref">Section 4.4.2</a> of [<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> that stipulated
+the exclusive use of EUI-64 in the subject field of end entity certificates.<a href="#section-17.4.1-3" class="pilcrow">¶</a></p>
 <p id="section-17.4.1-4">Two fields are typically used to encode a device identifier, namely the
 Subject and the subjectAltName fields. Protocol specifications tend to offer
 recommendations about what identifiers to use and the deployment situation is
 fragmented.<a href="#section-17.4.1-4" class="pilcrow">¶</a></p>
-<p id="section-17.4.1-5">The subject field MAY include a unique device serial number. If a serial
-number is included in the Subject DN, it MUST be encoded in the
-X520SerialNumber attribute. If the serial number is used as an identifier,
-it SHOULD also be placed in the subjectAltName (e.g., as a URI).
-e.g., <span>[<a href="#RFC8995" class="cite xref">RFC8995</a>]</span> use requires a serial number in IDevID certificates.<a href="#section-17.4.1-5" class="pilcrow">¶</a></p>
-<p id="section-17.4.1-6"><span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> defines: "The subject alternative name extension allows identities
+<p id="section-17.4.1-5">It is common to use serial numbers as identifiers for IoT devices, but the
+term "serial number" is overloaded. This profile distinguishes between a
+manufacturer-assigned device serial number and a link-layer identifier such as
+an EUI-48, EUI-64, or MAC address.<a href="#section-17.4.1-5" class="pilcrow">¶</a></p>
+<p id="section-17.4.1-6">A manufacturer-assigned device serial number is an identifier assigned to a
+device by its manufacturer. When this identifier is included in the certificate
+subject distinguished name (Subject DN), <span><a href="https://rfc-editor.org/rfc/rfc5280#appendix-A.1" class="relref">Appendix A.1</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> provides
+the X520SerialNumber attribute:<a href="#section-17.4.1-6" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-17.4.1-7">
+<pre>
+id-at-serialNumber   OBJECT IDENTIFIER ::= { id-at 5 }
+X520SerialNumber    ::= PrintableString
+</pre><a href="#section-17.4.1-7" class="pilcrow">¶</a>
+</div>
+<p id="section-17.4.1-8">This value is part of the Subject DN. Section 8.6 of <span>[<a href="#IEEE-802.1AR" class="cite xref">IEEE-802.1AR</a>]</span> mandates
+that the Subject DN is not null and encourages use of
+the X520SerialNumber attribute as the primary name for the device.<a href="#section-17.4.1-8" class="pilcrow">¶</a></p>
+<p id="section-17.4.1-9">An EUI-48 or EUI-64 identifies a link-layer interface or, depending on the
+allocation scheme, a device. It has defined binary semantics and is not
+inherently the same concept as a manufacturer's product serial number. A
+deployment may use an EUI-64 as its device serial number, but that does not
+make the concepts identical. A device serial number can be an arbitrary
+manufacturer-defined string, while a device can have multiple MAC addresses,
+and those addresses can change when interfaces are replaced or reconfigured.
+Many constrained IoT devices, however, do not have more than one network
+interface; for those devices it can be convenient for manufacturers to reuse an
+existing unique MAC address or EUI as the device identifier.<a href="#section-17.4.1-9" class="pilcrow">¶</a></p>
+<p id="section-17.4.1-10"><span><a href="https://rfc-editor.org/rfc/rfc7925#section-4.4.2" class="relref">Section 4.4.2</a> of [<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> requires the identifier in a client certificate
+to be an EUI-64 and permits that identifier to appear either in the
+subjectAltName or in the leftmost commonName component of the Subject DN. This
+profile updates that guidance by distinguishing manufacturer-assigned device
+serial numbers from EUI-48 and EUI-64 link-layer identifiers.<a href="#section-17.4.1-10" class="pilcrow">¶</a></p>
+<p id="section-17.4.1-11"><span><a href="https://rfc-editor.org/rfc/rfc8995#section-2.3.1" class="relref">Section 2.3.1</a> of [<a href="#RFC8995" class="cite xref">RFC8995</a>]</span> uses a device serial number to identify a BRSKI
+pledge. Consistent with <span>[<a href="#IEEE-802.1AR" class="cite xref">IEEE-802.1AR</a>]</span>, <span>[<a href="#RFC8995" class="cite xref">RFC8995</a>]</span> identifies the device
+serial-number field as the X520SerialNumber attribute defined in
+<span><a href="https://rfc-editor.org/rfc/rfc5280#appendix-A.1" class="relref">Appendix A.1</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>. The registrar extracts this certified device
+serial number from the pledge's IDevID and uses it in voucher processing. The
+important semantic point is that BRSKI needs a stable manufacturer device
+identifier; <span>[<a href="#RFC8995" class="cite xref">RFC8995</a>]</span> does not require this value to be an EUI-48 or EUI-64.<a href="#section-17.4.1-11" class="pilcrow">¶</a></p>
+<p id="section-17.4.1-12">A manufacturer-assigned device serial number included in the Subject DN MUST be
+encoded in the X520SerialNumber attribute. If an EUI-48 or EUI-64 is used to
+identify a device, it SHOULD be encoded in the subjectAltName extension using
+the MACAddress otherName defined in <span>[<a href="#I-D.ietf-lamps-macaddress-on" class="cite xref">I-D.ietf-lamps-macaddress-on</a>]</span>. An
+EUI-64 that serves as the manufacturer-assigned device serial number MAY
+instead be encoded in the X520SerialNumber attribute.<a href="#section-17.4.1-12" class="pilcrow">¶</a></p>
+<p id="section-17.4.1-13"><span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> defines: "The subject alternative name extension allows identities
 to be bound to the subject of the certificate. These identities may be included
-in addition to or in place of the identity in the subject field of the certificate."<a href="#section-17.4.1-6" class="pilcrow">¶</a></p>
-<p id="section-17.4.1-7">The subject alternative name extension MAY be set. If it is set, it MUST NOT be
-marked critical, except when the subject DN contains an empty sequence.<a href="#section-17.4.1-7" class="pilcrow">¶</a></p>
-<p id="section-17.4.1-8">If the EUI-64 format is used to identify the subject of an end entity
-certificate, it MUST be encoded as a Subject DN using the X520SerialNumber
-attribute.  The contents of the field is a string of the form <code>HH-HH-HH-HH-HH-HH-HH-HH</code>
-where 'H' is one of the symbols '0'-'9' or 'A'-'F'.<a href="#section-17.4.1-8" class="pilcrow">¶</a></p>
-<p id="section-17.4.1-9">Per <span>[<a href="#RFC9525" class="cite xref">RFC9525</a>]</span> domain names MUST NOT be encoded in the subject commonName. Instead they
+in addition to or in place of the identity in the subject field of the certificate."<a href="#section-17.4.1-13" class="pilcrow">¶</a></p>
+<p id="section-17.4.1-14">The subject alternative name extension MAY be set. If it is set, it MUST NOT be
+marked critical, except when the subject DN contains an empty sequence.<a href="#section-17.4.1-14" class="pilcrow">¶</a></p>
+<p id="section-17.4.1-15">The MACAddress otherName carries the value as an OCTET STRING. An EUI-48 is
+encoded as exactly 6 octets and an EUI-64 is encoded as exactly 8 octets.
+<span>[<a href="#I-D.ietf-lamps-macaddress-on" class="cite xref">I-D.ietf-lamps-macaddress-on</a>]</span> also defines how this name form is used with
+the <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> Name Constraints extension, allowing a CA certificate to
+constrain permitted or excluded MAC address ranges, for example by an
+Organizationally Unique Identifier (OUI).<a href="#section-17.4.1-15" class="pilcrow">¶</a></p>
+<p id="section-17.4.1-16">The CA needs to validate the identifier's relationship to the subject. For a
+MACAddress value, <span>[<a href="#I-D.ietf-lamps-macaddress-on" class="cite xref">I-D.ietf-lamps-macaddress-on</a>]</span> requires the CA to ensure
+that the address is owned by, or expected to be owned by, the subject device for
+the certificate's lifetime. This requirement can be difficult for replaceable
+interfaces, virtual interfaces, locally administered addresses, and MAC address
+randomization.<a href="#section-17.4.1-16" class="pilcrow">¶</a></p>
+<p id="section-17.4.1-17">Both manufacturer-assigned device serial numbers and EUI-48 or EUI-64 values
+can expose stable identifiers to certificate recipients. TLS 1.3 encrypts
+certificates during the handshake, but the
+peer still learns the identifier. An EUI-48 or EUI-64 can reveal
+organizational allocation information and can enable correlation across
+networks or application contexts. A stable device serial number has similar
+correlation risks. Environments that are concerned about such traffic analysis
+SHOULD use an enrollment protocol to migrate from identifiable IDevID
+certificates to less identifiable operational LDevID certificates.<a href="#section-17.4.1-17" class="pilcrow">¶</a></p>
+<p id="section-17.4.1-18">Per <span>[<a href="#RFC9525" class="cite xref">RFC9525</a>]</span> domain names MUST NOT be encoded in the subject commonName. Instead they
 MUST be encoded in a subjectAltName of type DNS-ID. Domain names MUST NOT
 contain wildcard (<code>*</code>) characters. The subjectAltName MUST NOT contain multiple
-names.<a href="#section-17.4.1-9" class="pilcrow">¶</a></p>
-<p id="section-17.4.1-10">Note: The IEEE 802.1AR recommends to encode information about a Trusted
+names.<a href="#section-17.4.1-18" class="pilcrow">¶</a></p>
+<p id="section-17.4.1-19">Note: The IEEE 802.1AR recommends to encode information about a Trusted
 Platform Module (TPM), if present, in the HardwareModuleName (<span><a href="https://rfc-editor.org/rfc/rfc4108#section-5" class="relref">Section 5</a> of [<a href="#RFC4108" class="cite xref">RFC4108</a>]</span>). This
-specification does not follow this recommendation.<a href="#section-17.4.1-10" class="pilcrow">¶</a></p>
+specification does not follow this recommendation.<a href="#section-17.4.1-19" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authority-key-identifier-2">
@@ -2354,8 +2518,8 @@ way to indicate that retransmitting the cached information is unnecessary.<a hre
 replace client certificates in the handshake with references to external
 certificate objects. When
 applications perform TLS client authentication via DNS-Based Authentication
-of Named Entities (DANE) TLSA records, then
-<span>[<a href="#I-D.ietf-dance-tls-clientid" class="cite xref">I-D.ietf-dance-tls-clientid</a>]</span> may be used to reduce the packets on the
+of Named Entities (DANE) TLSA records, then the DANE Client Identity TLS extension
+<span>[<a href="#I-D.ietf-dance-client-auth" class="cite xref">I-D.ietf-dance-client-auth</a>]</span> may be used to reduce the packets on the
 wire. The term "TLSA" does not stand for anything; it is the name of the
 RRtype, as explained in <span>[<a href="#RFC6698" class="cite xref">RFC6698</a>]</span>.<a href="#section-19-7.2.1" class="pilcrow">¶</a></p>
 </li>
@@ -2424,17 +2588,17 @@ in the wire and peak RAM footprints.<a href="#section-20-7" class="pilcrow">¶</
 However, this is not the case for TLS 1.2.
 Therefore, when using the GCM-based cipher suite with TLS 1.2, the recommendations in <span><a href="https://rfc-editor.org/rfc/rfc9325#section-7.2.1" class="relref">Section 7.2.1</a> of [<a href="#RFC9325" class="cite xref">RFC9325</a>]</span> relating to deterministic nonce generation apply.
 In addition, the integrity limits on key usage detailed in <span><a href="https://rfc-editor.org/rfc/rfc9325#section-4.4" class="relref">Section 4.4</a> of [<a href="#RFC9325" class="cite xref">RFC9325</a>]</span> also apply.<a href="#section-20-8" class="pilcrow">¶</a></p>
-<p id="section-20-9"><a href="#tab-cipher-reqs" class="auto internal xref">Table 1</a> summarizes the recommendations regarding ciphersuites:<a href="#section-20-9" class="pilcrow">¶</a></p>
+<p id="section-20-9"><a href="#tab-cipher-reqs" class="auto internal xref">Table 2</a> summarizes the recommendations regarding ciphersuites:<a href="#section-20-9" class="pilcrow">¶</a></p>
 <span id="name-tls-13-ciphersuite-requirem"></span><div id="tab-cipher-reqs">
-<table class="left" id="table-1">
+<table class="left" id="table-2">
         <caption>
-<a href="#table-1" class="selfRef">Table 1</a>:
+<a href="#table-2" class="selfRef">Table 2</a>:
 <a href="#name-tls-13-ciphersuite-requirem" class="selfRef">TLS 1.3 Ciphersuite Requirements</a>
         </caption>
 <thead>
           <tr>
             <th class="text-left" rowspan="1" colspan="1">Ciphersuite</th>
-            <th class="text-left" rowspan="1" colspan="1">MTI Requirement</th>
+            <th class="text-left" rowspan="1" colspan="1">Requirement</th>
           </tr>
         </thead>
         <tbody>
@@ -2442,19 +2606,19 @@ In addition, the integrity limits on key usage detailed in <span><a href="https:
             <td class="text-left" rowspan="1" colspan="1">
               <code>TLS_AES_128_CCM_8_SHA256</code>
 </td>
-            <td class="text-left" rowspan="1" colspan="1">MUST-</td>
+            <td class="text-left" rowspan="1" colspan="1">MUST implement for compatibility with <span>[<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> and <span>[<a href="#CoAP" class="cite xref">CoAP</a>]</span> deployments; not recommended for new deployments</td>
           </tr>
           <tr>
             <td class="text-left" rowspan="1" colspan="1">
               <code>TLS_AES_128_CCM_SHA256</code>
 </td>
-            <td class="text-left" rowspan="1" colspan="1">SHOULD+</td>
+            <td class="text-left" rowspan="1" colspan="1">SHOULD implement</td>
           </tr>
           <tr>
             <td class="text-left" rowspan="1" colspan="1">
               <code>TLS_AES_128_GCM_SHA256</code>
 </td>
-            <td class="text-left" rowspan="1" colspan="1">SHOULD+</td>
+            <td class="text-left" rowspan="1" colspan="1">SHOULD implement</td>
           </tr>
         </tbody>
       </table>
@@ -2487,7 +2651,7 @@ determinism, for example, as described in
 not add normative requirements to this profile.<a href="#section-22-1" class="pilcrow">¶</a></p>
 <p id="section-22-2">The recommendations and ciphersuites in this profile are based on classical
 cryptography and are not quantum-resistant.<a href="#section-22-2" class="pilcrow">¶</a></p>
-<p id="section-22-3">As detailed in <span>[<a href="#I-D.ietf-pquip-pqc-engineers" class="cite xref">I-D.ietf-pquip-pqc-engineers</a>]</span>, the IETF is actively working to address the challenges of adopting PQC in various protocols, including TLS. The document highlights key aspects engineers must consider, such as algorithm selection, performance impacts, and deployment strategies. It emphasizes the importance of gradual integration of PQC to ensure secure communication while accounting for the increased computational, memory, and bandwidth requirements of PQC algorithms. These challenges are especially relevant in the context of IoT, where device constraints limit the adoption of larger key sizes and more complex cryptographic operations <span>[<a href="#PQC-PERF" class="cite xref">PQC-PERF</a>]</span>. Besides, any choice need to careful evaluate the associated energy requirements <span>[<a href="#PQC-ENERGY" class="cite xref">PQC-ENERGY</a>]</span>.<a href="#section-22-3" class="pilcrow">¶</a></p>
+<p id="section-22-3">As detailed in <span>[<a href="#RFC9958" class="cite xref">RFC9958</a>]</span>, the IETF is actively working to address the challenges of adopting PQC in various protocols, including TLS. The document highlights key aspects engineers must consider, such as algorithm selection, performance impacts, and deployment strategies. It emphasizes the importance of gradual integration of PQC to ensure secure communication while accounting for the increased computational, memory, and bandwidth requirements of PQC algorithms. These challenges are especially relevant in the context of IoT, where device constraints limit the adoption of larger key sizes and more complex cryptographic operations <span>[<a href="#PQC-PERF" class="cite xref">PQC-PERF</a>]</span>. Besides, any choice need to careful evaluate the associated energy requirements <span>[<a href="#PQC-ENERGY" class="cite xref">PQC-ENERGY</a>]</span>.<a href="#section-22-3" class="pilcrow">¶</a></p>
 <p id="section-22-4">The work of incorporating PQC into TLS <span>[<a href="#I-D.ietf-uta-pqc-app" class="cite xref">I-D.ietf-uta-pqc-app</a>]</span> <span>[<a href="#I-D.ietf-pquip-pqc-hsm-constrained" class="cite xref">I-D.ietf-pquip-pqc-hsm-constrained</a>]</span> is still ongoing, with key exchange message sizes increasing due to larger public keys. These larger keys demand more flash storage and higher RAM usage, presenting significant obstacles for resource-constrained IoT devices. The transition from classical cryptographic algorithms to PQC will be a significant challenge for constrained IoT devices, requiring careful planning to select hardware suitable for the task considering the lifetime of an IoT product.<a href="#section-22-4" class="pilcrow">¶</a></p>
 <p id="section-22-5">As a transitional measure, <span>[<a href="#I-D.ietf-tls-8773bis" class="cite xref">I-D.ietf-tls-8773bis</a>]</span> allows certificate-based
 authentication to be combined with a strong external PSK that is incorporated
@@ -2496,8 +2660,7 @@ a future cryptographically relevant quantum computer, provided that the
 external PSK is generated and distributed securely. It does not make the
 certificate-based authentication quantum resistant. Deployments can use this
 mechanism as a migration path while PQC algorithms are being introduced, at
-certificate-based authentication quantum resistant. Deployments can use this
-mechanism as a migration path while quantum resistant algorithms are being introduced, at<a href="#section-22-5" class="pilcrow">¶</a></p>
+certificate-based authentication quantum resistant.<a href="#section-22-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="privacy-considerations">
@@ -2515,19 +2678,25 @@ In particular, IDevIDs and LDevIDs may reveal manufacturer identity, device
 serial numbers, or other information to peers. Protection against passive
 observers is, however, substantially improved since certificates are not
 transmitted in the clear in TLS 1.3 and DTLS 1.3.<a href="#section-23-2" class="pilcrow">¶</a></p>
-<p id="section-23-3">Some deployments use the mechanisms discussed in the Certificate Overhead section,
+<p id="section-23-3">Manufacturer-assigned device serial numbers and EUI-48 or EUI-64 values can
+enable correlation across networks or application contexts. EUI-48 and EUI-64
+values can also reveal organizational allocation information. Deployments that
+are concerned about such traffic analysis SHOULD use an enrollment protocol to
+migrate from identifiable IDevID certificates to less identifiable operational
+LDevID certificates.<a href="#section-23-3" class="pilcrow">¶</a></p>
+<p id="section-23-4">Some deployments use the mechanisms discussed in the Certificate Overhead section,
 such as certificate URLs or external certificate retrieval, instead of always
 transmitting full certificates in the handshake. In these cases, the privacy
 properties differ because stable identifiers may be exposed to retrieval
-services, directories, or to observers of those retrieval transactions.<a href="#section-23-3" class="pilcrow">¶</a></p>
-<p id="section-23-4">Where privacy is a deployment requirement, implementations and PKI profiles
+services, directories, or to observers of those retrieval transactions.<a href="#section-23-4" class="pilcrow">¶</a></p>
+<p id="section-23-5">Where privacy is a deployment requirement, implementations and PKI profiles
 should include only the minimum identity information needed for authorization
-and interoperability.<a href="#section-23-4" class="pilcrow">¶</a></p>
-<p id="section-23-5">When Connection IDs are used with DTLS 1.3, CID negotiation in post-handshake
+and interoperability.<a href="#section-23-5" class="pilcrow">¶</a></p>
+<p id="section-23-6">When Connection IDs are used with DTLS 1.3, CID negotiation in post-handshake
 messages is encrypted and integrity protected. In addition, record sequence
 numbers are encrypted. Compared to DTLS 1.2 CID, this makes tracking by on-path
 adversaries more difficult and improves privacy in multi-home and mobile
-deployments (<span><a href="https://rfc-editor.org/rfc/rfc9147#section-11" class="relref">Section 11</a> of [<a href="#RFC9147" class="cite xref">RFC9147</a>]</span>).<a href="#section-23-5" class="pilcrow">¶</a></p>
+deployments (<span><a href="https://rfc-editor.org/rfc/rfc9147#section-11" class="relref">Section 11</a> of [<a href="#RFC9147" class="cite xref">RFC9147</a>]</span>).<a href="#section-23-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">
@@ -2536,6 +2705,10 @@ deployments (<span><a href="https://rfc-editor.org/rfc/rfc9147#section-11" class
 <a href="#section-24" class="section-number selfRef">24. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
 <p id="section-24-1">This entire document is about security.<a href="#section-24-1" class="pilcrow">¶</a></p>
+<p id="section-24-2">This profile does not specify authentication- or integrity-only cipher suites.
+Deployments considering such cipher suites, such as defined in <span>[<a href="#RFC9150" class="cite xref">RFC9150</a>]</span>,
+need application-specific analysis outside the scope of this
+document.<a href="#section-24-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
@@ -2557,6 +2730,10 @@ deployments (<span><a href="https://rfc-editor.org/rfc/rfc9147#section-11" class
 <a href="#section-26.1" class="section-number selfRef">26.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
+<dt id="I-D.ietf-lamps-macaddress-on">[I-D.ietf-lamps-macaddress-on]</dt>
+        <dd>
+<span class="refAuthor">Housley, R.</span>, <span class="refAuthor">Bonnell, C.</span>, <span class="refAuthor">Mandel, J.</span>, <span class="refAuthor">Okubo, T.</span>, and <span class="refAuthor">M. StJohns</span>, <span class="refTitle">"Media Access Control (MAC) Addresses in X.509 Certificates"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-lamps-macaddress-on-07</span>, <time datetime="2026-03-12" class="refDate">12 March 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-lamps-macaddress-on-07">https://datatracker.ietf.org/doc/html/draft-ietf-lamps-macaddress-on-07</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="I-D.ietf-tls-dtls-rrc">[I-D.ietf-tls-dtls-rrc]</dt>
         <dd>
 <span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Kraus, A.</span>, and <span class="refAuthor">T. Fossati</span>, <span class="refTitle">"Return Routability Check for DTLS 1.2 and DTLS 1.3"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tls-dtls-rrc-20</span>, <time datetime="2025-07-14" class="refDate">14 July 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-dtls-rrc-20">https://datatracker.ietf.org/doc/html/draft-ietf-tls-dtls-rrc-20</a>&gt;</span>. </dd>
@@ -2589,14 +2766,6 @@ deployments (<span><a href="https://rfc-editor.org/rfc/rfc9147#section-11" class
         <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC8221">[RFC8221]</dt>
-        <dd>
-<span class="refAuthor">Wouters, P.</span>, <span class="refAuthor">Migault, D.</span>, <span class="refAuthor">Mattsson, J.</span>, <span class="refAuthor">Nir, Y.</span>, and <span class="refAuthor">T. Kivinen</span>, <span class="refTitle">"Cryptographic Algorithm Implementation Requirements and Usage Guidance for Encapsulating Security Payload (ESP) and Authentication Header (AH)"</span>, <span class="seriesInfo">RFC 8221</span>, <span class="seriesInfo">DOI 10.17487/RFC8221</span>, <time datetime="2017-10" class="refDate">October 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8221">https://www.rfc-editor.org/rfc/rfc8221</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC8446">[RFC8446]</dt>
-        <dd>
-<span class="refAuthor">Rescorla, E.</span>, <span class="refTitle">"The Transport Layer Security (TLS) Protocol Version 1.3"</span>, <span class="seriesInfo">RFC 8446</span>, <span class="seriesInfo">DOI 10.17487/RFC8446</span>, <time datetime="2018-08" class="refDate">August 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8446">https://www.rfc-editor.org/rfc/rfc8446</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC8449">[RFC8449]</dt>
         <dd>
 <span class="refAuthor">Thomson, M.</span>, <span class="refTitle">"Record Size Limit Extension for TLS"</span>, <span class="seriesInfo">RFC 8449</span>, <span class="seriesInfo">DOI 10.17487/RFC8449</span>, <time datetime="2018-08" class="refDate">August 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8449">https://www.rfc-editor.org/rfc/rfc8449</a>&gt;</span>. </dd>
@@ -2614,8 +2783,12 @@ deployments (<span><a href="https://rfc-editor.org/rfc/rfc9147#section-11" class
 <span class="refAuthor">Sheffer, Y.</span>, <span class="refAuthor">Saint-Andre, P.</span>, and <span class="refAuthor">T. Fossati</span>, <span class="refTitle">"Recommendations for Secure Use of Transport Layer Security (TLS) and Datagram Transport Layer Security (DTLS)"</span>, <span class="seriesInfo">BCP 195</span>, <span class="seriesInfo">RFC 9325</span>, <span class="seriesInfo">DOI 10.17487/RFC9325</span>, <time datetime="2022-11" class="refDate">November 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9325">https://www.rfc-editor.org/rfc/rfc9325</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9525">[RFC9525]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Saint-Andre, P.</span> and <span class="refAuthor">R. Salz</span>, <span class="refTitle">"Service Identity in TLS"</span>, <span class="seriesInfo">RFC 9525</span>, <span class="seriesInfo">DOI 10.17487/RFC9525</span>, <time datetime="2023-11" class="refDate">November 2023</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9525">https://www.rfc-editor.org/rfc/rfc9525</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9846">[RFC9846]</dt>
+      <dd>
+<span class="refAuthor">Rescorla, E.</span>, <span class="refTitle">"The Transport Layer Security (TLS) Protocol Version 1.3"</span>, <span class="seriesInfo">RFC 9846</span>, <span class="seriesInfo">DOI 10.17487/RFC9846</span>, <time datetime="2026-07" class="refDate">July 2026</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9846">https://www.rfc-editor.org/rfc/rfc9846</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -2644,11 +2817,11 @@ deployments (<span><a href="https://rfc-editor.org/rfc/rfc9147#section-11" class
 <dd class="break"></dd>
 <dt id="I-D.ietf-cose-cbor-encoded-cert">[I-D.ietf-cose-cbor-encoded-cert]</dt>
         <dd>
-<span class="refAuthor">Mattsson, J. P.</span>, <span class="refAuthor">Selander, G.</span>, <span class="refAuthor">Raza, S.</span>, <span class="refAuthor">Höglund, J.</span>, <span class="refAuthor">Furuhed, M.</span>, and <span class="refAuthor">L. Liao</span>, <span class="refTitle">"CBOR Encoded X.509 Certificates (C509 Certificates)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-cbor-encoded-cert-19</span>, <time datetime="2026-05-11" class="refDate">11 May 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-19">https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-19</a>&gt;</span>. </dd>
+<span class="refAuthor">Mattsson, J. P.</span>, <span class="refAuthor">Selander, G.</span>, <span class="refAuthor">Raza, S.</span>, <span class="refAuthor">Höglund, J.</span>, <span class="refAuthor">Furuhed, M.</span>, and <span class="refAuthor">L. Liao</span>, <span class="refTitle">"CBOR Encoded X.509 Certificates (C509 Certificates)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-cbor-encoded-cert-20</span>, <time datetime="2026-06-30" class="refDate">30 June 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-20">https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-20</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="I-D.ietf-dance-tls-clientid">[I-D.ietf-dance-tls-clientid]</dt>
+<dt id="I-D.ietf-dance-client-auth">[I-D.ietf-dance-client-auth]</dt>
         <dd>
-<span class="refAuthor">Huque, S.</span> and <span class="refAuthor">V. Dukhovni</span>, <span class="refTitle">"TLS Extension for DANE Client Identity"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-dance-tls-clientid-07</span>, <time datetime="2025-09-17" class="refDate">17 September 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-dance-tls-clientid-07">https://datatracker.ietf.org/doc/html/draft-ietf-dance-tls-clientid-07</a>&gt;</span>. </dd>
+<span class="refAuthor">Huque, S.</span> and <span class="refAuthor">V. Dukhovni</span>, <span class="refTitle">"TLS Client Authentication via DANE TLSA records"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-dance-client-auth-13</span>, <time datetime="2026-07-23" class="refDate">23 July 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-dance-client-auth-13">https://datatracker.ietf.org/doc/html/draft-ietf-dance-client-auth-13</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-httpbis-secondary-server-certs">[I-D.ietf-httpbis-secondary-server-certs]</dt>
         <dd>
@@ -2656,23 +2829,27 @@ deployments (<span><a href="https://rfc-editor.org/rfc/rfc9147#section-11" class
 <dd class="break"></dd>
 <dt id="I-D.ietf-iotops-7228bis">[I-D.ietf-iotops-7228bis]</dt>
         <dd>
-<span class="refAuthor">Bormann, C.</span>, <span class="refAuthor">Ersue, M.</span>, <span class="refAuthor">Keränen, A.</span>, and <span class="refAuthor">C. Gomez</span>, <span class="refTitle">"Terminology for Constrained-Node Networks"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-iotops-7228bis-08</span>, <time datetime="2026-05-15" class="refDate">15 May 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-iotops-7228bis-08">https://datatracker.ietf.org/doc/html/draft-ietf-iotops-7228bis-08</a>&gt;</span>. </dd>
+<span class="refAuthor">Bormann, C.</span>, <span class="refAuthor">Ersue, M.</span>, <span class="refAuthor">Keränen, A.</span>, and <span class="refAuthor">C. Gomez</span>, <span class="refTitle">"Terminology for Constrained-Node Networks"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-iotops-7228bis-10</span>, <time datetime="2026-07-06" class="refDate">6 July 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-iotops-7228bis-10">https://datatracker.ietf.org/doc/html/draft-ietf-iotops-7228bis-10</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="I-D.ietf-pquip-pqc-engineers">[I-D.ietf-pquip-pqc-engineers]</dt>
+<dt id="I-D.ietf-iotops-iot-dns-guidelines">[I-D.ietf-iotops-iot-dns-guidelines]</dt>
         <dd>
-<span class="refAuthor">Banerjee, A.</span>, <span class="refAuthor">Reddy.K, T.</span>, <span class="refAuthor">Schoinianakis, D.</span>, <span class="refAuthor">Hollebeek, T.</span>, and <span class="refAuthor">M. Ounsworth</span>, <span class="refTitle">"Post-Quantum Cryptography for Engineers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-pquip-pqc-engineers-14</span>, <time datetime="2025-08-25" class="refDate">25 August 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-pquip-pqc-engineers-14">https://datatracker.ietf.org/doc/html/draft-ietf-pquip-pqc-engineers-14</a>&gt;</span>. </dd>
+<span class="refAuthor">Mishra, A. K.</span>, <span class="refAuthor">Losty, A.</span>, <span class="refAuthor">Mandalari, A. M.</span>, <span class="refAuthor">Mozley, J.</span>, and <span class="refAuthor">M. Cunche</span>, <span class="refTitle">"IoT DNS Security and Privacy Guidelines"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-iotops-iot-dns-guidelines-04</span>, <time datetime="2026-07-06" class="refDate">6 July 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-iotops-iot-dns-guidelines-04">https://datatracker.ietf.org/doc/html/draft-ietf-iotops-iot-dns-guidelines-04</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-pquip-pqc-hsm-constrained">[I-D.ietf-pquip-pqc-hsm-constrained]</dt>
         <dd>
-<span class="refAuthor">Reddy.K, T.</span>, <span class="refAuthor">Wing, D.</span>, <span class="refAuthor">S, B.</span>, and <span class="refAuthor">K. Kwiatkowski</span>, <span class="refTitle">"Adapting Constrained Devices for Post-Quantum Cryptography"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-pquip-pqc-hsm-constrained-05</span>, <time datetime="2026-04-01" class="refDate">1 April 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-pquip-pqc-hsm-constrained-05">https://datatracker.ietf.org/doc/html/draft-ietf-pquip-pqc-hsm-constrained-05</a>&gt;</span>. </dd>
+<span class="refAuthor">Reddy.K, T.</span>, <span class="refAuthor">Wing, D.</span>, <span class="refAuthor">S, B.</span>, and <span class="refAuthor">K. Kwiatkowski</span>, <span class="refTitle">"Adapting Constrained Devices for Post-Quantum Cryptography"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-pquip-pqc-hsm-constrained-06</span>, <time datetime="2026-06-24" class="refDate">24 June 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-pquip-pqc-hsm-constrained-06">https://datatracker.ietf.org/doc/html/draft-ietf-pquip-pqc-hsm-constrained-06</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-tls-8773bis">[I-D.ietf-tls-8773bis]</dt>
         <dd>
 <span class="refAuthor">Housley, R.</span>, <span class="refTitle">"TLS 1.3 Extension for Using Certificates with an External Pre-Shared Key"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tls-8773bis-13</span>, <time datetime="2025-09-05" class="refDate">5 September 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-8773bis-13">https://datatracker.ietf.org/doc/html/draft-ietf-tls-8773bis-13</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="I-D.ietf-tls-pake">[I-D.ietf-tls-pake]</dt>
+        <dd>
+<span class="refAuthor">Bauman, L.</span>, <span class="refAuthor">Benjamin, D.</span>, <span class="refAuthor">Menon, S.</span>, and <span class="refAuthor">C. A. Wood</span>, <span class="refTitle">"A Password Authenticated Key Exchange Extension for TLS 1.3"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tls-pake-02</span>, <time datetime="2026-07-06" class="refDate">6 July 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-pake-02">https://datatracker.ietf.org/doc/html/draft-ietf-tls-pake-02</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="I-D.ietf-uta-pqc-app">[I-D.ietf-uta-pqc-app]</dt>
         <dd>
-<span class="refAuthor">Reddy.K, T.</span> and <span class="refAuthor">H. Tschofenig</span>, <span class="refTitle">"Post-Quantum Cryptography Recommendations for TLS-based Applications"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-uta-pqc-app-01</span>, <time datetime="2026-02-24" class="refDate">24 February 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-uta-pqc-app-01">https://datatracker.ietf.org/doc/html/draft-ietf-uta-pqc-app-01</a>&gt;</span>. </dd>
+<span class="refAuthor">Reddy.K, T.</span> and <span class="refAuthor">H. Tschofenig</span>, <span class="refTitle">"Post-Quantum Cryptography Recommendations for TLS-based Applications"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-uta-pqc-app-03</span>, <time datetime="2026-07-04" class="refDate">4 July 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-uta-pqc-app-03">https://datatracker.ietf.org/doc/html/draft-ietf-uta-pqc-app-03</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.irtf-cfrg-aead-limits">[I-D.irtf-cfrg-aead-limits]</dt>
         <dd>
@@ -2684,7 +2861,7 @@ deployments (<span><a href="https://rfc-editor.org/rfc/rfc9147#section-11" class
 <dd class="break"></dd>
 <dt id="I-D.irtf-t2trg-taxonomy-manufacturer-anchors">[I-D.irtf-t2trg-taxonomy-manufacturer-anchors]</dt>
         <dd>
-<span class="refAuthor">Richardson, M.</span>, <span class="refTitle">"A Taxonomy of operational security considerations for manufacturer installed keys and Trust Anchors"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-t2trg-taxonomy-manufacturer-anchors-18</span>, <time datetime="2026-05-29" class="refDate">29 May 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-t2trg-taxonomy-manufacturer-anchors-18">https://datatracker.ietf.org/doc/html/draft-irtf-t2trg-taxonomy-manufacturer-anchors-18</a>&gt;</span>. </dd>
+<span class="refAuthor">Richardson, M.</span>, <span class="refTitle">"A Taxonomy of operational security considerations for manufacturer installed keys and Trust Anchors"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-t2trg-taxonomy-manufacturer-anchors-20</span>, <time datetime="2026-06-28" class="refDate">28 June 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-t2trg-taxonomy-manufacturer-anchors-20">https://datatracker.ietf.org/doc/html/draft-irtf-t2trg-taxonomy-manufacturer-anchors-20</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="IEEE-802.1AR">[IEEE-802.1AR]</dt>
         <dd>
@@ -2750,13 +2927,13 @@ deployments (<span><a href="https://rfc-editor.org/rfc/rfc9147#section-11" class
         <dd>
 <span class="refAuthor">Wouters, P., Ed.</span>, <span class="refAuthor">Tschofenig, H., Ed.</span>, <span class="refAuthor">Gilmore, J.</span>, <span class="refAuthor">Weiler, S.</span>, and <span class="refAuthor">T. Kivinen</span>, <span class="refTitle">"Using Raw Public Keys in Transport Layer Security (TLS) and Datagram Transport Layer Security (DTLS)"</span>, <span class="seriesInfo">RFC 7250</span>, <span class="seriesInfo">DOI 10.17487/RFC7250</span>, <time datetime="2014-06" class="refDate">June 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7250">https://www.rfc-editor.org/rfc/rfc7250</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC7301">[RFC7301]</dt>
+        <dd>
+<span class="refAuthor">Friedl, S.</span>, <span class="refAuthor">Popov, A.</span>, <span class="refAuthor">Langley, A.</span>, and <span class="refAuthor">E. Stephan</span>, <span class="refTitle">"Transport Layer Security (TLS) Application-Layer Protocol Negotiation Extension"</span>, <span class="seriesInfo">RFC 7301</span>, <span class="seriesInfo">DOI 10.17487/RFC7301</span>, <time datetime="2014-07" class="refDate">July 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7301">https://www.rfc-editor.org/rfc/rfc7301</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC7452">[RFC7452]</dt>
         <dd>
 <span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Arkko, J.</span>, <span class="refAuthor">Thaler, D.</span>, and <span class="refAuthor">D. McPherson</span>, <span class="refTitle">"Architectural Considerations in Smart Object Networking"</span>, <span class="seriesInfo">RFC 7452</span>, <span class="seriesInfo">DOI 10.17487/RFC7452</span>, <time datetime="2015-03" class="refDate">March 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7452">https://www.rfc-editor.org/rfc/rfc7452</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC7858">[RFC7858]</dt>
-        <dd>
-<span class="refAuthor">Hu, Z.</span>, <span class="refAuthor">Zhu, L.</span>, <span class="refAuthor">Heidemann, J.</span>, <span class="refAuthor">Mankin, A.</span>, <span class="refAuthor">Wessels, D.</span>, and <span class="refAuthor">P. Hoffman</span>, <span class="refTitle">"Specification for DNS over Transport Layer Security (TLS)"</span>, <span class="seriesInfo">RFC 7858</span>, <span class="seriesInfo">DOI 10.17487/RFC7858</span>, <time datetime="2016-05" class="refDate">May 2016</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7858">https://www.rfc-editor.org/rfc/rfc7858</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC7924">[RFC7924]</dt>
         <dd>
@@ -2765,10 +2942,6 @@ deployments (<span><a href="https://rfc-editor.org/rfc/rfc9147#section-11" class
 <dt id="RFC8032">[RFC8032]</dt>
         <dd>
 <span class="refAuthor">Josefsson, S.</span> and <span class="refAuthor">I. Liusvaara</span>, <span class="refTitle">"Edwards-Curve Digital Signature Algorithm (EdDSA)"</span>, <span class="seriesInfo">RFC 8032</span>, <span class="seriesInfo">DOI 10.17487/RFC8032</span>, <time datetime="2017-01" class="refDate">January 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8032">https://www.rfc-editor.org/rfc/rfc8032</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC8484">[RFC8484]</dt>
-        <dd>
-<span class="refAuthor">Hoffman, P.</span> and <span class="refAuthor">P. McManus</span>, <span class="refTitle">"DNS Queries over HTTPS (DoH)"</span>, <span class="seriesInfo">RFC 8484</span>, <span class="seriesInfo">DOI 10.17487/RFC8484</span>, <time datetime="2018-10" class="refDate">October 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8484">https://www.rfc-editor.org/rfc/rfc8484</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8879">[RFC8879]</dt>
         <dd>
@@ -2794,17 +2967,9 @@ deployments (<span><a href="https://rfc-editor.org/rfc/rfc9147#section-11" class
         <dd>
 <span class="refAuthor">Cam-Winget, N.</span> and <span class="refAuthor">J. Visoky</span>, <span class="refTitle">"TLS 1.3 Authentication and Integrity-Only Cipher Suites"</span>, <span class="seriesInfo">RFC 9150</span>, <span class="seriesInfo">DOI 10.17487/RFC9150</span>, <time datetime="2022-04" class="refDate">April 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9150">https://www.rfc-editor.org/rfc/rfc9150</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC9180">[RFC9180]</dt>
-        <dd>
-<span class="refAuthor">Barnes, R.</span>, <span class="refAuthor">Bhargavan, K.</span>, <span class="refAuthor">Lipp, B.</span>, and <span class="refAuthor">C. Wood</span>, <span class="refTitle">"Hybrid Public Key Encryption"</span>, <span class="seriesInfo">RFC 9180</span>, <span class="seriesInfo">DOI 10.17487/RFC9180</span>, <time datetime="2022-02" class="refDate">February 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9180">https://www.rfc-editor.org/rfc/rfc9180</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC9190">[RFC9190]</dt>
         <dd>
 <span class="refAuthor">Preuß Mattsson, J.</span> and <span class="refAuthor">M. Sethi</span>, <span class="refTitle">"EAP-TLS 1.3: Using the Extensible Authentication Protocol with TLS 1.3"</span>, <span class="seriesInfo">RFC 9190</span>, <span class="seriesInfo">DOI 10.17487/RFC9190</span>, <time datetime="2022-02" class="refDate">February 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9190">https://www.rfc-editor.org/rfc/rfc9190</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC9250">[RFC9250]</dt>
-        <dd>
-<span class="refAuthor">Huitema, C.</span>, <span class="refAuthor">Dickinson, S.</span>, and <span class="refAuthor">A. Mankin</span>, <span class="refTitle">"DNS over Dedicated QUIC Connections"</span>, <span class="seriesInfo">RFC 9250</span>, <span class="seriesInfo">DOI 10.17487/RFC9250</span>, <time datetime="2022-05" class="refDate">May 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9250">https://www.rfc-editor.org/rfc/rfc9250</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9261">[RFC9261]</dt>
         <dd>
@@ -2821,6 +2986,10 @@ deployments (<span><a href="https://rfc-editor.org/rfc/rfc9147#section-11" class
 <dt id="RFC9849">[RFC9849]</dt>
         <dd>
 <span class="refAuthor">Rescorla, E.</span>, <span class="refAuthor">Oku, K.</span>, <span class="refAuthor">Sullivan, N.</span>, and <span class="refAuthor">C. A. Wood</span>, <span class="refTitle">"TLS Encrypted Client Hello"</span>, <span class="seriesInfo">RFC 9849</span>, <span class="seriesInfo">DOI 10.17487/RFC9849</span>, <time datetime="2026-03" class="refDate">March 2026</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9849">https://www.rfc-editor.org/rfc/rfc9849</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9958">[RFC9958]</dt>
+        <dd>
+<span class="refAuthor">Banerjee, A.</span>, <span class="refAuthor">Reddy.K, T.</span>, <span class="refAuthor">Schoinianakis, D.</span>, <span class="refAuthor">Hollebeek, T.</span>, and <span class="refAuthor">M. Ounsworth</span>, <span class="refTitle">"Post-Quantum Cryptography for Engineers"</span>, <span class="seriesInfo">RFC 9958</span>, <span class="seriesInfo">DOI 10.17487/RFC9958</span>, <time datetime="2026-06" class="refDate">June 2026</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9958">https://www.rfc-editor.org/rfc/rfc9958</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="Toms-Hardware-Oculus-Rift-2018">[Toms-Hardware-Oculus-Rift-2018]</dt>
       <dd>
@@ -2839,13 +3008,20 @@ deployments (<span><a href="https://rfc-editor.org/rfc/rfc9147#section-11" class
 <p id="appendix-A-1">We would like to thank
 Henk Birkholz,
 Hendrik Brockhaus,
+Menachem Dodge,
+Martin Duke,
+Gorry Fairhurst,
+Miek Gieben,
+Russ Housley,
 Ben Kaduk,
+Achim Kraus,
 John Mattsson,
-Daniel Migault,
 Tiru Reddy,
-Rich Salz, and
+Scott Rose,
+Rich Salz,
+Martin Thomson, and
 Marco Tiloca.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
-<p id="appendix-A-2">Furthermore, we would like to thank our security area director Deb Cooley for her detailed review comments.<a href="#appendix-A-2" class="pilcrow">¶</a></p>
+<p id="appendix-A-2">Finally, we would like to thank our security area director Deb Cooley for her detailed review comments.<a href="#appendix-A-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="contributors">
@@ -2880,10 +3056,10 @@ Marco Tiloca.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 </address>
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Thomas Fossati</span></div>
-<div dir="auto" class="left"><span class="org">Linaro</span></div>
+<div dir="auto" class="left"><span class="org">NVIDIA</span></div>
 <div class="email">
 <span>Email:</span>
-<a href="mailto:Thomas.Fossati@linaro.org" class="email">Thomas.Fossati@linaro.org</a>
+<a href="mailto:tfossati@nvidia.com" class="email">tfossati@nvidia.com</a>
 </div>
 </address>
 <address class="vcard">
