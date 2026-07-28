@@ -169,8 +169,8 @@ and communication technologies to implement the most suitable optimizations.
 The profiles in this document aim to balance strong security with the hardware and
 software limitations of IoT devices.
 
-TLS 1.3 has been re-designed and several previously defined extensions are not
-applicable to the new version of TLS/DTLS anymore. The following features changed
+TLS 1.3 has been re-designed and several previously defined extensions are no longer
+applicable to the new version of TLS/DTLS. The following features changed
 with the transition from TLS 1.2 to 1.3:
 
 - TLS 1.3 introduced the concept of post-handshake authentication messages, which
@@ -862,8 +862,8 @@ possible but less common.
 However, certain IoT applications (for example, {{?I-D.ietf-anima-constrained-voucher}},
 {{IEEE-802.1AR}}) use the subject field to encode the device serial number.
 
-The requirement in {{Section 4.4.2 of !RFC7925}} to only use EUI-64 for end
-entity certificates as a subject field is lifted.
+This specification removes the requirement in {{Section 4.4.2 of !RFC7925}} that stipulated
+the exclusive use of EUI-64 in the subject field of end entity certificates.
 
 Two fields are typically used to encode a device identifier, namely the
 Subject and the subjectAltName fields. Protocol specifications tend to offer
@@ -1229,6 +1229,7 @@ Henk Birkholz,
 Hendrik Brockhaus,
 Menachem Dodge,
 Martin Duke,
+Gorry Fairhurst,
 Miek Gieben,
 Russ Housley,
 Ben Kaduk,
