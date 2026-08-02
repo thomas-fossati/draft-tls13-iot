@@ -78,7 +78,6 @@ informative:
   RFC9810: cmp
   RFC8937:
   RFC9483: lw-cmp
-  RFC7452:
   RFC6066:
   I-D.ietf-iotops-7228bis:
   I-D.ietf-iotops-iot-dns-guidelines:
