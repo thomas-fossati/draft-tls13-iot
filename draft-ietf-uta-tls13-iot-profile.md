@@ -396,7 +396,7 @@ but no less than 1000ms, which is a conservative default aligned with the guidan
 For specific application/network combinations, a sub-second initial timeout MAY be set.
 In cases where no RTT estimates are available, a 1000ms initial timeout is suitable for the general Internet.
 
-Regarding the timers used by the Return Routability Check (RRC) functionality, the recommendations in {{Section 5.5 of !I-D.ietf-tls-dtls-rrc}} apply.
+Regarding the timers used by the Return Routability Check (RRC) functionality, the recommendations in {{Section 5.5 of !RFC9853}} apply.
 Just like the handshake initial timers, it is RECOMMENDED that DTLS 1.2 and 1.3 implementations offer an option for their developers to explicitly set the RRC timer.
 
 # Random Number Generation
