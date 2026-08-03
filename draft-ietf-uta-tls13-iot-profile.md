@@ -1251,7 +1251,8 @@ John Mattsson,
 Tiru Reddy,
 Scott Rose,
 Rich Salz,
-Martin Thomson, and
-Marco Tiloca.
+Martin Thomson,
+Marco Tiloca, and
+Éric Vyncke.
 
 Finally, we would like to thank our security area director Deb Cooley for her detailed review comments.
