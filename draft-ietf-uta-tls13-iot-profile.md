@@ -260,6 +260,11 @@ The extensions used in TLS/DTLS differ depending on the credential types
 supported.
 Self-signed X.509 certificates are still X.509, not raw public keys; raw
 public keys are conveyed via the raw_public_key extension.
+When raw public keys are
+used for peer authentication, deployments need to bind the authenticated key to
+the expected peer identity. {{Appendix F.9 of -TLS13}} describes misbinding
+attacks in such deployments and identifies mitigations, including the validation of the `server_name`
+extension where a domain name is used.
 
 Password-authenticated key exchange (PAKE) mechanisms allow two endpoints to
 authenticate and establish keys from a low-entropy shared secret, such as a
@@ -274,7 +279,7 @@ This profile considers three authentication modes for IoT devices:
 (1) certificate-based, (2) raw public key-based and (3) external PSK-based.
 TLS/DTLS 1.3 supports both PSK-only and PSK with (EC)DHE key exchange modes.
 For PSK use, endpoints MUST use (EC)DHE where possible to provide forward
-secrecy; PSK-only is acceptable only when the loss of forward secrecy is
+secrecy. PSK-only is acceptable when the loss of forward secrecy is
 explicitly accepted for the IoT deployment; see {{forward_secrecy}}.
 
 TLS/DTLS 1.3 supports PSK-based authentication,
@@ -300,6 +305,8 @@ used without (EC)DHE, those extensions are not needed for that handshake.
 
 For external pre-shared keys, {{!RFC9258}} recommends that applications
 SHOULD provision separate PSKs for (D)TLS 1.3 and prior versions.
+Additional guidance for using external PSKs in TLS, including PSK entropy
+requirements and security properties, is provided by {{?RFC9257}}.
 
 Where possible, the importer interface defined in {{!RFC9258}} MUST be used
 for external PSKs. This ensures that external PSKs used in (D)TLS 1.3
@@ -338,17 +345,33 @@ normative requirements in the referenced sections.
 
 # Error Handling
 
-TLS 1.3 simplified the Alert protocol but the underlying challenge in an
-embedded context remains unchanged, namely what should an IoT device do when it
-encounters an error situation. The classical approach used in a desktop
-environment where the user is prompted is often not applicable with unattended
-devices. Hence, it is more important for a developer to find out from which
-error cases a device can recover from.
+TLS 1.3 simplified the Alert protocol, but IoT deployments still need explicit
+error-handling behavior above the TLS library. This is particularly important
+in Industrial IoT applications where safety, availability, and deterministic
+behavior are high priorities. Unattended devices often cannot rely on prompting
+a user or on generic TLS-library defaults. Applications therefore need code and
+policy for handling relevant TLS errors, including deciding which errors are
+recoverable, when to retry or re-establish a connection, when to use an
+alternative endpoint or credential, and when to enter a safe operational state.
+The general guidance in {{Section 6 of !RFC7925}} continues to apply. However,
+implementations using TLS 1.3 MUST follow the alert definitions and processing
+rules in {{Section 6 of -TLS13}}. TLS 1.2-specific alerts for features that no
+longer exist in TLS 1.3, such as `decompression_failure` and
+`no_renegotiation`, are not used in TLS 1.3. TLS 1.3 also defines alerts such
+as `missing_extension` for protocol violations involving required extensions.
 
 # Session Resumption
 
 TLS 1.3 has built-in support for session resumption by utilizing PSK-based
 credentials established in an earlier exchange.
+Session resumption can substantially reduce bandwidth, latency, and
+cryptographic computation in IoT deployments because subsequent handshakes do
+not need to repeat the full certificate-based authentication exchange. Servers
+can issue resumption PSKs in a way that matches the expected reconnection
+pattern of the deployment. The number of tickets issued, their lifetime, and
+their reuse policy are deployment decisions that balance availability and
+bandwidth savings against server state, anti-replay requirements, and privacy
+considerations.
 
 # Compression
 
@@ -357,9 +380,9 @@ previous versions of TLS. Applications are therefore responsible for transmittin
 payloads that are either compressed or use a more efficient encoding otherwise.
 
 With regards to the handshake itself, various strategies have
-been applied to reduce the size of the exchanged payloads. TLS and DTLS 1.3 use less
-overhead, depending on the type of key confirmations, when compared to previous versions of the
-protocol.
+been applied to reduce the size of the exchanged payloads. TLS and DTLS 1.3 can
+reduce handshake overhead compared to previous protocol versions, especially
+when session resumption avoids retransmitting certificate chains.
 
 # Forward Secrecy {#forward_secrecy}
 
@@ -422,6 +445,10 @@ SNI when the peer identity is established by other application-specific
 configuration, such as a configured IP address and port, a pinned certificate,
 a raw public key, or an external PSK identity. When no domain name is used, SNI
 is not applicable.
+When SNI is omitted in deployments using raw public keys or self-signed
+certificates, the application needs another binding between the authenticated
+key and the expected peer identity. Otherwise, the deployment can be vulnerable
+to the misbinding attacks described in {{Appendix F.9 of -TLS13}}.
 
 Deployments that require confidentiality of SNI and other ClientHello metadata
 can use Encrypted ClientHello (ECH) {{?RFC9849}}. ECH is most applicable to
@@ -632,6 +659,10 @@ Careful consideration is therefore required before issuing IDevID certificates
 with no maximum validity period, since an effectively unlimited certificate
 lifetime is only useful if the relevant certification path remains usable for
 the intended lifetime of the device.
+Deployments also need to verify that their CA software and issuance policy
+support the intended validity model. Some CA implementations and policies do
+not permit subordinate CA certificates or end-entity certificates to outlive
+the issuing CA certificate.
 
 LDevID certificates are, however, issued by the operator or owner,
 and may be renewed at a regular interval using protocols, such
@@ -685,9 +716,10 @@ Certificate Revocation List (CRL) or Online Certificate Status Protocol (OCSP)
 checks. Consistent with the guidance in {{Section 4.4.3 of RFC7925}}, neither
 OCSP nor CRLs are used by constrained IoT devices during the TLS handshake.
 
-Instead, IoT deployments generally rely on short-lived end-entity certificates
-managed via automated onboarding and management protocols (such as Lightweight
-Machine-to-Machine {{LwM2M-T}} {{LwM2M-C}}).  Because these protocols can
+Instead, IoT deployments generally rely on short-lived operational end-entity
+certificates, such as LDevID certificates, managed via automated onboarding and
+management protocols (such as Lightweight Machine-to-Machine {{LwM2M-T}}
+{{LwM2M-C}}).  Because these protocols can
 distribute and update certificates on demand, they make real-time revocation
 checks largely unnecessary.
 
@@ -871,8 +903,8 @@ possible but less common.
 However, certain IoT applications (for example, {{?I-D.ietf-anima-constrained-voucher}},
 {{IEEE-802.1AR}}) use the subject field to encode the device serial number.
 
-The requirement in {{Section 4.4.2 of !RFC7925}} to only use EUI-64 for end
-entity certificates as a subject field is lifted.
+The restriction in {{Section 4.4.2 of !RFC7925}} to use only EUI-64 as the
+identifier in end-entity certificates is updated by this specification.
 
 Two fields are typically used to encode a device identifier, namely the
 Subject and the subjectAltName fields. Protocol specifications tend to offer
@@ -952,9 +984,11 @@ interfaces, virtual interfaces, locally administered addresses, and MAC address
 randomization.
 
 Both manufacturer-assigned device serial numbers and EUI-48 or EUI-64 values
-can expose stable identifiers to certificate recipients. TLS 1.3 encrypts
-certificates during the handshake, but the
-peer still learns the identifier. An EUI-48 or EUI-64 can reveal
+can expose stable identifiers to certificate recipients. TLS 1.3 better
+protects client certificates against passive observers than earlier TLS
+versions because the client certificate is encrypted and sent only after the
+server certificate has been received and validated. The authenticated peer,
+however, still learns the identifier. An EUI-48 or EUI-64 can reveal
 organizational allocation information and can enable correlation across
 networks or application contexts. A stable device serial number has similar
 correlation risks. Environments that are concerned about such traffic analysis
@@ -987,7 +1021,7 @@ End entity certificates are not used in path construction, so there is no ambigu
 ### Key Usage
 
 The key usage extension MUST be set and MUST be marked as critical. For
-signature verification keys the digitialSignature key usage purpose MUST
+signature verification keys the digitalSignature key usage purpose MUST
 be specified. Other key usages are set according to the intended usage
 of the key.
 
@@ -1080,7 +1114,8 @@ are not uniformly supported by TLS/DTLS stacks:
   wire. The term "TLSA" does not stand for anything; it is the name of the
   RRtype, as explained in {{?RFC6698}}.
 * Certificate compression {{?RFC8879}} can reduce the size of certificates
-  that still have to be transmitted.
+  that still have to be transmitted. Related guidance for IoT deployments is
+  provided by {{?RFC9191}}.
 * Alternative certificate formats, such as raw public keys {{?RFC7250}} or
   CBOR-encoded certificates {{?I-D.ietf-cose-cbor-encoded-cert}}, can reduce
   credential size where the application and provisioning model support them.
@@ -1178,8 +1213,8 @@ into the TLS 1.3 key schedule. This provides confidentiality protection against
 a future cryptographically relevant quantum computer, provided that the
 external PSK is generated and distributed securely. It does not make the
 certificate-based authentication quantum resistant. Deployments can use this
-mechanism as a migration path while PQC algorithms are being introduced, at
-certificate-based authentication quantum resistant.
+mechanism as a migration path while PQC algorithms for certificate-based
+authentication are being introduced.
 
 # Privacy Considerations {#privacy-considerations}
 
@@ -1192,8 +1227,10 @@ such as the encrypted ClientHello, further increase privacy protection.
 Certificate fields can expose stable device identifiers and other metadata.
 In particular, IDevIDs and LDevIDs may reveal manufacturer identity, device
 serial numbers, or other information to peers. Protection against passive
-observers is, however, substantially improved since certificates are not
-transmitted in the clear in TLS 1.3 and DTLS 1.3.
+observers is, however, substantially improved since certificates are encrypted
+in TLS 1.3 and DTLS 1.3. Client certificates are also sent only after the server
+certificate has been received and validated. The authenticated peer still
+receives the certificate and learns the identifiers it contains.
 
 Manufacturer-assigned device serial numbers and EUI-48 or EUI-64 values can
 enable correlation across networks or application contexts. EUI-48 and EUI-64
