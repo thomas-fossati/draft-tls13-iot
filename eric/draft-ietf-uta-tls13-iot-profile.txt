@@ -1783,7 +1783,7 @@ Acknowledgments
    We would like to thank Henk Birkholz, Hendrik Brockhaus, Menachem
    Dodge, Martin Duke, Miek Gieben, Russ Housley, Ben Kaduk, Achim
    Kraus, John Mattsson, Tiru Reddy, Scott Rose, Rich Salz, Martin
-   Thomson, and Marco Tiloca.
+   Thomson, Marco Tiloca, and Éric Vyncke.
 
    Finally, we would like to thank our security area director Deb Cooley
    for her detailed review comments.
