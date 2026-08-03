@@ -71,6 +71,7 @@ normative:
   RFC9846: TLS13
   RFC6520:
   I-D.ietf-lamps-macaddress-on:
+  I-D.ietf-iotops-7228bis:
 
 informative:
   RFC9146:
@@ -79,7 +80,6 @@ informative:
   RFC8937:
   RFC9483: lw-cmp
   RFC6066:
-  I-D.ietf-iotops-7228bis:
   I-D.ietf-iotops-iot-dns-guidelines:
   RFC9958:
   RFC9973:
@@ -273,8 +273,9 @@ TLS deployments.
 This profile considers three authentication modes for IoT devices:
 (1) certificate-based, (2) raw public key-based and (3) external PSK-based.
 TLS/DTLS 1.3 supports both PSK-only and PSK with (EC)DHE key exchange modes.
-For PSK use, endpoints SHOULD use (EC)DHE where possible; see
-{{forward_secrecy}}.
+For PSK use, endpoints MUST use (EC)DHE where possible to provide forward
+secrecy; PSK-only is acceptable only when the loss of forward secrecy is
+explicitly accepted for the IoT deployment; see {{forward_secrecy}}.
 
 TLS/DTLS 1.3 supports PSK-based authentication,
 wherein PSKs can be established via session tickets from prior
@@ -365,8 +366,9 @@ protocol.
 RFC 9846 has removed Static RSA and Static Diffie-Hellman cipher suites, therefore all public-key-based key exchange mechanisms available in TLS 1.3 provide forward secrecy.
 
 Pre-shared keys (PSKs) can be used with (EC)DHE key exchange to provide forward secrecy or can be used alone, at the cost of losing forward secrecy for the application data.
-For PSK use, endpoints SHOULD use (EC)DHE to achieve forward secrecy; PSK-only
-SHOULD be avoided unless the application can tolerate the loss of forward secrecy.
+For PSK use, endpoints SHOULD use (EC)DHE to achieve forward secrecy. PSK-only
+is acceptable only when the loss of forward secrecy is explicitly accepted for
+the IoT deployment.
 
 
 # Keep-Alive
@@ -456,8 +458,11 @@ guidance in {{Section 3.8 of ?RFC9325}}.
 
 The Maximum Fragment Length Negotiation (MFL) extension has been superseded by
 the Record Size Limit (RSL) extension {{!RFC8449}}. Implementations in
-compliance with this specification MUST implement the RSL extension and SHOULD
-use it to indicate their RAM limitations.
+compliance with this specification MUST implement the RSL extension and MUST
+use it to indicate their RAM or record-size limitations unless the default
+record sizes, which require approximately 18 KB of memory for TLS 1.3
+ciphertext and associated processing buffers, are acceptable for the IoT
+deployment.
 
 # Crypto Agility
 
@@ -605,11 +610,11 @@ It also affects the maximum validity period of certificates.
 Constrained devices often lack precise UTC time; implementations SHOULD treat
 time checks with coarse granularity (e.g., day- or hour-level) and ignore leap
 seconds when validating notAfter. For devices without a reliable source of time
-we advise the use of a device management solution, which typically includes a
-certificate management protocol, to manage certificates used by the device over
-their lifecycle. While this approach does not utilize certificates to its widest
-extent, it is a solution that extends the capabilities offered by a raw public
-key approach.
+this document recommends the use of a device management solution, which
+typically includes a certificate management protocol, to manage certificates
+used by the device over their lifecycle. While this approach does not utilize
+certificates to its widest extent, it is a solution that extends the
+capabilities offered by a raw public key approach.
 
 In many IoT deployments, IDevIDs are provisioned with an unlimited lifetime,
 as described in {{IEEE-802.1AR}}. This helps prevent devices from being
@@ -634,8 +639,9 @@ as Enrollment over Secure Transport (EST) {{?RFC7030}} or
 Certificate Management Protocol (CMP) {{-cmp}} {{-lw-cmp}}.
 It is therefore RECOMMENDED to limit the lifetime of these LDevID certificates
 using the notBefore and notAfter fields, as described in {{Section 4.1.2.5 of
-!RFC5280}}. Values MUST be expressed in Greenwich Mean Time (Zulu) and
-MUST include seconds even where the number of seconds is zero.
+!RFC5280}}. Consistent with {{Section 4.1.2.5.1 of !RFC5280}} and
+{{Section 4.1.2.5.2 of !RFC5280}}, values MUST be expressed in Greenwich Mean
+Time (Zulu) and MUST include seconds even where the number of seconds is zero.
 
 Note that the validity period is defined as the period of time from notBefore
 through notAfter, inclusive. This means that a hypothetical certificate with a
@@ -758,11 +764,14 @@ The subjectKeyIdentifier is used by path construction algorithms to identify whi
 the purpose (e.g., encipherment, signature, certificate signing) of the key contained
 in the certificate."
 
-The Key Usage extension SHOULD be set; if it is set, it MUST be marked
-critical, and the keyCertSign purpose MUST be set. If the Root CA issues CRLs,
-the cRLSign purpose MUST also be set. Additional key usages MAY be set
-depending on the intended usage of the public key. The digitalSignature purpose
-is not required for a Root CA certificate.
+The Key Usage extension SHOULD be set in Root CA certificates. If present, it MUST be
+marked critical and MUST include keyCertSign. If the CA signs CRLs, cRLSign
+MUST also be set. The digitalSignature bit is only needed when the same CA key
+is used to sign objects other than certificates or CRLs, such as OCSP responses.
+
+The extension MAY be omitted only in closed deployments where all
+relying parties are configured to accept the Root CA certificate as a trust
+anchor according to local policy without processing the Key Usage extension.
 
 ### Extended Key Usage
 
@@ -949,8 +958,11 @@ peer still learns the identifier. An EUI-48 or EUI-64 can reveal
 organizational allocation information and can enable correlation across
 networks or application contexts. A stable device serial number has similar
 correlation risks. Environments that are concerned about such traffic analysis
-SHOULD use an enrollment protocol to migrate from identifiable IDevID
-certificates to less identifiable operational LDevID certificates.
+SHOULD avoid using stable, globally identifiable device identifiers in
+operational certificates. This can be achieved, for example, by using an enrollment
+protocol to migrate from identifiable IDevID certificates to less identifiable
+operational LDevID certificates, or by provisioning operational certificates
+that contain only deployment-local or otherwise non-public identifiers.
 
 Per {{!RFC9525}} domain names MUST NOT be encoded in the subject commonName. Instead they
 MUST be encoded in a subjectAltName of type DNS-ID. Domain names MUST NOT
@@ -1188,7 +1200,9 @@ enable correlation across networks or application contexts. EUI-48 and EUI-64
 values can also reveal organizational allocation information. Deployments that
 are concerned about such traffic analysis SHOULD use an enrollment protocol to
 migrate from identifiable IDevID certificates to less identifiable operational
-LDevID certificates.
+LDevID certificates. Deployments that continue to use stable identifiers in
+certificates expose those identifiers to peers and can enable correlation
+across connections, networks, or application contexts.
 
 Some deployments use the mechanisms discussed in the Certificate Overhead section,
 such as certificate URLs or external certificate retrieval, instead of always
