@@ -84,6 +84,7 @@ informative:
   RFC9958:
   RFC9973:
   I-D.ietf-tls-pake:
+  I-D.ietf-tls-extended-key-update:
   PQC-ENERGY: DOI.10.1145/3587135.3592821
   PQC-PERF: DOI.10.1007/978-3-031-21280-2_24
   NIST-SP-800-131Ar3:
@@ -222,14 +223,25 @@ robust security without overwhelming their limited processing, memory, and power
 resources. The document aims to facilitate the development of secure and efficient IoT
 deployments and promote the broad adoption of secure communication standards.
 
-This document updates {{RFC7925}} with respect to the X.509 certificate profile ({{certificate_profile}}) and ciphersuite requirements ({{ciphersuites}}).
+This document updates {{RFC7925}} with respect to the X.509 certificate profile
+({{certificate_profile}}) and ciphersuite requirements ({{ciphersuites}}).
+The update is intentionally limited. {{RFC7925}} remains the TLS/DTLS 1.2
+profile for constrained IoT devices and is still relevant for legacy
+deployments. This is particularly important in industrial IoT deployments,
+where devices, certification programs, and operational processes often have
+long lifecycles and therefore transition to newer protocol versions more
+slowly than general-purpose Internet software. This document does not replace
+the TLS/DTLS 1.2 protocol guidance in {{RFC7925}}. Instead, it defines the
+corresponding TLS/DTLS 1.3 profile and updates only those {{RFC7925}}
+requirements that need to change for TLS/DTLS 1.3 deployments, namely the
+certificate profile and ciphersuite recommendations.
 
 This document is organized as follows.
 The sections from {{credential_types}}
 through {{zerortt}} profile TLS/DTLS credentials and protocol features relevant
 to constrained IoT deployments, including credential types, session resumption,
-compression, forward secrecy, server name indication (SNI), record sizing,
-crypto agility, key lengths, and 0-RTT data. {{certificate_profile}} updates
+forward secrecy, server name indication (SNI), record sizing, crypto agility,
+key lengths, and 0-RTT data. {{certificate_profile}} updates
 and clarifies the X.509 certificate profile from {{RFC7925}}.
 
 TLS protocol compatibility is a required basis, but it is insufficient to permit interoperability at the level of authentication and authorization.
@@ -324,9 +336,12 @@ but provides guidance on considerations relevant to the use of particular types.
 
 TLS/DTLS 1.3 implementations conforming to this profile MUST follow the
 mandatory-to-implement extension requirements in {{Section 9.2 of -TLS13}}.
-This section summarizes those requirements and the additional extension
-requirements established by this profile. The table does not replace the
-normative requirements in the referenced sections.
+For constrained IoT implementations, it is useful to have a single checklist
+that maps TLS/DTLS 1.3 extension support to the credential modes and deployment
+features used by this profile. {{table-mandatory-extensions}} provides that
+implementation checklist. It summarizes the TLS/DTLS 1.3 requirements and the
+additional extension requirements established by this profile; it does not
+replace the normative requirements in the referenced sections.
 
 | Extension | Applicability | Reference |
 |---|---|---|
@@ -373,17 +388,6 @@ their reuse policy are deployment decisions that balance availability and
 bandwidth savings against server state, anti-replay requirements, and privacy
 considerations.
 
-# Compression
-
-TLS 1.3 does not define compression of application data traffic, as offered by
-previous versions of TLS. Applications are therefore responsible for transmitting
-payloads that are either compressed or use a more efficient encoding otherwise.
-
-With regards to the handshake itself, various strategies have
-been applied to reduce the size of the exchanged payloads. TLS and DTLS 1.3 can
-reduce handshake overhead compared to previous protocol versions, especially
-when session resumption avoids retransmitting certificate chains.
-
 # Forward Secrecy {#forward_secrecy}
 
 RFC 9846 has removed Static RSA and Static Diffie-Hellman cipher suites, therefore all public-key-based key exchange mechanisms available in TLS 1.3 provide forward secrecy.
@@ -392,6 +396,16 @@ Pre-shared keys (PSKs) can be used with (EC)DHE key exchange to provide forward 
 For PSK use, endpoints SHOULD use (EC)DHE to achieve forward secrecy. PSK-only
 is acceptable only when the loss of forward secrecy is explicitly accepted for
 the IoT deployment.
+
+TLS 1.3 KeyUpdate refreshes application traffic keys, but it does not inject
+fresh key exchange input and therefore does not provide post-compromise
+security for a long-lived session. Industrial IoT deployments can have
+long-lived TLS or DTLS associations where reconnecting is operationally
+undesirable. The Extended Key Update mechanism
+{{I-D.ietf-tls-extended-key-update}} is being developed for such cases; it
+performs a fresh key exchange inside an active TLS/DTLS 1.3 session and can
+provide post-compromise security when the deployment requires it and both peers
+support the extension.
 
 
 # Keep-Alive
@@ -436,7 +450,7 @@ consult {{RFC8937}}.
 
 TLS 1.3 requires implementations to support the Server Name Indication (SNI)
 extension when used with applications capable of using it
-({{Section 9.2 of -TLS13}}). This profile does not change that requirement.
+({{Section 9.2 of -TLS13}}).
 
 IoT clients SHOULD send SNI when connecting to a named service, in particular
 when the peer is a cloud service, a multi-tenant endpoint, or any server that
@@ -525,10 +539,10 @@ prime-field curves used by this profile, secp256r1 provides the intended
 For any application protocol, 0-RTT MUST NOT be used unless a protocol-specific
 profile exists.
 
-At the time of writing, no such profile has been defined for CoAP {{CoAP}}.
-Therefore, 0-RTT MUST NOT be used by CoAP applications.
-
-No specific recommendations are given for non-IETF IoT protocols such as MQTT (Message Queuing Telemetry Transport).
+At the time of writing, no such profile has been defined for commonly used IoT
+application protocols such as CoAP {{CoAP}} or MQTT (Message Queuing Telemetry
+Transport). Therefore, this profile does not enable 0-RTT for CoAP, MQTT, or
+other IoT application protocols that lack a protocol-specific 0-RTT profile.
 
 # Certificate Profile {#certificate_profile}
 
@@ -1043,6 +1057,13 @@ mechanism to provision devices with new trust anchors. This approach only
 addresses the distribution of trust anchors and not end entity certificates
 or certificates of subordinate CAs.
 
+Trust-anchor lifecycle management is central to IoT certificate profiles.
+IoT devices, especially in industrial deployments, often remain in service for
+many years and may operate in environments where physical access is expensive
+or impossible. A certificate profile that assumes static trust anchors for the
+entire device lifetime makes algorithm transitions, CA rollover, manufacturer
+changes, and incident response significantly harder.
+
 As an alternative, certificate management protocols like CMP and EST
 have also offered ways to update trust anchors. See, for example,
 {{Section 2.1 of ?RFC7030}} for an approach to obtaining CA certificates
@@ -1100,11 +1121,42 @@ transition, but they do not replace out-of-band provisioning of trust anchors.
 Additional techniques are available, but they are more deployment-specific and
 are not uniformly supported by TLS/DTLS stacks:
 
-* The TLS cached info {{?RFC7924}} extension can avoid sending certificates
-  with every full handshake. This mechanism is particularly useful when a
-  client has a pinned server certificate, or has otherwise cached the server
-  certificate or certificate chain, because it gives the client a standardized
-  way to indicate that retransmitting the cached information is unnecessary.
+* Certificate compression {{?RFC8879}} can reduce the size of certificates
+  that still have to be transmitted. Related guidance for IoT deployments is
+  provided by {{?RFC9191}}.
+* Server certificate caching can reduce retransmission when a client repeatedly
+  connects to the same server, which is a common IoT deployment scenario.
+  The TLS cached info {{?RFC7924}} extension defines such a mechanism.
+  {{?RFC7924}} was written for TLS/DTLS 1.2 and describes the server response
+  in ServerHello. In TLS 1.3, the client offers `cached_info` in ClientHello
+  and the server confirmation is carried in EncryptedExtensions
+  ({{Section 4.3.1 of -TLS13}}). {{?RFC7924}} defines cached information types
+  for server Certificate messages and server CertificateRequest messages. It
+  does not define caching of client Certificate messages.
+
+  For TLS 1.3, the server Certificate message includes a
+  `certificate_request_context` field. For server authentication, this field is
+  zero length ({{Section 4.4.2 of -TLS13}}), so it does not by itself prevent
+  server certificate information from being cached.
+
+  The CertificateRequest message also includes a
+  `certificate_request_context` field. For client authentication in the main
+  handshake, this field is zero length unless post-handshake authentication is
+  used ({{Section 4.3.2 of -TLS13}}). Consequently, caching
+  CertificateRequest messages can still be applicable when the server's
+  client-authentication request parameters are large and stable. The
+  potentially large parts are the extensions in CertificateRequest, especially
+  the `certificate_authorities` extension, which lists distinguished names of
+  acceptable CAs ({{Section 4.2.4 of -TLS13}}). In many IoT deployments, unlike
+  WebPKI-style deployments, this list is small or omitted because only a small
+  number of trust anchors is used. In contrast,
+  CertificateRequest caching is not useful for post-handshake authentication
+  when the `certificate_request_context` changes between requests.
+
+  The main applicability of `cached_info` in this profile is therefore server
+  certificate caching. This is most useful when a client repeatedly connects to
+  the same server and the server certificate, selected chain, and server-side
+  certificate configuration remain stable across handshakes.
 * The client certificate URL mechanism defined in {{Section 5 of RFC6066}} can
   replace client certificates in the handshake with references to external
   certificate objects. When
@@ -1113,9 +1165,6 @@ are not uniformly supported by TLS/DTLS stacks:
   {{?I-D.ietf-dance-client-auth}} may be used to reduce the packets on the
   wire. The term "TLSA" does not stand for anything; it is the name of the
   RRtype, as explained in {{?RFC6698}}.
-* Certificate compression {{?RFC8879}} can reduce the size of certificates
-  that still have to be transmitted. Related guidance for IoT deployments is
-  provided by {{?RFC9191}}.
 * Alternative certificate formats, such as raw public keys {{?RFC7250}} or
   CBOR-encoded certificates {{?I-D.ietf-cose-cbor-encoded-cert}}, can reduce
   credential size where the application and provisioning model support them.
@@ -1125,10 +1174,14 @@ These additional mechanisms can be useful, but they can also introduce side
 effects, such as reliance on DNS or directory infrastructure, cache
 invalidation requirements, privacy exposure to retrieval services, changes to
 the credential provisioning model, and additional implementation code. A
-deployment SHOULD evaluate these trade-offs and use such mechanisms only when
-the baseline certificate-profile recommendations, shallow certification paths,
-session resumption, and long-lived DTLS associations do not provide the desired
-reduction in handshake size or frequency.
+deployment SHOULD first prefer mechanisms with broad TLS/DTLS 1.3 support and
+low operational complexity: compact certificate profiles, shallow certification
+paths, omitting trust anchors from the handshake, session resumption, DTLS
+Connection IDs, and certificate compression. More deployment-specific mechanisms
+such as cached certificate information, certificate URLs, DANE client identity,
+or certificate handles SHOULD be used only when their operational dependencies,
+cache invalidation behavior, and privacy impact are acceptable for the
+deployment.
 
 # Ciphersuites {#ciphersuites}
 
@@ -1180,32 +1233,25 @@ In addition, the integrity limits on key usage detailed in {{Section 4.4 of !RFC
 | `TLS_AES_128_GCM_SHA256` | SHOULD implement |
 {: #tab-cipher-reqs align="left" title="TLS 1.3 Ciphersuite Requirements"}
 
-# Fault Attacks on Deterministic Signature Schemes
-
-A number of passive side-channel attacks as well as active fault-injection
-attacks (e.g., {{Ambrose2017}}) have been demonstrated to be successful in allowing a malicious
-third party to gain information about the signing key if a fully deterministic
-signature scheme (e.g., ECDSA {{?RFC6979}} or EdDSA {{?RFC8032}}) is used.
-
-Most of these attacks assume physical access to the device and are therefore
-especially relevant to smart cards as well as IoT deployments with poor or
-non-existent physical security.
-
-In this security model, it is recommended to combine both randomness and
-determinism, for example, as described in
-{{?I-D.irtf-cfrg-det-sigs-with-noise}}.
-
 # Post-Quantum Cryptography (PQC) Considerations
-
-This section is informational and provides deployment guidance only; it does
-not add normative requirements to this profile.
 
 The recommendations and ciphersuites in this profile are based on classical
 cryptography and are not quantum-resistant.
 
-As detailed in {{RFC9958}}, the IETF is actively working to address the challenges of adopting PQC in various protocols, including TLS. The document highlights key aspects engineers must consider, such as algorithm selection, performance impacts, and deployment strategies. It emphasizes the importance of gradual integration of PQC to ensure secure communication while accounting for the increased computational, memory, and bandwidth requirements of PQC algorithms. These challenges are especially relevant in the context of IoT, where device constraints limit the adoption of larger key sizes and more complex cryptographic operations {{PQC-PERF}}. Besides, any choice need to careful evaluate the associated energy requirements {{PQC-ENERGY}}.
+Guidance for using post-quantum cryptography with application protocols,
+including TLS, is provided by {{?I-D.ietf-uta-pqc-app}}. That document is the
+primary source of PQC deployment recommendations for applications and
+constrained environments. It discusses algorithm selection, migration planning,
+and the operational impact of larger key shares, public keys, signatures, and
+certificates.
 
-The work of incorporating PQC into TLS {{?I-D.ietf-uta-pqc-app}} {{?I-D.ietf-pquip-pqc-hsm-constrained}} is still ongoing, with key exchange message sizes increasing due to larger public keys. These larger keys demand more flash storage and higher RAM usage, presenting significant obstacles for resource-constrained IoT devices. The transition from classical cryptographic algorithms to PQC will be a significant challenge for constrained IoT devices, requiring careful planning to select hardware suitable for the task considering the lifetime of an IoT product.
+PQC transition planning is especially relevant for IoT devices because product
+lifetimes are long and device constraints limit the adoption of larger key
+sizes and more complex cryptographic operations {{PQC-PERF}}. Deployments also
+need to evaluate the energy impact of PQC choices {{PQC-ENERGY}}. Additional
+background for engineers is provided by {{RFC9958}}, and guidance on PQC use
+with constrained hardware security modules is provided by
+{{?I-D.ietf-pquip-pqc-hsm-constrained}}.
 
 As a transitional measure, {{RFC9973}} allows certificate-based
 authentication to be combined with a strong external PSK that is incorporated
@@ -1261,10 +1307,36 @@ deployments ({{Section 11 of -DTLS13}}).
 
 This entire document is about security.
 
-This profile does not specify authentication- or integrity-only cipher suites.
-Deployments considering such cipher suites, such as defined in {{?RFC9150}},
-need application-specific analysis outside the scope of this
-document.
+## Fault Attacks on Deterministic Signature Schemes
+
+A number of passive side-channel attacks as well as active fault-injection
+attacks (e.g., {{Ambrose2017}}) have been demonstrated to be successful in allowing a malicious
+third party to gain information about the signing key if a fully deterministic
+signature scheme (e.g., ECDSA {{?RFC6979}} or EdDSA {{?RFC8032}}) is used.
+
+Most of these attacks assume physical access to the device and are therefore
+especially relevant to smart cards as well as IoT deployments with poor or
+non-existent physical security.
+
+In this security model, it is recommended to combine both randomness and
+determinism, for example, as described in
+{{?I-D.irtf-cfrg-det-sigs-with-noise}}.
+
+## Authentication- and Integrity-Only Cipher Suites
+
+{{?RFC9150}} defines TLS 1.3 cipher suites that provide authentication and
+message integrity without confidentiality. {{?RFC9150}} limits their
+applicability to cases where confidentiality and privacy requirements are
+absent or explicitly relaxed, but authenticity and integrity are still
+required; examples include industrial automation commands, fine-grained time
+updates, alarms, railway control, and safety-related recording or inspection.
+These cipher suites are not general-purpose TLS cipher suites.
+
+Deployments need an application-specific safety, security, and privacy analysis
+and need to verify that the application protocol and application data do not
+rely on confidentiality. This document leaves such profiling to (industrial)
+IoT deployments and therefore does not specify authentication- or integrity-only
+cipher suites.
 
 # IANA Considerations
 
@@ -1278,6 +1350,7 @@ This document makes no requests to IANA.
 We would like to thank
 Henk Birkholz,
 Hendrik Brockhaus,
+Roman Danyliw,
 Menachem Dodge,
 Martin Duke,
 Gorry Fairhurst,
@@ -1289,6 +1362,8 @@ John Mattsson,
 Tiru Reddy,
 Scott Rose,
 Rich Salz,
+Mohit Sethi,
+Ketan Talaulikar,
 Martin Thomson,
 Marco Tiloca, and
 Éric Vyncke.
