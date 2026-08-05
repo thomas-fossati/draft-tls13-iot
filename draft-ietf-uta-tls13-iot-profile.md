@@ -82,6 +82,7 @@ informative:
   I-D.ietf-iotops-7228bis:
   I-D.ietf-iotops-iot-dns-guidelines:
   RFC9958:
+  RFC9973:
   I-D.ietf-tls-pake:
   PQC-ENERGY: DOI.10.1145/3587135.3592821
   PQC-PERF: DOI.10.1007/978-3-031-21280-2_24
@@ -1159,7 +1160,7 @@ As detailed in {{RFC9958}}, the IETF is actively working to address the challeng
 
 The work of incorporating PQC into TLS {{?I-D.ietf-uta-pqc-app}} {{?I-D.ietf-pquip-pqc-hsm-constrained}} is still ongoing, with key exchange message sizes increasing due to larger public keys. These larger keys demand more flash storage and higher RAM usage, presenting significant obstacles for resource-constrained IoT devices. The transition from classical cryptographic algorithms to PQC will be a significant challenge for constrained IoT devices, requiring careful planning to select hardware suitable for the task considering the lifetime of an IoT product.
 
-As a transitional measure, {{-TLS13}} allows certificate-based
+As a transitional measure, {{RFC9973}} allows certificate-based
 authentication to be combined with a strong external PSK that is incorporated
 into the TLS 1.3 key schedule. This provides confidentiality protection against
 a future cryptographically relevant quantum computer, provided that the
