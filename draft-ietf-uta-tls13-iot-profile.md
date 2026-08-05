@@ -68,7 +68,7 @@ contributor:
 
 normative:
   RFC9147: DTLS13
-  RFC9973: TLS13
+  RFC9846: TLS13
   RFC6520:
   I-D.ietf-lamps-macaddress-on:
 
