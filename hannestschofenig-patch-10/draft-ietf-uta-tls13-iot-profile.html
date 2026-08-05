@@ -2651,7 +2651,7 @@ not add normative requirements to this profile.<a href="#section-22-1" class="pi
 cryptography and are not quantum-resistant.<a href="#section-22-2" class="pilcrow">¶</a></p>
 <p id="section-22-3">As detailed in <span>[<a href="#RFC9958" class="cite xref">RFC9958</a>]</span>, the IETF is actively working to address the challenges of adopting PQC in various protocols, including TLS. The document highlights key aspects engineers must consider, such as algorithm selection, performance impacts, and deployment strategies. It emphasizes the importance of gradual integration of PQC to ensure secure communication while accounting for the increased computational, memory, and bandwidth requirements of PQC algorithms. These challenges are especially relevant in the context of IoT, where device constraints limit the adoption of larger key sizes and more complex cryptographic operations <span>[<a href="#PQC-PERF" class="cite xref">PQC-PERF</a>]</span>. Besides, any choice need to careful evaluate the associated energy requirements <span>[<a href="#PQC-ENERGY" class="cite xref">PQC-ENERGY</a>]</span>.<a href="#section-22-3" class="pilcrow">¶</a></p>
 <p id="section-22-4">The work of incorporating PQC into TLS <span>[<a href="#I-D.ietf-uta-pqc-app" class="cite xref">I-D.ietf-uta-pqc-app</a>]</span> <span>[<a href="#I-D.ietf-pquip-pqc-hsm-constrained" class="cite xref">I-D.ietf-pquip-pqc-hsm-constrained</a>]</span> is still ongoing, with key exchange message sizes increasing due to larger public keys. These larger keys demand more flash storage and higher RAM usage, presenting significant obstacles for resource-constrained IoT devices. The transition from classical cryptographic algorithms to PQC will be a significant challenge for constrained IoT devices, requiring careful planning to select hardware suitable for the task considering the lifetime of an IoT product.<a href="#section-22-4" class="pilcrow">¶</a></p>
-<p id="section-22-5">As a transitional measure, <span>[<a href="#RFC9846" class="cite xref">RFC9846</a>]</span> allows certificate-based
+<p id="section-22-5">As a transitional measure, <span>[<a href="#RFC9973" class="cite xref">RFC9973</a>]</span> allows certificate-based
 authentication to be combined with a strong external PSK that is incorporated
 into the TLS 1.3 key schedule. This provides confidentiality protection against
 a future cryptographically relevant quantum computer, provided that the
@@ -2984,6 +2984,10 @@ document.<a href="#section-24-2" class="pilcrow">¶</a></p>
 <dt id="RFC9958">[RFC9958]</dt>
         <dd>
 <span class="refAuthor">Banerjee, A.</span>, <span class="refAuthor">Reddy.K, T.</span>, <span class="refAuthor">Schoinianakis, D.</span>, <span class="refAuthor">Hollebeek, T.</span>, and <span class="refAuthor">M. Ounsworth</span>, <span class="refTitle">"Post-Quantum Cryptography for Engineers"</span>, <span class="seriesInfo">RFC 9958</span>, <span class="seriesInfo">DOI 10.17487/RFC9958</span>, <time datetime="2026-06" class="refDate">June 2026</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9958">https://www.rfc-editor.org/rfc/rfc9958</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9973">[RFC9973]</dt>
+        <dd>
+<span class="refAuthor">Housley, R.</span>, <span class="refTitle">"TLS 1.3 Extension for Using Certificates with an External Pre-Shared Key"</span>, <span class="seriesInfo">RFC 9973</span>, <span class="seriesInfo">DOI 10.17487/RFC9973</span>, <time datetime="2026-07" class="refDate">July 2026</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9973">https://www.rfc-editor.org/rfc/rfc9973</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="Toms-Hardware-Oculus-Rift-2018">[Toms-Hardware-Oculus-Rift-2018]</dt>
       <dd>
