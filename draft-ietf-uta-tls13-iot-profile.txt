@@ -1324,9 +1324,9 @@ Table of Contents
    requiring careful planning to select hardware suitable for the task
    considering the lifetime of an IoT product.
 
-   As a transitional measure, [I-D.ietf-tls-8773bis] allows certificate-
-   based authentication to be combined with a strong external PSK that
-   is incorporated into the TLS 1.3 key schedule.  This provides
+   As a transitional measure, [RFC9973] allows certificate-based
+   authentication to be combined with a strong external PSK that is
+   incorporated into the TLS 1.3 key schedule.  This provides
    confidentiality protection against a future cryptographically
    relevant quantum computer, provided that the external PSK is
    generated and distributed securely.  It does not make the
@@ -1543,13 +1543,6 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-ietf-pquip-
               pqc-hsm-constrained-06>.
 
-   [I-D.ietf-tls-8773bis]
-              Housley, R., "TLS 1.3 Extension for Using Certificates
-              with an External Pre-Shared Key", Work in Progress,
-              Internet-Draft, draft-ietf-tls-8773bis-13, 5 September
-              2025, <https://datatracker.ietf.org/doc/html/draft-ietf-
-              tls-8773bis-13>.
-
    [I-D.ietf-tls-pake]
               Bauman, L., Benjamin, D., Menon, S., and C. A. Wood, "A
               Password Authenticated Key Exchange Extension for TLS
@@ -1751,6 +1744,11 @@ Table of Contents
               T., and M. Ounsworth, "Post-Quantum Cryptography for
               Engineers", RFC 9958, DOI 10.17487/RFC9958, June 2026,
               <https://www.rfc-editor.org/rfc/rfc9958>.
+
+   [RFC9973]  Housley, R., "TLS 1.3 Extension for Using Certificates
+              with an External Pre-Shared Key", RFC 9973,
+              DOI 10.17487/RFC9973, July 2026,
+              <https://www.rfc-editor.org/rfc/rfc9973>.
 
    [Toms-Hardware-Oculus-Rift-2018]
               Colaner, S., "How To Patch Your Oculus Rift", March 2018,
