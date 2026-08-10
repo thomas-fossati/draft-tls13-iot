@@ -2600,12 +2600,7 @@ acceptable CAs (<span><a href="https://rfc-editor.org/rfc/rfc9846#section-4.2.4"
 WebPKI-style deployments, this list is small or omitted because only a small
 number of trust anchors is used. In contrast,
 CertificateRequest caching is not useful for post-handshake authentication
-when the <code>certificate_request_context</code> changes between requests.<a href="#section-18-7.2.3" class="pilcrow">¶</a></p>
-<p id="section-18-7.2.4">
-The main applicability of <code>cached_info</code> in this profile is therefore server
-certificate caching. This is most useful when a client repeatedly connects to
-the same server and the server certificate, selected chain, and server-side
-certificate configuration remain stable across handshakes.<a href="#section-18-7.2.4" class="pilcrow">¶</a></p>
+since the <code>certificate_request_context</code> changes between requests.<a href="#section-18-7.2.3" class="pilcrow">¶</a></p>
 </li>
         <li class="compact" id="section-18-7.3">
           <p id="section-18-7.3.1">The client certificate URL mechanism defined in <span><a href="https://rfc-editor.org/rfc/rfc6066#section-5" class="relref">Section 5</a> of [<a href="#RFC6066" class="cite xref">RFC6066</a>]</span> can
@@ -2764,7 +2759,7 @@ In particular, IDevIDs and LDevIDs may reveal manufacturer identity, device
 serial numbers, or other information to peers. Protection against passive
 observers is, however, substantially improved since certificates are encrypted
 in TLS 1.3 and DTLS 1.3. Client certificates are also sent only after the server
-certificate has been received and validated. The authenticated peer still
+certificate has been received and validated. The server still
 receives the certificate and learns the identifiers it contains.<a href="#section-21-2" class="pilcrow">¶</a></p>
 <p id="section-21-3">Manufacturer-assigned device serial numbers and EUI-48 or EUI-64 values can
 enable correlation across networks or application contexts. EUI-48 and EUI-64
@@ -2807,7 +2802,7 @@ signature scheme (e.g., ECDSA <span>[<a href="#RFC6979" class="cite xref">RFC697
 <p id="section-22.1-2">Most of these attacks assume physical access to the device and are therefore
 especially relevant to smart cards as well as IoT deployments with poor or
 non-existent physical security.<a href="#section-22.1-2" class="pilcrow">¶</a></p>
-<p id="section-22.1-3">In this security model, it is recommended to combine both randomness and
+<p id="section-22.1-3">It is recommended to combine both randomness and
 determinism, for example, as described in
 <span>[<a href="#I-D.irtf-cfrg-det-sigs-with-noise" class="cite xref">I-D.irtf-cfrg-det-sigs-with-noise</a>]</span>.<a href="#section-22.1-3" class="pilcrow">¶</a></p>
 </section>
