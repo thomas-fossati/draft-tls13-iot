@@ -1486,8 +1486,9 @@ TLS deployments.<a href="#section-3-2" class="pilcrow">¶</a></p>
 <p id="section-3-3">This profile considers three authentication modes for IoT devices:
 (1) certificate-based, (2) raw public key-based and (3) external PSK-based.
 TLS/DTLS 1.3 supports both PSK-only and PSK with (EC)DHE key exchange modes.
-For PSK use, endpoints SHOULD use (EC)DHE where possible; see
-<a href="#forward_secrecy" class="auto internal xref">Section 7</a>.<a href="#section-3-3" class="pilcrow">¶</a></p>
+For PSK use, endpoints MUST use (EC)DHE where possible to provide forward
+secrecy; PSK-only is acceptable only when the loss of forward secrecy is
+explicitly accepted for the IoT deployment; see <a href="#forward_secrecy" class="auto internal xref">Section 7</a>.<a href="#section-3-3" class="pilcrow">¶</a></p>
 <p id="section-3-4">TLS/DTLS 1.3 supports PSK-based authentication,
 wherein PSKs can be established via session tickets from prior
 connections or via some external, out-of-band mechanism. To distinguish
@@ -1688,8 +1689,9 @@ protocol.<a href="#section-6-2" class="pilcrow">¶</a></p>
       </h2>
 <p id="section-7-1">RFC 9846 has removed Static RSA and Static Diffie-Hellman cipher suites, therefore all public-key-based key exchange mechanisms available in TLS 1.3 provide forward secrecy.<a href="#section-7-1" class="pilcrow">¶</a></p>
 <p id="section-7-2">Pre-shared keys (PSKs) can be used with (EC)DHE key exchange to provide forward secrecy or can be used alone, at the cost of losing forward secrecy for the application data.
-For PSK use, endpoints SHOULD use (EC)DHE to achieve forward secrecy; PSK-only
-SHOULD be avoided unless the application can tolerate the loss of forward secrecy.<a href="#section-7-2" class="pilcrow">¶</a></p>
+For PSK use, endpoints SHOULD use (EC)DHE to achieve forward secrecy. PSK-only
+is acceptable only when the loss of forward secrecy is explicitly accepted for
+the IoT deployment.<a href="#section-7-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="keep-alive">
@@ -1793,8 +1795,11 @@ guidance in <span><a href="https://rfc-editor.org/rfc/rfc9325#section-3.8" class
       </h2>
 <p id="section-13-1">The Maximum Fragment Length Negotiation (MFL) extension has been superseded by
 the Record Size Limit (RSL) extension <span>[<a href="#RFC8449" class="cite xref">RFC8449</a>]</span>. Implementations in
-compliance with this specification MUST implement the RSL extension and SHOULD
-use it to indicate their RAM limitations.<a href="#section-13-1" class="pilcrow">¶</a></p>
+compliance with this specification MUST implement the RSL extension and MUST
+use it to indicate their RAM or record-size limitations unless the default
+record sizes, which require approximately 18 KB of memory for TLS 1.3
+ciphertext and associated processing buffers, are acceptable for the IoT
+deployment.<a href="#section-13-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="crypto-agility">
@@ -1976,11 +1981,11 @@ It also affects the maximum validity period of certificates.<a href="#section-17
 <p id="section-17.1.5-2">Constrained devices often lack precise UTC time; implementations SHOULD treat
 time checks with coarse granularity (e.g., day- or hour-level) and ignore leap
 seconds when validating notAfter. For devices without a reliable source of time
-we advise the use of a device management solution, which typically includes a
-certificate management protocol, to manage certificates used by the device over
-their lifecycle. While this approach does not utilize certificates to its widest
-extent, it is a solution that extends the capabilities offered by a raw public
-key approach.<a href="#section-17.1.5-2" class="pilcrow">¶</a></p>
+this document recommends the use of a device management solution, which
+typically includes a certificate management protocol, to manage certificates
+used by the device over their lifecycle. While this approach does not utilize
+certificates to its widest extent, it is a solution that extends the
+capabilities offered by a raw public key approach.<a href="#section-17.1.5-2" class="pilcrow">¶</a></p>
 <p id="section-17.1.5-3">In many IoT deployments, IDevIDs are provisioned with an unlimited lifetime,
 as described in <span>[<a href="#IEEE-802.1AR" class="cite xref">IEEE-802.1AR</a>]</span>. This helps prevent devices from being
 accidentally bricked due to certificate expiration. A real-world example
@@ -2001,8 +2006,9 @@ and may be renewed at a regular interval using protocols, such
 as Enrollment over Secure Transport (EST) <span>[<a href="#RFC7030" class="cite xref">RFC7030</a>]</span> or
 Certificate Management Protocol (CMP) <span>[<a href="#RFC9810" class="cite xref">RFC9810</a>]</span> <span>[<a href="#RFC9483" class="cite xref">RFC9483</a>]</span>.
 It is therefore RECOMMENDED to limit the lifetime of these LDevID certificates
-using the notBefore and notAfter fields, as described in <span><a href="https://rfc-editor.org/rfc/rfc5280#section-4.1.2.5" class="relref">Section 4.1.2.5</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>. Values MUST be expressed in Greenwich Mean Time (Zulu) and
-MUST include seconds even where the number of seconds is zero.<a href="#section-17.1.5-5" class="pilcrow">¶</a></p>
+using the notBefore and notAfter fields, as described in <span><a href="https://rfc-editor.org/rfc/rfc5280#section-4.1.2.5" class="relref">Section 4.1.2.5</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>. Consistent with <span><a href="https://rfc-editor.org/rfc/rfc5280#section-4.1.2.5.1" class="relref">Section 4.1.2.5.1</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> and
+<span><a href="https://rfc-editor.org/rfc/rfc5280#section-4.1.2.5.2" class="relref">Section 4.1.2.5.2</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>, values MUST be expressed in Greenwich Mean
+Time (Zulu) and MUST include seconds even where the number of seconds is zero.<a href="#section-17.1.5-5" class="pilcrow">¶</a></p>
 <p id="section-17.1.5-6">Note that the validity period is defined as the period of time from notBefore
 through notAfter, inclusive. This means that a hypothetical certificate with a
 notBefore date of 9 June 2021 at 03:42:01 and a notAfter date of 7 September
@@ -2149,11 +2155,13 @@ public key info field.<a href="#section-17.2.3-2" class="pilcrow">¶</a></p>
 <p id="section-17.2.4-1"><span><a href="https://rfc-editor.org/rfc/rfc5280#section-4.2.1.3" class="relref">Section 4.2.1.3</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> defines the key usage field as follows: "The key usage extension defines
 the purpose (e.g., encipherment, signature, certificate signing) of the key contained
 in the certificate."<a href="#section-17.2.4-1" class="pilcrow">¶</a></p>
-<p id="section-17.2.4-2">The Key Usage extension SHOULD be set; if it is set, it MUST be marked
-critical, and the keyCertSign purpose MUST be set. If the Root CA issues CRLs,
-the cRLSign purpose MUST also be set. Additional key usages MAY be set
-depending on the intended usage of the public key. The digitalSignature purpose
-is not required for a Root CA certificate.<a href="#section-17.2.4-2" class="pilcrow">¶</a></p>
+<p id="section-17.2.4-2">The Key Usage extension SHOULD be set in Root CA certificates. If present, it MUST be
+marked critical and MUST include keyCertSign. If the CA signs CRLs, cRLSign
+MUST also be set. The digitalSignature bit is only needed when the same CA key
+is used to sign objects other than certificates or CRLs, such as OCSP responses.<a href="#section-17.2.4-2" class="pilcrow">¶</a></p>
+<p id="section-17.2.4-3">The extension MAY be omitted only in closed deployments where all
+relying parties are configured to accept the Root CA certificate as a trust
+anchor according to local policy without processing the Key Usage extension.<a href="#section-17.2.4-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="extended-key-usage">
@@ -2377,8 +2385,11 @@ peer still learns the identifier. An EUI-48 or EUI-64 can reveal
 organizational allocation information and can enable correlation across
 networks or application contexts. A stable device serial number has similar
 correlation risks. Environments that are concerned about such traffic analysis
-SHOULD use an enrollment protocol to migrate from identifiable IDevID
-certificates to less identifiable operational LDevID certificates.<a href="#section-17.4.1-17" class="pilcrow">¶</a></p>
+SHOULD avoid using stable, globally identifiable device identifiers in
+operational certificates. This can be achieved, for example, by using an enrollment
+protocol to migrate from identifiable IDevID certificates to less identifiable
+operational LDevID certificates, or by provisioning operational certificates
+that contain only deployment-local or otherwise non-public identifiers.<a href="#section-17.4.1-17" class="pilcrow">¶</a></p>
 <p id="section-17.4.1-18">Per <span>[<a href="#RFC9525" class="cite xref">RFC9525</a>]</span> domain names MUST NOT be encoded in the subject commonName. Instead they
 MUST be encoded in a subjectAltName of type DNS-ID. Domain names MUST NOT
 contain wildcard (<code>*</code>) characters. The subjectAltName MUST NOT contain multiple
@@ -2681,7 +2692,9 @@ enable correlation across networks or application contexts. EUI-48 and EUI-64
 values can also reveal organizational allocation information. Deployments that
 are concerned about such traffic analysis SHOULD use an enrollment protocol to
 migrate from identifiable IDevID certificates to less identifiable operational
-LDevID certificates.<a href="#section-23-3" class="pilcrow">¶</a></p>
+LDevID certificates. Deployments that continue to use stable identifiers in
+certificates expose those identifiers to peers and can enable correlation
+across connections, networks, or application contexts.<a href="#section-23-3" class="pilcrow">¶</a></p>
 <p id="section-23-4">Some deployments use the mechanisms discussed in the Certificate Overhead section,
 such as certificate URLs or external certificate retrieval, instead of always
 transmitting full certificates in the handshake. In these cases, the privacy
@@ -2728,6 +2741,10 @@ document.<a href="#section-24-2" class="pilcrow">¶</a></p>
 <a href="#section-26.1" class="section-number selfRef">26.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
+<dt id="I-D.ietf-iotops-7228bis">[I-D.ietf-iotops-7228bis]</dt>
+        <dd>
+<span class="refAuthor">Bormann, C.</span>, <span class="refAuthor">Ersue, M.</span>, <span class="refAuthor">Keränen, A.</span>, and <span class="refAuthor">C. Gomez</span>, <span class="refTitle">"Terminology for Constrained-Node Networks"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-iotops-7228bis-10</span>, <time datetime="2026-07-06" class="refDate">6 July 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-iotops-7228bis-10">https://datatracker.ietf.org/doc/html/draft-ietf-iotops-7228bis-10</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="I-D.ietf-lamps-macaddress-on">[I-D.ietf-lamps-macaddress-on]</dt>
         <dd>
 <span class="refAuthor">Housley, R.</span>, <span class="refAuthor">Bonnell, C.</span>, <span class="refAuthor">Mandel, J.</span>, <span class="refAuthor">Okubo, T.</span>, and <span class="refAuthor">M. StJohns</span>, <span class="refTitle">"Media Access Control (MAC) Addresses in X.509 Certificates"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-lamps-macaddress-on-07</span>, <time datetime="2026-03-12" class="refDate">12 March 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-lamps-macaddress-on-07">https://datatracker.ietf.org/doc/html/draft-ietf-lamps-macaddress-on-07</a>&gt;</span>. </dd>
@@ -2824,10 +2841,6 @@ document.<a href="#section-24-2" class="pilcrow">¶</a></p>
 <dt id="I-D.ietf-httpbis-secondary-server-certs">[I-D.ietf-httpbis-secondary-server-certs]</dt>
         <dd>
 <span class="refAuthor">Gorbaty, E.</span> and <span class="refAuthor">M. Bishop</span>, <span class="refTitle">"Secondary Certificate Authentication of HTTP Servers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-httpbis-secondary-server-certs-02</span>, <time datetime="2026-06-17" class="refDate">17 June 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-secondary-server-certs-02">https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-secondary-server-certs-02</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="I-D.ietf-iotops-7228bis">[I-D.ietf-iotops-7228bis]</dt>
-        <dd>
-<span class="refAuthor">Bormann, C.</span>, <span class="refAuthor">Ersue, M.</span>, <span class="refAuthor">Keränen, A.</span>, and <span class="refAuthor">C. Gomez</span>, <span class="refTitle">"Terminology for Constrained-Node Networks"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-iotops-7228bis-10</span>, <time datetime="2026-07-06" class="refDate">6 July 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-iotops-7228bis-10">https://datatracker.ietf.org/doc/html/draft-ietf-iotops-7228bis-10</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-iotops-iot-dns-guidelines">[I-D.ietf-iotops-iot-dns-guidelines]</dt>
         <dd>
@@ -3013,8 +3026,9 @@ John Mattsson,
 Tiru Reddy,
 Scott Rose,
 Rich Salz,
-Martin Thomson, and
-Marco Tiloca.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+Martin Thomson,
+Marco Tiloca, and
+Éric Vyncke.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 <p id="appendix-A-2">Finally, we would like to thank our security area director Deb Cooley for her detailed review comments.<a href="#appendix-A-2" class="pilcrow">¶</a></p>
 </section>
 </div>
