@@ -1052,7 +1052,7 @@ svg {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Tschofenig, et al.</td>
-<td class="center">Expires 4 February 2027</td>
+<td class="center">Expires 11 February 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1068,12 +1068,12 @@ svg {
 <a href="https://www.rfc-editor.org/rfc/rfc7925" class="eref">7925</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-08-03" class="published">3 August 2026</time>
+<time datetime="2026-08-10" class="published">10 August 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-02-04">4 February 2027</time></dd>
+<dd class="expires"><time datetime="2027-02-11">11 February 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1131,7 +1131,7 @@ profile and ciphersuite requirements.<a href="#section-abstract-1" class="pilcro
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 4 February 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 11 February 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1365,7 +1365,8 @@ is a critical requirement. The Transport Layer Security (TLS) and Datagram Trans
 Layer Security (DTLS) protocols have been foundational for ensuring encryption,
 integrity, and authenticity in communications. However, the constraints of a certain
 class of IoT devices render conventional, off-the-shelf TLS/DTLS implementations
-suboptimal for many IoT use cases. This document addresses these limitations by specifying TLS 1.3 and DTLS 1.3 profiles that are optimized for resource-constrained IoT devices.<a href="#section-1-1" class="pilcrow">¶</a></p>
+suboptimal for many IoT use cases. This document addresses these limitations by specifying
+TLS 1.3 and DTLS 1.3 profiles that are optimized for resource-constrained IoT devices.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">Note that IoT devices vary widely in terms of capabilities. While some are highly
 resource-constrained, others offer performance comparable to regular desktop computers
 but operate without end-user interfaces. For a detailed description of the different
@@ -1374,8 +1375,8 @@ It is crucial for developers to thoroughly assess the limitations of their IoT d
 and communication technologies to implement the most suitable optimizations.
 The profiles in this document aim to balance strong security with the hardware and
 software limitations of IoT devices.<a href="#section-1-2" class="pilcrow">¶</a></p>
-<p id="section-1-3">TLS 1.3 has been re-designed and several previously defined extensions are not
-applicable to the new version of TLS/DTLS anymore. The following features changed
+<p id="section-1-3">TLS 1.3 has been re-designed and several previously defined extensions are no longer
+applicable to the new version of TLS/DTLS. The following features changed
 with the transition from TLS 1.2 to 1.3:<a href="#section-1-3" class="pilcrow">¶</a></p>
 <ul class="compact">
 <li class="compact" id="section-1-4.1">
@@ -1757,7 +1758,7 @@ but no less than 1000ms, which is a conservative default aligned with the guidan
 <span><a href="https://rfc-editor.org/rfc/rfc7925#section-11" class="relref">Section 11</a> of [<a href="#RFC7925" class="cite xref">RFC7925</a>]</span>.
 For specific application/network combinations, a sub-second initial timeout MAY be set.
 In cases where no RTT estimates are available, a 1000ms initial timeout is suitable for the general Internet.<a href="#section-8-5" class="pilcrow">¶</a></p>
-<p id="section-8-6">Regarding the timers used by the Return Routability Check (RRC) functionality, the recommendations in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-dtls-rrc-20#section-5.5" class="relref">Section 5.5</a> of [<a href="#I-D.ietf-tls-dtls-rrc" class="cite xref">I-D.ietf-tls-dtls-rrc</a>]</span> apply.
+<p id="section-8-6">Regarding the timers used by the Return Routability Check (RRC) functionality, the recommendations in <span><a href="https://rfc-editor.org/rfc/rfc9853#section-5.5" class="relref">Section 5.5</a> of [<a href="#RFC9853" class="cite xref">RFC9853</a>]</span> apply.
 Just like the handshake initial timers, it is RECOMMENDED that DTLS 1.2 and 1.3 implementations offer an option for their developers to explicitly set the RRC timer.<a href="#section-8-6" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -2353,8 +2354,8 @@ possible but less common.<a href="#section-16.4.1-1" class="pilcrow">¶</a></p>
 <p id="section-16.4.1-2"><span>[<a href="#RFC9525" class="cite xref">RFC9525</a>], <a href="https://rfc-editor.org/rfc/rfc9525#section-2" class="relref">Section 2</a></span> mandates that the subject field not be used to identify a service.
 However, certain IoT applications (for example, <span>[<a href="#I-D.ietf-anima-constrained-voucher" class="cite xref">I-D.ietf-anima-constrained-voucher</a>]</span>,
 <span>[<a href="#IEEE-802.1AR" class="cite xref">IEEE-802.1AR</a>]</span>) use the subject field to encode the device serial number.<a href="#section-16.4.1-2" class="pilcrow">¶</a></p>
-<p id="section-16.4.1-3">The restriction in <span><a href="https://rfc-editor.org/rfc/rfc7925#section-4.4.2" class="relref">Section 4.4.2</a> of [<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> to use only EUI-64 as the
-identifier in end-entity certificates is updated by this specification.<a href="#section-16.4.1-3" class="pilcrow">¶</a></p>
+<p id="section-16.4.1-3">This specification removes the requirement in <span><a href="https://rfc-editor.org/rfc/rfc7925#section-4.4.2" class="relref">Section 4.4.2</a> of [<a href="#RFC7925" class="cite xref">RFC7925</a>]</span> that stipulated
+the exclusive use of EUI-64 in the subject field of end entity certificates.<a href="#section-16.4.1-3" class="pilcrow">¶</a></p>
 <p id="section-16.4.1-4">Two fields are typically used to encode a device identifier, namely the
 Subject and the subjectAltName fields. Protocol specifications tend to offer
 recommendations about what identifiers to use and the deployment situation is
@@ -2648,7 +2649,7 @@ deployment.<a href="#section-18-8" class="pilcrow">¶</a></p>
 authentication tags (CCM_8) is considered unsuitable for general use with DTLS.
 This is because it has low integrity limits (i.e., high sensitivity to
 forgeries) which makes endpoints that negotiate ciphersuites based on such AEAD
-vulnerable to a trivial DoS attack. See also Sections <a href="https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-11#section-5.3" class="relref">5.3</a> and <a href="https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-11#section-5.4" class="relref">5.4</a> of <span>[<a href="#I-D.irtf-cfrg-aead-limits" class="cite xref">I-D.irtf-cfrg-aead-limits</a>]</span> for further discussion on this topic, as well as
+vulnerable to a trivial DoS attack. See also Sections <a href="https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-12#section-5.3" class="relref">5.3</a> and <a href="https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-12#section-5.4" class="relref">5.4</a> of <span>[<a href="#I-D.irtf-cfrg-aead-limits" class="cite xref">I-D.irtf-cfrg-aead-limits</a>]</span> for further discussion on this topic, as well as
 references to the analysis supporting these conclusions.<a href="#section-19-1" class="pilcrow">¶</a></p>
 <p id="section-19-2">Specifically, <span>[<a href="#RFC9147" class="cite xref">RFC9147</a>]</span> warns that:<a href="#section-19-2" class="pilcrow">¶</a></p>
 <blockquote id="section-19-3">
@@ -2738,7 +2739,7 @@ need to evaluate the energy impact of PQC choices <span>[<a href="#PQC-ENERGY" c
 background for engineers is provided by <span>[<a href="#RFC9958" class="cite xref">RFC9958</a>]</span>, and guidance on PQC use
 with constrained hardware security modules is provided by
 <span>[<a href="#I-D.ietf-pquip-pqc-hsm-constrained" class="cite xref">I-D.ietf-pquip-pqc-hsm-constrained</a>]</span>.<a href="#section-20-3" class="pilcrow">¶</a></p>
-<p id="section-20-4">As a transitional measure, <span>[<a href="#I-D.ietf-tls-8773bis" class="cite xref">I-D.ietf-tls-8773bis</a>]</span> allows certificate-based
+<p id="section-20-4">As a transitional measure, <span>[<a href="#RFC9973" class="cite xref">RFC9973</a>]</span> allows certificate-based
 authentication to be combined with a strong external PSK that is incorporated
 into the TLS 1.3 key schedule. This provides confidentiality protection against
 a future cryptographically relevant quantum computer, provided that the
@@ -2859,10 +2860,6 @@ cipher suites.<a href="#section-22.2-2" class="pilcrow">¶</a></p>
         <dd>
 <span class="refAuthor">Housley, R.</span>, <span class="refAuthor">Bonnell, C.</span>, <span class="refAuthor">Mandel, J.</span>, <span class="refAuthor">Okubo, T.</span>, and <span class="refAuthor">M. StJohns</span>, <span class="refTitle">"Media Access Control (MAC) Addresses in X.509 Certificates"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-lamps-macaddress-on-07</span>, <time datetime="2026-03-12" class="refDate">12 March 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-lamps-macaddress-on-07">https://datatracker.ietf.org/doc/html/draft-ietf-lamps-macaddress-on-07</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="I-D.ietf-tls-dtls-rrc">[I-D.ietf-tls-dtls-rrc]</dt>
-        <dd>
-<span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Kraus, A.</span>, and <span class="refAuthor">T. Fossati</span>, <span class="refTitle">"Return Routability Check for DTLS 1.2 and DTLS 1.3"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tls-dtls-rrc-20</span>, <time datetime="2025-07-14" class="refDate">14 July 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-dtls-rrc-20">https://datatracker.ietf.org/doc/html/draft-ietf-tls-dtls-rrc-20</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
@@ -2912,8 +2909,12 @@ cipher suites.<a href="#section-22.2-2" class="pilcrow">¶</a></p>
 <span class="refAuthor">Saint-Andre, P.</span> and <span class="refAuthor">R. Salz</span>, <span class="refTitle">"Service Identity in TLS"</span>, <span class="seriesInfo">RFC 9525</span>, <span class="seriesInfo">DOI 10.17487/RFC9525</span>, <time datetime="2023-11" class="refDate">November 2023</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9525">https://www.rfc-editor.org/rfc/rfc9525</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9846">[RFC9846]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Rescorla, E.</span>, <span class="refTitle">"The Transport Layer Security (TLS) Protocol Version 1.3"</span>, <span class="seriesInfo">RFC 9846</span>, <span class="seriesInfo">DOI 10.17487/RFC9846</span>, <time datetime="2026-07" class="refDate">July 2026</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9846">https://www.rfc-editor.org/rfc/rfc9846</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9853">[RFC9853]</dt>
+      <dd>
+<span class="refAuthor">Tschofenig, H., Ed.</span>, <span class="refAuthor">Kraus, A.</span>, and <span class="refAuthor">T. Fossati</span>, <span class="refTitle">"Return Routability Check for DTLS 1.2 and 1.3"</span>, <span class="seriesInfo">RFC 9853</span>, <span class="seriesInfo">DOI 10.17487/RFC9853</span>, <time datetime="2026-03" class="refDate">March 2026</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9853">https://www.rfc-editor.org/rfc/rfc9853</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -2960,10 +2961,6 @@ cipher suites.<a href="#section-22.2-2" class="pilcrow">¶</a></p>
         <dd>
 <span class="refAuthor">Reddy.K, T.</span>, <span class="refAuthor">Wing, D.</span>, <span class="refAuthor">S, B.</span>, and <span class="refAuthor">K. Kwiatkowski</span>, <span class="refTitle">"Adapting Constrained Devices for Post-Quantum Cryptography"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-pquip-pqc-hsm-constrained-06</span>, <time datetime="2026-06-24" class="refDate">24 June 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-pquip-pqc-hsm-constrained-06">https://datatracker.ietf.org/doc/html/draft-ietf-pquip-pqc-hsm-constrained-06</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="I-D.ietf-tls-8773bis">[I-D.ietf-tls-8773bis]</dt>
-        <dd>
-<span class="refAuthor">Housley, R.</span>, <span class="refTitle">"TLS 1.3 Extension for Using Certificates with an External Pre-Shared Key"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tls-8773bis-13</span>, <time datetime="2025-09-05" class="refDate">5 September 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-8773bis-13">https://datatracker.ietf.org/doc/html/draft-ietf-tls-8773bis-13</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="I-D.ietf-tls-extended-key-update">[I-D.ietf-tls-extended-key-update]</dt>
         <dd>
 <span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Tüxen, M.</span>, <span class="refAuthor">Reddy.K, T.</span>, <span class="refAuthor">Fries, S.</span>, and <span class="refAuthor">Y. Rosomakho</span>, <span class="refTitle">"Extended Key Update for Transport Layer Security (TLS) 1.3"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tls-extended-key-update-13</span>, <time datetime="2026-07-04" class="refDate">4 July 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-extended-key-update-13">https://datatracker.ietf.org/doc/html/draft-ietf-tls-extended-key-update-13</a>&gt;</span>. </dd>
@@ -2978,7 +2975,7 @@ cipher suites.<a href="#section-22.2-2" class="pilcrow">¶</a></p>
 <dd class="break"></dd>
 <dt id="I-D.irtf-cfrg-aead-limits">[I-D.irtf-cfrg-aead-limits]</dt>
         <dd>
-<span class="refAuthor">Günther, F.</span>, <span class="refAuthor">Thomson, M.</span>, and <span class="refAuthor">C. A. Wood</span>, <span class="refTitle">"Usage Limits on AEAD Algorithms"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-cfrg-aead-limits-11</span>, <time datetime="2025-12-04" class="refDate">4 December 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-11">https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-11</a>&gt;</span>. </dd>
+<span class="refAuthor">Günther, F.</span>, <span class="refAuthor">Thomson, M.</span>, and <span class="refAuthor">C. A. Wood</span>, <span class="refTitle">"Usage Limits on AEAD Algorithms"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-cfrg-aead-limits-12</span>, <time datetime="2026-08-07" class="refDate">7 August 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-12">https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-12</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.irtf-cfrg-det-sigs-with-noise">[I-D.irtf-cfrg-det-sigs-with-noise]</dt>
         <dd>
@@ -3056,10 +3053,6 @@ cipher suites.<a href="#section-22.2-2" class="pilcrow">¶</a></p>
         <dd>
 <span class="refAuthor">Friedl, S.</span>, <span class="refAuthor">Popov, A.</span>, <span class="refAuthor">Langley, A.</span>, and <span class="refAuthor">E. Stephan</span>, <span class="refTitle">"Transport Layer Security (TLS) Application-Layer Protocol Negotiation Extension"</span>, <span class="seriesInfo">RFC 7301</span>, <span class="seriesInfo">DOI 10.17487/RFC7301</span>, <time datetime="2014-07" class="refDate">July 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7301">https://www.rfc-editor.org/rfc/rfc7301</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC7452">[RFC7452]</dt>
-        <dd>
-<span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Arkko, J.</span>, <span class="refAuthor">Thaler, D.</span>, and <span class="refAuthor">D. McPherson</span>, <span class="refTitle">"Architectural Considerations in Smart Object Networking"</span>, <span class="seriesInfo">RFC 7452</span>, <span class="seriesInfo">DOI 10.17487/RFC7452</span>, <time datetime="2015-03" class="refDate">March 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7452">https://www.rfc-editor.org/rfc/rfc7452</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC7924">[RFC7924]</dt>
         <dd>
 <span class="refAuthor">Santesson, S.</span> and <span class="refAuthor">H. Tschofenig</span>, <span class="refTitle">"Transport Layer Security (TLS) Cached Information Extension"</span>, <span class="seriesInfo">RFC 7924</span>, <span class="seriesInfo">DOI 10.17487/RFC7924</span>, <time datetime="2016-07" class="refDate">July 2016</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7924">https://www.rfc-editor.org/rfc/rfc7924</a>&gt;</span>. </dd>
@@ -3124,6 +3117,10 @@ cipher suites.<a href="#section-22.2-2" class="pilcrow">¶</a></p>
         <dd>
 <span class="refAuthor">Banerjee, A.</span>, <span class="refAuthor">Reddy.K, T.</span>, <span class="refAuthor">Schoinianakis, D.</span>, <span class="refAuthor">Hollebeek, T.</span>, and <span class="refAuthor">M. Ounsworth</span>, <span class="refTitle">"Post-Quantum Cryptography for Engineers"</span>, <span class="seriesInfo">RFC 9958</span>, <span class="seriesInfo">DOI 10.17487/RFC9958</span>, <time datetime="2026-06" class="refDate">June 2026</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9958">https://www.rfc-editor.org/rfc/rfc9958</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC9973">[RFC9973]</dt>
+        <dd>
+<span class="refAuthor">Housley, R.</span>, <span class="refTitle">"TLS 1.3 Extension for Using Certificates with an External Pre-Shared Key"</span>, <span class="seriesInfo">RFC 9973</span>, <span class="seriesInfo">DOI 10.17487/RFC9973</span>, <time datetime="2026-07" class="refDate">July 2026</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9973">https://www.rfc-editor.org/rfc/rfc9973</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="Toms-Hardware-Oculus-Rift-2018">[Toms-Hardware-Oculus-Rift-2018]</dt>
       <dd>
 <span class="refAuthor">Colaner, S.</span>, <span class="refTitle">"How To Patch Your Oculus Rift"</span>, <time datetime="2018-03" class="refDate">March 2018</time>, <span>&lt;<a href="https://www.tomshardware.com/news/oculus-rift-runtime-error-fix%2C36629.html">https://www.tomshardware.com/news/oculus-rift-runtime-error-fix%2C36629.html</a>&gt;</span>. </dd>
@@ -3144,6 +3141,7 @@ Hendrik Brockhaus,
 Roman Danyliw,
 Menachem Dodge,
 Martin Duke,
+Gorry Fairhurst,
 Miek Gieben,
 Russ Housley,
 Ben Kaduk,
@@ -3154,8 +3152,9 @@ Scott Rose,
 Rich Salz,
 Mohit Sethi,
 Ketan Talaulikar,
-Martin Thomson, and
-Marco Tiloca.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+Martin Thomson,
+Marco Tiloca, and
+Éric Vyncke.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 <p id="appendix-A-2">Finally, we would like to thank our security area director Deb Cooley for her detailed review comments.<a href="#appendix-A-2" class="pilcrow">¶</a></p>
 </section>
 </div>
