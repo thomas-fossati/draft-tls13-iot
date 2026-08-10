@@ -1151,12 +1151,7 @@ are not uniformly supported by TLS/DTLS stacks:
   WebPKI-style deployments, this list is small or omitted because only a small
   number of trust anchors is used. In contrast,
   CertificateRequest caching is not useful for post-handshake authentication
-  when the `certificate_request_context` changes between requests.
-
-  The main applicability of `cached_info` in this profile is therefore server
-  certificate caching. This is most useful when a client repeatedly connects to
-  the same server and the server certificate, selected chain, and server-side
-  certificate configuration remain stable across handshakes.
+  since the `certificate_request_context` changes between requests.
 * The client certificate URL mechanism defined in {{Section 5 of RFC6066}} can
   replace client certificates in the handshake with references to external
   certificate objects. When
@@ -1275,7 +1270,7 @@ In particular, IDevIDs and LDevIDs may reveal manufacturer identity, device
 serial numbers, or other information to peers. Protection against passive
 observers is, however, substantially improved since certificates are encrypted
 in TLS 1.3 and DTLS 1.3. Client certificates are also sent only after the server
-certificate has been received and validated. The authenticated peer still
+certificate has been received and validated. The server still
 receives the certificate and learns the identifiers it contains.
 
 Manufacturer-assigned device serial numbers and EUI-48 or EUI-64 values can
@@ -1318,7 +1313,7 @@ Most of these attacks assume physical access to the device and are therefore
 especially relevant to smart cards as well as IoT deployments with poor or
 non-existent physical security.
 
-In this security model, it is recommended to combine both randomness and
+It is recommended to combine both randomness and
 determinism, for example, as described in
 {{?I-D.irtf-cfrg-det-sigs-with-noise}}.
 
