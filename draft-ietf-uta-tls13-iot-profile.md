@@ -1313,9 +1313,12 @@ Most of these attacks assume physical access to the device and are therefore
 especially relevant to smart cards as well as IoT deployments with poor or
 non-existent physical security.
 
-It is recommended to combine both randomness and
-determinism, for example, as described in
-{{?I-D.irtf-cfrg-det-sigs-with-noise}}.
+It is therefore recommended to introduce randomness into the signature scheme,
+as in the original ECDSA specification, or to combine deterministic and
+randomized techniques, for example as described in
+{{?I-D.irtf-cfrg-det-sigs-with-noise}}. However, the use of randomized
+signature algorithms can make implementations more difficult to test,
+as discussed in {{?RFC6979}}.
 
 ## Authentication- and Integrity-Only Cipher Suites
 
