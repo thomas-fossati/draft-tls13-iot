@@ -6,11 +6,11 @@ UTA                                                        H. Tschofenig
 Internet-Draft                                                  UniBw M.
 Updates: 7925 (if approved)                                   T. Fossati
 Intended status: Standards Track                                  NVIDIA
-Expires: 3 February 2027                                   M. Richardson
+Expires: 25 February 2027                                  M. Richardson
                                                 Sandelman Software Works
                                                               D. Migault
                                                                 Ericsson
-                                                           2 August 2026
+                                                          24 August 2026
 
 
             TLS/DTLS 1.3 Profiles for the Internet of Things
@@ -46,7 +46,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 February 2027.
+   This Internet-Draft will expire on 25 February 2027.
 
 Copyright Notice
 
@@ -69,57 +69,57 @@ Table of Contents
    3.  Credential Types
    4.  Error Handling
    5.  Session Resumption
-   6.   Compression
-   7.   Forward Secrecy
-   8.  Keep-Alive
-   9.  Timers and ACKs
-   10.  Random Number Generation
-   11. Server Name Indication
-   12. Application-Layer Protocol Negotiation
-   13. Maximum Fragment Length Negotiation
-   14. Crypto Agility
-   15. Key Length Recommendations
-   16. 0-RTT Data
-   17. Certificate Profile
-     17.1.  All Certificates
-       17.1.1.  Version
-       17.1.2.  Serial Number
-       17.1.3.  Signature
-       17.1.4.  Issuer
-       17.1.5.   Validity
-       17.1.6.   Subject Public Key Info
-       17.1.7.  Certificate Revocation Checks
-     17.2.  Root CA Certificate
-       17.2.1.  Subject
-       17.2.2.  Authority Key Identifier
-       17.2.3.  Subject Key Identifier
-       17.2.4.  Key Usage
-       17.2.5.  Extended Key Usage
-       17.2.6.  Basic Constraints
-     17.3.  Subordinate CA Certificate
-       17.3.1.  Subject
-       17.3.2.  Authority Key Identifier
-       17.3.3.  Subject Key Identifier
-       17.3.4.  Key Usage
-       17.3.5.  Basic Constraints
-       17.3.6.  CRL Distribution Point
-       17.3.7.  Authority Information Access
-     17.4.  End Entity Certificate
-       17.4.1.  Subject
-       17.4.2.  Authority Key Identifier
-       17.4.3.  Subject Key Identifier
-       17.4.4.  Key Usage
-   18. Update of Trust Anchors
-   19. Certificate Overhead
-   20. Ciphersuites
-   21. Fault Attacks on Deterministic Signature Schemes
-   22. Post-Quantum Cryptography (PQC) Considerations
-   23. Privacy Considerations
-   24. Security Considerations
-   25. IANA Considerations
-   26. References
-     26.1.  Normative References
-     26.2.  Informative References
+   6.   Forward Secrecy
+   7.  Keep-Alive
+   8.  Timers and ACKs
+   9.   Random Number Generation
+   10. Server Name Indication
+   11. Application-Layer Protocol Negotiation
+   12. Maximum Fragment Length Negotiation
+   13. Crypto Agility
+   14. Key Length Recommendations
+   15. 0-RTT Data
+   16. Certificate Profile
+     16.1.  All Certificates
+       16.1.1.  Version
+       16.1.2.  Serial Number
+       16.1.3.  Signature
+       16.1.4.  Issuer
+       16.1.5.   Validity
+       16.1.6.   Subject Public Key Info
+       16.1.7.  Certificate Revocation Checks
+     16.2.  Root CA Certificate
+       16.2.1.  Subject
+       16.2.2.  Authority Key Identifier
+       16.2.3.  Subject Key Identifier
+       16.2.4.  Key Usage
+       16.2.5.  Extended Key Usage
+       16.2.6.  Basic Constraints
+     16.3.  Subordinate CA Certificate
+       16.3.1.  Subject
+       16.3.2.  Authority Key Identifier
+       16.3.3.  Subject Key Identifier
+       16.3.4.  Key Usage
+       16.3.5.  Basic Constraints
+       16.3.6.  CRL Distribution Point
+       16.3.7.  Authority Information Access
+     16.4.  End Entity Certificate
+       16.4.1.  Subject
+       16.4.2.  Authority Key Identifier
+       16.4.3.  Subject Key Identifier
+       16.4.4.  Key Usage
+   17. Update of Trust Anchors
+   18. Certificate Overhead
+   19. Ciphersuites
+   20. Post-Quantum Cryptography (PQC) Considerations
+   21. Privacy Considerations
+   22. Security Considerations
+     22.1.  Fault Attacks on Deterministic Signature Schemes
+     22.2.  Authentication- and Integrity-Only Cipher Suites
+   23. IANA Considerations
+   24. References
+     24.1.  Normative References
+     24.2.  Informative References
    Acknowledgments
    Contributors
    Authors' Addresses
@@ -148,7 +148,7 @@ Table of Contents
    IoT devices.
 
    TLS 1.3 has been re-designed and several previously defined
-   extensions are not applicable to the new version of TLS/DTLS anymore.
+   extensions are no longer applicable to the new version of TLS/DTLS.
    The following features changed with the transition from TLS 1.2 to
    1.3:
 
@@ -209,20 +209,31 @@ Table of Contents
    and promote the broad adoption of secure communication standards.
 
    This document updates [RFC7925] with respect to the X.509 certificate
-   profile (Section 17) and ciphersuite requirements (Section 20).
+   profile (Section 16) and ciphersuite requirements (Section 19).  The
+   update is intentionally limited.  [RFC7925] remains the TLS/DTLS 1.2
+   profile for constrained IoT devices and is still relevant for legacy
+   deployments.  This is particularly important in industrial IoT
+   deployments, where devices, certification programs, and operational
+   processes often have long lifecycles and therefore transition to
+   newer protocol versions more slowly than general-purpose Internet
+   software.  This document does not replace the TLS/DTLS 1.2 protocol
+   guidance in [RFC7925].  Instead, it defines the corresponding TLS/
+   DTLS 1.3 profile and updates only those [RFC7925] requirements that
+   need to change for TLS/DTLS 1.3 deployments, namely the certificate
+   profile and ciphersuite recommendations.
 
    This document is organized as follows.  The sections from Section 3
-   through Section 16 profile TLS/DTLS credentials and protocol features
+   through Section 15 profile TLS/DTLS credentials and protocol features
    relevant to constrained IoT deployments, including credential types,
-   session resumption, compression, forward secrecy, server name
-   indication (SNI), record sizing, crypto agility, key lengths, and
-   0-RTT data.  Section 17 updates and clarifies the X.509 certificate
-   profile from [RFC7925].
+   session resumption, forward secrecy, server name indication (SNI),
+   record sizing, crypto agility, key lengths, and 0-RTT data.
+   Section 16 updates and clarifies the X.509 certificate profile from
+   [RFC7925].
 
    TLS protocol compatibility is a required basis, but it is
    insufficient to permit interoperability at the level of
-   authentication and authorization.  Section 18 and Section 19 discuss
-   trust-anchor update and certificate-size overhead.  Section 20
+   authentication and authorization.  Section 17 and Section 18 discuss
+   trust-anchor update and certificate-size overhead.  Section 19
    updates the ciphersuite requirements.
 
    The remaining sections discuss fault attacks, post-quantum
@@ -241,7 +252,7 @@ Table of Contents
    terminology from [RFC5280].  IoT device-class terminology follows
    [RFC7228] and [I-D.ietf-iotops-7228bis].  The DevID, IDevID, and
    LDevID terms used in the certificate profile are introduced in
-   [IEEE-802.1AR] and described in Section 17.
+   [IEEE-802.1AR] and described in Section 16.
 
 3.  Credential Types
 
@@ -250,7 +261,12 @@ Table of Contents
    passwords.  The extensions used in TLS/DTLS differ depending on the
    credential types supported.  Self-signed X.509 certificates are still
    X.509, not raw public keys; raw public keys are conveyed via the
-   raw_public_key extension.
+   raw_public_key extension [RFC7250].  When raw public keys are used
+   for peer authentication, deployments need to bind the authenticated
+   key to the expected peer identity.  Appendix F.9 of [RFC9846]
+   describes misbinding attacks in such deployments and identifies
+   mitigations, including the validation of the server_name extension
+   where a domain name is used.
 
    Password-authenticated key exchange (PAKE) mechanisms allow two
    endpoints to authenticate and establish keys from a low-entropy
@@ -265,8 +281,10 @@ Table of Contents
    This profile considers three authentication modes for IoT devices:
    (1) certificate-based, (2) raw public key-based and (3) external PSK-
    based.  TLS/DTLS 1.3 supports both PSK-only and PSK with (EC)DHE key
-   exchange modes.  For PSK use, endpoints SHOULD use (EC)DHE where
-   possible; see Section 7.
+   exchange modes.  For PSK use, endpoints MUST use (EC)DHE where
+   possible to provide forward secrecy.  PSK-only is acceptable when the
+   loss of forward secrecy is explicitly accepted for the IoT
+   deployment; see Section 6.
 
    TLS/DTLS 1.3 supports PSK-based authentication, wherein PSKs can be
    established via session tickets from prior connections or via some
@@ -291,6 +309,9 @@ Table of Contents
 
    For external pre-shared keys, [RFC9258] recommends that applications
    SHOULD provision separate PSKs for (D)TLS 1.3 and prior versions.
+   Additional guidance for using external PSKs in TLS, including PSK
+   entropy requirements and security properties, is provided by
+   [RFC9257].
 
    Where possible, the importer interface defined in [RFC9258] MUST be
    used for external PSKs.  This ensures that external PSKs used in
@@ -311,10 +332,13 @@ Table of Contents
 
    TLS/DTLS 1.3 implementations conforming to this profile MUST follow
    the mandatory-to-implement extension requirements in Section 9.2 of
-   [RFC9846].  This section summarizes those requirements and the
-   additional extension requirements established by this profile.  The
-   table does not replace the normative requirements in the referenced
-   sections.
+   [RFC9846].  For constrained IoT implementations, it is useful to have
+   a single checklist that maps TLS/DTLS 1.3 extension support to the
+   credential modes and deployment features used by this profile.
+   Table 1 provides that implementation checklist.  It summarizes the
+   TLS/DTLS 1.3 requirements and the additional extension requirements
+   established by this profile; it does not replace the normative
+   requirements in the referenced sections.
 
    +======================================+=================+=========+
    |Extension                             |Applicability    |Reference|
@@ -353,7 +377,7 @@ Table of Contents
    |                                      |psk_dhe_ke       |         |
    +--------------------------------------+-----------------+---------+
    |server_name                           |Applications     |Section  |
-   |                                      |capable of using |11       |
+   |                                      |capable of using |10       |
    |                                      |SNI              |         |
    +--------------------------------------+-----------------+---------+
    |pre_shared_key                        |PSK              |Section  |
@@ -365,43 +389,50 @@ Table of Contents
    |                                      |and resumption   |[RFC9846]|
    +--------------------------------------+-----------------+---------+
    |application_layer_protocol_negotiation|Application      |Section  |
-   |                                      |protocol         |12       |
+   |                                      |protocol         |11       |
    |                                      |selection        |         |
    +--------------------------------------+-----------------+---------+
    |record_size_limit                     |Constrained      |Section  |
-   |                                      |endpoints        |13       |
+   |                                      |endpoints        |12       |
    +--------------------------------------+-----------------+---------+
 
       Table 1: Mandatory and Profile-Specific Extension Requirements
 
 4.  Error Handling
 
-   TLS 1.3 simplified the Alert protocol but the underlying challenge in
-   an embedded context remains unchanged, namely what should an IoT
-   device do when it encounters an error situation.  The classical
-   approach used in a desktop environment where the user is prompted is
-   often not applicable with unattended devices.  Hence, it is more
-   important for a developer to find out from which error cases a device
-   can recover from.
+   TLS 1.3 simplified the Alert protocol, but IoT deployments still need
+   explicit error-handling behavior above the TLS library.  This is
+   particularly important in Industrial IoT applications where safety,
+   availability, and deterministic behavior are high priorities.
+   Unattended devices often cannot rely on prompting a user or on
+   generic TLS-library defaults.  Applications therefore need code and
+   policy for handling relevant TLS errors, including deciding which
+   errors are recoverable, when to retry or re-establish a connection,
+   when to use an alternative endpoint or credential, and when to enter
+   a safe operational state.  The general guidance in Section 6 of
+   [RFC7925] continues to apply.  However, implementations using TLS 1.3
+   MUST follow the alert definitions and processing rules in Section 6
+   of [RFC9846].  TLS 1.2-specific alerts for features that no longer
+   exist in TLS 1.3, such as decompression_failure and no_renegotiation,
+   are not used in TLS 1.3.  TLS 1.3 also defines alerts such as
+   missing_extension for protocol violations involving required
+   extensions.
 
 5.  Session Resumption
 
    TLS 1.3 has built-in support for session resumption by utilizing PSK-
-   based credentials established in an earlier exchange.
+   based credentials established in an earlier exchange.  Session
+   resumption can substantially reduce bandwidth, latency, and
+   cryptographic computation in IoT deployments because subsequent
+   handshakes do not need to repeat the full certificate-based
+   authentication exchange.  Servers can issue resumption PSKs in a way
+   that matches the expected reconnection pattern of the deployment.
+   The number of tickets issued, their lifetime, and their reuse policy
+   are deployment decisions that balance availability and bandwidth
+   savings against server state, anti-replay requirements, and privacy
+   considerations.
 
-6.   Compression
-
-   TLS 1.3 does not define compression of application data traffic, as
-   offered by previous versions of TLS.  Applications are therefore
-   responsible for transmitting payloads that are either compressed or
-   use a more efficient encoding otherwise.
-
-   With regards to the handshake itself, various strategies have been
-   applied to reduce the size of the exchanged payloads.  TLS and DTLS
-   1.3 use less overhead, depending on the type of key confirmations,
-   when compared to previous versions of the protocol.
-
-7.   Forward Secrecy
+6.   Forward Secrecy
 
    RFC 9846 has removed Static RSA and Static Diffie-Hellman cipher
    suites, therefore all public-key-based key exchange mechanisms
@@ -410,17 +441,27 @@ Table of Contents
    Pre-shared keys (PSKs) can be used with (EC)DHE key exchange to
    provide forward secrecy or can be used alone, at the cost of losing
    forward secrecy for the application data.  For PSK use, endpoints
-   SHOULD use (EC)DHE to achieve forward secrecy; PSK-only SHOULD be
-   avoided unless the application can tolerate the loss of forward
-   secrecy.
+   SHOULD use (EC)DHE to achieve forward secrecy.  PSK-only is
+   acceptable only when the loss of forward secrecy is explicitly
+   accepted for the IoT deployment.
 
-8.  Keep-Alive
+   TLS 1.3 KeyUpdate refreshes application traffic keys, but it does not
+   inject fresh key exchange input and therefore does not provide post-
+   compromise security for a long-lived session.  Industrial IoT
+   deployments can have long-lived TLS or DTLS associations where
+   reconnecting is operationally undesirable.  The Extended Key Update
+   mechanism [I-D.ietf-tls-extended-key-update] is being developed for
+   such cases; it performs a fresh key exchange inside an active TLS/
+   DTLS 1.3 session and can provide post-compromise security when the
+   deployment requires it and both peers support the extension.
+
+7.  Keep-Alive
 
    The discussion in Section 10 of [RFC7925] is applicable.  When a TLS/
    DTLS-level keep-alive or path MTU discovery mechanism is needed, use
    of the Heartbeat Extension defined in [RFC6520] is RECOMMENDED.
 
-9.  Timers and ACKs
+8.  Timers and ACKs
 
    Compared to DTLS 1.2 timeout-based whole flight retransmission, DTLS
    1.3 ACKs sensibly decrease the risk of congestion collapse which was
@@ -452,12 +493,12 @@ Table of Contents
    is suitable for the general Internet.
 
    Regarding the timers used by the Return Routability Check (RRC)
-   functionality, the recommendations in Section 5.5 of
-   [I-D.ietf-tls-dtls-rrc] apply.  Just like the handshake initial
-   timers, it is RECOMMENDED that DTLS 1.2 and 1.3 implementations offer
-   an option for their developers to explicitly set the RRC timer.
+   functionality, the recommendations in Section 5.5 of [RFC9853] apply.
+   Just like the handshake initial timers, it is RECOMMENDED that DTLS
+   1.2 and 1.3 implementations offer an option for their developers to
+   explicitly set the RRC timer.
 
-10.   Random Number Generation
+9.   Random Number Generation
 
    The discussion in Section 12 of [RFC7925] is applicable with one
    exception: the ClientHello and the ServerHello messages in TLS 1.3 do
@@ -465,12 +506,11 @@ Table of Contents
    and randomness considerations, implementers should also consult
    [RFC8937].
 
-11.  Server Name Indication
+10.  Server Name Indication
 
    TLS 1.3 requires implementations to support the Server Name
    Indication (SNI) extension when used with applications capable of
-   using it (Section 9.2 of [RFC9846]).  This profile does not change
-   that requirement.
+   using it (Section 9.2 of [RFC9846]).
 
    IoT clients SHOULD send SNI when connecting to a named service, in
    particular when the peer is a cloud service, a multi-tenant endpoint,
@@ -479,7 +519,11 @@ Table of Contents
    established by other application-specific configuration, such as a
    configured IP address and port, a pinned certificate, a raw public
    key, or an external PSK identity.  When no domain name is used, SNI
-   is not applicable.
+   is not applicable.  When SNI is omitted in deployments using raw
+   public keys or self-signed certificates, the application needs
+   another binding between the authenticated key and the expected peer
+   identity.  Otherwise, the deployment can be vulnerable to the
+   misbinding attacks described in Appendix F.9 of [RFC9846].
 
    Deployments that require confidentiality of SNI and other ClientHello
    metadata can use Encrypted ClientHello (ECH) [RFC9849].  ECH is most
@@ -499,7 +543,7 @@ Table of Contents
    deployments SHOULD prefer separate IP addresses or port numbers when
    different server identities or certificates need to be distinguished.
 
-12.  Application-Layer Protocol Negotiation
+11.  Application-Layer Protocol Negotiation
 
    The Application-Layer Protocol Negotiation (ALPN) extension [RFC7301]
    is independent of the credential type used for TLS authentication.
@@ -514,15 +558,17 @@ Table of Contents
    Use of ALPN helps prevent cross-protocol confusion attacks and
    follows the guidance in Section 3.8 of [RFC9325].
 
-13.  Maximum Fragment Length Negotiation
+12.  Maximum Fragment Length Negotiation
 
    The Maximum Fragment Length Negotiation (MFL) extension has been
    superseded by the Record Size Limit (RSL) extension [RFC8449].
    Implementations in compliance with this specification MUST implement
-   the RSL extension and SHOULD use it to indicate their RAM
-   limitations.
+   the RSL extension and MUST use it to indicate their RAM or record-
+   size limitations unless the default record sizes, which require
+   approximately 18 KB of memory for TLS 1.3 ciphertext and associated
+   processing buffers, are acceptable for the IoT deployment.
 
-14.  Crypto Agility
+13.  Crypto Agility
 
    The recommendations in Section 19 of [RFC7925] are applicable.  The
    third bullet point in that section anticipated the evolution of
@@ -530,9 +576,9 @@ Table of Contents
    manufacturers commonly provide hardware acceleration for AES-CCM, as
    well as for other AES modes, including AES-GCM.  Note that the
    ciphersuite recommendations in this document now include GCM, in
-   addition to CCM, as described in Section 20.
+   addition to CCM, as described in Section 19.
 
-15.  Key Length Recommendations
+14.  Key Length Recommendations
 
    The recommendations in Section 20 of [RFC7925] apply with the
    following update.  The recommendation for 112 bits of security
@@ -544,7 +590,7 @@ Table of Contents
    security strength.  This update is consistent with the transition to
    128-bit security strength discussed in [NIST-SP-800-131Ar3].
 
-16.  0-RTT Data
+15.  0-RTT Data
 
    Appendix F.5 of [RFC9846] establishes that:
 
@@ -557,13 +603,13 @@ Table of Contents
    For any application protocol, 0-RTT MUST NOT be used unless a
    protocol-specific profile exists.
 
-   At the time of writing, no such profile has been defined for CoAP
-   [CoAP].  Therefore, 0-RTT MUST NOT be used by CoAP applications.
+   At the time of writing, no such profile has been defined for commonly
+   used IoT application protocols such as CoAP [CoAP] or MQTT (Message
+   Queuing Telemetry Transport).  Therefore, this profile does not
+   enable 0-RTT for CoAP, MQTT, or other IoT application protocols that
+   lack a protocol-specific 0-RTT profile.
 
-   No specific recommendations are given for non-IETF IoT protocols such
-   as MQTT (Message Queuing Telemetry Transport).
-
-17.  Certificate Profile
+16.  Certificate Profile
 
    This section contains updates and clarifications to the certificate
    profile defined in [RFC7925].  The content of Table 1 of [RFC7925]
@@ -629,7 +675,7 @@ Table of Contents
    borrows terminology and selected certificate fields from IEEE 802.1AR
    but intentionally omits those broader requirements.
 
-17.1.  All Certificates
+16.1.  All Certificates
 
    This section outlines the requirements for X.509 certificates that
    apply to all PKI entities.  These requirements apply to certificates
@@ -638,11 +684,11 @@ Table of Contents
    public WebPKI server certificates.  The section focuses on X.509 v3
    certificates.
 
-17.1.1.  Version
+16.1.1.  Version
 
    Certificates MUST be of type X.509 v3.
 
-17.1.2.  Serial Number
+16.1.2.  Serial Number
 
    The serial number MUST be unique for each certificate issued by a
    given CA (i.e., the issuer name and the serial number uniquely
@@ -653,7 +699,7 @@ Table of Contents
    number generator.  The random value MAY be combined with a counter or
    other information that ensures uniqueness.
 
-17.1.3.  Signature
+16.1.3.  Signature
 
    The signature MUST be ecdsa-with-SHA256 or stronger [RFC5758].
 
@@ -668,13 +714,13 @@ Table of Contents
    different signature algorithms when the relying devices support
    validation of the resulting chain.
 
-17.1.4.  Issuer
+16.1.4.  Issuer
 
    The issuer field MUST contain a non-empty distinguished name (DN) of
    the entity that has signed and issued the certificate in accordance
    with [RFC5280].
 
-17.1.5.   Validity
+16.1.5.   Validity
 
    Vendors must determine the expected lifespan of their IoT devices.
    This decision directly affects how long firmware and software updates
@@ -685,8 +731,8 @@ Table of Contents
    Constrained devices often lack precise UTC time; implementations
    SHOULD treat time checks with coarse granularity (e.g., day- or hour-
    level) and ignore leap seconds when validating notAfter.  For devices
-   without a reliable source of time we advise the use of a device
-   management solution, which typically includes a certificate
+   without a reliable source of time this document recommends the use of
+   a device management solution, which typically includes a certificate
    management protocol, to manage certificates used by the device over
    their lifecycle.  While this approach does not utilize certificates
    to its widest extent, it is a solution that extends the capabilities
@@ -709,7 +755,11 @@ Table of Contents
    IDevID certificates with no maximum validity period, since an
    effectively unlimited certificate lifetime is only useful if the
    relevant certification path remains usable for the intended lifetime
-   of the device.
+   of the device.  Deployments also need to verify that their CA
+   software and issuance policy support the intended validity model.
+   Some CA implementations and policies do not permit subordinate CA
+   certificates or end-entity certificates to outlive the issuing CA
+   certificate.
 
    LDevID certificates are, however, issued by the operator or owner,
    and may be renewed at a regular interval using protocols, such as
@@ -717,8 +767,10 @@ Table of Contents
    Management Protocol (CMP) [RFC9810] [RFC9483].  It is therefore
    RECOMMENDED to limit the lifetime of these LDevID certificates using
    the notBefore and notAfter fields, as described in Section 4.1.2.5 of
-   [RFC5280].  Values MUST be expressed in Greenwich Mean Time (Zulu)
-   and MUST include seconds even where the number of seconds is zero.
+   [RFC5280].  Consistent with Section 4.1.2.5.1 of [RFC5280] and
+   Section 4.1.2.5.2 of [RFC5280], values MUST be expressed in Greenwich
+   Mean Time (Zulu) and MUST include seconds even where the number of
+   seconds is zero.
 
    Note that the validity period is defined as the period of time from
    notBefore through notAfter, inclusive.  This means that a
@@ -728,7 +780,7 @@ Table of Contents
    the :02 second, a period that is 90 days plus 1 second.  So for a
    90-day, the time portion of notAfter is 03:42:00.
 
-17.1.6.   Subject Public Key Info
+16.1.6.   Subject Public Key Info
 
    The subjectPublicKeyInfo field indicates the algorithm and any
    associated parameters for the ECC public key.  This profile uses the
@@ -758,7 +810,7 @@ Table of Contents
    algorithms if the target devices are expected to validate such chains
    successfully.
 
-17.1.7.  Certificate Revocation Checks
+16.1.7.  Certificate Revocation Checks
 
    Constrained IoT devices often lack the resources to perform
    traditional Certificate Revocation List (CRL) or Online Certificate
@@ -766,12 +818,12 @@ Table of Contents
    Section 4.4.3 of [RFC7925], neither OCSP nor CRLs are used by
    constrained IoT devices during the TLS handshake.
 
-   Instead, IoT deployments generally rely on short-lived end-entity
-   certificates managed via automated onboarding and management
-   protocols (such as Lightweight Machine-to-Machine [LwM2M-T]
-   [LwM2M-C]).  Because these protocols can distribute and update
-   certificates on demand, they make real-time revocation checks largely
-   unnecessary.
+   Instead, IoT deployments generally rely on short-lived operational
+   end-entity certificates, such as LDevID certificates, managed via
+   automated onboarding and management protocols (such as Lightweight
+   Machine-to-Machine [LwM2M-T] [LwM2M-C]).  Because these protocols can
+   distribute and update certificates on demand, they make real-time
+   revocation checks largely unnecessary.
 
    Since these checks are bypassed, the CRL Distribution Points
    extension and the Authority Information Access (AIA) extension for
@@ -803,11 +855,11 @@ Table of Contents
    risks associated with not re-authenticating peers and the cost/
    complexity of implementing an application-layer solution.
 
-17.2.  Root CA Certificate
+16.2.  Root CA Certificate
 
    This section outlines the requirements for root CA certificates.
 
-17.2.1.  Subject
+16.2.1.  Subject
 
    Section 4.1.2.6 of [RFC5280] requires that, when the subject is a CA,
    the subject field be populated with a non-empty distinguished name.
@@ -820,7 +872,7 @@ Table of Contents
    set to a value consistent with the subject and SHOULD NOT be marked
    critical.
 
-17.2.2.  Authority Key Identifier
+16.2.2.  Authority Key Identifier
 
    Section 4.2.1.1 of [RFC5280] defines the Authority Key Identifier as
    follows: "The authority key identifier extension provides a means of
@@ -832,7 +884,7 @@ Table of Contents
    construction.  If it is set, it MUST NOT be marked critical, and MUST
    contain the subjectKeyIdentifier of this certificate.
 
-17.2.3.  Subject Key Identifier
+16.2.3.  Subject Key Identifier
 
    Section 4.2.1.2 of [RFC5280] defines the SubjectKeyIdentifier as
    follows: "The subject key identifier extension provides a means of
@@ -845,21 +897,25 @@ Table of Contents
    The subjectKeyIdentifier is used by path construction algorithms to
    identify which CA has signed a subordinate certificate.
 
-17.2.4.  Key Usage
+16.2.4.  Key Usage
 
    Section 4.2.1.3 of [RFC5280] defines the key usage field as follows:
    "The key usage extension defines the purpose (e.g., encipherment,
    signature, certificate signing) of the key contained in the
    certificate."
 
-   The Key Usage extension SHOULD be set; if it is set, it MUST be
-   marked critical, and the keyCertSign purpose MUST be set.  If the
-   Root CA issues CRLs, the cRLSign purpose MUST also be set.
-   Additional key usages MAY be set depending on the intended usage of
-   the public key.  The digitalSignature purpose is not required for a
-   Root CA certificate.
+   The Key Usage extension SHOULD be set in Root CA certificates.  If
+   present, it MUST be marked critical and MUST include keyCertSign.  If
+   the CA signs CRLs, cRLSign MUST also be set.  The digitalSignature
+   bit is only needed when the same CA key is used to sign objects other
+   than certificates or CRLs, such as OCSP responses.
 
-17.2.5.  Extended Key Usage
+   The extension MAY be omitted only in closed deployments where all
+   relying parties are configured to accept the Root CA certificate as a
+   trust anchor according to local policy without processing the Key
+   Usage extension.
+
+16.2.5.  Extended Key Usage
 
    Section 4.2.1.12 of [RFC5280] defines the extended key usage as
    follows: "This extension indicates one or more purposes for which the
@@ -868,7 +924,7 @@ Table of Contents
 
    This extendedKeyUsage extension MUST NOT be set in CA certificates.
 
-17.2.6.  Basic Constraints
+16.2.6.  Basic Constraints
 
    Section 4.2.1.9 of [RFC5280] states that "The Basic Constraints
    extension identifies whether the subject of the certificate is a CA
@@ -901,30 +957,30 @@ Table of Contents
    deployments.  Shallow hierarchies remain preferable for constrained
    devices.
 
-17.3.  Subordinate CA Certificate
+16.3.  Subordinate CA Certificate
 
    This section outlines the requirements for subordinate CA
    certificates.
 
-17.3.1.  Subject
+16.3.1.  Subject
 
    The subject field MUST be set and MUST contain the commonName, the
    organizationName, and the countryName attribute and MAY contain an
    organizationalUnitName attribute.
 
-17.3.2.  Authority Key Identifier
+16.3.2.  Authority Key Identifier
 
    The Authority Key Identifier extension MUST be set, MUST NOT be
    marked critical, and MUST contain the subjectKeyIdentifier of the CA
    that issued this certificate.
 
-17.3.3.  Subject Key Identifier
+16.3.3.  Subject Key Identifier
 
    The Subject Key Identifier extension MUST be set, MUST NOT be marked
    critical, and MUST contain the key identifier of the public key
    contained in the subject public key info field.
 
-17.3.4.  Key Usage
+16.3.4.  Key Usage
 
    Section 4.2.1.3 of [RFC5280] defines the key usage extension.  The
    Key Usage extension MUST be set, MUST be marked critical, and the
@@ -936,19 +992,19 @@ Table of Contents
    extendedKeyUsage.  Section 4.2.1.12 of [RFC5280] reserves EKUs to be
    meaningful only in end entity certificates.
 
-17.3.5.  Basic Constraints
+16.3.5.  Basic Constraints
 
    The Basic Constraints extension MUST be set, MUST be marked critical,
    the cA flag MUST be set to true and the pathLenConstraint SHOULD be
    omitted.
 
-17.3.6.  CRL Distribution Point
+16.3.6.  CRL Distribution Point
 
    The CRL Distribution Point extension SHOULD NOT be set.  If it is
    set, it MUST NOT be marked critical and MUST identify the CRL
    relevant for this certificate.
 
-17.3.7.  Authority Information Access
+16.3.7.  Authority Information Access
 
    The Authority Information Access (AIA) extension SHOULD NOT be set.
    If it is set, it MUST NOT be marked critical and MUST identify the
@@ -956,11 +1012,11 @@ Table of Contents
    and the location it provides an online certificate status service
    (OCSP).
 
-17.4.  End Entity Certificate
+16.4.  End Entity Certificate
 
    This section outlines the requirements for end entity certificates.
 
-17.4.1.  Subject
+16.4.1.  Subject
 
    This section describes the use of end entity certificates primarily
    for (D)TLS clients running on IoT devices.  Operating (D)TLS servers
@@ -971,8 +1027,9 @@ Table of Contents
    [I-D.ietf-anima-constrained-voucher], [IEEE-802.1AR]) use the subject
    field to encode the device serial number.
 
-   The requirement in Section 4.4.2 of [RFC7925] to only use EUI-64 for
-   end entity certificates as a subject field is lifted.
+   This specification removes the requirement in Section 4.4.2 of
+   [RFC7925] that stipulated the exclusive use of EUI-64 in the subject
+   field of end entity certificates.
 
    Two fields are typically used to encode a device identifier, namely
    the Subject and the subjectAltName fields.  Protocol specifications
@@ -1061,14 +1118,20 @@ Table of Contents
 
    Both manufacturer-assigned device serial numbers and EUI-48 or EUI-64
    values can expose stable identifiers to certificate recipients.  TLS
-   1.3 encrypts certificates during the handshake, but the peer still
-   learns the identifier.  An EUI-48 or EUI-64 can reveal organizational
-   allocation information and can enable correlation across networks or
-   application contexts.  A stable device serial number has similar
-   correlation risks.  Environments that are concerned about such
-   traffic analysis SHOULD use an enrollment protocol to migrate from
-   identifiable IDevID certificates to less identifiable operational
-   LDevID certificates.
+   1.3 better protects client certificates against passive observers
+   than earlier TLS versions because the client certificate is encrypted
+   and sent only after the server certificate has been received and
+   validated.  The authenticated peer, however, still learns the
+   identifier.  An EUI-48 or EUI-64 can reveal organizational allocation
+   information and can enable correlation across networks or application
+   contexts.  A stable device serial number has similar correlation
+   risks.  Environments that are concerned about such traffic analysis
+   SHOULD avoid using stable, globally identifiable device identifiers
+   in operational certificates.  This can be achieved, for example, by
+   using an enrollment protocol to migrate from identifiable IDevID
+   certificates to less identifiable operational LDevID certificates, or
+   by provisioning operational certificates that contain only
+   deployment-local or otherwise non-public identifiers.
 
    Per [RFC9525] domain names MUST NOT be encoded in the subject
    commonName.  Instead they MUST be encoded in a subjectAltName of type
@@ -1080,13 +1143,13 @@ Table of Contents
    (Section 5 of [RFC4108]).  This specification does not follow this
    recommendation.
 
-17.4.2.  Authority Key Identifier
+16.4.2.  Authority Key Identifier
 
    The Authority Key Identifier extension MUST be set, MUST NOT be
    marked critical, and MUST contain the subjectKeyIdentifier of the CA
    that issued this certificate.
 
-17.4.3.  Subject Key Identifier
+16.4.3.  Subject Key Identifier
 
    The Subject Key Identifier MUST NOT be included in end entity
    certificates, as it can be calculated from the public key, so it just
@@ -1094,10 +1157,10 @@ Table of Contents
    construction, so there is no ambiguity regarding which certificate
    chain to use, as there can be with subordinate CAs.
 
-17.4.4.  Key Usage
+16.4.4.  Key Usage
 
    The key usage extension MUST be set and MUST be marked as critical.
-   For signature verification keys the digitialSignature key usage
+   For signature verification keys the digitalSignature key usage
    purpose MUST be specified.  Other key usages are set according to the
    intended usage of the key.
 
@@ -1108,7 +1171,7 @@ Table of Contents
    id-kp-serverAuth or id-kp-clientAuth.  The selected EKUs MUST match
    the intended TLS role of the device or service using the certificate.
 
-18.  Update of Trust Anchors
+17.  Update of Trust Anchors
 
    Since the publication of RFC 7925 the need for firmware update
    mechanisms has been reinforced and the work on standardizing a secure
@@ -1119,12 +1182,20 @@ Table of Contents
    anchors and not end entity certificates or certificates of
    subordinate CAs.
 
+   Trust-anchor lifecycle management is central to IoT certificate
+   profiles.  IoT devices, especially in industrial deployments, often
+   remain in service for many years and may operate in environments
+   where physical access is expensive or impossible.  A certificate
+   profile that assumes static trust anchors for the entire device
+   lifetime makes algorithm transitions, CA rollover, manufacturer
+   changes, and incident response significantly harder.
+
    As an alternative, certificate management protocols like CMP and EST
    have also offered ways to update trust anchors.  See, for example,
    Section 2.1 of [RFC7030] for an approach to obtaining CA certificates
    via EST.
 
-19.  Certificate Overhead
+18.  Certificate Overhead
 
    In certificate-based authentication, certificates and public keys are
    a major contributor to the size of the overall handshake.  For
@@ -1148,7 +1219,7 @@ Table of Contents
       be satisfied with a PKI depth of 3 (root CA, one subordinate CA,
       and end entity certificates).
    *  Include only the certificate fields and extensions needed for the
-      intended deployment.  The profile in Section 17 identifies
+      intended deployment.  The profile in Section 16 identifies
       certificate content that can be omitted in constrained IoT
       deployments.
    *  Transmit only the certificates needed by the peer to build a path
@@ -1184,12 +1255,39 @@ Table of Contents
    Additional techniques are available, but they are more deployment-
    specific and are not uniformly supported by TLS/DTLS stacks:
 
-   *  The TLS cached info [RFC7924] extension can avoid sending
-      certificates with every full handshake.  This mechanism is
-      particularly useful when a client has a pinned server certificate,
-      or has otherwise cached the server certificate or certificate
-      chain, because it gives the client a standardized way to indicate
-      that retransmitting the cached information is unnecessary.
+   *  Certificate compression [RFC8879] can reduce the size of
+      certificates that still have to be transmitted.  Related guidance
+      for IoT deployments is provided by [RFC9191].
+   *  Server certificate caching can reduce retransmission when a client
+      repeatedly connects to the same server, which is a common IoT
+      deployment scenario.  The TLS cached info [RFC7924] extension
+      defines such a mechanism.  [RFC7924] was written for TLS/DTLS 1.2
+      and describes the server response in ServerHello.  In TLS 1.3, the
+      client offers cached_info in ClientHello and the server
+      confirmation is carried in EncryptedExtensions (Section 4.3.1 of
+      [RFC9846]).  [RFC7924] defines cached information types for server
+      Certificate messages and server CertificateRequest messages.  It
+      does not define caching of client Certificate messages.
+      For TLS 1.3, the server Certificate message includes a
+      certificate_request_context field.  For server authentication,
+      this field is zero length (Section 4.4.2 of [RFC9846]), so it does
+      not by itself prevent server certificate information from being
+      cached.
+      The CertificateRequest message also includes a
+      certificate_request_context field.  For client authentication in
+      the main handshake, this field is zero length unless post-
+      handshake authentication is used (Section 4.3.2 of [RFC9846]).
+      Consequently, caching CertificateRequest messages can still be
+      applicable when the server's client-authentication request
+      parameters are large and stable.  The potentially large parts are
+      the extensions in CertificateRequest, especially the
+      certificate_authorities extension, which lists distinguished names
+      of acceptable CAs (Section 4.2.4 of [RFC9846]).  In many IoT
+      deployments, unlike WebPKI-style deployments, this list is small
+      or omitted because only a small number of trust anchors is used.
+      In contrast, CertificateRequest caching is not useful for post-
+      handshake authentication since the certificate_request_context
+      changes between requests.
    *  The client certificate URL mechanism defined in Section 5 of
       [RFC6066] can replace client certificates in the handshake with
       references to external certificate objects.  When applications
@@ -1198,8 +1296,6 @@ Table of Contents
       TLS extension [I-D.ietf-dance-client-auth] may be used to reduce
       the packets on the wire.  The term "TLSA" does not stand for
       anything; it is the name of the RRtype, as explained in [RFC6698].
-   *  Certificate compression [RFC8879] can reduce the size of
-      certificates that still have to be transmitted.
    *  Alternative certificate formats, such as raw public keys [RFC7250]
       or CBOR-encoded certificates [I-D.ietf-cose-cbor-encoded-cert],
       can reduce credential size where the application and provisioning
@@ -1210,13 +1306,17 @@ Table of Contents
    introduce side effects, such as reliance on DNS or directory
    infrastructure, cache invalidation requirements, privacy exposure to
    retrieval services, changes to the credential provisioning model, and
-   additional implementation code.  A deployment SHOULD evaluate these
-   trade-offs and use such mechanisms only when the baseline
-   certificate-profile recommendations, shallow certification paths,
-   session resumption, and long-lived DTLS associations do not provide
-   the desired reduction in handshake size or frequency.
+   additional implementation code.  A deployment SHOULD first prefer
+   mechanisms with broad TLS/DTLS 1.3 support and low operational
+   complexity: compact certificate profiles, shallow certification
+   paths, omitting trust anchors from the handshake, session resumption,
+   DTLS Connection IDs, and certificate compression.  More deployment-
+   specific mechanisms such as cached certificate information,
+   certificate URLs, DANE client identity, or certificate handles SHOULD
+   be used only when their operational dependencies, cache invalidation
+   behavior, and privacy impact are acceptable for the deployment.
 
-20.  Ciphersuites
+19.  Ciphersuites
 
    According to Section 4.5.3 of [RFC9147], the use of AES-CCM with
    8-octet authentication tags (CCM_8) is considered unsuitable for
@@ -1276,64 +1376,38 @@ Table of Contents
 
                 Table 2: TLS 1.3 Ciphersuite Requirements
 
-21.  Fault Attacks on Deterministic Signature Schemes
-
-   A number of passive side-channel attacks as well as active fault-
-   injection attacks (e.g., [Ambrose2017]) have been demonstrated to be
-   successful in allowing a malicious third party to gain information
-   about the signing key if a fully deterministic signature scheme
-   (e.g., ECDSA [RFC6979] or EdDSA [RFC8032]) is used.
-
-   Most of these attacks assume physical access to the device and are
-   therefore especially relevant to smart cards as well as IoT
-   deployments with poor or non-existent physical security.
-
-   In this security model, it is recommended to combine both randomness
-   and determinism, for example, as described in
-   [I-D.irtf-cfrg-det-sigs-with-noise].
-
-22.  Post-Quantum Cryptography (PQC) Considerations
-
-   This section is informational and provides deployment guidance only;
-   it does not add normative requirements to this profile.
+20.  Post-Quantum Cryptography (PQC) Considerations
 
    The recommendations and ciphersuites in this profile are based on
    classical cryptography and are not quantum-resistant.
 
-   As detailed in [RFC9958], the IETF is actively working to address the
-   challenges of adopting PQC in various protocols, including TLS.  The
-   document highlights key aspects engineers must consider, such as
-   algorithm selection, performance impacts, and deployment strategies.
-   It emphasizes the importance of gradual integration of PQC to ensure
-   secure communication while accounting for the increased
-   computational, memory, and bandwidth requirements of PQC algorithms.
-   These challenges are especially relevant in the context of IoT, where
-   device constraints limit the adoption of larger key sizes and more
-   complex cryptographic operations [PQC-PERF].  Besides, any choice
-   need to careful evaluate the associated energy requirements
-   [PQC-ENERGY].
+   Guidance for using post-quantum cryptography with application
+   protocols, including TLS, is provided by [I-D.ietf-uta-pqc-app].
+   That document is the primary source of PQC deployment recommendations
+   for applications and constrained environments.  It discusses
+   algorithm selection, migration planning, and the operational impact
+   of larger key shares, public keys, signatures, and certificates.
 
-   The work of incorporating PQC into TLS [I-D.ietf-uta-pqc-app]
-   [I-D.ietf-pquip-pqc-hsm-constrained] is still ongoing, with key
-   exchange message sizes increasing due to larger public keys.  These
-   larger keys demand more flash storage and higher RAM usage,
-   presenting significant obstacles for resource-constrained IoT
-   devices.  The transition from classical cryptographic algorithms to
-   PQC will be a significant challenge for constrained IoT devices,
-   requiring careful planning to select hardware suitable for the task
-   considering the lifetime of an IoT product.
+   PQC transition planning is especially relevant for IoT devices
+   because product lifetimes are long and device constraints limit the
+   adoption of larger key sizes and more complex cryptographic
+   operations [PQC-PERF].  Deployments also need to evaluate the energy
+   impact of PQC choices [PQC-ENERGY].  Additional background for
+   engineers is provided by [RFC9958], and guidance on PQC use with
+   constrained hardware security modules is provided by
+   [I-D.ietf-pquip-pqc-hsm-constrained].
 
-   As a transitional measure, [I-D.ietf-tls-8773bis] allows certificate-
-   based authentication to be combined with a strong external PSK that
-   is incorporated into the TLS 1.3 key schedule.  This provides
+   As a transitional measure, [RFC9973] allows certificate-based
+   authentication to be combined with a strong external PSK that is
+   incorporated into the TLS 1.3 key schedule.  This provides
    confidentiality protection against a future cryptographically
    relevant quantum computer, provided that the external PSK is
    generated and distributed securely.  It does not make the
    certificate-based authentication quantum resistant.  Deployments can
-   use this mechanism as a migration path while PQC algorithms are being
-   introduced, at certificate-based authentication quantum resistant.
+   use this mechanism as a migration path while PQC algorithms for
+   certificate-based authentication are being introduced.
 
-23.  Privacy Considerations
+21.  Privacy Considerations
 
    The privacy considerations in Section 22 of [RFC7925] largely
    continue to apply.  However, compared to TLS 1.2 and DTLS 1.2, TLS
@@ -1346,8 +1420,10 @@ Table of Contents
    metadata.  In particular, IDevIDs and LDevIDs may reveal manufacturer
    identity, device serial numbers, or other information to peers.
    Protection against passive observers is, however, substantially
-   improved since certificates are not transmitted in the clear in TLS
-   1.3 and DTLS 1.3.
+   improved since certificates are encrypted in TLS 1.3 and DTLS 1.3.
+   Client certificates are also sent only after the server certificate
+   has been received and validated.  The server still receives the
+   certificate and learns the identifiers it contains.
 
    Manufacturer-assigned device serial numbers and EUI-48 or EUI-64
    values can enable correlation across networks or application
@@ -1355,7 +1431,10 @@ Table of Contents
    allocation information.  Deployments that are concerned about such
    traffic analysis SHOULD use an enrollment protocol to migrate from
    identifiable IDevID certificates to less identifiable operational
-   LDevID certificates.
+   LDevID certificates.  Deployments that continue to use stable
+   identifiers in certificates expose those identifiers to peers and can
+   enable correlation across connections, networks, or application
+   contexts.
 
    Some deployments use the mechanisms discussed in the Certificate
    Overhead section, such as certificate URLs or external certificate
@@ -1375,22 +1454,60 @@ Table of Contents
    and improves privacy in multi-home and mobile deployments (Section 11
    of [RFC9147]).
 
-24.  Security Considerations
+22.  Security Considerations
 
    This entire document is about security.
 
-   This profile does not specify authentication- or integrity-only
-   cipher suites.  Deployments considering such cipher suites, such as
-   defined in [RFC9150], need application-specific analysis outside the
-   scope of this document.
+22.1.  Fault Attacks on Deterministic Signature Schemes
 
-25.  IANA Considerations
+   A number of passive side-channel attacks as well as active fault-
+   injection attacks (e.g., [Ambrose2017]) have been demonstrated to be
+   successful in allowing a malicious third party to gain information
+   about the signing key if a fully deterministic signature scheme
+   (e.g., ECDSA [RFC6979] or EdDSA [RFC8032]) is used.
+
+   Most of these attacks assume physical access to the device and are
+   therefore especially relevant to smart cards as well as IoT
+   deployments with poor or non-existent physical security.
+
+   It is therefore recommended to introduce randomness into the
+   signature scheme, as in the original ECDSA specification, or to
+   combine deterministic and randomized techniques, for example as
+   described in [I-D.irtf-cfrg-det-sigs-with-noise].  However, the use
+   of randomized signature algorithms can make implementations more
+   difficult to test, as discussed in [RFC6979].
+
+22.2.  Authentication- and Integrity-Only Cipher Suites
+
+   [RFC9150] defines TLS 1.3 cipher suites that provide authentication
+   and message integrity without confidentiality.  [RFC9150] limits
+   their applicability to cases where confidentiality and privacy
+   requirements are absent or explicitly relaxed, but authenticity and
+   integrity are still required; examples include industrial automation
+   commands, fine-grained time updates, alarms, railway control, and
+   safety-related recording or inspection.  These cipher suites are not
+   general-purpose TLS cipher suites.
+
+   Deployments need an application-specific safety, security, and
+   privacy analysis and need to verify that the application protocol and
+   application data do not rely on confidentiality.  This document
+   leaves such profiling to (industrial) IoT deployments and therefore
+   does not specify authentication- or integrity-only cipher suites.
+
+23.  IANA Considerations
 
    This document makes no requests to IANA.
 
-26.  References
+24.  References
 
-26.1.  Normative References
+24.1.  Normative References
+
+   [I-D.ietf-iotops-7228bis]
+              Bormann, C., Ersue, M., Keränen, A., and C. Gomez,
+              "Terminology for Constrained-Node Networks", Work in
+              Progress, Internet-Draft, draft-ietf-iotops-7228bis-10, 6
+              July 2026, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-iotops-7228bis-10>.
 
    [I-D.ietf-lamps-macaddress-on]
               Housley, R., Bonnell, C., Mandel, J., Okubo, T., and M.
@@ -1399,13 +1516,6 @@ Table of Contents
               ietf-lamps-macaddress-on-07, 12 March 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-lamps-
               macaddress-on-07>.
-
-   [I-D.ietf-tls-dtls-rrc]
-              Tschofenig, H., Kraus, A., and T. Fossati, "Return
-              Routability Check for DTLS 1.2 and DTLS 1.3", Work in
-              Progress, Internet-Draft, draft-ietf-tls-dtls-rrc-20, 14
-              July 2025, <https://datatracker.ietf.org/doc/html/draft-
-              ietf-tls-dtls-rrc-20>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -1429,11 +1539,27 @@ Table of Contents
               RFC 5758, DOI 10.17487/RFC5758, January 2010,
               <https://www.rfc-editor.org/rfc/rfc5758>.
 
+   [RFC6066]  Eastlake 3rd, D., "Transport Layer Security (TLS)
+              Extensions: Extension Definitions", RFC 6066,
+              DOI 10.17487/RFC6066, January 2011,
+              <https://www.rfc-editor.org/rfc/rfc6066>.
+
    [RFC6520]  Seggelmann, R., Tuexen, M., and M. Williams, "Transport
               Layer Security (TLS) and Datagram Transport Layer Security
               (DTLS) Heartbeat Extension", RFC 6520,
               DOI 10.17487/RFC6520, February 2012,
               <https://www.rfc-editor.org/rfc/rfc6520>.
+
+   [RFC7250]  Wouters, P., Ed., Tschofenig, H., Ed., Gilmore, J.,
+              Weiler, S., and T. Kivinen, "Using Raw Public Keys in
+              Transport Layer Security (TLS) and Datagram Transport
+              Layer Security (DTLS)", RFC 7250, DOI 10.17487/RFC7250,
+              June 2014, <https://www.rfc-editor.org/rfc/rfc7250>.
+
+   [RFC7301]  Friedl, S., Popov, A., Langley, A., and E. Stephan,
+              "Transport Layer Security (TLS) Application-Layer Protocol
+              Negotiation Extension", RFC 7301, DOI 10.17487/RFC7301,
+              July 2014, <https://www.rfc-editor.org/rfc/rfc7301>.
 
    [RFC7925]  Tschofenig, H., Ed. and T. Fossati, "Transport Layer
               Security (TLS) / Datagram Transport Layer Security (DTLS)
@@ -1473,7 +1599,12 @@ Table of Contents
               Version 1.3", RFC 9846, DOI 10.17487/RFC9846, July 2026,
               <https://www.rfc-editor.org/rfc/rfc9846>.
 
-26.2.  Informative References
+   [RFC9853]  Tschofenig, H., Ed., Kraus, A., and T. Fossati, "Return
+              Routability Check for DTLS 1.2 and 1.3", RFC 9853,
+              DOI 10.17487/RFC9853, March 2026,
+              <https://www.rfc-editor.org/rfc/rfc9853>.
+
+24.2.  Informative References
 
    [Ambrose2017]
               Ambrose, C., Bos, J. W., Fay, B., Joye, M., Lochter, M.,
@@ -1519,13 +1650,6 @@ Table of Contents
               02, 17 June 2026, <https://datatracker.ietf.org/doc/html/
               draft-ietf-httpbis-secondary-server-certs-02>.
 
-   [I-D.ietf-iotops-7228bis]
-              Bormann, C., Ersue, M., Keränen, A., and C. Gomez,
-              "Terminology for Constrained-Node Networks", Work in
-              Progress, Internet-Draft, draft-ietf-iotops-7228bis-10, 6
-              July 2026, <https://datatracker.ietf.org/doc/html/draft-
-              ietf-iotops-7228bis-10>.
-
    [I-D.ietf-iotops-iot-dns-guidelines]
               Mishra, A. K., Losty, A., Mandalari, A. M., Mozley, J.,
               and M. Cunche, "IoT DNS Security and Privacy Guidelines",
@@ -1542,12 +1666,13 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-ietf-pquip-
               pqc-hsm-constrained-06>.
 
-   [I-D.ietf-tls-8773bis]
-              Housley, R., "TLS 1.3 Extension for Using Certificates
-              with an External Pre-Shared Key", Work in Progress,
-              Internet-Draft, draft-ietf-tls-8773bis-13, 5 September
-              2025, <https://datatracker.ietf.org/doc/html/draft-ietf-
-              tls-8773bis-13>.
+   [I-D.ietf-tls-extended-key-update]
+              Tschofenig, H., Tüxen, M., Reddy.K, T., Fries, S., and Y.
+              Rosomakho, "Extended Key Update for Transport Layer
+              Security (TLS) 1.3", Work in Progress, Internet-Draft,
+              draft-ietf-tls-extended-key-update-13, 4 July 2026,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-tls-
+              extended-key-update-13>.
 
    [I-D.ietf-tls-pake]
               Bauman, L., Benjamin, D., Menon, S., and C. A. Wood, "A
@@ -1567,9 +1692,9 @@ Table of Contents
    [I-D.irtf-cfrg-aead-limits]
               Günther, F., Thomson, M., and C. A. Wood, "Usage Limits on
               AEAD Algorithms", Work in Progress, Internet-Draft, draft-
-              irtf-cfrg-aead-limits-11, 4 December 2025,
+              irtf-cfrg-aead-limits-12, 7 August 2026,
               <https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-
-              aead-limits-11>.
+              aead-limits-12>.
 
    [I-D.irtf-cfrg-det-sigs-with-noise]
               Mattsson, J. P., Thormarker, E., and S. Ruohomaa, "Hedged
@@ -1647,11 +1772,6 @@ Table of Contents
               Extension", RFC 5746, DOI 10.17487/RFC5746, February 2010,
               <https://www.rfc-editor.org/rfc/rfc5746>.
 
-   [RFC6066]  Eastlake 3rd, D., "Transport Layer Security (TLS)
-              Extensions: Extension Definitions", RFC 6066,
-              DOI 10.17487/RFC6066, January 2011,
-              <https://www.rfc-editor.org/rfc/rfc6066>.
-
    [RFC6698]  Hoffman, P. and J. Schlyter, "The DNS-Based Authentication
               of Named Entities (DANE) Transport Layer Security (TLS)
               Protocol: TLSA", RFC 6698, DOI 10.17487/RFC6698, August
@@ -1671,17 +1791,6 @@ Table of Contents
               Constrained-Node Networks", RFC 7228,
               DOI 10.17487/RFC7228, May 2014,
               <https://www.rfc-editor.org/rfc/rfc7228>.
-
-   [RFC7250]  Wouters, P., Ed., Tschofenig, H., Ed., Gilmore, J.,
-              Weiler, S., and T. Kivinen, "Using Raw Public Keys in
-              Transport Layer Security (TLS) and Datagram Transport
-              Layer Security (DTLS)", RFC 7250, DOI 10.17487/RFC7250,
-              June 2014, <https://www.rfc-editor.org/rfc/rfc7250>.
-
-   [RFC7301]  Friedl, S., Popov, A., Langley, A., and E. Stephan,
-              "Transport Layer Security (TLS) Application-Layer Protocol
-              Negotiation Extension", RFC 7301, DOI 10.17487/RFC7301,
-              July 2014, <https://www.rfc-editor.org/rfc/rfc7301>.
 
    [RFC7924]  Santesson, S. and H. Tschofenig, "Transport Layer Security
               (TLS) Cached Information Extension", RFC 7924,
@@ -1727,6 +1836,16 @@ Table of Contents
               RFC 9190, DOI 10.17487/RFC9190, February 2022,
               <https://www.rfc-editor.org/rfc/rfc9190>.
 
+   [RFC9191]  Sethi, M., Preuß Mattsson, J., and S. Turner, "Handling
+              Large Certificates and Long Certificate Chains in TLS-
+              Based EAP Methods", RFC 9191, DOI 10.17487/RFC9191,
+              February 2022, <https://www.rfc-editor.org/rfc/rfc9191>.
+
+   [RFC9257]  Housley, R., Hoyland, J., Sethi, M., and C. A. Wood,
+              "Guidance for External Pre-Shared Key (PSK) Usage in TLS",
+              RFC 9257, DOI 10.17487/RFC9257, July 2022,
+              <https://www.rfc-editor.org/rfc/rfc9257>.
+
    [RFC9261]  Sullivan, N., "Exported Authenticators in TLS", RFC 9261,
               DOI 10.17487/RFC9261, July 2022,
               <https://www.rfc-editor.org/rfc/rfc9261>.
@@ -1751,6 +1870,11 @@ Table of Contents
               Engineers", RFC 9958, DOI 10.17487/RFC9958, June 2026,
               <https://www.rfc-editor.org/rfc/rfc9958>.
 
+   [RFC9973]  Housley, R., "TLS 1.3 Extension for Using Certificates
+              with an External Pre-Shared Key", RFC 9973,
+              DOI 10.17487/RFC9973, July 2026,
+              <https://www.rfc-editor.org/rfc/rfc9973>.
+
    [Toms-Hardware-Oculus-Rift-2018]
               Colaner, S., "How To Patch Your Oculus Rift", March 2018,
               <https://www.tomshardware.com/news/oculus-rift-runtime-
@@ -1758,10 +1882,11 @@ Table of Contents
 
 Acknowledgments
 
-   We would like to thank Henk Birkholz, Hendrik Brockhaus, Menachem
-   Dodge, Martin Duke, Miek Gieben, Russ Housley, Ben Kaduk, Achim
-   Kraus, John Mattsson, Tiru Reddy, Scott Rose, Rich Salz, Martin
-   Thomson, and Marco Tiloca.
+   We would like to thank Henk Birkholz, Hendrik Brockhaus, Roman
+   Danyliw, Menachem Dodge, Martin Duke, Gorry Fairhurst, Miek Gieben,
+   Russ Housley, Ben Kaduk, Achim Kraus, John Mattsson, Tiru Reddy,
+   Scott Rose, Rich Salz, Mohit Sethi, Ketan Talaulikar, Martin Thomson,
+   Marco Tiloca, and Éric Vyncke.
 
    Finally, we would like to thank our security area director Deb Cooley
    for her detailed review comments.
