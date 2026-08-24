@@ -1113,8 +1113,9 @@ the presented end entity certificate. In some deployments the sender cannot
 infer which trust anchor the peer has configured. For example, the peer's trust
 anchor might be an intermediate CA rather than a root CA, or a root key
 transition might mean that different devices have different old or new trust
-anchors installed. In these cases, the peer MAY use the Trusted CA Indication
-extension {{RFC6066}} to help the sender select an appropriate certificate
+anchors installed. In these cases, the peer MAY use the "certificate_authorities"
+extension to indicate the CAs which an endpoint supports,
+see {{Section 4.3.4 of -TLS13}}, to help the sender select an appropriate certificate
 chain. During trust-anchor updates, deployments may also need transitional
 cross-certificates, such as the newWithOld and oldWithNew certificates
 described by {{Section 4.4 of -cmp}}. Such certificates can help bridge the
