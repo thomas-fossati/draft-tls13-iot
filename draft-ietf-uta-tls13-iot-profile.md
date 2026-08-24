@@ -72,6 +72,9 @@ normative:
   RFC6520:
   I-D.ietf-lamps-macaddress-on:
   I-D.ietf-iotops-7228bis:
+  RFC6066:
+  RFC7301:
+  RFC7250:
 
 informative:
   RFC9146:
@@ -79,7 +82,6 @@ informative:
   RFC9810: cmp
   RFC8937:
   RFC9483: lw-cmp
-  RFC6066:
   I-D.ietf-iotops-iot-dns-guidelines:
   RFC9958:
   RFC9973:
@@ -271,7 +273,7 @@ certificates and raw public keys, pre-shared keys (PSKs), and passwords.
 The extensions used in TLS/DTLS differ depending on the credential types
 supported.
 Self-signed X.509 certificates are still X.509, not raw public keys; raw
-public keys are conveyed via the raw_public_key extension.
+public keys are conveyed via the raw_public_key extension {{RFC7250}}.
 When raw public keys are
 used for peer authentication, deployments need to bind the authenticated key to
 the expected peer identity. {{Appendix F.9 of -TLS13}} describes misbinding
@@ -483,7 +485,7 @@ to be distinguished.
 
 # Application-Layer Protocol Negotiation {#alpn}
 
-The Application-Layer Protocol Negotiation (ALPN) extension {{?RFC7301}} is
+The Application-Layer Protocol Negotiation (ALPN) extension {{RFC7301}} is
 independent of the credential type used for TLS authentication.
 
 Implementations conforming to this profile MUST support ALPN. Endpoints SHOULD
@@ -1160,7 +1162,7 @@ are not uniformly supported by TLS/DTLS stacks:
   {{?I-D.ietf-dance-client-auth}} may be used to reduce the packets on the
   wire. The term "TLSA" does not stand for anything; it is the name of the
   RRtype, as explained in {{?RFC6698}}.
-* Alternative certificate formats, such as raw public keys {{?RFC7250}} or
+* Alternative certificate formats, such as raw public keys {{RFC7250}} or
   CBOR-encoded certificates {{?I-D.ietf-cose-cbor-encoded-cert}}, can reduce
   credential size where the application and provisioning model support them.
 * Certificate handles, where available, are another form of caching.
