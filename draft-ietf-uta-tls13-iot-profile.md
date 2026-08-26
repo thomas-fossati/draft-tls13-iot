@@ -624,7 +624,7 @@ be combined with a counter or other information that ensures uniqueness.
 
 ### Signature
 
-The signature MUST be ecdsa-with-SHA256 or stronger {{!RFC5758}}.
+The signature MUST be ecdsa-with-SHA256 or stronger, i.e., a SHA-2 variant with a longer digest {{!RFC5758}}.
 
 Note: In contrast to IEEE 802.1AR this specification does not require
 end entity certificates, subordinate CA certificates, and CA
