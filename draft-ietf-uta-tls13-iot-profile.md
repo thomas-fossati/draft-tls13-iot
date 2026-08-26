@@ -1349,24 +1349,27 @@ This document makes no requests to IANA.
 {:unnumbered}
 
 We would like to thank
-Henk Birkholz,
-Hendrik Brockhaus,
-Roman Danyliw,
-Menachem Dodge,
-Martin Duke,
-Gorry Fairhurst,
-Miek Gieben,
-Russ Housley,
-Ben Kaduk,
 Achim Kraus,
+Ben Kaduk,
+Christopher Inacio,
+Éric Vyncke,
+Gorry Fairhurst,
+Hendrik Brockhaus,
+Henk Birkholz,
 John Mattsson,
-Tiru Reddy,
-Scott Rose,
-Rich Salz,
-Mohit Sethi,
 Ketan Talaulikar,
+Mahesh Jethanandani,
+Marco Tiloca,
+Martin Duke,
 Martin Thomson,
-Marco Tiloca, and
-Éric Vyncke.
+Menachem Dodge,
+Miek Gieben,
+Mohit Sethi,
+Rich Salz,
+Roman Danyliw,
+Russ Housley,
+Scott Rose,
+Tiru Reddy, and
+Tommy Jensen.
 
 Finally, we would like to thank our security area director Deb Cooley for her detailed review comments.
