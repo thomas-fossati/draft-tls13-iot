@@ -1885,11 +1885,12 @@ Table of Contents
 
 Acknowledgments
 
-   We would like to thank Henk Birkholz, Hendrik Brockhaus, Roman
-   Danyliw, Menachem Dodge, Martin Duke, Gorry Fairhurst, Miek Gieben,
-   Russ Housley, Ben Kaduk, Achim Kraus, John Mattsson, Tiru Reddy,
-   Scott Rose, Rich Salz, Mohit Sethi, Ketan Talaulikar, Martin Thomson,
-   Marco Tiloca, and Éric Vyncke.
+   We would like to thank Achim Kraus, Ben Kaduk, Christopher Inacio,
+   Éric Vyncke, Gorry Fairhurst, Hendrik Brockhaus, Henk Birkholz, John
+   Mattsson, Ketan Talaulikar, Mahesh Jethanandani, Marco Tiloca, Martin
+   Duke, Martin Thomson, Menachem Dodge, Miek Gieben, Mohit Sethi, Rich
+   Salz, Roman Danyliw, Russ Housley, Scott Rose, Tiru Reddy, and Tommy
+   Jensen.
 
    Finally, we would like to thank our security area director Deb Cooley
    for her detailed review comments.
