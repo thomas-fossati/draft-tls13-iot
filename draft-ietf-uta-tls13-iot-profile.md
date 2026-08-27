@@ -688,7 +688,7 @@ It is therefore RECOMMENDED to limit the lifetime of these LDevID certificates
 using the notBefore and notAfter fields, as described in {{Section 4.1.2.5 of
 !RFC5280}}. Consistent with {{Section 4.1.2.5.1 of !RFC5280}} and
 {{Section 4.1.2.5.2 of !RFC5280}}, values MUST be expressed in Greenwich Mean
-Time (Zulu) and MUST include seconds even where the number of seconds is zero.
+Time and MUST include seconds even where the number of seconds is zero.
 
 Note that the validity period is defined as the period of time from notBefore
 through notAfter, inclusive. This means that a hypothetical certificate with a
@@ -1232,6 +1232,9 @@ In addition, the integrity limits on key usage detailed in {{Section 4.4 of !RFC
 {: #tab-cipher-reqs align="left" title="TLS 1.3 Ciphersuite Requirements"}
 
 # Post-Quantum Cryptography (PQC) Considerations
+
+{:aside}
+> This section is informational and provides deployment guidance only; it does not add normative requirements to this profile.
 
 The recommendations and ciphersuites in this profile are based on classical
 cryptography and are not quantum-resistant.
