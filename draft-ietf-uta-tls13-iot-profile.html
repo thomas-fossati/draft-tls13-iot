@@ -28,7 +28,7 @@ profile and ciphersuite requirements.
     Jinja2 3.1.6
     lxml 6.1.1
     natsort 8.4.0
-    platformdirs 4.11.3
+    platformdirs 4.11.5
     pycountry 24.6.1
     PyYAML 6.0.3
     requests 2.33.1
@@ -1048,11 +1048,11 @@ svg {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">TLS/DTLS 1.3 IoT Profiles</td>
-<td class="right">August 2026</td>
+<td class="right">September 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Tschofenig, et al.</td>
-<td class="center">Expires 27 February 2027</td>
+<td class="center">Expires 6 March 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1068,12 +1068,12 @@ svg {
 <a href="https://www.rfc-editor.org/rfc/rfc7925" class="eref">7925</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-08-26" class="published">26 August 2026</time>
+<time datetime="2026-09-02" class="published">2 September 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-02-27">27 February 2027</time></dd>
+<dd class="expires"><time datetime="2027-03-06">6 March 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1131,7 +1131,7 @@ profile and ciphersuite requirements.<a href="#section-abstract-1" class="pilcro
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 27 February 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 6 March 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -2051,7 +2051,7 @@ Certificate Management Protocol (CMP) <span>[<a href="#RFC9810" class="cite xref
 It is therefore RECOMMENDED to limit the lifetime of these LDevID certificates
 using the notBefore and notAfter fields, as described in <span><a href="https://rfc-editor.org/rfc/rfc5280#section-4.1.2.5" class="relref">Section 4.1.2.5</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>. Consistent with <span><a href="https://rfc-editor.org/rfc/rfc5280#section-4.1.2.5.1" class="relref">Section 4.1.2.5.1</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> and
 <span><a href="https://rfc-editor.org/rfc/rfc5280#section-4.1.2.5.2" class="relref">Section 4.1.2.5.2</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>, values MUST be expressed in Greenwich Mean
-Time (Zulu) and MUST include seconds even where the number of seconds is zero.<a href="#section-16.1.5-5" class="pilcrow">¶</a></p>
+Time and MUST include seconds even where the number of seconds is zero.<a href="#section-16.1.5-5" class="pilcrow">¶</a></p>
 <p id="section-16.1.5-6">Note that the validity period is defined as the period of time from notBefore
 through notAfter, inclusive. This means that a hypothetical certificate with a
 notBefore date of 9 June 2021 at 03:42:01 and a notAfter date of 7 September
@@ -2720,29 +2720,32 @@ In addition, the integrity limits on key usage detailed in <span><a href="https:
       <h2 id="name-post-quantum-cryptography-p">
 <a href="#section-20" class="section-number selfRef">20. </a><a href="#name-post-quantum-cryptography-p" class="section-name selfRef">Post-Quantum Cryptography (PQC) Considerations</a>
       </h2>
-<p id="section-20-1">The recommendations and ciphersuites in this profile are based on classical
-cryptography and are not quantum-resistant.<a href="#section-20-1" class="pilcrow">¶</a></p>
-<p id="section-20-2">Guidance for using post-quantum cryptography with application protocols,
+<aside id="section-20-1">
+        <p id="section-20-1.1">This section is informational and provides deployment guidance only; it does not add normative requirements to this profile.<a href="#section-20-1.1" class="pilcrow">¶</a></p>
+</aside>
+<p id="section-20-2">The recommendations and ciphersuites in this profile are based on classical
+cryptography and are not quantum-resistant.<a href="#section-20-2" class="pilcrow">¶</a></p>
+<p id="section-20-3">Guidance for using post-quantum cryptography with application protocols,
 including TLS, is provided by <span>[<a href="#I-D.ietf-uta-pqc-app" class="cite xref">I-D.ietf-uta-pqc-app</a>]</span>. That document is the
 primary source of PQC deployment recommendations for applications and
 constrained environments. It discusses algorithm selection, migration planning,
 and the operational impact of larger key shares, public keys, signatures, and
-certificates.<a href="#section-20-2" class="pilcrow">¶</a></p>
-<p id="section-20-3">PQC transition planning is especially relevant for IoT devices because product
+certificates.<a href="#section-20-3" class="pilcrow">¶</a></p>
+<p id="section-20-4">PQC transition planning is especially relevant for IoT devices because product
 lifetimes are long and device constraints limit the adoption of larger key
 sizes and more complex cryptographic operations <span>[<a href="#PQC-PERF" class="cite xref">PQC-PERF</a>]</span>. Deployments also
 need to evaluate the energy impact of PQC choices <span>[<a href="#PQC-ENERGY" class="cite xref">PQC-ENERGY</a>]</span>. Additional
 background for engineers is provided by <span>[<a href="#RFC9958" class="cite xref">RFC9958</a>]</span>, and guidance on PQC use
 with constrained hardware security modules is provided by
-<span>[<a href="#I-D.ietf-pquip-pqc-hsm-constrained" class="cite xref">I-D.ietf-pquip-pqc-hsm-constrained</a>]</span>.<a href="#section-20-3" class="pilcrow">¶</a></p>
-<p id="section-20-4">As a transitional measure, <span>[<a href="#RFC9973" class="cite xref">RFC9973</a>]</span> allows certificate-based
+<span>[<a href="#I-D.ietf-pquip-pqc-hsm-constrained" class="cite xref">I-D.ietf-pquip-pqc-hsm-constrained</a>]</span>.<a href="#section-20-4" class="pilcrow">¶</a></p>
+<p id="section-20-5">As a transitional measure, <span>[<a href="#RFC9973" class="cite xref">RFC9973</a>]</span> allows certificate-based
 authentication to be combined with a strong external PSK that is incorporated
 into the TLS 1.3 key schedule. This provides confidentiality protection against
 a future cryptographically relevant quantum computer, provided that the
 external PSK is generated and distributed securely. It does not make the
 certificate-based authentication quantum resistant. Deployments can use this
 mechanism as a migration path while PQC algorithms for certificate-based
-authentication are being introduced.<a href="#section-20-4" class="pilcrow">¶</a></p>
+authentication are being introduced.<a href="#section-20-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="privacy-considerations">
