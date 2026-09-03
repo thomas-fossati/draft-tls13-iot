@@ -70,7 +70,7 @@ normative:
   RFC9147: DTLS13
   RFC9846: TLS13
   RFC6520:
-  I-D.ietf-lamps-macaddress-on:
+  RFC10031:
   I-D.ietf-iotops-7228bis:
   RFC6066:
   RFC7301:
@@ -974,7 +974,7 @@ identifier; {{?RFC8995}} does not require this value to be an EUI-48 or EUI-64.
 A manufacturer-assigned device serial number included in the Subject DN MUST be
 encoded in the X520SerialNumber attribute. If an EUI-48 or EUI-64 is used to
 identify a device, it SHOULD be encoded in the subjectAltName extension using
-the MACAddress otherName defined in {{I-D.ietf-lamps-macaddress-on}}. An
+the MACAddress otherName defined in {{RFC10031}}. An
 EUI-64 that serves as the manufacturer-assigned device serial number MAY
 instead be encoded in the X520SerialNumber attribute.
 
@@ -987,13 +987,13 @@ marked critical, except when the subject DN contains an empty sequence.
 
 The MACAddress otherName carries the value as an OCTET STRING. An EUI-48 is
 encoded as exactly 6 octets and an EUI-64 is encoded as exactly 8 octets.
-{{I-D.ietf-lamps-macaddress-on}} also defines how this name form is used with
+{{RFC10031}} also defines how this name form is used with
 the {{!RFC5280}} Name Constraints extension, allowing a CA certificate to
 constrain permitted or excluded MAC address ranges, for example by an
 Organizationally Unique Identifier (OUI).
 
 The CA needs to validate the identifier's relationship to the subject. For a
-MACAddress value, {{I-D.ietf-lamps-macaddress-on}} requires the CA to ensure
+MACAddress value, {{RFC10031}} requires the CA to ensure
 that the address is owned by, or expected to be owned by, the subject device for
 the certificate's lifetime. This requirement can be difficult for replaceable
 interfaces, virtual interfaces, locally administered addresses, and MAC address
