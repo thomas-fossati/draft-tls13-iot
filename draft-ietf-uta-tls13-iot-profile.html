@@ -28,11 +28,11 @@ profile and ciphersuite requirements.
     Jinja2 3.1.6
     lxml 6.1.1
     natsort 8.4.0
-    platformdirs 4.11.5
+    platformdirs 4.11.7
     pycountry 24.6.1
     PyYAML 6.0.3
     requests 2.33.1
-    wcwidth 0.8.2
+    wcwidth 0.8.3
 -->
 <link href="draft-ietf-uta-tls13-iot-profile.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1052,7 +1052,7 @@ svg {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Tschofenig, et al.</td>
-<td class="center">Expires 6 March 2027</td>
+<td class="center">Expires 7 March 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1068,12 +1068,12 @@ svg {
 <a href="https://www.rfc-editor.org/rfc/rfc7925" class="eref">7925</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-09-02" class="published">2 September 2026</time>
+<time datetime="2026-09-03" class="published">3 September 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-03-06">6 March 2027</time></dd>
+<dd class="expires"><time datetime="2027-03-07">7 March 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1131,7 +1131,7 @@ profile and ciphersuite requirements.<a href="#section-abstract-1" class="pilcro
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 6 March 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 7 March 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -2402,7 +2402,7 @@ identifier; <span>[<a href="#RFC8995" class="cite xref">RFC8995</a>]</span> does
 <p id="section-16.4.1-12">A manufacturer-assigned device serial number included in the Subject DN MUST be
 encoded in the X520SerialNumber attribute. If an EUI-48 or EUI-64 is used to
 identify a device, it SHOULD be encoded in the subjectAltName extension using
-the MACAddress otherName defined in <span>[<a href="#I-D.ietf-lamps-macaddress-on" class="cite xref">I-D.ietf-lamps-macaddress-on</a>]</span>. An
+the MACAddress otherName defined in <span>[<a href="#RFC10031" class="cite xref">RFC10031</a>]</span>. An
 EUI-64 that serves as the manufacturer-assigned device serial number MAY
 instead be encoded in the X520SerialNumber attribute.<a href="#section-16.4.1-12" class="pilcrow">¶</a></p>
 <p id="section-16.4.1-13"><span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> defines: "The subject alternative name extension allows identities
@@ -2412,12 +2412,12 @@ in addition to or in place of the identity in the subject field of the certifica
 marked critical, except when the subject DN contains an empty sequence.<a href="#section-16.4.1-14" class="pilcrow">¶</a></p>
 <p id="section-16.4.1-15">The MACAddress otherName carries the value as an OCTET STRING. An EUI-48 is
 encoded as exactly 6 octets and an EUI-64 is encoded as exactly 8 octets.
-<span>[<a href="#I-D.ietf-lamps-macaddress-on" class="cite xref">I-D.ietf-lamps-macaddress-on</a>]</span> also defines how this name form is used with
+<span>[<a href="#RFC10031" class="cite xref">RFC10031</a>]</span> also defines how this name form is used with
 the <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> Name Constraints extension, allowing a CA certificate to
 constrain permitted or excluded MAC address ranges, for example by an
 Organizationally Unique Identifier (OUI).<a href="#section-16.4.1-15" class="pilcrow">¶</a></p>
 <p id="section-16.4.1-16">The CA needs to validate the identifier's relationship to the subject. For a
-MACAddress value, <span>[<a href="#I-D.ietf-lamps-macaddress-on" class="cite xref">I-D.ietf-lamps-macaddress-on</a>]</span> requires the CA to ensure
+MACAddress value, <span>[<a href="#RFC10031" class="cite xref">RFC10031</a>]</span> requires the CA to ensure
 that the address is owned by, or expected to be owned by, the subject device for
 the certificate's lifetime. This requirement can be difficult for replaceable
 interfaces, virtual interfaces, locally administered addresses, and MAC address
@@ -2645,7 +2645,7 @@ deployment.<a href="#section-18-8" class="pilcrow">¶</a></p>
 authentication tags (CCM_8) is considered unsuitable for general use with DTLS.
 This is because it has low integrity limits (i.e., high sensitivity to
 forgeries) which makes endpoints that negotiate ciphersuites based on such AEAD
-vulnerable to a trivial DoS attack. See also Sections <a href="https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-12#section-5.3" class="relref">5.3</a> and <a href="https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-12#section-5.4" class="relref">5.4</a> of <span>[<a href="#I-D.irtf-cfrg-aead-limits" class="cite xref">I-D.irtf-cfrg-aead-limits</a>]</span> for further discussion on this topic, as well as
+vulnerable to a trivial DoS attack. See also Sections <a href="https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-13#section-5.3" class="relref">5.3</a> and <a href="https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-13#section-5.4" class="relref">5.4</a> of <span>[<a href="#I-D.irtf-cfrg-aead-limits" class="cite xref">I-D.irtf-cfrg-aead-limits</a>]</span> for further discussion on this topic, as well as
 references to the analysis supporting these conclusions.<a href="#section-19-1" class="pilcrow">¶</a></p>
 <p id="section-19-2">Specifically, <span>[<a href="#RFC9147" class="cite xref">RFC9147</a>]</span> warns that:<a href="#section-19-2" class="pilcrow">¶</a></p>
 <blockquote id="section-19-3">
@@ -2858,10 +2858,6 @@ cipher suites.<a href="#section-22.2-2" class="pilcrow">¶</a></p>
         <dd>
 <span class="refAuthor">Bormann, C.</span>, <span class="refAuthor">Ersue, M.</span>, <span class="refAuthor">Keränen, A.</span>, and <span class="refAuthor">C. Gomez</span>, <span class="refTitle">"Terminology for Constrained-Node Networks"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-iotops-7228bis-10</span>, <time datetime="2026-07-06" class="refDate">6 July 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-iotops-7228bis-10">https://datatracker.ietf.org/doc/html/draft-ietf-iotops-7228bis-10</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="I-D.ietf-lamps-macaddress-on">[I-D.ietf-lamps-macaddress-on]</dt>
-        <dd>
-<span class="refAuthor">Housley, R.</span>, <span class="refAuthor">Bonnell, C.</span>, <span class="refAuthor">Mandel, J.</span>, <span class="refAuthor">Okubo, T.</span>, and <span class="refAuthor">M. StJohns</span>, <span class="refTitle">"Media Access Control (MAC) Addresses in X.509 Certificates"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-lamps-macaddress-on-07</span>, <time datetime="2026-03-12" class="refDate">12 March 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-lamps-macaddress-on-07">https://datatracker.ietf.org/doc/html/draft-ietf-lamps-macaddress-on-07</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
@@ -2927,8 +2923,12 @@ cipher suites.<a href="#section-22.2-2" class="pilcrow">¶</a></p>
 <span class="refAuthor">Rescorla, E.</span>, <span class="refTitle">"The Transport Layer Security (TLS) Protocol Version 1.3"</span>, <span class="seriesInfo">RFC 9846</span>, <span class="seriesInfo">DOI 10.17487/RFC9846</span>, <time datetime="2026-07" class="refDate">July 2026</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9846">https://www.rfc-editor.org/rfc/rfc9846</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9853">[RFC9853]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Tschofenig, H., Ed.</span>, <span class="refAuthor">Kraus, A.</span>, and <span class="refAuthor">T. Fossati</span>, <span class="refTitle">"Return Routability Check for DTLS 1.2 and 1.3"</span>, <span class="seriesInfo">RFC 9853</span>, <span class="seriesInfo">DOI 10.17487/RFC9853</span>, <time datetime="2026-03" class="refDate">March 2026</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9853">https://www.rfc-editor.org/rfc/rfc9853</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC10031">[RFC10031]</dt>
+      <dd>
+<span class="refAuthor">Housley, R.</span>, <span class="refAuthor">Bonnell, C.</span>, <span class="refAuthor">Mandel, J.</span>, <span class="refAuthor">Okubo, T.</span>, and <span class="refAuthor">M. StJohns</span>, <span class="refTitle">"Media Access Control (MAC) Addresses in X.509 Certificates"</span>, <span class="seriesInfo">RFC 10031</span>, <span class="seriesInfo">DOI 10.17487/RFC10031</span>, <time datetime="2026-08" class="refDate">August 2026</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc10031">https://www.rfc-editor.org/rfc/rfc10031</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -2989,7 +2989,7 @@ cipher suites.<a href="#section-22.2-2" class="pilcrow">¶</a></p>
 <dd class="break"></dd>
 <dt id="I-D.irtf-cfrg-aead-limits">[I-D.irtf-cfrg-aead-limits]</dt>
         <dd>
-<span class="refAuthor">Günther, F.</span>, <span class="refAuthor">Thomson, M.</span>, and <span class="refAuthor">C. A. Wood</span>, <span class="refTitle">"Usage Limits on AEAD Algorithms"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-cfrg-aead-limits-12</span>, <time datetime="2026-08-07" class="refDate">7 August 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-12">https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-12</a>&gt;</span>. </dd>
+<span class="refAuthor">Günther, F.</span>, <span class="refAuthor">Thomson, M.</span>, and <span class="refAuthor">C. A. Wood</span>, <span class="refTitle">"Usage Limits on AEAD Algorithms"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-cfrg-aead-limits-13</span>, <time datetime="2026-09-03" class="refDate">3 September 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-13">https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-13</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.irtf-cfrg-det-sigs-with-noise">[I-D.irtf-cfrg-det-sigs-with-noise]</dt>
         <dd>

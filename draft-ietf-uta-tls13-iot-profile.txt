@@ -6,11 +6,11 @@ UTA                                                        H. Tschofenig
 Internet-Draft                                                  UniBw M.
 Updates: 7925 (if approved)                                   T. Fossati
 Intended status: Standards Track                                  NVIDIA
-Expires: 6 March 2027                                      M. Richardson
+Expires: 7 March 2027                                      M. Richardson
                                                 Sandelman Software Works
                                                               D. Migault
                                                                 Ericsson
-                                                        2 September 2026
+                                                        3 September 2026
 
 
             TLS/DTLS 1.3 Profiles for the Internet of Things
@@ -46,7 +46,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 March 2027.
+   This Internet-Draft will expire on 7 March 2027.
 
 Copyright Notice
 
@@ -1088,9 +1088,9 @@ Table of Contents
    DN MUST be encoded in the X520SerialNumber attribute.  If an EUI-48
    or EUI-64 is used to identify a device, it SHOULD be encoded in the
    subjectAltName extension using the MACAddress otherName defined in
-   [I-D.ietf-lamps-macaddress-on].  An EUI-64 that serves as the
-   manufacturer-assigned device serial number MAY instead be encoded in
-   the X520SerialNumber attribute.
+   [RFC10031].  An EUI-64 that serves as the manufacturer-assigned
+   device serial number MAY instead be encoded in the X520SerialNumber
+   attribute.
 
    [RFC5280] defines: "The subject alternative name extension allows
    identities to be bound to the subject of the certificate.  These
@@ -1103,19 +1103,17 @@ Table of Contents
 
    The MACAddress otherName carries the value as an OCTET STRING.  An
    EUI-48 is encoded as exactly 6 octets and an EUI-64 is encoded as
-   exactly 8 octets.  [I-D.ietf-lamps-macaddress-on] also defines how
-   this name form is used with the [RFC5280] Name Constraints extension,
-   allowing a CA certificate to constrain permitted or excluded MAC
-   address ranges, for example by an Organizationally Unique Identifier
-   (OUI).
+   exactly 8 octets.  [RFC10031] also defines how this name form is used
+   with the [RFC5280] Name Constraints extension, allowing a CA
+   certificate to constrain permitted or excluded MAC address ranges,
+   for example by an Organizationally Unique Identifier (OUI).
 
    The CA needs to validate the identifier's relationship to the
-   subject.  For a MACAddress value, [I-D.ietf-lamps-macaddress-on]
-   requires the CA to ensure that the address is owned by, or expected
-   to be owned by, the subject device for the certificate's lifetime.
-   This requirement can be difficult for replaceable interfaces, virtual
-   interfaces, locally administered addresses, and MAC address
-   randomization.
+   subject.  For a MACAddress value, [RFC10031] requires the CA to
+   ensure that the address is owned by, or expected to be owned by, the
+   subject device for the certificate's lifetime.  This requirement can
+   be difficult for replaceable interfaces, virtual interfaces, locally
+   administered addresses, and MAC address randomization.
 
    Both manufacturer-assigned device serial numbers and EUI-48 or EUI-64
    values can expose stable identifiers to certificate recipients.  TLS
@@ -1515,14 +1513,6 @@ Table of Contents
               July 2026, <https://datatracker.ietf.org/doc/html/draft-
               ietf-iotops-7228bis-10>.
 
-   [I-D.ietf-lamps-macaddress-on]
-              Housley, R., Bonnell, C., Mandel, J., Okubo, T., and M.
-              StJohns, "Media Access Control (MAC) Addresses in X.509
-              Certificates", Work in Progress, Internet-Draft, draft-
-              ietf-lamps-macaddress-on-07, 12 March 2026,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-lamps-
-              macaddress-on-07>.
-
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
@@ -1609,6 +1599,11 @@ Table of Contents
               Routability Check for DTLS 1.2 and 1.3", RFC 9853,
               DOI 10.17487/RFC9853, March 2026,
               <https://www.rfc-editor.org/rfc/rfc9853>.
+
+   [RFC10031] Housley, R., Bonnell, C., Mandel, J., Okubo, T., and M.
+              StJohns, "Media Access Control (MAC) Addresses in X.509
+              Certificates", RFC 10031, DOI 10.17487/RFC10031, August
+              2026, <https://www.rfc-editor.org/rfc/rfc10031>.
 
 24.2.  Informative References
 
@@ -1698,9 +1693,9 @@ Table of Contents
    [I-D.irtf-cfrg-aead-limits]
               Günther, F., Thomson, M., and C. A. Wood, "Usage Limits on
               AEAD Algorithms", Work in Progress, Internet-Draft, draft-
-              irtf-cfrg-aead-limits-12, 7 August 2026,
+              irtf-cfrg-aead-limits-13, 3 September 2026,
               <https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-
-              aead-limits-12>.
+              aead-limits-13>.
 
    [I-D.irtf-cfrg-det-sigs-with-noise]
               Mattsson, J. P., Thormarker, E., and S. Ruohomaa, "Hedged
